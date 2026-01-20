@@ -1,11 +1,35 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-D4E___Ql.css",
+    "file": "assets/app-DPZ-zuYY.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
       "app.css"
     ]
+  },
+  "resources/images/integrations/billingo.svg": {
+    "file": "assets/billingo-CkyCyfCy.svg",
+    "src": "resources/images/integrations/billingo.svg"
+  },
+  "resources/images/integrations/gmail.svg": {
+    "file": "assets/gmail-Dv-2Rcmb.svg",
+    "src": "resources/images/integrations/gmail.svg"
+  },
+  "resources/images/integrations/google-calendar.svg": {
+    "file": "assets/google-calendar-CiWPCjrq.svg",
+    "src": "resources/images/integrations/google-calendar.svg"
+  },
+  "resources/images/integrations/mailchimp.svg": {
+    "file": "assets/mailchimp-CEsNnZTw.svg",
+    "src": "resources/images/integrations/mailchimp.svg"
+  },
+  "resources/images/integrations/outlook.svg": {
+    "file": "assets/outlook-Cln-UcTV.svg",
+    "src": "resources/images/integrations/outlook.svg"
+  },
+  "resources/images/integrations/szamlazzhu.svg": {
+    "file": "assets/szamlazzhu-DKEv-qJ4.svg",
+    "src": "resources/images/integrations/szamlazzhu.svg"
   },
   "resources/images/logo.png": {
     "file": "assets/logo-BdDtjedL.png",
@@ -16,12 +40,12 @@
     "src": "resources/images/logo.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-DvvzOv0F.js",
+    "file": "assets/app-3BRxseJr.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-D4E___Ql.css"
+      "assets/app-DPZ-zuYY.css"
     ]
   }
 }

@@ -376,60 +376,35 @@
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {{-- Email Integrations --}}
-                <div class="bg-gradient-to-br from-red-50 to-white rounded-2xl p-8 border border-red-100">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">E-mail integráció</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24">
-                                <path fill="#EA4335" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
-                            </svg>
-                            <span class="text-sm font-medium text-gray-700">Gmail</span>
-                        </div>
-                        <div class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24">
-                                <path fill="#0078D4" d="M21.17 2.06H2.83C1.26 2.06 0 3.32 0 4.89v14.22c0 1.57 1.26 2.83 2.83 2.83h18.34c1.57 0 2.83-1.26 2.83-2.83V4.89c0-1.57-1.26-2.83-2.83-2.83z"/>
-                                <path fill="#FFF" d="M20.24 7.54l-8.21 5.32-8.27-5.32V5.89l8.27 5.33 8.21-5.33v1.65z"/>
-                            </svg>
-                            <span class="text-sm font-medium text-gray-700">Outlook</span>
-                        </div>
+            <div class="rounded-2xl bg-gray-50 p-8 lg:p-12 max-w-3xl mx-auto">
+                <div class="grid grid-cols-3 gap-6">
+                    {{-- Gmail --}}
+                    <div class="flex h-24 lg:h-28 items-center justify-center rounded-xl bg-white p-6 shadow-sm">
+                        <img src="{{ Vite::asset('resources/images/integrations/gmail.svg') }}" alt="Gmail" class="h-12 lg:h-14 w-auto">
+                    </div>
+                    {{-- Outlook --}}
+                    <div class="flex h-24 lg:h-28 items-center justify-center rounded-xl bg-white p-6 shadow-sm">
+                        <img src="{{ Vite::asset('resources/images/integrations/outlook.svg') }}" alt="Outlook" class="h-12 lg:h-14 w-auto">
+                    </div>
+                    {{-- Google Calendar --}}
+                    <div class="flex h-24 lg:h-28 items-center justify-center rounded-xl bg-white p-6 shadow-sm">
+                        <img src="{{ Vite::asset('resources/images/integrations/google-calendar.svg') }}" alt="Google Calendar" class="h-12 lg:h-14 w-auto">
+                    </div>
+                    {{-- Billingo --}}
+                    <div class="flex h-24 lg:h-28 items-center justify-center rounded-xl bg-white p-6 shadow-sm">
+                        <img src="{{ Vite::asset('resources/images/integrations/billingo.svg') }}" alt="Billingo" class="h-8 lg:h-10 w-auto">
+                    </div>
+                    {{-- Számlázz.hu --}}
+                    <div class="flex h-24 lg:h-28 items-center justify-center rounded-xl bg-white p-6 shadow-sm">
+                        <img src="{{ Vite::asset('resources/images/integrations/szamlazzhu.svg') }}" alt="Számlázz.hu" class="h-8 lg:h-10 w-auto">
+                    </div>
+                    {{-- Mailchimp --}}
+                    <div class="flex h-24 lg:h-28 items-center justify-center rounded-xl bg-white p-6 shadow-sm">
+                        <img src="{{ Vite::asset('resources/images/integrations/mailchimp.svg') }}" alt="Mailchimp" class="h-8 lg:h-10 w-auto">
                     </div>
                 </div>
-
-                {{-- Calendar Integration --}}
-                <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Naptár szinkron</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24">
-                                <path fill="#4285F4" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
-                            </svg>
-                            <span class="text-sm font-medium text-gray-700">Google Calendar</span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Billing Integrations --}}
-                <div class="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 border border-green-100">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Számlázás</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
-                            <div class="w-6 h-6 bg-yellow-400 rounded flex items-center justify-center text-xs font-bold text-white">B</div>
-                            <span class="text-sm font-medium text-gray-700">Billingo</span>
-                        </div>
-                        <div class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
-                            <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center text-xs font-bold text-white">SZ</div>
-                            <span class="text-sm font-medium text-gray-700">Számlázz.hu</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Marketing --}}
-            <div class="mt-8 text-center">
-                <p class="text-gray-500">
-                    <span class="font-medium">Marketing:</span> Mailchimp integráció elérhető
+                <p class="text-center text-sm text-gray-500 mt-8">
+                    E-mail, naptár, számlázás és marketing rendszerek – egy helyen összekötve
                 </p>
             </div>
         </div>

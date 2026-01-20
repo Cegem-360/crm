@@ -82,6 +82,7 @@ final class SendWorkflowWebhook implements ShouldQueue
         }
 
         try {
+            /** @var \Illuminate\Http\Client\Response $response */
             $response = Http::withHeaders($headers)
                 ->timeout(10)
                 ->post($url, $payload);

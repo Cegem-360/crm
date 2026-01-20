@@ -6,6 +6,8 @@ namespace App\Filament\Resources\Companies\Pages;
 
 use App\Filament\Resources\Companies\CompanyResource;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 
 final class EditCompany extends EditRecord
@@ -16,6 +18,8 @@ final class EditCompany extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
         ];
     }
 }

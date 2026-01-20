@@ -7,7 +7,10 @@ namespace App\Filament\Resources\Companies\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
 final class CompaniesTable
@@ -17,30 +20,29 @@ final class CompaniesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('tax_number')
-                    ->label('Tax Number')
                     ->searchable(),
                 TextColumn::make('registration_number')
-                    ->label('Registration Number')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email')
                     ->searchable(),
                 TextColumn::make('customers_count')
                     ->label('Customers')
                     ->counts('customers')
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->label('Created')
-                    ->dateTime('Y-m-d H:i')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('deleted_at')
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                TrashedFilter::make(),
             ])
             ->recordActions([
                 EditAction::make(),
@@ -48,6 +50,8 @@ final class CompaniesTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }

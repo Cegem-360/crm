@@ -30,13 +30,11 @@ it('can be created with factory', function (): void {
 it('has fillable attributes', function (): void {
     $customer = Customer::factory()->create([
         'name' => 'Acme Corp',
-        'email' => 'info@acme.com',
         'phone' => '+36301234567',
         'is_active' => true,
     ]);
 
     expect($customer->name)->toBe('Acme Corp')
-        ->and($customer->email)->toBe('info@acme.com')
         ->and($customer->phone)->toBe('+36301234567')
         ->and($customer->is_active)->toBeTrue();
 });

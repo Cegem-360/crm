@@ -14,6 +14,8 @@ use App\Models\Company;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use UnitEnum;
 
 final class CompanyResource extends Resource
@@ -21,12 +23,6 @@ final class CompanyResource extends Resource
     protected static ?string $model = Company::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Customers;
-
-    protected static ?string $navigationLabel = 'Companies';
-
-    protected static ?string $modelLabel = 'Company';
-
-    protected static ?string $pluralModelLabel = 'Companies';
 
     protected static ?int $navigationSort = 0;
 
@@ -40,13 +36,6 @@ final class CompanyResource extends Resource
         return CompaniesTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
@@ -54,5 +43,13 @@ final class CompanyResource extends Resource
             'create' => CreateCompany::route('/create'),
             'edit' => EditCompany::route('/{record}/edit'),
         ];
+    }
+
+    public static function getRecordRouteBindingEloquentQuery(): Builder
+    {
+        return parent::getRecordRouteBindingEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

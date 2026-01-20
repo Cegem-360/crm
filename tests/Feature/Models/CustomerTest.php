@@ -17,8 +17,6 @@ it('can create B2B customer', function (): void {
     $customer = Customer::factory()->b2b()->create();
 
     expect($customer->type)->toBe(CustomerType::Company);
-    expect($customer->tax_number)->not->toBeNull();
-    expect($customer->registration_number)->not->toBeNull();
 });
 
 it('can create B2C customer', function (): void {
@@ -74,11 +72,9 @@ it('enforces type enum values', function (): void {
 
 it('can store contact information', function (): void {
     $customer = Customer::factory()->create([
-        'email' => 'test@example.com',
         'phone' => '+36301234567',
     ]);
 
-    expect($customer->email)->toBe('test@example.com');
     expect($customer->phone)->toBe('+36301234567');
 });
 

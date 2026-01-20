@@ -14,7 +14,6 @@ final class CompanyForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Name')
                     ->required(),
                 TextInput::make('tax_number')
                     ->label('Tax Number'),

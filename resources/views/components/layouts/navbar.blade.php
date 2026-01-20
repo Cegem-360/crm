@@ -15,46 +15,49 @@
                 {{-- Features --}}
                 <a href="#funkciok"
                     class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    Funkciók
+                    {{ __('Features') }}
                 </a>
 
                 {{-- Integrations --}}
                 <a href="#integraciok"
                     class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    Integrációk
+                    {{ __('Integrations') }}
                 </a>
 
                 {{-- Results --}}
                 <a href="#eredmenyek"
                     class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    Eredmények
+                    {{ __('Results') }}
                 </a>
 
                 {{-- Pricing --}}
                 <a href="#arak"
                     class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    Árak
+                    {{ __('Pricing') }}
                 </a>
 
                 {{-- FAQ --}}
                 <a href="#gyik"
                     class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    GYIK
+                    {{ __('FAQ') }}
                 </a>
             </div>
 
             {{-- Right: Actions --}}
             <div class="hidden lg:flex items-center gap-4">
+                {{-- Language Switcher --}}
+                <x-language-switcher />
+
                 @guest
                     {{-- Log in --}}
                     <a href="/admin" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                        Belépés
+                        {{ __('Log in') }}
                     </a>
 
                     {{-- Get Started (filled) --}}
                     <a href="/admin"
                         class="inline-flex items-center gap-1 px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
-                        Ingyenes próba
+                        {{ __('Free trial') }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -64,7 +67,7 @@
 
                 @auth
                     {{-- Dashboard link --}}
-                    <a href="{{ route('crm.dashboard') }}"
+                    <a href="{{ route('dashboard.dashboard') }}"
                         class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
                         Dashboard
                     </a>
@@ -86,7 +89,7 @@
                             x-transition:leave="transition ease-in duration-75"
                             x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                             class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                            <a href="{{ route('crm.dashboard') }}"
+                            <a href="{{ route('dashboard.dashboard') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</a>
                             <a href="{{ route('filament.admin.pages.dashboard') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Admin</a>
@@ -95,7 +98,7 @@
                                 @csrf
                                 <button type="submit"
                                     class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                    Kijelentkezés
+                                    {{ __('Log out') }}
                                 </button>
                             </form>
                         </div>
@@ -122,33 +125,38 @@
     <div x-show="mobileMenuOpen" x-collapse class="lg:hidden border-t border-gray-200">
         <div class="px-4 py-4 space-y-3">
             <a href="#funkciok" class="block py-2 text-sm font-medium text-gray-700"
-                @click="mobileMenuOpen = false">Funkciók</a>
+                @click="mobileMenuOpen = false">{{ __('Features') }}</a>
             <a href="#integraciok" class="block py-2 text-sm font-medium text-gray-700"
-                @click="mobileMenuOpen = false">Integrációk</a>
+                @click="mobileMenuOpen = false">{{ __('Integrations') }}</a>
             <a href="#eredmenyek" class="block py-2 text-sm font-medium text-gray-700"
-                @click="mobileMenuOpen = false">Eredmények</a>
+                @click="mobileMenuOpen = false">{{ __('Results') }}</a>
             <a href="#arak" class="block py-2 text-sm font-medium text-gray-700"
-                @click="mobileMenuOpen = false">Árak</a>
+                @click="mobileMenuOpen = false">{{ __('Pricing') }}</a>
             <a href="#gyik" class="block py-2 text-sm font-medium text-gray-700"
-                @click="mobileMenuOpen = false">GYIK</a>
+                @click="mobileMenuOpen = false">{{ __('FAQ') }}</a>
+
+            {{-- Language Switcher for Mobile --}}
+            <div class="py-2">
+                <x-language-switcher />
+            </div>
 
             <hr class="border-gray-200">
 
             @guest
-                <a href="/admin" class="block py-2 text-sm font-medium text-gray-700">Belépés</a>
+                <a href="/admin" class="block py-2 text-sm font-medium text-gray-700">{{ __('Log in') }}</a>
                 <a href="/admin"
                     class="block w-full text-center py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-full">
-                    Ingyenes próba
+                    {{ __('Free trial') }}
                 </a>
             @endguest
 
             @auth
-                <a href="{{ route('crm.dashboard') }}" class="block py-2 text-sm font-medium text-gray-700">Dashboard</a>
+                <a href="{{ route('dashboard.dashboard') }}" class="block py-2 text-sm font-medium text-gray-700">Dashboard</a>
                 <a href="{{ route('filament.admin.pages.dashboard') }}" class="block py-2 text-sm font-medium text-gray-700">Admin</a>
                 <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                     @csrf
                     <button type="submit" class="block w-full text-left py-2 text-sm font-medium text-red-600">
-                        Kijelentkezés
+                        {{ __('Log out') }}
                     </button>
                 </form>
             @endauth

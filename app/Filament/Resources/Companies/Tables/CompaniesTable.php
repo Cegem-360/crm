@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\BugReports\Tables;
+namespace App\Filament\Resources\Companies\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -10,38 +10,32 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-final class BugReportsTable
+final class CompaniesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('customer.name')
-                    ->label('Customer')
+                TextColumn::make('name')
+                    ->label('Name')
                     ->searchable()
-                    ->placeholder('-'),
-                TextColumn::make('user.name')
-                    ->searchable(),
-                TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('severity')
-                    ->searchable(),
-                TextColumn::make('status')
-                    ->searchable(),
-                TextColumn::make('source')
-                    ->searchable(),
-                TextColumn::make('assigned_to')
-                    ->numeric()
                     ->sortable(),
-                TextColumn::make('resolved_at')
-                    ->dateTime()
+                TextColumn::make('tax_number')
+                    ->label('Tax Number')
+                    ->searchable(),
+                TextColumn::make('registration_number')
+                    ->label('Registration Number')
+                    ->searchable(),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable(),
+                TextColumn::make('customers_count')
+                    ->label('Customers')
+                    ->counts('customers')
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Created')
+                    ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Database\Factories\CustomerContactFactory;
+use App\Enums\EmailTemplateCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,25 +12,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-final class CustomerContact extends Model
+final class EmailTemplate extends Model
 {
-    /** @use HasFactory<CustomerContactFactory> */
     use HasFactory;
-
     use LogsActivity;
 
     protected $fillable = [
-        'customer_id',
         'name',
-        'email',
-        'phone',
-        'position',
-        'is_primary',
+        'subject',
+        'body',
+        'category',
+        'variables',
+        'is_active',
+        'created_by',
     ];
 
-    public function customer(): BelongsTo
+    public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function interactions(): HasMany
@@ -41,7 +40,7 @@ final class CustomerContact extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'email', 'phone', 'is_primary'])
+            ->logOnly(['name', 'subject', 'category', 'is_active'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
@@ -49,7 +48,9 @@ final class CustomerContact extends Model
     protected function casts(): array
     {
         return [
-            'is_primary' => 'boolean',
+            'is_active' => 'boolean',
+            'variables' => 'array',
+            'category' => EmailTemplateCategory::class,
         ];
     }
 }

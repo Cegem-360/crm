@@ -10,13 +10,18 @@ use Database\Factories\BugReportFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 final class BugReport extends Model
 {
     /** @use HasFactory<BugReportFactory> */
     use HasFactory;
 
+    use LogsActivity;
+
     protected $fillable = [
+        'customer_id',
         'user_id',
         'title',
         'description',
@@ -27,6 +32,11 @@ final class BugReport extends Model
         'resolved_at',
     ];
 
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -35,6 +45,14 @@ final class BugReport extends Model
     public function assignedUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'status', 'severity', 'customer_id', 'assigned_to'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 
     protected function casts(): array

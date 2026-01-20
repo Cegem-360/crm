@@ -22,7 +22,9 @@ final class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Customers;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Products;
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\CustomerType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
@@ -19,16 +20,19 @@ final class Customer extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'company_id',
         'unique_identifier',
         'name',
         'type',
-        'tax_number',
-        'registration_number',
-        'email',
         'phone',
         'notes',
         'is_active',
     ];
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
 
     public function contacts(): HasMany
     {
@@ -85,9 +89,9 @@ final class Customer extends Model
         return $this->hasMany(Complaint::class);
     }
 
-    public function communications(): HasMany
+    public function bugReports(): HasMany
     {
-        return $this->hasMany(Communication::class);
+        return $this->hasMany(BugReport::class);
     }
 
     public function discounts(): HasMany
@@ -120,7 +124,7 @@ final class Customer extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'type', 'email', 'phone', 'is_active'])
+            ->logOnly(['name', 'type', 'company_id', 'phone', 'is_active'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

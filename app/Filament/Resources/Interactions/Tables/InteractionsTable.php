@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Interactions\Tables;
 
+use App\Enums\InteractionCategory;
+use App\Enums\InteractionChannel;
+use App\Enums\InteractionStatus;
+use App\Enums\InteractionType;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
 final class InteractionsTable
@@ -17,35 +23,74 @@ final class InteractionsTable
         return $table
             ->columns([
                 TextColumn::make('customer.name')
-                    ->searchable(),
+                    ->label('Customer')
+                    ->searchable()
+                    ->sortable()
+                    ->placeholder('-'),
+                TextColumn::make('contact.name')
+                    ->label('Contact')
+                    ->searchable()
+                    ->placeholder('-'),
                 TextColumn::make('user.name')
-                    ->searchable(),
+                    ->label('User')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('type')
-                    ->searchable(),
+                    ->label('Type')
+                    ->badge(),
+                TextColumn::make('category')
+                    ->label('Category')
+                    ->badge(),
+                TextColumn::make('channel')
+                    ->label('Channel')
+                    ->badge()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->badge(),
                 TextColumn::make('subject')
-                    ->searchable(),
+                    ->label('Subject')
+                    ->searchable()
+                    ->limit(30),
                 TextColumn::make('interaction_date')
-                    ->dateTime()
+                    ->label('Date')
+                    ->dateTime('Y-m-d H:i')
                     ->sortable(),
                 TextColumn::make('duration')
+                    ->label('Duration')
+                    ->suffix(' min')
                     ->numeric()
-                    ->sortable(),
-                TextColumn::make('next_action')
-                    ->searchable(),
-                TextColumn::make('next_action_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
+                TextColumn::make('next_action')
+                    ->label('Next Action')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('next_action_date')
+                    ->label('Next Action Date')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->label('Created')
+                    ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->options(InteractionType::class),
+                SelectFilter::make('category')
+                    ->options(InteractionCategory::class),
+                SelectFilter::make('channel')
+                    ->options(InteractionChannel::class),
+                SelectFilter::make('status')
+                    ->options(InteractionStatus::class),
+                SelectFilter::make('customer')
+                    ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload(),
+                TrashedFilter::make(),
             ])
             ->recordActions([
                 EditAction::make(),
@@ -54,6 +99,7 @@ final class InteractionsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('interaction_date', 'desc');
     }
 }

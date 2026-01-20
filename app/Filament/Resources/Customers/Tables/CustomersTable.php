@@ -31,13 +31,10 @@ final class CustomersTable
                     ->searchable(),
                 TextColumn::make('type')
                     ->searchable(),
-                TextColumn::make('tax_number')
-                    ->searchable(),
-                TextColumn::make('registration_number')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
+                TextColumn::make('company.name')
+                    ->label('Company')
+                    ->searchable()
+                    ->placeholder('-'),
                 TextColumn::make('phone')
                     ->searchable(),
                 IconColumn::make('is_active')

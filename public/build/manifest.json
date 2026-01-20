@@ -1,10 +1,6 @@
 {
   "resources/css/app.css": {
-<<<<<<< HEAD
-    "file": "assets/app-uIISdxj0.css",
-=======
-    "file": "assets/app-DPZ-zuYY.css",
->>>>>>> 173af7d491394ff7f8f4c418cc3a5e03509bf9ab
+    "file": "assets/app-B3RQkf_h.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
@@ -44,20 +40,12 @@
     "src": "resources/images/logo.svg"
   },
   "resources/js/app.js": {
-<<<<<<< HEAD
-    "file": "assets/app-DzatAzCo.js",
-=======
-    "file": "assets/app-3BRxseJr.js",
->>>>>>> 173af7d491394ff7f8f4c418cc3a5e03509bf9ab
+    "file": "assets/app-ChLmr0d8.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-<<<<<<< HEAD
-      "assets/app-uIISdxj0.css"
-=======
-      "assets/app-DPZ-zuYY.css"
->>>>>>> 173af7d491394ff7f8f4c418cc3a5e03509bf9ab
+      "assets/app-B3RQkf_h.css"
     ]
   }
 }

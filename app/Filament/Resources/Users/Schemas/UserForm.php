@@ -23,7 +23,19 @@ final class UserForm
                 DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()
-                    ->required(),
+                    ->revealable()
+                    ->required(fn (string $operation): bool => $operation === 'create')
+                    ->saved(fn (?string $state): bool => filled($state)),
+
+                TextInput::make('webhook_url')
+                    ->label('Webhook URL')
+                    ->url()
+                    ->placeholder('https://example.com/api/webhooks/...'),
+                TextInput::make('webhook_secret')
+                    ->label('Webhook titkos kulcs')
+                    ->password()
+                    ->revealable()
+                    ->helperText('HMAC aláíráshoz használt titkos kulcs'),
             ]);
     }
 }

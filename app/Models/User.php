@@ -30,6 +30,9 @@ final class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'webhook_url',
+        'webhook_secret',
+        'workflow_api_token',
     ];
 
     /**
@@ -55,6 +58,11 @@ final class User extends Authenticatable implements FilamentUser
     public function chatSessions(): HasMany
     {
         return $this->hasMany(ChatSession::class);
+    }
+
+    public function workflowConfigs(): HasMany
+    {
+        return $this->hasMany(WorkflowConfig::class);
     }
 
     /**

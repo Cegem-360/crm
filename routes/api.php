@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CustomerController;
+use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // API V1 Routes
@@ -19,5 +20,8 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
 
         // Customer routes
         Route::apiResource('customers', CustomerController::class);
+
+        // Product routes
+        Route::apiResource('products', ProductController::class);
     });
 });

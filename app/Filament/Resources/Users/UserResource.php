@@ -12,7 +12,9 @@ use App\Filament\Resources\Users\RelationManagers\BugReportsRelationManager;
 use App\Filament\Resources\Users\RelationManagers\ChatSessionsRelationManager;
 use App\Filament\Resources\Users\RelationManagers\InteractionsRelationManager;
 use App\Filament\Resources\Users\RelationManagers\PermissionsRelationManager;
+use App\Filament\Resources\Users\RelationManagers\PersonalAccessTokensRelationManager;
 use App\Filament\Resources\Users\RelationManagers\RolesRelationManager;
+use App\Filament\Resources\Users\RelationManagers\WorkflowConfigsRelationManager;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
@@ -42,10 +44,11 @@ final class UserResource extends Resource
         return [
             RolesRelationManager::class,
             PermissionsRelationManager::class,
+            PersonalAccessTokensRelationManager::class,
+            WorkflowConfigsRelationManager::class,
             InteractionsRelationManager::class,
             BugReportsRelationManager::class,
             ChatSessionsRelationManager::class,
-
         ];
     }
 

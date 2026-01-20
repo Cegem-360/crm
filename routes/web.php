@@ -32,15 +32,28 @@ Route::get('/', fn (): Factory|View => view('home'))->name('home');
 // Guest routes (redirect to Filament auth)
 Route::middleware(['guest'])->group(function (): void {
     Route::get('/login', fn (): Redirector|RedirectResponse => to_route('filament.admin.auth.login'))->name('login');
-    Route::get('/register', fn (): Redirector|RedirectResponse => to_route('filament.admin.auth.register'))->name('register');
 });
 
 // Complaint submission route (public - for customers to submit complaints)
 Route::get('/complaints/submit', ComplaintSubmission::class)->name('complaints.submit');
 
+// Language switch route
+Route::get('/language/{locale}', function (string $locale) {
+    if (! in_array($locale, ['en', 'hu'], true)) {
+        abort(400);
+    }
+
+    $cookie = cookie('locale', $locale, 60 * 24 * 365);
+
+    $referer = request()->headers->get('referer');
+    $redirectUrl = $referer ?: url()->previous();
+
+    return redirect($redirectUrl)->withCookie($cookie);
+})->name('language.switch');
+
 // CRM Dashboard routes (authenticated users only)
 Route::middleware(['auth', 'verified'])->group(function (): void {
-    Route::prefix('crm')->name('crm.')->group(function (): void {
+    Route::prefix('dashboard')->name('dashboard.')->group(function (): void {
         Route::get('/', Dashboard::class)->name('dashboard');
 
         // Customers

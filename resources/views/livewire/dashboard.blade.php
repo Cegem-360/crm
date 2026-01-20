@@ -8,7 +8,7 @@
     {{-- Stats cards --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {{-- Customers --}}
-        <a href="{{ route('crm.customers') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
+        <a href="{{ route('dashboard.customers') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Customers') }}</p>
@@ -26,7 +26,7 @@
         </a>
 
         {{-- Companies --}}
-        <a href="{{ route('crm.companies') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
+        <a href="{{ route('dashboard.companies') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Companies') }}</p>
@@ -42,7 +42,7 @@
         </a>
 
         {{-- Contacts --}}
-        <a href="{{ route('crm.contacts') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
+        <a href="{{ route('dashboard.contacts') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Contacts') }}</p>

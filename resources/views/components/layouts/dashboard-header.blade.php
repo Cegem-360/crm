@@ -39,6 +39,9 @@
 
     {{-- Right side - Actions --}}
     <div class="flex items-center gap-2">
+        {{-- Language Switcher --}}
+        <x-language-switcher />
+
         {{-- Quick add button - New Customer --}}
         @auth
             <a href="/admin/customers/create"

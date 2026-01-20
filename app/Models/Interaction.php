@@ -41,6 +41,8 @@ final class Interaction extends Model
         'duration',
         'next_action',
         'next_action_date',
+        'email_sent_at',
+        'email_recipient',
     ];
 
     public function customer(): BelongsTo
@@ -76,6 +78,7 @@ final class Interaction extends Model
         return [
             'interaction_date' => 'datetime',
             'next_action_date' => 'date',
+            'email_sent_at' => 'datetime',
             'duration' => 'integer',
             'type' => InteractionType::class,
             'category' => InteractionCategory::class,

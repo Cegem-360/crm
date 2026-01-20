@@ -16,7 +16,7 @@ final class QuotationSendedOpportunitiesResource extends Resource
 {
     protected static ?string $model = Opportunity::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Customers;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
     protected static ?string $navigationLabel = 'Quotation Sended';
 

@@ -10,7 +10,6 @@ use App\Filament\Resources\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Customers\Pages\ListCustomers;
 use App\Filament\Resources\Customers\RelationManagers\AddressesRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\AttributesRelationManager;
-use App\Filament\Resources\Customers\RelationManagers\CommunicationsRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\ComplaintsRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\ContactsRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\InteractionsRelationManager;
@@ -58,7 +57,6 @@ final class CustomerResource extends Resource
             InteractionsRelationManager::class,
             TasksRelationManager::class,
             ComplaintsRelationManager::class,
-            CommunicationsRelationManager::class,
         ];
     }
 

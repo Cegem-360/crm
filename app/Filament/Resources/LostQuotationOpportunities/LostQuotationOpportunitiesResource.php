@@ -16,7 +16,7 @@ final class LostQuotationOpportunitiesResource extends Resource
 {
     protected static ?string $model = Opportunity::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Customers;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
     protected static ?string $navigationLabel = 'Lost Quotation';
 

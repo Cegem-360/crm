@@ -18,6 +18,11 @@ final class BugReportForm
     {
         return $schema
             ->components([
+                Select::make('customer_id')
+                    ->label('Customer')
+                    ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload(),
                 Select::make('user_id')
                     ->relationship('user', 'name'),
                 TextInput::make('title')

@@ -18,12 +18,8 @@ final class CustomerInfolist
                 TextEntry::make('unique_identifier'),
                 TextEntry::make('name'),
                 TextEntry::make('type'),
-                TextEntry::make('tax_number')
-                    ->placeholder('-'),
-                TextEntry::make('registration_number')
-                    ->placeholder('-'),
-                TextEntry::make('email')
-                    ->label('Email address')
+                TextEntry::make('company.name')
+                    ->label('Company')
                     ->placeholder('-'),
                 TextEntry::make('phone')
                     ->placeholder('-'),

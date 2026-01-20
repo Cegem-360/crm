@@ -12,11 +12,11 @@ use Illuminate\Contracts\Support\Htmlable;
 enum NavigationGroup: string implements HasIcon, HasLabel
 {
     case Customers = 'Customers';
-    case Support = 'Support';
     case Sales = 'Sales';
+    case Support = 'Support';
     case Products = 'Products';
+    case Interactions = 'Interactions';
     case Marketing = 'Marketing';
-    case Communication = 'Communication';
     case Reports = 'Reports';
     case Settings = 'Settings';
     case System = 'System';
@@ -25,11 +25,11 @@ enum NavigationGroup: string implements HasIcon, HasLabel
     {
         return match ($this) {
             self::Customers => __('Customers'),
-            self::Support => __('Support'),
             self::Sales => __('Sales'),
+            self::Support => __('Support'),
             self::Products => __('Products'),
+            self::Interactions => __('Interactions'),
             self::Marketing => __('Marketing'),
-            self::Communication => __('Communication'),
             self::Reports => __('Reports'),
             self::Settings => __('Settings'),
             self::System => __('System'),
@@ -40,11 +40,11 @@ enum NavigationGroup: string implements HasIcon, HasLabel
     {
         return match ($this) {
             self::Customers => 'heroicon-o-user-group',
-            self::Support => 'heroicon-o-lifebuoy',
             self::Sales => 'heroicon-o-currency-dollar',
+            self::Support => 'heroicon-o-lifebuoy',
             self::Products => 'heroicon-o-cube',
+            self::Interactions => 'heroicon-o-chat-bubble-left-ellipsis',
             self::Marketing => 'heroicon-o-megaphone',
-            self::Communication => 'heroicon-o-chat-bubble-left-right',
             self::Reports => 'heroicon-o-chart-bar',
             self::Settings => 'heroicon-o-cog-6-tooth',
             self::System => 'heroicon-o-server',
@@ -55,11 +55,11 @@ enum NavigationGroup: string implements HasIcon, HasLabel
     {
         return match ($this) {
             self::Customers => 10,
-            self::Support => 20,
-            self::Sales => 30,
+            self::Sales => 20,
+            self::Support => 30,
             self::Products => 40,
-            self::Marketing => 50,
-            self::Communication => 60,
+            self::Interactions => 50,
+            self::Marketing => 60,
             self::Reports => 70,
             self::Settings => 80,
             self::System => 90,

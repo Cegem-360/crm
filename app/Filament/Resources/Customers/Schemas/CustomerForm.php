@@ -28,11 +28,22 @@ final class CustomerForm
                     ->required()
                     ->options(CustomerType::class)
                     ->default(CustomerType::Individual),
-                TextInput::make('tax_number'),
-                TextInput::make('registration_number'),
-                TextInput::make('email')
-                    ->label('Email address')
-                    ->email(),
+                Select::make('company_id')
+                    ->label('Company')
+                    ->relationship('company', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required(),
+                        TextInput::make('tax_number')
+                            ->label('Tax Number'),
+                        TextInput::make('registration_number')
+                            ->label('Registration Number'),
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->email(),
+                    ]),
                 TextInput::make('phone')
                     ->tel(),
                 Textarea::make('notes')

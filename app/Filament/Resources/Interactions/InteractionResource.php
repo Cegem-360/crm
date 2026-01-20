@@ -20,7 +20,9 @@ final class InteractionResource extends Resource
 {
     protected static ?string $model = Interaction::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Marketing;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Interactions;
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

@@ -19,7 +19,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 final class InteractionForm
@@ -36,7 +35,7 @@ final class InteractionForm
                     ->live(),
                 Select::make('customer_contact_id')
                     ->label('Contact')
-                    ->options(function (Get $get) {
+                    ->options(function ($get) {
                         $customerId = $get('customer_id');
                         if (! $customerId) {
                             return [];
@@ -46,7 +45,7 @@ final class InteractionForm
                             ->pluck('name', 'id');
                     })
                     ->searchable()
-                    ->visible(fn (Get $get) => filled($get('customer_id'))),
+                    ->visible(fn ($get) => filled($get('customer_id'))),
                 Select::make('user_id')
                     ->label('User')
                     ->relationship('user', 'name')
@@ -76,7 +75,7 @@ final class InteractionForm
                     ->default(InteractionStatus::Completed),
                 Select::make('email_template_id')
                     ->label('Email Template')
-                    ->options(function (Get $get) {
+                    ->options(function ($get) {
                         $category = $get('category');
 
                         return EmailTemplate::query()
@@ -88,7 +87,7 @@ final class InteractionForm
                     })
                     ->searchable()
                     ->live()
-                    ->visible(fn (Get $get) => in_array($get('category'), [
+                    ->visible(fn ($get) => in_array($get('category'), [
                         InteractionCategory::Sales->value,
                         InteractionCategory::Marketing->value,
                     ])),
@@ -106,12 +105,12 @@ final class InteractionForm
                             ])
                             ->default('contact')
                             ->live()
-                            ->visible(fn (Get $get) => $get('send_email')),
+                            ->visible(fn ($get) => $get('send_email')),
                         TextInput::make('recipient_email')
                             ->label('Recipient Email')
                             ->disabled()
                             ->dehydrated(false)
-                            ->default(function (Get $get) {
+                            ->default(function ($get) {
                                 $recipientType = $get('recipient_type');
                                 $customerId = $get('customer_id');
                                 $contactId = $get('customer_contact_id');
@@ -128,9 +127,9 @@ final class InteractionForm
 
                                 return null;
                             })
-                            ->visible(fn (Get $get) => $get('send_email')),
+                            ->visible(fn ($get) => $get('send_email')),
                     ])
-                    ->visible(fn (Get $get) => filled($get('email_template_id'))),
+                    ->visible(fn ($get) => filled($get('email_template_id'))),
                 TextInput::make('subject')
                     ->label('Subject')
                     ->required(),

@@ -1,118 +1,154 @@
-<nav class="bg-white dark:bg-gray-800 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            {{-- Left side: Logo and Navigation --}}
-            <div class="flex">
-                {{-- Logo --}}
-                <div class="flex items-center shrink-0">
-                    <a href="{{ route('welcome') }}" class="flex items-center">
-                        <img src="{{ Vite::asset('resources/images/logo.png') }}" alt="CÉGEM360 Logo" class="h-8 w-auto">
-                    </a>
-                </div>
+<nav class="bg-white border-b border-gray-100" x-data="{ mobileMenuOpen: false, openDropdown: null }">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+            {{-- Left: Logo --}}
+            <div class="flex items-center">
+                <a href="{{ route('home') }}" class="flex items-center gap-2">
+                    <img src="{{ Vite::asset('resources/images/logo.png') }}" alt="{{ config('app.name') }}"
+                        class="h-10">
+                    <span class="text-sm font-semibold text-indigo-600">CRM</span>
+                </a>
+            </div>
 
-                {{-- Desktop Navigation Links --}}
-                <div class="hidden sm:ml-6 sm:flex sm:gap-4">
-                    <a href="{{ route('welcome') }}"
-                       class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('welcome') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        Home
+            {{-- Center: Navigation Links --}}
+            <div class="hidden lg:flex items-center gap-1">
+                {{-- Features --}}
+                <a href="#funkciok"
+                    class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    Funkciók
+                </a>
+
+                {{-- Integrations --}}
+                <a href="#integraciok"
+                    class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    Integrációk
+                </a>
+
+                {{-- Results --}}
+                <a href="#eredmenyek"
+                    class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    Eredmények
+                </a>
+
+                {{-- Pricing --}}
+                <a href="#arak"
+                    class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    Árak
+                </a>
+
+                {{-- FAQ --}}
+                <a href="#gyik"
+                    class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    GYIK
+                </a>
+            </div>
+
+            {{-- Right: Actions --}}
+            <div class="hidden lg:flex items-center gap-4">
+                @guest
+                    {{-- Log in --}}
+                    <a href="/admin" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Belépés
                     </a>
 
-                    <a href="{{ route('chat.demo') }}"
-                       class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('chat.demo') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    {{-- Get Started (filled) --}}
+                    <a href="/admin"
+                        class="inline-flex items-center gap-1 px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
+                        Ingyenes próba
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
-                        Chat Demo
                     </a>
+                @endguest
 
-                    <a href="{{ route('complaints.submit') }}"
-                       class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('complaints.submit') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                        </svg>
-                        Submit Complaint
-                    </a>
-
+                @auth
+                    {{-- Dashboard link --}}
                     <a href="{{ route('filament.admin.pages.dashboard') }}"
-                       class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                        Admin
+                        class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Dashboard
                     </a>
-                </div>
+
+                    {{-- User dropdown --}}
+                    <div class="relative" @mouseenter="openDropdown = 'user'" @mouseleave="openDropdown = null">
+                        <button
+                            class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                            <div
+                                class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-sm">
+                                {{ substr(auth()->user()->name ?? auth()->user()->email, 0, 1) }}
+                            </div>
+                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div x-show="openDropdown === 'user'" x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                            class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                            <a href="{{ route('filament.admin.pages.dashboard') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</a>
+                            <hr class="my-1 border-gray-200">
+                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    Kijelentkezés
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endauth
+
             </div>
 
-            {{-- Right side: Theme Switcher and Mobile Menu Button --}}
-            <div class="flex items-center gap-2">
-                {{-- Theme Switcher --}}
-                <div class="hidden sm:block">
-                    <x-theme-switcher />
-                </div>
-
-                {{-- Mobile menu button --}}
-                <div class="sm:hidden">
-                    <button
-                        @click="mobileMenuOpen = !mobileMenuOpen"
-                        type="button"
-                        class="inline-flex items-center justify-center rounded-lg p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-                        aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        {{-- Hamburger icon --}}
-                        <svg x-show="!mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                        {{-- Close icon --}}
-                        <svg x-show="mobileMenuOpen" x-cloak class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+            {{-- Mobile menu button --}}
+            <button @click="mobileMenuOpen = !mobileMenuOpen"
+                class="lg:hidden p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg x-show="mobileMenuOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
     </div>
 
     {{-- Mobile menu --}}
-    <div x-show="mobileMenuOpen" x-cloak class="sm:hidden border-t border-gray-200 dark:border-gray-700">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="{{ route('welcome') }}"
-               class="block px-3 py-2 text-base font-medium rounded-lg transition-colors {{ request()->routeIs('welcome') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                Home
-            </a>
+    <div x-show="mobileMenuOpen" x-collapse class="lg:hidden border-t border-gray-200">
+        <div class="px-4 py-4 space-y-3">
+            <a href="#funkciok" class="block py-2 text-sm font-medium text-gray-700"
+                @click="mobileMenuOpen = false">Funkciók</a>
+            <a href="#integraciok" class="block py-2 text-sm font-medium text-gray-700"
+                @click="mobileMenuOpen = false">Integrációk</a>
+            <a href="#eredmenyek" class="block py-2 text-sm font-medium text-gray-700"
+                @click="mobileMenuOpen = false">Eredmények</a>
+            <a href="#arak" class="block py-2 text-sm font-medium text-gray-700"
+                @click="mobileMenuOpen = false">Árak</a>
+            <a href="#gyik" class="block py-2 text-sm font-medium text-gray-700"
+                @click="mobileMenuOpen = false">GYIK</a>
 
-            <a href="{{ route('chat.demo') }}"
-               class="flex items-center px-3 py-2 text-base font-medium rounded-lg transition-colors {{ request()->routeIs('chat.demo') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                </svg>
-                Chat Demo
-            </a>
+            <hr class="border-gray-200">
 
-            <a href="{{ route('complaints.submit') }}"
-               class="flex items-center px-3 py-2 text-base font-medium rounded-lg transition-colors {{ request()->routeIs('complaints.submit') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                </svg>
-                Submit Complaint
-            </a>
+            @guest
+                <a href="/admin" class="block py-2 text-sm font-medium text-gray-700">Belépés</a>
+                <a href="/admin"
+                    class="block w-full text-center py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-full">
+                    Ingyenes próba
+                </a>
+            @endguest
 
-            <a href="{{ route('filament.admin.pages.dashboard') }}"
-               class="flex items-center px-3 py-2 text-base font-medium rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                Admin
-            </a>
-
-            {{-- Theme Switcher in Mobile Menu --}}
-            <div class="px-3 py-2">
-                <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
-                    Theme
-                </div>
-                <x-theme-switcher />
-            </div>
+            @auth
+                <a href="{{ route('filament.admin.pages.dashboard') }}" class="block py-2 text-sm font-medium text-gray-700">Dashboard</a>
+                <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                    @csrf
+                    <button type="submit" class="block w-full text-left py-2 text-sm font-medium text-red-600">
+                        Kijelentkezés
+                    </button>
+                </form>
+            @endauth
         </div>
     </div>
 </nav>

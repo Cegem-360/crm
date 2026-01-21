@@ -147,7 +147,6 @@ it('displays lost opportunities in the lost opportunities resource', function ()
 it('displays customer data in lead opportunities table', function (): void {
     $customer = Customer::factory()->create([
         'name' => 'Test Customer Name',
-        'email' => 'testcustomer@example.com',
     ]);
 
     $opportunity = Opportunity::factory()->create([
@@ -158,8 +157,7 @@ it('displays customer data in lead opportunities table', function (): void {
 
     livewire(ListLeadOpportunities::class)
         ->assertCanSeeTableRecords([$opportunity])
-        ->assertSee('Test Customer Name')
-        ->assertSee('testcustomer@example.com');
+        ->assertSee('Test Customer Name');
 });
 
 it('can search lead opportunities by customer name', function (): void {
@@ -251,7 +249,6 @@ it('can sort lead opportunities by value', function (): void {
 it('displays correct table columns for lead opportunities', function (): void {
     $customer = Customer::factory()->create([
         'name' => 'Test Customer',
-        'email' => 'test@example.com',
         'phone' => '+36-1-234-5678',
     ]);
 
@@ -269,7 +266,6 @@ it('displays correct table columns for lead opportunities', function (): void {
     livewire(ListLeadOpportunities::class)
         ->assertCanSeeTableRecords([$opportunity])
         ->assertSee('Test Customer')
-        ->assertSee('test@example.com')
         ->assertSee('+36-1-234-5678')
         ->assertSee('Test Opportunity')
         ->assertSee('75%')

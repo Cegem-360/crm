@@ -13,9 +13,12 @@ test('to array', function (): void {
             'name',
             'email',
             'email_verified_at',
-            'created_at',
-            'updated_at',
             'is_online',
             'last_seen_at',
+            'created_at',
+            'updated_at',
+            'webhook_url',
+            'webhook_secret',
+            'workflow_api_token',
         ]);
 });

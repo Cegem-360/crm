@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Filament\Commands\FileGenerators\Resources\ResourceClassGenerator;
+use App\Models\BugReport;
 use App\Models\Customer;
+use App\Models\CustomerContact;
+use App\Models\Interaction;
 use App\Models\Opportunity;
 use App\Models\User;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
@@ -31,9 +34,12 @@ final class AppServiceProvider extends ServiceProvider
         FilamentTimezone::set('Europe/Budapest');
         $this->app->bind(BaseResourceClassGenerator::class, ResourceClassGenerator::class);
         Relation::enforceMorphMap([
-            'user' => User::class,
+            'bug_report' => BugReport::class,
             'customer' => Customer::class,
+            'customer_contact' => CustomerContact::class,
+            'interaction' => Interaction::class,
             'opportunity' => Opportunity::class,
+            'user' => User::class,
         ]);
     }
 }

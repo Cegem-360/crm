@@ -1,6 +1,10 @@
 {
   "resources/css/app.css": {
+<<<<<<< HEAD
     "file": "assets/app-BtHyGHUc.css",
+=======
+    "file": "assets/app-CQlp564q.css",
+>>>>>>> a4cafe1052f62bccdbdf48474bf8435b26aa7bce
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
@@ -40,12 +44,20 @@
     "src": "resources/images/logo.svg"
   },
   "resources/js/app.js": {
+<<<<<<< HEAD
     "file": "assets/app-EonNTpbN.js",
+=======
+    "file": "assets/app-DDbrr7Sa.js",
+>>>>>>> a4cafe1052f62bccdbdf48474bf8435b26aa7bce
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
+<<<<<<< HEAD
       "assets/app-BtHyGHUc.css"
+=======
+      "assets/app-CQlp564q.css"
+>>>>>>> a4cafe1052f62bccdbdf48474bf8435b26aa7bce
     ]
   }
 }

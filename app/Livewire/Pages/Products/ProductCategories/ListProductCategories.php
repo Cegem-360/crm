@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Pages\Products;
+namespace App\Livewire\Pages\Products\ProductCategories;
 
-use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-final class Products extends Component
+#[Layout('components.layouts.dashboard')]
+final class ListProductCategories extends Component
 {
     use WithPagination;
 
@@ -21,19 +21,13 @@ final class Products extends Component
     public string $search = '';
 
     #[Url]
-    public string $sortBy = 'created_at';
+    public string $sortBy = 'name';
 
     #[Url]
-    public string $sortDir = 'desc';
+    public string $sortDir = 'asc';
 
     #[Url]
     public int $perPage = 10;
-
-    #[Url]
-    public string $category = '';
-
-    #[Url]
-    public string $active = '';
 
     public function sort(string $column): void
     {
@@ -56,50 +50,26 @@ final class Products extends Component
         $this->resetPage();
     }
 
-    public function updatedCategory(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedActive(): void
-    {
-        $this->resetPage();
-    }
-
     public function render(): View
     {
-        return view('livewire.pages.products.products', [
-            'products' => $this->getProducts(),
+        return view('livewire.pages.products.product-categories.list-product-categories', [
             'categories' => $this->getCategories(),
-        ])->layout('components.layouts.dashboard');
+        ]);
     }
 
-    private function getProducts(): LengthAwarePaginator
+    private function getCategories(): LengthAwarePaginator
     {
-        return Product::query()
-            ->with(['category'])
+        return ProductCategory::query()
+            ->with(['parent', 'children'])
+            ->withCount('products')
             ->when($this->search !== '', function ($query) {
                 $search = '%'.$this->search.'%';
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', $search)
-                        ->orWhere('sku', 'like', $search);
+                        ->orWhere('description', 'like', $search);
                 });
-            })
-            ->when($this->category !== '', function ($query) {
-                $query->where('category_id', $this->category);
-            })
-            ->when($this->active !== '', function ($query) {
-                $query->where('is_active', $this->active === '1');
             })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);
-    }
-
-    /**
-     * @return Collection<int, ProductCategory>
-     */
-    private function getCategories(): Collection
-    {
-        return ProductCategory::query()->orderBy('name')->get();
     }
 }

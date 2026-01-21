@@ -2,16 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Pages\Support;
+namespace App\Livewire\Pages\Products\Discounts;
 
-use App\Models\Task;
+use App\Enums\DiscountType;
+use App\Models\Discount;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-final class Tasks extends Component
+#[Layout('components.layouts.dashboard')]
+final class ListDiscounts extends Component
 {
     use WithPagination;
 
@@ -28,10 +31,10 @@ final class Tasks extends Component
     public int $perPage = 10;
 
     #[Url]
-    public string $status = '';
+    public string $type = '';
 
     #[Url]
-    public string $priority = '';
+    public string $active = '';
 
     public function sort(string $column): void
     {
@@ -54,41 +57,45 @@ final class Tasks extends Component
         $this->resetPage();
     }
 
-    public function updatedStatus(): void
+    public function updatedType(): void
     {
         $this->resetPage();
     }
 
-    public function updatedPriority(): void
+    public function updatedActive(): void
     {
         $this->resetPage();
     }
 
     public function render(): View
     {
-        return view('livewire.pages.support.tasks', [
-            'tasks' => $this->getTasks(),
-        ])->layout('components.layouts.dashboard');
+        return view('livewire.pages.products.discounts.list-discounts', [
+            'discounts' => $this->getDiscounts(),
+            'types' => DiscountType::cases(),
+        ]);
     }
 
-    private function getTasks(): LengthAwarePaginator
+    private function getDiscounts(): LengthAwarePaginator
     {
-        return Task::query()
-            ->with(['customer', 'assignedUser', 'assigner'])
+        return Discount::query()
+            ->with(['customer', 'product'])
             ->when($this->search !== '', function ($query) {
                 $search = '%'.$this->search.'%';
                 $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', $search)
+                    $q->where('name', 'like', $search)
                         ->orWhereHas('customer', function ($customerQuery) use ($search) {
                             $customerQuery->where('name', 'like', $search);
+                        })
+                        ->orWhereHas('product', function ($productQuery) use ($search) {
+                            $productQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->status !== '', function ($query) {
-                $query->where('status', $this->status);
+            ->when($this->type !== '', function ($query) {
+                $query->where('type', $this->type);
             })
-            ->when($this->priority !== '', function ($query) {
-                $query->where('priority', $this->priority);
+            ->when($this->active !== '', function ($query) {
+                $query->where('is_active', $this->active === '1');
             })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);

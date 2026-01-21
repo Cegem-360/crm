@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Pages\Products;
+namespace App\Livewire\Pages\Products\Products;
 
-use App\Enums\DiscountType;
-use App\Models\Discount;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-final class Discounts extends Component
+#[Layout('components.layouts.dashboard')]
+final class ListProducts extends Component
 {
     use WithPagination;
 
@@ -29,7 +32,7 @@ final class Discounts extends Component
     public int $perPage = 10;
 
     #[Url]
-    public string $type = '';
+    public string $category = '';
 
     #[Url]
     public string $active = '';
@@ -55,7 +58,7 @@ final class Discounts extends Component
         $this->resetPage();
     }
 
-    public function updatedType(): void
+    public function updatedCategory(): void
     {
         $this->resetPage();
     }
@@ -67,35 +70,38 @@ final class Discounts extends Component
 
     public function render(): View
     {
-        return view('livewire.pages.products.discounts', [
-            'discounts' => $this->getDiscounts(),
-            'types' => DiscountType::cases(),
-        ])->layout('components.layouts.dashboard');
+        return view('livewire.pages.products.products.list-products', [
+            'products' => $this->getProducts(),
+            'categories' => $this->getCategories(),
+        ]);
     }
 
-    private function getDiscounts(): LengthAwarePaginator
+    private function getProducts(): LengthAwarePaginator
     {
-        return Discount::query()
-            ->with(['customer', 'product'])
+        return Product::query()
+            ->with(['category'])
             ->when($this->search !== '', function ($query) {
                 $search = '%'.$this->search.'%';
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
-                            $customerQuery->where('name', 'like', $search);
-                        })
-                        ->orWhereHas('product', function ($productQuery) use ($search) {
-                            $productQuery->where('name', 'like', $search);
-                        });
+                        ->orWhere('sku', 'like', $search);
                 });
             })
-            ->when($this->type !== '', function ($query) {
-                $query->where('type', $this->type);
+            ->when($this->category !== '', function ($query) {
+                $query->where('category_id', $this->category);
             })
             ->when($this->active !== '', function ($query) {
                 $query->where('is_active', $this->active === '1');
             })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);
+    }
+
+    /**
+     * @return Collection<int, ProductCategory>
+     */
+    private function getCategories(): Collection
+    {
+        return ProductCategory::query()->orderBy('name')->get();
     }
 }

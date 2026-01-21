@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Pages\Support;
+namespace App\Livewire\Pages\Support\Tasks;
 
-use App\Enums\ComplaintSeverity;
-use App\Enums\ComplaintStatus;
-use App\Models\Complaint;
+use App\Models\Task;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-final class Complaints extends Component
+#[Layout('components.layouts.dashboard')]
+final class ListTasks extends Component
 {
     use WithPagination;
 
@@ -33,7 +33,7 @@ final class Complaints extends Component
     public string $status = '';
 
     #[Url]
-    public string $severity = '';
+    public string $priority = '';
 
     public function sort(string $column): void
     {
@@ -61,24 +61,22 @@ final class Complaints extends Component
         $this->resetPage();
     }
 
-    public function updatedSeverity(): void
+    public function updatedPriority(): void
     {
         $this->resetPage();
     }
 
     public function render(): View
     {
-        return view('livewire.pages.support.complaints', [
-            'complaints' => $this->getComplaints(),
-            'statuses' => ComplaintStatus::cases(),
-            'severities' => ComplaintSeverity::cases(),
-        ])->layout('components.layouts.dashboard');
+        return view('livewire.pages.support.tasks.list-tasks', [
+            'tasks' => $this->getTasks(),
+        ]);
     }
 
-    private function getComplaints(): LengthAwarePaginator
+    private function getTasks(): LengthAwarePaginator
     {
-        return Complaint::query()
-            ->with(['customer', 'order', 'assignedUser'])
+        return Task::query()
+            ->with(['customer', 'assignedUser', 'assigner'])
             ->when($this->search !== '', function ($query) {
                 $search = '%'.$this->search.'%';
                 $query->where(function ($q) use ($search) {
@@ -91,8 +89,8 @@ final class Complaints extends Component
             ->when($this->status !== '', function ($query) {
                 $query->where('status', $this->status);
             })
-            ->when($this->severity !== '', function ($query) {
-                $query->where('severity', $this->severity);
+            ->when($this->priority !== '', function ($query) {
+                $query->where('priority', $this->priority);
             })
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->perPage);

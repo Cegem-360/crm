@@ -17,9 +17,15 @@ use App\Livewire\Pages\Crm\Customers\ViewCustomer;
 use App\Livewire\Pages\Interactions\ChatSessions\ListChatSessions;
 use App\Livewire\Pages\Interactions\Interactions\ListInteractions;
 use App\Livewire\Pages\Marketing\Campaigns;
-use App\Livewire\Pages\Products\Discounts;
-use App\Livewire\Pages\Products\ProductCategories;
-use App\Livewire\Pages\Products\Products;
+use App\Livewire\Pages\Products\Discounts\EditDiscount;
+use App\Livewire\Pages\Products\Discounts\ListDiscounts;
+use App\Livewire\Pages\Products\Discounts\ViewDiscount;
+use App\Livewire\Pages\Products\ProductCategories\EditProductCategory;
+use App\Livewire\Pages\Products\ProductCategories\ListProductCategories;
+use App\Livewire\Pages\Products\ProductCategories\ViewProductCategory;
+use App\Livewire\Pages\Products\Products\EditProduct;
+use App\Livewire\Pages\Products\Products\ListProducts;
+use App\Livewire\Pages\Products\Products\ViewProduct;
 use App\Livewire\Pages\Sales\Invoices\EditInvoice;
 use App\Livewire\Pages\Sales\Invoices\ListInvoices;
 use App\Livewire\Pages\Sales\Invoices\ViewInvoice;
@@ -32,8 +38,12 @@ use App\Livewire\Pages\Sales\Orders\ViewOrder;
 use App\Livewire\Pages\Sales\Quotes\EditQuote;
 use App\Livewire\Pages\Sales\Quotes\ListQuotes;
 use App\Livewire\Pages\Sales\Quotes\ViewQuote;
-use App\Livewire\Pages\Support\Complaints;
-use App\Livewire\Pages\Support\Tasks;
+use App\Livewire\Pages\Support\Complaints\EditComplaint;
+use App\Livewire\Pages\Support\Complaints\ListComplaints;
+use App\Livewire\Pages\Support\Complaints\ViewComplaint;
+use App\Livewire\Pages\Support\Tasks\EditTask;
+use App\Livewire\Pages\Support\Tasks\ListTasks;
+use App\Livewire\Pages\Support\Tasks\ViewTask;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -113,13 +123,34 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
         Route::get('/invoices/{invoice}/edit', EditInvoice::class)->name('invoices.edit');
 
         // Products
-        Route::get('/products', Products::class)->name('products');
-        Route::get('/product-categories', ProductCategories::class)->name('product-categories');
-        Route::get('/discounts', Discounts::class)->name('discounts');
+        Route::get('/products', ListProducts::class)->name('products');
+        Route::get('/products/create', EditProduct::class)->name('products.create');
+        Route::get('/products/{product}', ViewProduct::class)->name('products.view');
+        Route::get('/products/{product}/edit', EditProduct::class)->name('products.edit');
 
-        // Support
-        Route::get('/tasks', Tasks::class)->name('tasks');
-        Route::get('/complaints', Complaints::class)->name('complaints');
+        // Product Categories
+        Route::get('/product-categories', ListProductCategories::class)->name('product-categories');
+        Route::get('/product-categories/create', EditProductCategory::class)->name('product-categories.create');
+        Route::get('/product-categories/{productCategory}', ViewProductCategory::class)->name('product-categories.view');
+        Route::get('/product-categories/{productCategory}/edit', EditProductCategory::class)->name('product-categories.edit');
+
+        // Discounts
+        Route::get('/discounts', ListDiscounts::class)->name('discounts');
+        Route::get('/discounts/create', EditDiscount::class)->name('discounts.create');
+        Route::get('/discounts/{discount}', ViewDiscount::class)->name('discounts.view');
+        Route::get('/discounts/{discount}/edit', EditDiscount::class)->name('discounts.edit');
+
+        // Tasks
+        Route::get('/tasks', ListTasks::class)->name('tasks');
+        Route::get('/tasks/create', EditTask::class)->name('tasks.create');
+        Route::get('/tasks/{task}', ViewTask::class)->name('tasks.view');
+        Route::get('/tasks/{task}/edit', EditTask::class)->name('tasks.edit');
+
+        // Complaints
+        Route::get('/complaints', ListComplaints::class)->name('complaints');
+        Route::get('/complaints/create', EditComplaint::class)->name('complaints.create');
+        Route::get('/complaints/{complaint}', ViewComplaint::class)->name('complaints.view');
+        Route::get('/complaints/{complaint}/edit', EditComplaint::class)->name('complaints.edit');
 
         // Interactions
         Route::get('/interactions', ListInteractions::class)->name('interactions');

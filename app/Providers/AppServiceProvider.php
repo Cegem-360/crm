@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Filament\Commands\FileGenerators\Resources\ResourceClassGenerator;
 use App\Models\BugReport;
+use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use App\Models\Interaction;
@@ -35,6 +36,7 @@ final class AppServiceProvider extends ServiceProvider
         $this->app->bind(BaseResourceClassGenerator::class, ResourceClassGenerator::class);
         Relation::enforceMorphMap([
             'bug_report' => BugReport::class,
+            'company' => Company::class,
             'customer' => Customer::class,
             'customer_contact' => CustomerContact::class,
             'interaction' => Interaction::class,

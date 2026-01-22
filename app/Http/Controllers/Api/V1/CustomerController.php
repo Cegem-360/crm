@@ -19,10 +19,12 @@ final class CustomerController extends Controller
         $this->authorize('viewAny', Customer::class);
 
         $customers = Customer::query()
-            ->when($request->filled('search'), fn ($query) => $query->where('name', 'like', sprintf('%%%s%%', $request->search))
-                ->orWhere('phone', 'like', sprintf('%%%s%%', $request->search)))
-            ->when($request->filled('type'), fn ($query) => $query->where('type', $request->type))
-            ->when($request->boolean('include_inactive'), fn ($query): Builder => $query, fn ($query) => $query->where('is_active', true))
+            ->when($request->filled('search'), fn (Builder $query): Builder => $query->where(function (Builder $query) use ($request): void {
+                $query->where('name', 'like', sprintf('%%%s%%', $request->search))
+                    ->orWhere('phone', 'like', sprintf('%%%s%%', $request->search));
+            }))
+            ->when($request->filled('type'), fn (Builder $query): Builder => $query->where('type', $request->type))
+            ->unless($request->boolean('include_inactive'), fn (Builder $query): Builder => $query->where('is_active', true))
             ->paginate($request->integer('per_page', 15));
 
         return CustomerResource::collection($customers);

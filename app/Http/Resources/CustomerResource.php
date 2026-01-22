@@ -27,7 +27,7 @@ final class CustomerResource extends JsonResource
             'is_active' => $this->is_active,
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
-            'deleted_at' => $this->when($this->deleted_at, fn () => $this->deleted_at?->toIso8601String()),
+            'deleted_at' => $this->deleted_at?->toIso8601String(),
         ];
     }
 }

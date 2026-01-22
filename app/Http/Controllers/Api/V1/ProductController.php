@@ -20,13 +20,12 @@ final class ProductController extends Controller
 
         $products = Product::query()
             ->with('category')
-            ->when($request->filled('search'), fn (Builder $query) => $query
-                ->where('name', 'like', sprintf('%%%s%%', $request->search))
-                ->orWhere('sku', 'like', sprintf('%%%s%%', $request->search)))
-            ->when($request->filled('category_id'), fn (Builder $query) => $query
-                ->where('category_id', $request->category_id))
-            ->when($request->boolean('include_inactive'), fn (Builder $query): Builder => $query, fn (Builder $query) => $query
-                ->where('is_active', true))
+            ->when($request->filled('search'), fn (Builder $query): Builder => $query->where(function (Builder $query) use ($request): void {
+                $query->where('name', 'like', sprintf('%%%s%%', $request->search))
+                    ->orWhere('sku', 'like', sprintf('%%%s%%', $request->search));
+            }))
+            ->when($request->filled('category_id'), fn (Builder $query): Builder => $query->where('category_id', $request->category_id))
+            ->unless($request->boolean('include_inactive'), fn (Builder $query): Builder => $query->where('is_active', true))
             ->paginate($request->integer('per_page', 15));
 
         return ProductResource::collection($products);

@@ -20,7 +20,7 @@ final class CustomerController extends Controller
 
         $customers = Customer::query()
             ->when($request->filled('search'), fn ($query) => $query->where('name', 'like', sprintf('%%%s%%', $request->search))
-                ->orWhere('email', 'like', sprintf('%%%s%%', $request->search)))
+                ->orWhere('phone', 'like', sprintf('%%%s%%', $request->search)))
             ->when($request->filled('type'), fn ($query) => $query->where('type', $request->type))
             ->when($request->boolean('include_inactive'), fn ($query): Builder => $query, fn ($query) => $query->where('is_active', true))
             ->paginate($request->integer('per_page', 15));
@@ -36,13 +36,16 @@ final class CustomerController extends Controller
             'unique_identifier' => ['required', 'string', 'unique:customers'],
             'name' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:individual,company'],
-            'tax_number' => ['nullable', 'string', 'max:255'],
-            'registration_number' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255'],
+            'company_id' => ['nullable', 'exists:companies,id'],
             'phone' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string'],
             'is_active' => ['boolean'],
+            'team_id' => ['sometimes', 'exists:teams,id'],
         ]);
+
+        if (! isset($validated['team_id'])) {
+            $validated['team_id'] = $request->user()->teams()->first()?->id;
+        }
 
         $customer = Customer::query()->create($validated);
 
@@ -64,9 +67,7 @@ final class CustomerController extends Controller
             'unique_identifier' => ['sometimes', 'string', 'unique:customers,unique_identifier,'.$customer->id],
             'name' => ['sometimes', 'string', 'max:255'],
             'type' => ['sometimes', 'in:individual,company'],
-            'tax_number' => ['nullable', 'string', 'max:255'],
-            'registration_number' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255'],
+            'company_id' => ['nullable', 'exists:companies,id'],
             'phone' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string'],
             'is_active' => ['boolean'],

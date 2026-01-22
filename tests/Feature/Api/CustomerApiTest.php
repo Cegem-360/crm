@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 use App\Enums\CustomerType;
 use App\Models\Customer;
+use App\Models\Team;
 use App\Models\User;
 use Spatie\Permission\Models\Permission;
 
 beforeEach(function (): void {
     $this->user = User::factory()->create();
+    $this->team = Team::factory()->create();
+    $this->user->teams()->attach($this->team);
 
     // Create necessary permissions
     Permission::query()->firstOrCreate(['name' => 'view_any_customer']);
@@ -30,7 +33,7 @@ beforeEach(function (): void {
 });
 
 it('can list customers', function (): void {
-    Customer::factory()->count(3)->create();
+    Customer::factory()->count(3)->for($this->team)->create();
 
     $response = $this->withHeaders([
         'Authorization' => 'Bearer '.$this->token,
@@ -39,7 +42,7 @@ it('can list customers', function (): void {
     $response->assertOk()
         ->assertJsonStructure([
             'data' => [
-                '*' => ['id', 'name', 'type', 'email', 'phone', 'is_active', 'created_at'],
+                '*' => ['id', 'name', 'type', 'phone', 'is_active', 'created_at'],
             ],
             'links',
             'meta',
@@ -51,7 +54,6 @@ it('can create a customer', function (): void {
         'unique_identifier' => 'CUST-API-001',
         'name' => 'Test Customer',
         'type' => CustomerType::Company->value,
-        'email' => 'test@api.com',
         'phone' => '+36301234567',
         'is_active' => true,
     ];
@@ -85,7 +87,7 @@ it('validates customer creation', function (): void {
 });
 
 it('can show a customer', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     $response = $this->withHeaders([
         'Authorization' => 'Bearer '.$this->token,
@@ -101,7 +103,7 @@ it('can show a customer', function (): void {
 });
 
 it('can update a customer', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     $response = $this->withHeaders([
         'Authorization' => 'Bearer '.$this->token,
@@ -123,7 +125,7 @@ it('can update a customer', function (): void {
 });
 
 it('can delete a customer', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     $response = $this->withHeaders([
         'Authorization' => 'Bearer '.$this->token,

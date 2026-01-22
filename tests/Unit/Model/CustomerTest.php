@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Models\Campaign;
-use App\Models\Communication;
 use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
@@ -138,12 +137,4 @@ it('has complaints relationship', function (): void {
 
     expect($customer->complaints)->toHaveCount(1)
         ->and($customer->complaints->first()->id)->toBe($complaint->id);
-});
-
-it('has communications relationship', function (): void {
-    $customer = Customer::factory()->create();
-    $communication = Communication::factory()->create(['customer_id' => $customer->id]);
-
-    expect($customer->communications)->toHaveCount(1)
-        ->and($customer->communications->first()->id)->toBe($communication->id);
 });

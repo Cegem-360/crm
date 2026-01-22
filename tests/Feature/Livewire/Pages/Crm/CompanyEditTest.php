@@ -8,7 +8,9 @@ use App\Models\User;
 use Livewire\Livewire;
 
 beforeEach(function () {
-    $this->actingAs(User::factory()->create());
+    $this->user = User::factory()->create();
+    $this->actingAs($this->user);
+    $this->team = setUpFrontendTenant($this->user);
 });
 
 it('can render create page', function () {
@@ -19,7 +21,7 @@ it('can render create page', function () {
 });
 
 it('can render edit page with existing company', function () {
-    $company = Company::factory()->create([
+    $company = Company::factory()->for($this->team)->create([
         'name' => 'Existing Company',
         'email' => 'existing@company.com',
     ]);
@@ -34,6 +36,7 @@ it('can render edit page with existing company', function () {
 
 it('can create a company', function () {
     Livewire::test(EditCompany::class)
+        ->set('team', $this->team)
         ->fillForm([
             'name' => 'Test Company',
             'email' => 'test@company.com',
@@ -66,11 +69,12 @@ it('validates email format', function () {
 });
 
 it('can update an existing company', function () {
-    $company = Company::factory()->create([
+    $company = Company::factory()->for($this->team)->create([
         'name' => 'Old Name',
     ]);
 
     Livewire::test(EditCompany::class, ['company' => $company])
+        ->set('team', $this->team)
         ->fillForm([
             'name' => 'New Name',
         ])
@@ -81,12 +85,13 @@ it('can update an existing company', function () {
 });
 
 it('redirects to view page after save', function () {
-    $company = Company::factory()->create();
+    $company = Company::factory()->for($this->team)->create();
 
     Livewire::test(EditCompany::class, ['company' => $company])
+        ->set('team', $this->team)
         ->fillForm([
             'name' => 'Updated Company',
         ])
         ->call('save')
-        ->assertRedirectContains('/dashboard/companies/');
+        ->assertRedirectContains('/companies/');
 });

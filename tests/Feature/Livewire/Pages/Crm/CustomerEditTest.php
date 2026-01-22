@@ -10,7 +10,9 @@ use App\Models\User;
 use Livewire\Livewire;
 
 beforeEach(function () {
-    $this->actingAs(User::factory()->create());
+    $this->user = User::factory()->create();
+    $this->actingAs($this->user);
+    $this->team = setUpFrontendTenant($this->user);
 });
 
 it('can render create page', function () {
@@ -27,7 +29,7 @@ it('has form component for unique identifier', function () {
 });
 
 it('can render edit page with existing customer', function () {
-    $customer = Customer::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create([
         'name' => 'Existing Customer',
         'type' => CustomerType::Company,
         'is_active' => false,
@@ -43,9 +45,10 @@ it('can render edit page with existing customer', function () {
 });
 
 it('can create a customer', function () {
-    $company = Company::factory()->create();
+    $company = Company::factory()->for($this->team)->create();
 
     Livewire::test(EditCustomer::class)
+        ->set('team', $this->team)
         ->fillForm([
             'unique_identifier' => 'CUST-TEST1234',
             'name' => 'Test Customer',
@@ -71,7 +74,7 @@ it('validates required fields on create', function () {
 });
 
 it('validates unique identifier uniqueness', function () {
-    Customer::factory()->create(['unique_identifier' => 'CUST-EXISTING']);
+    Customer::factory()->for($this->team)->create(['unique_identifier' => 'CUST-EXISTING']);
 
     Livewire::test(EditCustomer::class)
         ->fillForm([
@@ -84,12 +87,13 @@ it('validates unique identifier uniqueness', function () {
 });
 
 it('can update a customer', function () {
-    $customer = Customer::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create([
         'name' => 'Old Name',
         'is_active' => true,
     ]);
 
     Livewire::test(EditCustomer::class, ['customer' => $customer])
+        ->set('team', $this->team)
         ->fillForm([
             'name' => 'New Name',
             'is_active' => false,
@@ -103,20 +107,22 @@ it('can update a customer', function () {
 });
 
 it('allows same unique identifier when editing the same customer', function () {
-    $customer = Customer::factory()->create(['unique_identifier' => 'CUST-EXISTING']);
+    $customer = Customer::factory()->for($this->team)->create(['unique_identifier' => 'CUST-EXISTING']);
 
     Livewire::test(EditCustomer::class, ['customer' => $customer])
+        ->set('team', $this->team)
         ->call('save')
         ->assertHasNoFormErrors(['unique_identifier']);
 });
 
 it('redirects to view page after save', function () {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     Livewire::test(EditCustomer::class, ['customer' => $customer])
+        ->set('team', $this->team)
         ->fillForm([
             'name' => 'Updated Customer',
         ])
         ->call('save')
-        ->assertRedirectContains('/dashboard/customers/');
+        ->assertRedirectContains('/customers/');
 });

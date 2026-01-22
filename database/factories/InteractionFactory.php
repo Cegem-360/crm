@@ -34,9 +34,41 @@ final class InteractionFactory extends Factory
             'subject' => fake()->sentence(),
             'description' => fake()->boolean(70) ? fake()->paragraph() : null,
             'interaction_date' => $interactionDate,
-            'duration' => in_array($type, ['call', 'meeting']) ? fake()->numberBetween(5, 120) : null,
+            'duration' => in_array($type, [InteractionType::Call, InteractionType::Meeting]) ? fake()->numberBetween(5, 120) : null,
             'next_action' => fake()->boolean(40) ? fake()->sentence() : null,
             'next_action_date' => fake()->boolean(40) ? fake()->dateTimeBetween($interactionDate, '+1 month') : null,
         ];
+    }
+
+    public function call(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => InteractionType::Call,
+            'duration' => fake()->numberBetween(5, 120),
+        ]);
+    }
+
+    public function email(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => InteractionType::Email,
+            'duration' => null,
+        ]);
+    }
+
+    public function meeting(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => InteractionType::Meeting,
+            'duration' => fake()->numberBetween(15, 120),
+        ]);
+    }
+
+    public function note(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => InteractionType::Note,
+            'duration' => null,
+        ]);
     }
 }

@@ -23,6 +23,7 @@ beforeEach(function (): void {
     $this->user->givePermissionTo('view_any_opportunity');
 
     $this->actingAs($this->user);
+    $this->team = setUpFilamentTenant($this->user);
 });
 
 it('can render lead opportunities page', function (): void {
@@ -31,14 +32,14 @@ it('can render lead opportunities page', function (): void {
 });
 
 it('displays lead opportunities in the lead opportunities resource', function (): void {
-    $customer = Customer::factory()->create();
-    $leadOpportunity = Opportunity::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $leadOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Lead Test Opportunity',
     ]);
 
-    $otherOpportunity = Opportunity::factory()->create([
+    $otherOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::SendedQuotation,
         'title' => 'Won Test Opportunity',
@@ -50,14 +51,14 @@ it('displays lead opportunities in the lead opportunities resource', function ()
 });
 
 it('displays qualified opportunities in the qualified opportunities resource', function (): void {
-    $customer = Customer::factory()->create();
-    $qualifiedOpportunity = Opportunity::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $qualifiedOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Qualified,
         'title' => 'Qualified Test Opportunity',
     ]);
 
-    $otherOpportunity = Opportunity::factory()->create([
+    $otherOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Lead Test Opportunity',
@@ -69,14 +70,14 @@ it('displays qualified opportunities in the qualified opportunities resource', f
 });
 
 it('displays proposal opportunities in the proposal opportunities resource', function (): void {
-    $customer = Customer::factory()->create();
-    $proposalOpportunity = Opportunity::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $proposalOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Proposal,
         'title' => 'Proposal Test Opportunity',
     ]);
 
-    $otherOpportunity = Opportunity::factory()->create([
+    $otherOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Lead Test Opportunity',
@@ -88,14 +89,14 @@ it('displays proposal opportunities in the proposal opportunities resource', fun
 });
 
 it('displays negotiation opportunities in the negotiation opportunities resource', function (): void {
-    $customer = Customer::factory()->create();
-    $negotiationOpportunity = Opportunity::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $negotiationOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Negotiation,
         'title' => 'Negotiation Test Opportunity',
     ]);
 
-    $otherOpportunity = Opportunity::factory()->create([
+    $otherOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Lead Test Opportunity',
@@ -107,14 +108,14 @@ it('displays negotiation opportunities in the negotiation opportunities resource
 });
 
 it('displays won opportunities in the won opportunities resource', function (): void {
-    $customer = Customer::factory()->create();
-    $wonOpportunity = Opportunity::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $wonOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::SendedQuotation,
         'title' => 'Won Test Opportunity',
     ]);
 
-    $otherOpportunity = Opportunity::factory()->create([
+    $otherOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Lead Test Opportunity',
@@ -126,14 +127,14 @@ it('displays won opportunities in the won opportunities resource', function (): 
 });
 
 it('displays lost opportunities in the lost opportunities resource', function (): void {
-    $customer = Customer::factory()->create();
-    $lostOpportunity = Opportunity::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $lostOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::LostQuotation,
         'title' => 'Lost Test Opportunity',
     ]);
 
-    $otherOpportunity = Opportunity::factory()->create([
+    $otherOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Lead Test Opportunity',
@@ -145,11 +146,11 @@ it('displays lost opportunities in the lost opportunities resource', function ()
 });
 
 it('displays customer data in lead opportunities table', function (): void {
-    $customer = Customer::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create([
         'name' => 'Test Customer Name',
     ]);
 
-    $opportunity = Opportunity::factory()->create([
+    $opportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Lead Test Opportunity',
@@ -161,16 +162,16 @@ it('displays customer data in lead opportunities table', function (): void {
 });
 
 it('can search lead opportunities by customer name', function (): void {
-    $customer1 = Customer::factory()->create(['name' => 'John Doe']);
-    $customer2 = Customer::factory()->create(['name' => 'Jane Smith']);
+    $customer1 = Customer::factory()->for($this->team)->create(['name' => 'John Doe']);
+    $customer2 = Customer::factory()->for($this->team)->create(['name' => 'Jane Smith']);
 
-    $opportunity1 = Opportunity::factory()->create([
+    $opportunity1 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer1->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'First Opportunity',
     ]);
 
-    $opportunity2 = Opportunity::factory()->create([
+    $opportunity2 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer2->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Second Opportunity',
@@ -183,15 +184,15 @@ it('can search lead opportunities by customer name', function (): void {
 });
 
 it('can search lead opportunities by opportunity title', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
-    $opportunity1 = Opportunity::factory()->create([
+    $opportunity1 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Unique Opportunity Title',
     ]);
 
-    $opportunity2 = Opportunity::factory()->create([
+    $opportunity2 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Different Opportunity',
@@ -204,15 +205,15 @@ it('can search lead opportunities by opportunity title', function (): void {
 });
 
 it('can sort lead opportunities by customer name', function (): void {
-    $customer1 = Customer::factory()->create(['name' => 'Alpha Customer']);
-    $customer2 = Customer::factory()->create(['name' => 'Zulu Customer']);
+    $customer1 = Customer::factory()->for($this->team)->create(['name' => 'Alpha Customer']);
+    $customer2 = Customer::factory()->for($this->team)->create(['name' => 'Zulu Customer']);
 
-    $opportunity1 = Opportunity::factory()->create([
+    $opportunity1 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer1->id,
         'stage' => OpportunityStage::Lead,
     ]);
 
-    $opportunity2 = Opportunity::factory()->create([
+    $opportunity2 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer2->id,
         'stage' => OpportunityStage::Lead,
     ]);
@@ -225,15 +226,15 @@ it('can sort lead opportunities by customer name', function (): void {
 });
 
 it('can sort lead opportunities by value', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
-    $opportunity1 = Opportunity::factory()->create([
+    $opportunity1 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'value' => 1000,
     ]);
 
-    $opportunity2 = Opportunity::factory()->create([
+    $opportunity2 = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'value' => 5000,
@@ -247,14 +248,15 @@ it('can sort lead opportunities by value', function (): void {
 });
 
 it('displays correct table columns for lead opportunities', function (): void {
-    $customer = Customer::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create([
         'name' => 'Test Customer',
         'phone' => '+36-1-234-5678',
     ]);
 
     $user = User::factory()->create(['name' => 'Assigned User']);
+    $user->teams()->syncWithoutDetaching($this->team);
 
-    $opportunity = Opportunity::factory()->create([
+    $opportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => OpportunityStage::Lead,
         'title' => 'Test Opportunity',
@@ -273,8 +275,8 @@ it('displays correct table columns for lead opportunities', function (): void {
 });
 
 it('can render all opportunity stage pages', function (string $pageClass, OpportunityStage $stage): void {
-    $customer = Customer::factory()->create();
-    Opportunity::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => $stage,
     ]);
@@ -291,14 +293,14 @@ it('can render all opportunity stage pages', function (string $pageClass, Opport
 ]);
 
 it('only shows opportunities for the correct stage', function (string $pageClass, OpportunityStage $correctStage, OpportunityStage $wrongStage): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
-    $correctOpportunity = Opportunity::factory()->create([
+    $correctOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => $correctStage,
     ]);
 
-    $wrongOpportunity = Opportunity::factory()->create([
+    $wrongOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
         'stage' => $wrongStage,
     ]);

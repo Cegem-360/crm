@@ -45,4 +45,33 @@ final class QuoteFactory extends Factory
             'notes' => fake()->boolean(40) ? fake()->sentence() : null,
         ];
     }
+
+    public function draft(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'draft',
+        ]);
+    }
+
+    public function accepted(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'accepted',
+        ]);
+    }
+
+    public function rejected(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'rejected',
+        ]);
+    }
+
+    public function expired(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'expired',
+            'valid_until' => fake()->dateTimeBetween('-1 month', '-1 day'),
+        ]);
+    }
 }

@@ -20,6 +20,7 @@ final class ChatService
     public function startSession(Customer $customer, ?User $assignedUser = null): ChatSession
     {
         return DB::transaction(fn (): ChatSession => ChatSession::query()->create([
+            'team_id' => $customer->team_id,
             'customer_id' => $customer->id,
             'user_id' => $assignedUser?->id,
             'started_at' => now(),

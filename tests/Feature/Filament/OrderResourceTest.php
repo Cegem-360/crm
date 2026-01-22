@@ -29,6 +29,7 @@ beforeEach(function (): void {
     ]);
 
     $this->actingAs($this->user);
+    $this->team = setUpFilamentTenant($this->user);
 });
 
 it('can render order list page', function (): void {
@@ -37,7 +38,7 @@ it('can render order list page', function (): void {
 });
 
 it('can list orders', function (): void {
-    $orders = Order::factory()->count(3)->create();
+    $orders = Order::factory()->count(3)->for($this->team)->create();
 
     livewire(ListOrders::class)
         ->assertCanSeeTableRecords($orders);
@@ -49,7 +50,7 @@ it('can render create order page', function (): void {
 });
 
 it('can render edit order page', function (): void {
-    $order = Order::factory()->create();
+    $order = Order::factory()->for($this->team)->create();
 
     livewire(EditOrder::class, ['record' => $order->id])
         ->assertSuccessful();
@@ -72,8 +73,9 @@ it('cannot access create page without permission', function (): void {
 });
 
 it('cannot access edit page without permission', function (): void {
-    $order = Order::factory()->create();
+    $order = Order::factory()->for($this->team)->create();
     $user = User::factory()->create();
+    $user->teams()->syncWithoutDetaching($this->team);
     $this->actingAs($user);
 
     livewire(EditOrder::class, ['record' => $order->id])

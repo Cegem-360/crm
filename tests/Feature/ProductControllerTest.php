@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Enums\Permission as PermissionEnum;
 use App\Jobs\SendProductWebhook;
 use App\Models\Product;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\Queue;
 use Spatie\Permission\Models\Permission;
@@ -13,6 +14,7 @@ use Spatie\Permission\PermissionRegistrar;
 beforeEach(function (): void {
     app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
     Queue::fake();
+    $this->team = Team::factory()->create();
 });
 
 describe('Product API Index', function (): void {
@@ -86,6 +88,7 @@ describe('Product API Index', function (): void {
 describe('Product API Store', function (): void {
     it('creates a product for authorized user', function (): void {
         $user = User::factory()->create();
+        $user->teams()->attach($this->team);
         Permission::create(['name' => PermissionEnum::CreateProduct]);
         $user->givePermissionTo(PermissionEnum::CreateProduct);
 
@@ -108,11 +111,13 @@ describe('Product API Store', function (): void {
         $this->assertDatabaseHas('products', [
             'name' => 'Test Product',
             'sku' => 'TEST-001',
+            'team_id' => $this->team->id,
         ]);
     });
 
     it('dispatches webhook job on product creation for current user', function (): void {
         $user = User::factory()->create();
+        $user->teams()->attach($this->team);
         Permission::create(['name' => PermissionEnum::CreateProduct]);
         $user->givePermissionTo(PermissionEnum::CreateProduct);
 

@@ -48,4 +48,36 @@ final class InvoiceFactory extends Factory
             'paid_at' => $status === InvoiceStatus::Paid ? fake()->dateTimeBetween($issueDate, 'now') : null,
         ];
     }
+
+    public function draft(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => InvoiceStatus::Draft,
+            'paid_at' => null,
+        ]);
+    }
+
+    public function active(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => InvoiceStatus::Active,
+            'paid_at' => null,
+        ]);
+    }
+
+    public function paid(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => InvoiceStatus::Paid,
+            'paid_at' => fake()->dateTimeBetween($attributes['issue_date'] ?? '-3 months', 'now'),
+        ]);
+    }
+
+    public function cancelled(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => InvoiceStatus::Cancelled,
+            'paid_at' => null,
+        ]);
+    }
 }

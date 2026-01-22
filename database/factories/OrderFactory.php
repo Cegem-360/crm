@@ -40,4 +40,25 @@ final class OrderFactory extends Factory
             'notes' => fake()->optional()->paragraph(),
         ];
     }
+
+    public function pending(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'pending',
+        ]);
+    }
+
+    public function delivered(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'delivered',
+        ]);
+    }
+
+    public function cancelled(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'cancelled',
+        ]);
+    }
 }

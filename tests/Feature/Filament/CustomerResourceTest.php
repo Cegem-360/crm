@@ -32,6 +32,9 @@ beforeEach(function (): void {
     ]);
 
     $this->actingAs($this->user);
+
+    // Set up multi-tenant context
+    $this->team = setUpFilamentTenant($this->user);
 });
 
 it('can render customer list page', function (): void {
@@ -40,14 +43,14 @@ it('can render customer list page', function (): void {
 });
 
 it('can list customers', function (): void {
-    $customers = Customer::factory()->count(3)->create();
+    $customers = Customer::factory()->count(3)->for($this->team)->create();
 
     livewire(ListCustomers::class)
         ->assertCanSeeTableRecords($customers);
 });
 
 it('can search customers by name', function (): void {
-    $customers = Customer::factory()->count(3)->create();
+    $customers = Customer::factory()->count(3)->for($this->team)->create();
     $customerToFind = $customers->first();
 
     livewire(ListCustomers::class)
@@ -62,14 +65,14 @@ it('can render create customer page', function (): void {
 });
 
 it('can render edit customer page', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     livewire(EditCustomer::class, ['record' => $customer->id])
         ->assertSuccessful();
 });
 
 it('can retrieve customer data for editing', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     livewire(EditCustomer::class, ['record' => $customer->id])
         ->assertSchemaStateSet([
@@ -82,7 +85,7 @@ it('can retrieve customer data for editing', function (): void {
 });
 
 it('can delete a customer', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     livewire(EditCustomer::class, ['record' => $customer->id])
         ->callAction('delete');
@@ -92,6 +95,7 @@ it('can delete a customer', function (): void {
 
 it('cannot access list page without permission', function (): void {
     $user = User::factory()->create();
+    $user->teams()->syncWithoutDetaching([$this->team->id]);
     $this->actingAs($user);
 
     livewire(ListCustomers::class)
@@ -100,6 +104,7 @@ it('cannot access list page without permission', function (): void {
 
 it('cannot access create page without permission', function (): void {
     $user = User::factory()->create();
+    $user->teams()->syncWithoutDetaching([$this->team->id]);
     $this->actingAs($user);
 
     livewire(CreateCustomer::class)
@@ -107,8 +112,9 @@ it('cannot access create page without permission', function (): void {
 });
 
 it('cannot access edit page without permission', function (): void {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
     $user = User::factory()->create();
+    $user->teams()->syncWithoutDetaching([$this->team->id]);
     $this->actingAs($user);
 
     livewire(EditCustomer::class, ['record' => $customer->id])

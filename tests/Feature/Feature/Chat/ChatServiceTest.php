@@ -7,6 +7,7 @@ use App\Enums\ChatSessionStatus;
 use App\Models\ChatMessage;
 use App\Models\ChatSession;
 use App\Models\Customer;
+use App\Models\Team;
 use App\Models\User;
 use App\Services\ChatService;
 use Illuminate\Support\Sleep;
@@ -15,8 +16,10 @@ use function Pest\Laravel\assertDatabaseHas;
 
 beforeEach(function (): void {
     $this->chatService = app(ChatService::class);
-    $this->customer = Customer::factory()->create();
+    $this->team = Team::factory()->create();
+    $this->customer = Customer::factory()->for($this->team)->create();
     $this->user = User::factory()->create();
+    $this->user->teams()->attach($this->team);
 });
 
 test('can start a new chat session', function (): void {
@@ -136,9 +139,9 @@ test('can rate a session', function (): void {
 });
 
 test('can get active sessions', function (): void {
-    ChatSession::factory()->create(['status' => ChatSessionStatus::Active]);
-    ChatSession::factory()->create(['status' => ChatSessionStatus::Active]);
-    ChatSession::factory()->create(['status' => ChatSessionStatus::Closed]);
+    ChatSession::factory()->for($this->team)->create(['status' => ChatSessionStatus::Active]);
+    ChatSession::factory()->for($this->team)->create(['status' => ChatSessionStatus::Active]);
+    ChatSession::factory()->for($this->team)->create(['status' => ChatSessionStatus::Closed]);
 
     $activeSessions = $this->chatService->getActiveSessions();
 
@@ -146,9 +149,9 @@ test('can get active sessions', function (): void {
 });
 
 test('can get unassigned sessions', function (): void {
-    ChatSession::factory()->create(['user_id' => null, 'status' => ChatSessionStatus::Active]);
-    ChatSession::factory()->create(['user_id' => null, 'status' => ChatSessionStatus::Active]);
-    ChatSession::factory()->create(['user_id' => $this->user->id, 'status' => ChatSessionStatus::Active]);
+    ChatSession::factory()->for($this->team)->create(['user_id' => null, 'status' => ChatSessionStatus::Active]);
+    ChatSession::factory()->for($this->team)->create(['user_id' => null, 'status' => ChatSessionStatus::Active]);
+    ChatSession::factory()->for($this->team)->create(['user_id' => $this->user->id, 'status' => ChatSessionStatus::Active]);
 
     $unassignedSessions = $this->chatService->getUnassignedSessions();
 
@@ -156,7 +159,7 @@ test('can get unassigned sessions', function (): void {
 });
 
 test('can assign session to user', function (): void {
-    $session = ChatSession::factory()->create(['user_id' => null]);
+    $session = ChatSession::factory()->for($this->team)->create(['user_id' => null]);
 
     expect($session->user_id)->toBeNull();
 

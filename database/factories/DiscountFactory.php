@@ -47,4 +47,34 @@ final class DiscountFactory extends Factory
             'description' => fake()->boolean(60) ? fake()->sentence() : null,
         ];
     }
+
+    public function active(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'is_active' => true,
+        ]);
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'is_active' => false,
+        ]);
+    }
+
+    public function percentage(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'value_type' => DiscountValueType::Percentage,
+            'value' => fake()->randomFloat(2, 5, 50),
+        ]);
+    }
+
+    public function fixedAmount(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'value_type' => DiscountValueType::FixedAmount,
+            'value' => fake()->randomFloat(2, 10, 500),
+        ]);
+    }
 }

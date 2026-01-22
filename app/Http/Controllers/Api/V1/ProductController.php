@@ -44,7 +44,13 @@ final class ProductController extends Controller
             'unit_price' => ['required', 'numeric', 'min:0'],
             'tax_rate' => ['required', 'numeric', 'min:0', 'max:100'],
             'is_active' => ['boolean'],
+            'team_id' => ['sometimes', 'exists:teams,id'],
         ]);
+
+        // Set team_id from request or user's first team
+        if (! isset($validated['team_id'])) {
+            $validated['team_id'] = $request->user()->teams()->first()?->id;
+        }
 
         $product = Product::query()->create($validated);
 

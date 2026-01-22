@@ -45,4 +45,37 @@ final class OpportunityFactory extends Factory
             'assigned_to' => fake()->boolean(80) ? User::factory() : null,
         ];
     }
+
+    public function lead(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'stage' => OpportunityStage::Lead,
+            'probability' => fake()->numberBetween(10, 25),
+        ]);
+    }
+
+    public function qualified(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'stage' => OpportunityStage::Qualified,
+            'probability' => fake()->numberBetween(25, 50),
+        ]);
+    }
+
+    public function won(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'stage' => OpportunityStage::SendedQuotation,
+            'probability' => 100,
+        ]);
+    }
+
+    public function lost(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'stage' => OpportunityStage::LostQuotation,
+            'probability' => 0,
+            'expected_close_date' => null,
+        ]);
+    }
 }

@@ -52,3 +52,47 @@ expect()->extend('toBeOne', fn () => $this->toBe(1));
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+
+use App\Models\Team;
+use App\Models\User;
+use Filament\Facades\Filament;
+use Illuminate\Support\Facades\View;
+
+/**
+ * Set up a Filament tenant for testing multi-tenant panels.
+ * Creates a team, attaches it to the user, and sets it as the current tenant.
+ */
+function setUpFilamentTenant(?User $user = null): Team
+{
+    $team = Team::factory()->create();
+
+    if ($user) {
+        $user->teams()->attach($team);
+    }
+
+    Filament::setTenant($team);
+    Filament::bootCurrentPanel();
+
+    return $team;
+}
+
+/**
+ * Set up tenant context for Livewire/frontend tests.
+ * Creates a team, attaches it to the user, and shares currentTeam with views.
+ */
+function setUpFrontendTenant(?User $user = null): Team
+{
+    $team = Team::factory()->create();
+
+    if ($user) {
+        $user->teams()->attach($team);
+    }
+
+    // Share with views (for Blade templates)
+    View::share('currentTeam', $team);
+
+    // Set request attribute for HasCurrentTeam trait
+    request()->attributes->set('current_team', $team);
+
+    return $team;
+}

@@ -34,4 +34,20 @@ final class ChatSessionFactory extends Factory
             'status' => $endedAt ? fake()->randomElement(['closed', 'transferred']) : 'active',
         ];
     }
+
+    public function active(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'active',
+            'ended_at' => null,
+        ]);
+    }
+
+    public function closed(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => 'closed',
+            'ended_at' => fake()->dateTimeBetween($attributes['started_at'] ?? '-1 month', 'now'),
+        ]);
+    }
 }

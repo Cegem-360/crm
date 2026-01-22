@@ -9,7 +9,9 @@ use App\Models\User;
 use Livewire\Livewire;
 
 beforeEach(function () {
-    $this->actingAs(User::factory()->create());
+    $this->user = User::factory()->create();
+    $this->actingAs($this->user);
+    $this->team = setUpFrontendTenant($this->user);
 });
 
 it('can render create page', function () {
@@ -20,7 +22,8 @@ it('can render create page', function () {
 });
 
 it('can render edit page with existing contact', function () {
-    $contact = CustomerContact::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $contact = CustomerContact::factory()->for($customer)->create([
         'name' => 'Jane Doe',
         'email' => 'jane@example.com',
         'is_primary' => true,
@@ -36,9 +39,10 @@ it('can render edit page with existing contact', function () {
 });
 
 it('can create a contact', function () {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     Livewire::test(EditContact::class)
+        ->set('team', $this->team)
         ->fillForm([
             'customer_id' => $customer->id,
             'name' => 'John Doe',
@@ -64,7 +68,7 @@ it('validates required fields on create', function () {
 });
 
 it('validates email format', function () {
-    $customer = Customer::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
 
     Livewire::test(EditContact::class)
         ->fillForm([
@@ -77,12 +81,14 @@ it('validates email format', function () {
 });
 
 it('can update a contact', function () {
-    $contact = CustomerContact::factory()->create([
+    $customer = Customer::factory()->for($this->team)->create();
+    $contact = CustomerContact::factory()->for($customer)->create([
         'name' => 'Old Name',
         'is_primary' => false,
     ]);
 
     Livewire::test(EditContact::class, ['contact' => $contact])
+        ->set('team', $this->team)
         ->fillForm([
             'name' => 'New Name',
             'is_primary' => true,
@@ -96,12 +102,14 @@ it('can update a contact', function () {
 });
 
 it('redirects to view page after save', function () {
-    $contact = CustomerContact::factory()->create();
+    $customer = Customer::factory()->for($this->team)->create();
+    $contact = CustomerContact::factory()->for($customer)->create();
 
     Livewire::test(EditContact::class, ['contact' => $contact])
+        ->set('team', $this->team)
         ->fillForm([
             'name' => 'Updated Contact',
         ])
         ->call('save')
-        ->assertRedirectContains('/dashboard/contacts/');
+        ->assertRedirectContains('/contacts/');
 });

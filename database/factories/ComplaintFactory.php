@@ -44,4 +44,29 @@ final class ComplaintFactory extends Factory
             'resolved_at' => $resolvedAt,
         ];
     }
+
+    public function open(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => ComplaintStatus::Open,
+            'resolution' => null,
+            'resolved_at' => null,
+        ]);
+    }
+
+    public function resolved(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'status' => ComplaintStatus::Resolved,
+            'resolution' => fake()->paragraph(),
+            'resolved_at' => fake()->dateTimeBetween($attributes['reported_at'] ?? '-3 months', 'now'),
+        ]);
+    }
+
+    public function critical(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'severity' => ComplaintSeverity::Critical,
+        ]);
+    }
 }

@@ -23,10 +23,24 @@ final class MonthlySalesChart extends ChartWidget
             $months->push(Carbon::now()->subMonths($i));
         }
 
+        $driver = DB::connection()->getDriverName();
+        $orderYearExpression = $driver === 'sqlite'
+            ? "CAST(strftime('%Y', order_date) AS INTEGER)"
+            : 'YEAR(order_date)';
+        $orderMonthExpression = $driver === 'sqlite'
+            ? "CAST(strftime('%m', order_date) AS INTEGER)"
+            : 'MONTH(order_date)';
+        $quoteYearExpression = $driver === 'sqlite'
+            ? "CAST(strftime('%Y', issue_date) AS INTEGER)"
+            : 'YEAR(issue_date)';
+        $quoteMonthExpression = $driver === 'sqlite'
+            ? "CAST(strftime('%m', issue_date) AS INTEGER)"
+            : 'MONTH(issue_date)';
+
         $orderData = Order::query()
             ->select(
-                DB::raw('YEAR(order_date) as year'),
-                DB::raw('MONTH(order_date) as month'),
+                DB::raw("{$orderYearExpression} as year"),
+                DB::raw("{$orderMonthExpression} as month"),
                 DB::raw('SUM(total) as total')
             )
             ->where('order_date', '>=', Carbon::now()->subMonths(11)->startOfMonth())
@@ -36,8 +50,8 @@ final class MonthlySalesChart extends ChartWidget
 
         $quoteData = Quote::query()
             ->select(
-                DB::raw('YEAR(issue_date) as year'),
-                DB::raw('MONTH(issue_date) as month'),
+                DB::raw("{$quoteYearExpression} as year"),
+                DB::raw("{$quoteMonthExpression} as month"),
                 DB::raw('SUM(total) as total')
             )
             ->where('issue_date', '>=', Carbon::now()->subMonths(11)->startOfMonth())

@@ -39,7 +39,7 @@ final class QuoteStatusChart extends ChartWidget
         $colors = [];
 
         foreach (QuoteStatus::cases() as $status) {
-            $labels[] = ucfirst($status->value);
+            $labels[] = $status->getLabel();
             $counts[] = (int) ($data->get($status->value)?->count ?? 0);
             $colors[] = self::STATUS_COLORS[$status->value] ?? 'rgba(156, 163, 175, 0.8)';
         }

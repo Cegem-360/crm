@@ -31,7 +31,7 @@ final class SalesReports extends Page
 
     public function getTitle(): string|Htmlable
     {
-        return self::$title ?? 'Sales Reports';
+        return self::$title;
     }
 
     /**

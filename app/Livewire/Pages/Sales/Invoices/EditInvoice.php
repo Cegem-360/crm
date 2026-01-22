@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Sales\Invoices;
 
 use App\Filament\Resources\Invoices\Schemas\InvoiceForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Invoice;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditInvoice extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Invoice $invoice = null;
@@ -46,7 +48,7 @@ final class EditInvoice extends Component implements HasSchemas
             $this->invoice->update($data);
             $message = __('Invoice updated successfully.');
         } else {
-            $this->invoice = Invoice::create($data);
+            $this->invoice = Invoice::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->invoice)->saveRelationships();
             $message = __('Invoice created successfully.');
         }
@@ -56,7 +58,7 @@ final class EditInvoice extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.invoices.view', $this->invoice), navigate: true);
+        $this->redirect(route('dashboard.invoices.view', ['team' => $this->team, 'invoice' => $this->invoice]), navigate: true);
     }
 
     public function render(): View

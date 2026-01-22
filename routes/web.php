@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\ChatDemoController;
+use App\Http\Middleware\SetFrontendTenant;
 use App\Livewire\ComplaintSubmission;
 use App\Livewire\Dashboard;
 use App\Livewire\Pages\Crm\Companies\EditCompany;
@@ -56,6 +57,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -85,102 +87,115 @@ Route::get('/language/{locale}', function (string $locale) {
 
 // CRM Dashboard routes (authenticated users only)
 Route::middleware(['auth', 'verified'])->group(function (): void {
-    Route::prefix('dashboard')->name('dashboard.')->group(function (): void {
-        Route::get('/', Dashboard::class)->name('dashboard');
+    // Redirect to team selection or default team
+    Route::get('/dashboard', function () {
+        $user = Auth::user();
+        $team = $user->teams()->first();
 
-        // Companies
-        Route::get('/companies', ListCompanies::class)->name('companies');
-        Route::get('/companies/create', EditCompany::class)->name('companies.create');
-        Route::get('/companies/{company}', ViewCompany::class)->name('companies.view');
-        Route::get('/companies/{company}/edit', EditCompany::class)->name('companies.edit');
+        if (! $team) {
+            return redirect()->route('filament.admin.tenant.registration');
+        }
 
-        // Customers
-        Route::get('/customers', ListCustomers::class)->name('customers');
-        Route::get('/customers/create', EditCustomer::class)->name('customers.create');
-        Route::get('/customers/{customer}', ViewCustomer::class)->name('customers.view');
-        Route::get('/customers/{customer}/edit', EditCustomer::class)->name('customers.edit');
+        return redirect()->route('dashboard.dashboard', ['team' => $team->slug]);
+    })->name('dashboard');
 
-        // Contacts
-        Route::get('/contacts', ListContacts::class)->name('contacts');
-        Route::get('/contacts/create', EditContact::class)->name('contacts.create');
-        Route::get('/contacts/{contact}', ViewContact::class)->name('contacts.view');
-        Route::get('/contacts/{contact}/edit', EditContact::class)->name('contacts.edit');
+    Route::prefix('dashboard/{team:slug}')->name('dashboard.')->middleware(SetFrontendTenant::class)
+        ->group(function (): void {
+            Route::get('/', Dashboard::class)->name('dashboard');
 
-        // Opportunities
-        Route::get('/opportunities', ListOpportunities::class)->name('opportunities');
-        Route::get('/opportunities/create', EditOpportunity::class)->name('opportunities.create');
-        Route::get('/opportunities/{opportunity}', ViewOpportunity::class)->name('opportunities.view');
-        Route::get('/opportunities/{opportunity}/edit', EditOpportunity::class)->name('opportunities.edit');
+            // Companies
+            Route::get('/companies', ListCompanies::class)->name('companies');
+            Route::get('/companies/create', EditCompany::class)->name('companies.create');
+            Route::get('/companies/{company}', ViewCompany::class)->name('companies.view');
+            Route::get('/companies/{company}/edit', EditCompany::class)->name('companies.edit');
 
-        // Quotes
-        Route::get('/quotes', ListQuotes::class)->name('quotes');
-        Route::get('/quotes/create', EditQuote::class)->name('quotes.create');
-        Route::get('/quotes/{quote}', ViewQuote::class)->name('quotes.view');
-        Route::get('/quotes/{quote}/edit', EditQuote::class)->name('quotes.edit');
+            // Customers
+            Route::get('/customers', ListCustomers::class)->name('customers');
+            Route::get('/customers/create', EditCustomer::class)->name('customers.create');
+            Route::get('/customers/{customer}', ViewCustomer::class)->name('customers.view');
+            Route::get('/customers/{customer}/edit', EditCustomer::class)->name('customers.edit');
 
-        // Orders
-        Route::get('/orders', ListOrders::class)->name('orders');
-        Route::get('/orders/create', EditOrder::class)->name('orders.create');
-        Route::get('/orders/{order}', ViewOrder::class)->name('orders.view');
-        Route::get('/orders/{order}/edit', EditOrder::class)->name('orders.edit');
+            // Contacts
+            Route::get('/contacts', ListContacts::class)->name('contacts');
+            Route::get('/contacts/create', EditContact::class)->name('contacts.create');
+            Route::get('/contacts/{contact}', ViewContact::class)->name('contacts.view');
+            Route::get('/contacts/{contact}/edit', EditContact::class)->name('contacts.edit');
 
-        // Invoices
-        Route::get('/invoices', ListInvoices::class)->name('invoices');
-        Route::get('/invoices/create', EditInvoice::class)->name('invoices.create');
-        Route::get('/invoices/{invoice}', ViewInvoice::class)->name('invoices.view');
-        Route::get('/invoices/{invoice}/edit', EditInvoice::class)->name('invoices.edit');
+            // Opportunities
+            Route::get('/opportunities', ListOpportunities::class)->name('opportunities');
+            Route::get('/opportunities/create', EditOpportunity::class)->name('opportunities.create');
+            Route::get('/opportunities/{opportunity}', ViewOpportunity::class)->name('opportunities.view');
+            Route::get('/opportunities/{opportunity}/edit', EditOpportunity::class)->name('opportunities.edit');
 
-        // Products
-        Route::get('/products', ListProducts::class)->name('products');
-        Route::get('/products/create', EditProduct::class)->name('products.create');
-        Route::get('/products/{product}', ViewProduct::class)->name('products.view');
-        Route::get('/products/{product}/edit', EditProduct::class)->name('products.edit');
+            // Quotes
+            Route::get('/quotes', ListQuotes::class)->name('quotes');
+            Route::get('/quotes/create', EditQuote::class)->name('quotes.create');
+            Route::get('/quotes/{quote}', ViewQuote::class)->name('quotes.view');
+            Route::get('/quotes/{quote}/edit', EditQuote::class)->name('quotes.edit');
 
-        // Product Categories
-        Route::get('/product-categories', ListProductCategories::class)->name('product-categories');
-        Route::get('/product-categories/create', EditProductCategory::class)->name('product-categories.create');
-        Route::get('/product-categories/{productCategory}', ViewProductCategory::class)->name('product-categories.view');
-        Route::get('/product-categories/{productCategory}/edit', EditProductCategory::class)->name('product-categories.edit');
+            // Orders
+            Route::get('/orders', ListOrders::class)->name('orders');
+            Route::get('/orders/create', EditOrder::class)->name('orders.create');
+            Route::get('/orders/{order}', ViewOrder::class)->name('orders.view');
+            Route::get('/orders/{order}/edit', EditOrder::class)->name('orders.edit');
 
-        // Discounts
-        Route::get('/discounts', ListDiscounts::class)->name('discounts');
-        Route::get('/discounts/create', EditDiscount::class)->name('discounts.create');
-        Route::get('/discounts/{discount}', ViewDiscount::class)->name('discounts.view');
-        Route::get('/discounts/{discount}/edit', EditDiscount::class)->name('discounts.edit');
+            // Invoices
+            Route::get('/invoices', ListInvoices::class)->name('invoices');
+            Route::get('/invoices/create', EditInvoice::class)->name('invoices.create');
+            Route::get('/invoices/{invoice}', ViewInvoice::class)->name('invoices.view');
+            Route::get('/invoices/{invoice}/edit', EditInvoice::class)->name('invoices.edit');
 
-        // Tasks
-        Route::get('/tasks', ListTasks::class)->name('tasks');
-        Route::get('/tasks/create', EditTask::class)->name('tasks.create');
-        Route::get('/tasks/{task}', ViewTask::class)->name('tasks.view');
-        Route::get('/tasks/{task}/edit', EditTask::class)->name('tasks.edit');
+            // Products
+            Route::get('/products', ListProducts::class)->name('products');
+            Route::get('/products/create', EditProduct::class)->name('products.create');
+            Route::get('/products/{product}', ViewProduct::class)->name('products.view');
+            Route::get('/products/{product}/edit', EditProduct::class)->name('products.edit');
 
-        // Complaints
-        Route::get('/complaints', ListComplaints::class)->name('complaints');
-        Route::get('/complaints/create', EditComplaint::class)->name('complaints.create');
-        Route::get('/complaints/{complaint}', ViewComplaint::class)->name('complaints.view');
-        Route::get('/complaints/{complaint}/edit', EditComplaint::class)->name('complaints.edit');
+            // Product Categories
+            Route::get('/product-categories', ListProductCategories::class)->name('product-categories');
+            Route::get('/product-categories/create', EditProductCategory::class)->name('product-categories.create');
+            Route::get('/product-categories/{productCategory}', ViewProductCategory::class)->name('product-categories.view');
+            Route::get('/product-categories/{productCategory}/edit', EditProductCategory::class)->name('product-categories.edit');
 
-        // Interactions
-        Route::get('/interactions', ListInteractions::class)->name('interactions');
-        Route::get('/interactions/create', EditInteraction::class)->name('interactions.create');
-        Route::get('/interactions/{interaction}', ViewInteraction::class)->name('interactions.view');
-        Route::get('/interactions/{interaction}/edit', EditInteraction::class)->name('interactions.edit');
+            // Discounts
+            Route::get('/discounts', ListDiscounts::class)->name('discounts');
+            Route::get('/discounts/create', EditDiscount::class)->name('discounts.create');
+            Route::get('/discounts/{discount}', ViewDiscount::class)->name('discounts.view');
+            Route::get('/discounts/{discount}/edit', EditDiscount::class)->name('discounts.edit');
 
-        // Chat Sessions
-        Route::get('/chat-sessions', ListChatSessions::class)->name('chat-sessions');
-        Route::get('/chat-sessions/create', EditChatSession::class)->name('chat-sessions.create');
-        Route::get('/chat-sessions/{chatSession}', ViewChatSession::class)->name('chat-sessions.view');
-        Route::get('/chat-sessions/{chatSession}/edit', EditChatSession::class)->name('chat-sessions.edit');
+            // Tasks
+            Route::get('/tasks', ListTasks::class)->name('tasks');
+            Route::get('/tasks/create', EditTask::class)->name('tasks.create');
+            Route::get('/tasks/{task}', ViewTask::class)->name('tasks.view');
+            Route::get('/tasks/{task}/edit', EditTask::class)->name('tasks.edit');
 
-        // Marketing
-        Route::get('/campaigns', Campaigns::class)->name('campaigns');
+            // Complaints
+            Route::get('/complaints', ListComplaints::class)->name('complaints');
+            Route::get('/complaints/create', EditComplaint::class)->name('complaints.create');
+            Route::get('/complaints/{complaint}', ViewComplaint::class)->name('complaints.view');
+            Route::get('/complaints/{complaint}/edit', EditComplaint::class)->name('complaints.edit');
 
-        // Reports
-        Route::get('/reports/sales', SalesReports::class)->name('reports.sales');
-        Route::get('/reports/orders', OrderReports::class)->name('reports.orders');
-        Route::get('/reports/products', ProductReports::class)->name('reports.products');
-        Route::get('/reports/customers', CustomerReports::class)->name('reports.customers');
-    });
+            // Interactions
+            Route::get('/interactions', ListInteractions::class)->name('interactions');
+            Route::get('/interactions/create', EditInteraction::class)->name('interactions.create');
+            Route::get('/interactions/{interaction}', ViewInteraction::class)->name('interactions.view');
+            Route::get('/interactions/{interaction}/edit', EditInteraction::class)->name('interactions.edit');
+
+            // Chat Sessions
+            Route::get('/chat-sessions', ListChatSessions::class)->name('chat-sessions');
+            Route::get('/chat-sessions/create', EditChatSession::class)->name('chat-sessions.create');
+            Route::get('/chat-sessions/{chatSession}', ViewChatSession::class)->name('chat-sessions.view');
+            Route::get('/chat-sessions/{chatSession}/edit', EditChatSession::class)->name('chat-sessions.edit');
+
+            // Marketing
+            Route::get('/campaigns', Campaigns::class)->name('campaigns');
+
+            // Reports
+            Route::get('/reports/sales', SalesReports::class)->name('reports.sales');
+            Route::get('/reports/orders', OrderReports::class)->name('reports.orders');
+            Route::get('/reports/products', ProductReports::class)->name('reports.products');
+            Route::get('/reports/customers', CustomerReports::class)->name('reports.customers');
+        });
 
     // Chat demo route
     Route::get('/chat-demo', [ChatDemoController::class, 'index'])->name('chat.demo');

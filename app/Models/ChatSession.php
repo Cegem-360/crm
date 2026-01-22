@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\ChatSessionStatus;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\ChatSessionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,10 +14,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class ChatSession extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<ChatSessionFactory> */
     use HasFactory;
 
     protected $fillable = [
+        'team_id',
         'customer_id',
         'user_id',
         'started_at',

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Support\Tasks;
 
 use App\Filament\Resources\Tasks\Schemas\TaskForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Task;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditTask extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Task $task = null;
@@ -45,7 +47,7 @@ final class EditTask extends Component implements HasSchemas
             $this->task->update($data);
             $message = __('Task updated successfully.');
         } else {
-            $this->task = Task::create($data);
+            $this->task = Task::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->task)->saveRelationships();
             $message = __('Task created successfully.');
         }
@@ -55,7 +57,7 @@ final class EditTask extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.tasks.view', $this->task), navigate: true);
+        $this->redirect(route('dashboard.tasks.view', ['team' => $this->team, 'task' => $this->task]), navigate: true);
     }
 
     public function render(): View

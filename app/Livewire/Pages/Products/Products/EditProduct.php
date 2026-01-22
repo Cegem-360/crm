@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Products\Products;
 
 use App\Filament\Resources\Products\Schemas\ProductForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Product;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditProduct extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Product $product = null;
@@ -46,7 +48,7 @@ final class EditProduct extends Component implements HasSchemas
             $this->product->update($data);
             $message = __('Product updated successfully.');
         } else {
-            $this->product = Product::create($data);
+            $this->product = Product::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->product)->saveRelationships();
             $message = __('Product created successfully.');
         }
@@ -56,7 +58,7 @@ final class EditProduct extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.products.view', $this->product), navigate: true);
+        $this->redirect(route('dashboard.products.view', ['team' => $this->team, 'product' => $this->product]), navigate: true);
     }
 
     public function render(): View

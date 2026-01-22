@@ -9,11 +9,12 @@
                     <span class="block text-blue-600 dark:text-blue-400 mt-2">for Business Success</span>
                 </h1>
                 <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-10">
-                    A comprehensive customer relationship management system that helps you efficiently manage your customers,
+                    A comprehensive customer relationship management system that helps you efficiently manage your
+                    customers,
                     sales processes, and boost your business performance.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('filament.admin.pages.dashboard') }}"
+                    <a href="{{ route('dashboard') }}"
                         class="inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors shadow-lg hover:shadow-xl">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -172,9 +173,11 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Centralized Data Management
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Centralized Data
+                                    Management
                                 </h3>
-                                <p class="text-gray-600 dark:text-gray-300">All customer information and interactions in one
+                                <p class="text-gray-600 dark:text-gray-300">All customer information and interactions
+                                    in one
                                     place.</p>
                             </div>
                         </div>
@@ -238,7 +241,7 @@
                         <p class="text-blue-100 mb-6">
                             Access the admin panel and discover all the features of the system.
                         </p>
-                        <a href="{{ route('filament.admin.pages.dashboard') }}"
+                        <a href="{{ route('dashboard') }}"
                             class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg bg-white text-blue-600 hover:bg-gray-100 transition-colors shadow-lg">
                             Admin Panel
                             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

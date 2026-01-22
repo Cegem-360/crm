@@ -8,7 +8,7 @@
     {{-- Stats cards --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {{-- Customers --}}
-        <a href="{{ route('dashboard.customers') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
+        <a href="{{ route('dashboard.customers', ['team' => $currentTeam]) }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Customers') }}</p>
@@ -26,7 +26,7 @@
         </a>
 
         {{-- Companies --}}
-        <a href="{{ route('dashboard.companies') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
+        <a href="{{ route('dashboard.companies', ['team' => $currentTeam]) }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Companies') }}</p>
@@ -42,7 +42,7 @@
         </a>
 
         {{-- Contacts --}}
-        <a href="{{ route('dashboard.contacts') }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
+        <a href="{{ route('dashboard.contacts', ['team' => $currentTeam]) }}" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Contacts') }}</p>
@@ -68,10 +68,10 @@
                 </div>
             </div>
             <div class="space-y-2">
-                <a href="/admin/customers/create" class="block w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition">
+                <a href="{{ route('dashboard.customers.create', ['team' => $currentTeam]) }}" class="block w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition">
                     {{ __('New Customer') }}
                 </a>
-                <a href="/admin/companies/create" class="block w-full px-4 py-2 text-sm text-center text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition">
+                <a href="{{ route('dashboard.companies.create', ['team' => $currentTeam]) }}" class="block w-full px-4 py-2 text-sm text-center text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition">
                     {{ __('New Company') }}
                 </a>
             </div>
@@ -93,7 +93,7 @@
                     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
                         @foreach($recentCustomers as $customer)
                             <li class="py-3 first:pt-0 last:pb-0">
-                                <a href="/admin/customers/{{ $customer->id }}" class="flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 -mx-3 px-3 py-2 rounded-lg transition">
+                                <a href="{{ route('dashboard.customers.view', ['team' => $currentTeam, 'customer' => $customer]) }}" class="flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 -mx-3 px-3 py-2 rounded-lg transition">
                                     <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
                                         {{ strtoupper(substr($customer->name, 0, 2)) }}
                                     </div>
@@ -129,7 +129,7 @@
                     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
                         @foreach($recentCompanies as $company)
                             <li class="py-3 first:pt-0 last:pb-0">
-                                <a href="/admin/companies/{{ $company->id }}" class="flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 -mx-3 px-3 py-2 rounded-lg transition">
+                                <a href="{{ route('dashboard.companies.view', ['team' => $currentTeam, 'company' => $company]) }}" class="flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 -mx-3 px-3 py-2 rounded-lg transition">
                                     <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-semibold text-sm">
                                         {{ strtoupper(substr($company->name, 0, 2)) }}
                                     </div>

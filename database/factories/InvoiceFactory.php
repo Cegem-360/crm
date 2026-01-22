@@ -8,6 +8,7 @@ use App\Enums\InvoiceStatus;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -32,6 +33,7 @@ final class InvoiceFactory extends Factory
         $total = $subtotal - $discountAmount + $taxAmount;
 
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'order_id' => fake()->boolean(70) ? Order::factory() : null,
             'invoice_number' => 'INV-'.fake()->unique()->numerify('######'),

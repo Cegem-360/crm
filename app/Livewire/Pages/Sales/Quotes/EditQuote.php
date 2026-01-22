@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Sales\Quotes;
 
 use App\Filament\Resources\Quotes\Schemas\QuoteForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Quote;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditQuote extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Quote $quote = null;
@@ -46,7 +48,7 @@ final class EditQuote extends Component implements HasSchemas
             $this->quote->update($data);
             $message = __('Quote updated successfully.');
         } else {
-            $this->quote = Quote::create($data);
+            $this->quote = Quote::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->quote)->saveRelationships();
             $message = __('Quote created successfully.');
         }
@@ -56,7 +58,7 @@ final class EditQuote extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.quotes.view', $this->quote), navigate: true);
+        $this->redirect(route('dashboard.quotes.view', ['team' => $this->team, 'quote' => $this->quote]), navigate: true);
     }
 
     public function render(): View

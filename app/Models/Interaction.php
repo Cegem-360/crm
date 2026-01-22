@@ -9,6 +9,7 @@ use App\Enums\InteractionChannel;
 use App\Enums\InteractionDirection;
 use App\Enums\InteractionStatus;
 use App\Enums\InteractionType;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\InteractionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 final class Interaction extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<InteractionFactory> */
     use HasFactory;
 
@@ -26,6 +29,7 @@ final class Interaction extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'team_id',
         'customer_id',
         'customer_contact_id',
         'user_id',

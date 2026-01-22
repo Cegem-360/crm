@@ -9,6 +9,7 @@ use App\Enums\DiscountValueType;
 use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\Product;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -31,6 +32,7 @@ final class DiscountFactory extends Factory
         $validUntil = $validFrom && fake()->boolean(80) ? fake()->dateTimeBetween($validFrom, '+3 months') : null;
 
         return [
+            'team_id' => Team::factory(),
             'name' => fake()->words(3, true),
             'type' => $type,
             'value_type' => $valueType,

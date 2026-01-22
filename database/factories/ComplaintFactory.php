@@ -9,6 +9,7 @@ use App\Enums\ComplaintStatus;
 use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,6 +30,7 @@ final class ComplaintFactory extends Factory
         $resolvedAt = in_array($status, [ComplaintStatus::Resolved, ComplaintStatus::Closed]) ? fake()->dateTimeBetween($reportedAt, 'now') : null;
 
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'order_id' => fake()->boolean(60) ? Order::factory() : null,
             'reported_by' => User::factory(),

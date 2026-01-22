@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\OpportunityStage;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\OpportunityFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 final class Opportunity extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<OpportunityFactory> */
     use HasFactory;
 
@@ -23,6 +26,7 @@ final class Opportunity extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'team_id',
         'customer_id',
         'title',
         'description',

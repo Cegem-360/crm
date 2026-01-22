@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Models\ChatSession;
 use App\Models\Customer;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,6 +26,7 @@ final class ChatSessionFactory extends Factory
         $endedAt = fake()->boolean(60) ? fake()->dateTimeBetween($startedAt, 'now') : null;
 
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'user_id' => fake()->boolean(80) ? User::factory() : null,
             'started_at' => $startedAt,

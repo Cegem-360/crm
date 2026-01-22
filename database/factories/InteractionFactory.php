@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Enums\InteractionType;
 use App\Models\Customer;
 use App\Models\Interaction;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,6 +27,7 @@ final class InteractionFactory extends Factory
         $interactionDate = fake()->dateTimeBetween('-3 months', 'now');
 
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'user_id' => User::factory(),
             'type' => $type,

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\ComplaintSeverity;
 use App\Enums\ComplaintStatus;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\ComplaintFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +15,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Complaint extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<ComplaintFactory> */
     use HasFactory;
 
     protected $fillable = [
+        'team_id',
         'customer_id',
         'order_id',
         'reported_by',

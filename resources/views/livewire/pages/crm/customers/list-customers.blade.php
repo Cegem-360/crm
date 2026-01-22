@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Customers') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your customer database') }}</p>
         </div>
-        <a href="{{ route('dashboard.customers.create') }}" wire:navigate
+        <a href="{{ route('dashboard.customers.create', ['team' => $currentTeam]) }}" wire:navigate
             class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -121,7 +121,7 @@
                     @forelse($customers as $customer)
                         <tr wire:key="customer-{{ $customer->id }}" class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
                             <td class="px-6 py-4">
-                                <a href="{{ route('dashboard.customers.view', $customer) }}" wire:navigate class="flex items-center gap-3 group text-left">
+                                <a href="{{ route('dashboard.customers.view', ['team' => $currentTeam, 'customer' => $customer]) }}" wire:navigate class="flex items-center gap-3 group text-left">
                                     <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-semibold text-sm shrink-0">
                                         {{ strtoupper(substr($customer->name, 0, 2)) }}
                                     </div>
@@ -172,13 +172,13 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('dashboard.customers.view', $customer) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('View') }}">
+                                    <a href="{{ route('dashboard.customers.view', ['team' => $currentTeam, 'customer' => $customer]) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('View') }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                         </svg>
                                     </a>
-                                    <a href="{{ route('dashboard.customers.edit', $customer) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('Edit') }}">
+                                    <a href="{{ route('dashboard.customers.edit', ['team' => $currentTeam, 'customer' => $customer]) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('Edit') }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                         </svg>

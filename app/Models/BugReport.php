@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\BugReportStatus;
 use App\Enums\ComplaintSeverity;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\BugReportFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,12 +16,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 final class BugReport extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<BugReportFactory> */
     use HasFactory;
 
     use LogsActivity;
 
     protected $fillable = [
+        'team_id',
         'customer_id',
         'user_id',
         'title',

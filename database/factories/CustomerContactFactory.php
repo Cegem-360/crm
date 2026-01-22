@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Models\Customer;
 use App\Models\CustomerContact;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ final class CustomerContactFactory extends Factory
     public function definition(): array
     {
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),

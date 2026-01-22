@@ -7,11 +7,23 @@
 >
     {{-- Logo area --}}
     <div class="h-16 flex items-center px-4 border-b border-white/10">
-        <a href="{{ route('dashboard.dashboard') }}" class="flex items-center gap-2">
+        <a href="{{ route('dashboard.dashboard', ['team' => $currentTeam]) }}" class="flex items-center gap-2">
             <img src="{{ Vite::asset('resources/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-8 brightness-0 invert">
             <span class="text-sm font-semibold text-indigo-400">CRM</span>
         </a>
     </div>
+
+    {{-- Current Team Display --}}
+    @if(isset($currentTeam))
+        <div class="px-3 py-3 border-b border-white/10">
+            <div class="flex items-center gap-2 px-3 py-2">
+                <div class="w-6 h-6 rounded bg-indigo-500 flex items-center justify-center text-xs font-bold">
+                    {{ strtoupper(substr($currentTeam->name, 0, 1)) }}
+                </div>
+                <span class="text-sm font-medium truncate">{{ $currentTeam->name }}</span>
+            </div>
+        </div>
+    @endif
 
     {{-- Navigation --}}
     <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
@@ -20,7 +32,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Navigation') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.dashboard') }}"
+                    <a href="{{ route('dashboard.dashboard', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.dashboard') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,7 +49,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Customers') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.customers') }}"
+                    <a href="{{ route('dashboard.customers', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.customers') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,7 +59,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.companies') }}"
+                    <a href="{{ route('dashboard.companies', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.companies') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +69,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.contacts') }}"
+                    <a href="{{ route('dashboard.contacts', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.contacts') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +86,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Sales') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.opportunities') }}"
+                    <a href="{{ route('dashboard.opportunities', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.opportunities') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,7 +96,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.quotes') }}"
+                    <a href="{{ route('dashboard.quotes', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.quotes') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +106,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.orders') }}"
+                    <a href="{{ route('dashboard.orders', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.orders') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +116,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.invoices') }}"
+                    <a href="{{ route('dashboard.invoices', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.invoices') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,7 +133,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Products') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.products') }}"
+                    <a href="{{ route('dashboard.products', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.products') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,7 +143,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.product-categories') }}"
+                    <a href="{{ route('dashboard.product-categories', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.product-categories') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,7 +153,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.discounts') }}"
+                    <a href="{{ route('dashboard.discounts', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.discounts') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,7 +170,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Support') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.tasks') }}"
+                    <a href="{{ route('dashboard.tasks', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.tasks') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +180,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.complaints') }}"
+                    <a href="{{ route('dashboard.complaints', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.complaints') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +197,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Interactions') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.interactions') }}"
+                    <a href="{{ route('dashboard.interactions', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.interactions') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,7 +207,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.chat-sessions') }}"
+                    <a href="{{ route('dashboard.chat-sessions', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.chat-sessions') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,7 +224,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Marketing') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.campaigns') }}"
+                    <a href="{{ route('dashboard.campaigns', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.campaigns') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,7 +241,7 @@
             <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Reports') }}</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('dashboard.reports.sales') }}"
+                    <a href="{{ route('dashboard.reports.sales', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.reports.sales') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,7 +251,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.reports.orders') }}"
+                    <a href="{{ route('dashboard.reports.orders', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.reports.orders') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -249,7 +261,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.reports.products') }}"
+                    <a href="{{ route('dashboard.reports.products', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.reports.products') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -259,7 +271,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.reports.customers') }}"
+                    <a href="{{ route('dashboard.reports.customers', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.reports.customers') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

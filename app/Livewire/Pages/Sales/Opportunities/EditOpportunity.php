@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Sales\Opportunities;
 
 use App\Filament\Resources\LeadOpportunities\Schemas\LeadOpportunityForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Opportunity;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditOpportunity extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Opportunity $opportunity = null;
@@ -46,7 +48,7 @@ final class EditOpportunity extends Component implements HasSchemas
             $this->opportunity->update($data);
             $message = __('Opportunity updated successfully.');
         } else {
-            $this->opportunity = Opportunity::create($data);
+            $this->opportunity = Opportunity::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->opportunity)->saveRelationships();
             $message = __('Opportunity created successfully.');
         }
@@ -56,7 +58,7 @@ final class EditOpportunity extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.opportunities.view', $this->opportunity), navigate: true);
+        $this->redirect(route('dashboard.opportunities.view', ['team' => $this->team, 'opportunity' => $this->opportunity]), navigate: true);
     }
 
     public function render(): View

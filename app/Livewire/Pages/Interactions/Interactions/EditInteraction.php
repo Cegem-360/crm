@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Interactions\Interactions;
 
 use App\Filament\Resources\Interactions\Schemas\InteractionForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Interaction;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditInteraction extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Interaction $interaction = null;
@@ -45,7 +47,7 @@ final class EditInteraction extends Component implements HasSchemas
             $this->interaction->update($data);
             $message = __('Interaction updated successfully.');
         } else {
-            $this->interaction = Interaction::create($data);
+            $this->interaction = Interaction::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->interaction)->saveRelationships();
             $message = __('Interaction created successfully.');
         }
@@ -55,7 +57,7 @@ final class EditInteraction extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.interactions.view', $this->interaction), navigate: true);
+        $this->redirect(route('dashboard.interactions.view', ['team' => $this->team, 'interaction' => $this->interaction]), navigate: true);
     }
 
     public function render(): View

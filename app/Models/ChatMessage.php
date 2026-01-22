@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\ChatMessageSenderType;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\ChatMessageFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,12 +16,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class ChatMessage extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<ChatMessageFactory> */
     use HasFactory;
 
     use SoftDeletes;
 
     protected $fillable = [
+        'team_id',
         'chat_session_id',
         'parent_message_id',
         'sender_type',

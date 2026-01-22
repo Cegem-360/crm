@@ -2,7 +2,7 @@
     {{-- Page header --}}
     <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="flex items-center gap-4">
-            <a href="{{ $discount?->exists ? route('dashboard.discounts.view', $discount) : route('dashboard.discounts') }}" class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition" wire:navigate>
+            <a href="{{ $discount?->exists ? route('dashboard.discounts.view', ['team' => $currentTeam, 'discount' => $discount]) : route('dashboard.discounts', ['team' => $currentTeam]) }}" class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition" wire:navigate>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
@@ -26,7 +26,7 @@
 
         {{-- Footer --}}
         <div class="flex justify-end gap-3 px-6 py-4 bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700">
-            <a href="{{ $discount?->exists ? route('dashboard.discounts.view', $discount) : route('dashboard.discounts') }}" wire:navigate
+            <a href="{{ $discount?->exists ? route('dashboard.discounts.view', ['team' => $currentTeam, 'discount' => $discount]) : route('dashboard.discounts', ['team' => $currentTeam]) }}" wire:navigate
                 class="rounded-lg bg-white dark:bg-gray-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition">
                 {{ __('Cancel') }}
             </a>

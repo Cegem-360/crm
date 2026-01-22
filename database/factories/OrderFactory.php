@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,6 +27,7 @@ final class OrderFactory extends Factory
         $total = $subtotal - $discountAmount + $taxAmount;
 
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'quote_id' => null,
             'order_number' => fake()->unique()->numerify('ORD-######'),

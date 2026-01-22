@@ -14,6 +14,7 @@ use App\Filament\Resources\Users\RelationManagers\InteractionsRelationManager;
 use App\Filament\Resources\Users\RelationManagers\PermissionsRelationManager;
 use App\Filament\Resources\Users\RelationManagers\PersonalAccessTokensRelationManager;
 use App\Filament\Resources\Users\RelationManagers\RolesRelationManager;
+use App\Filament\Resources\Users\RelationManagers\TeamsRelationManager;
 use App\Filament\Resources\Users\RelationManagers\WorkflowConfigsRelationManager;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
@@ -26,6 +27,8 @@ use UnitEnum;
 final class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+
+    protected static ?string $tenantOwnershipRelationshipName = 'teams';
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::System;
 
@@ -42,6 +45,7 @@ final class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
+            TeamsRelationManager::class,
             RolesRelationManager::class,
             PermissionsRelationManager::class,
             PersonalAccessTokensRelationManager::class,

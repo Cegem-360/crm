@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Support\Complaints;
 
 use App\Filament\Resources\Complaints\Schemas\ComplaintForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Complaint;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditComplaint extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Complaint $complaint = null;
@@ -45,7 +47,7 @@ final class EditComplaint extends Component implements HasSchemas
             $this->complaint->update($data);
             $message = __('Complaint updated successfully.');
         } else {
-            $this->complaint = Complaint::create($data);
+            $this->complaint = Complaint::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->complaint)->saveRelationships();
             $message = __('Complaint created successfully.');
         }
@@ -55,7 +57,7 @@ final class EditComplaint extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.complaints.view', $this->complaint), navigate: true);
+        $this->redirect(route('dashboard.complaints.view', ['team' => $this->team, 'complaint' => $this->complaint]), navigate: true);
     }
 
     public function render(): View

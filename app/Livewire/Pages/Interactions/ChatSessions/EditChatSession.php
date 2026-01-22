@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Interactions\ChatSessions;
 
 use App\Filament\Resources\ChatSessions\Schemas\ChatSessionForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\ChatSession;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditChatSession extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?ChatSession $chatSession = null;
@@ -45,7 +47,7 @@ final class EditChatSession extends Component implements HasSchemas
             $this->chatSession->update($data);
             $message = __('Chat session updated successfully.');
         } else {
-            $this->chatSession = ChatSession::create($data);
+            $this->chatSession = ChatSession::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->chatSession)->saveRelationships();
             $message = __('Chat session created successfully.');
         }
@@ -55,7 +57,7 @@ final class EditChatSession extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.chat-sessions.view', $this->chatSession), navigate: true);
+        $this->redirect(route('dashboard.chat-sessions.view', ['team' => $this->team, 'chatSession' => $this->chatSession]), navigate: true);
     }
 
     public function render(): View

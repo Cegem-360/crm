@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Products\Discounts;
 
 use App\Filament\Resources\Discounts\Schemas\DiscountForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Discount;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditDiscount extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Discount $discount = null;
@@ -46,7 +48,7 @@ final class EditDiscount extends Component implements HasSchemas
             $this->discount->update($data);
             $message = __('Discount updated successfully.');
         } else {
-            $this->discount = Discount::create($data);
+            $this->discount = Discount::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->discount)->saveRelationships();
             $message = __('Discount created successfully.');
         }
@@ -56,7 +58,7 @@ final class EditDiscount extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.discounts.view', $this->discount), navigate: true);
+        $this->redirect(route('dashboard.discounts.view', ['team' => $this->team, 'discount' => $this->discount]), navigate: true);
     }
 
     public function render(): View

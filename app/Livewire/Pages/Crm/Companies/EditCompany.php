@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Crm\Companies;
 
 use App\Filament\Resources\Companies\Schemas\CompanyForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Company;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditCompany extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?Company $company = null;
@@ -46,7 +48,7 @@ final class EditCompany extends Component implements HasSchemas
             $this->company->update($data);
             $message = __('Company updated successfully.');
         } else {
-            $this->company = Company::create($data);
+            $this->company = Company::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->company)->saveRelationships();
             $message = __('Company created successfully.');
         }
@@ -56,7 +58,7 @@ final class EditCompany extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.companies.view', $this->company), navigate: true);
+        $this->redirect(route('dashboard.companies.view', ['team' => $this->team, 'company' => $this->company]), navigate: true);
     }
 
     public function render(): View

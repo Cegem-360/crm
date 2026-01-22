@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\DiscountType;
 use App\Enums\DiscountValueType;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\DiscountFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,12 +15,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class Discount extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<DiscountFactory> */
     use HasFactory;
 
     use SoftDeletes;
 
     protected $fillable = [
+        'team_id',
         'name',
         'type',
         'value_type',

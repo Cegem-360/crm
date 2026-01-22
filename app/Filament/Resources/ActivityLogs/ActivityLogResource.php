@@ -19,6 +19,8 @@ final class ActivityLogResource extends Resource
 {
     protected static ?string $model = Activity::class;
 
+    protected static bool $isScopedToTenant = false;
+
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::System;
 
     protected static ?string $navigationLabel = 'Activity Log';

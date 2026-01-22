@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Enums\OpportunityStage;
 use App\Models\Customer;
 use App\Models\Opportunity;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -33,6 +34,7 @@ final class OpportunityFactory extends Factory
         };
 
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'title' => fake()->sentence(),
             'description' => fake()->boolean(70) ? fake()->paragraph() : null,

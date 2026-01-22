@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\QuoteStatus;
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\QuoteFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,12 +15,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class Quote extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<QuoteFactory> */
     use HasFactory;
 
     use SoftDeletes;
 
     protected $fillable = [
+        'team_id',
         'customer_id',
         'opportunity_id',
         'quote_number',

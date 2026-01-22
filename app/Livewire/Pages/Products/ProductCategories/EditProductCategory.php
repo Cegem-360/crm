@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Products\ProductCategories;
 
 use App\Filament\Resources\ProductCategories\Schemas\ProductCategoryForm;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\ProductCategory;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -17,6 +18,7 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class EditProductCategory extends Component implements HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithSchemas;
 
     public ?ProductCategory $productCategory = null;
@@ -46,7 +48,7 @@ final class EditProductCategory extends Component implements HasSchemas
             $this->productCategory->update($data);
             $message = __('Product category updated successfully.');
         } else {
-            $this->productCategory = ProductCategory::create($data);
+            $this->productCategory = ProductCategory::create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->productCategory)->saveRelationships();
             $message = __('Product category created successfully.');
         }
@@ -56,7 +58,7 @@ final class EditProductCategory extends Component implements HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('dashboard.product-categories.view', $this->productCategory), navigate: true);
+        $this->redirect(route('dashboard.product-categories.view', ['team' => $this->team, 'productCategory' => $this->productCategory]), navigate: true);
     }
 
     public function render(): View

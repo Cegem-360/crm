@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Models\Customer;
 use App\Models\Opportunity;
 use App\Models\Quote;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -30,6 +31,7 @@ final class QuoteFactory extends Factory
         $total = $subtotal - $discountAmount + $taxAmount;
 
         return [
+            'team_id' => Team::factory(),
             'customer_id' => Customer::factory(),
             'opportunity_id' => fake()->boolean(60) ? Opportunity::factory() : null,
             'quote_number' => 'QT-'.fake()->unique()->numerify('######'),

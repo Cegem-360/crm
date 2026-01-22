@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\CampaignFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,12 +14,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class Campaign extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<CampaignFactory> */
     use HasFactory;
 
     use SoftDeletes;
 
     protected $fillable = [
+        'team_id',
         'name',
         'description',
         'start_date',

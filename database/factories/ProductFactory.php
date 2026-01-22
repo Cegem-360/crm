@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ final class ProductFactory extends Factory
     public function definition(): array
     {
         return [
+            'team_id' => Team::factory(),
             'name' => fake()->words(3, true),
             'sku' => fake()->unique()->bothify('PRD-####-???'),
             'description' => fake()->optional()->paragraph(),
@@ -33,6 +35,13 @@ final class ProductFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => [
             'is_active' => false,
+        ]);
+    }
+
+    public function forTeam(?Team $team = null): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'team_id' => $team ?? Team::factory(),
         ]);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToTeam;
 use App\Observers\ProductObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,10 +15,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[ObservedBy(ProductObserver::class)]
 final class Product extends Model
 {
+    use BelongsToTeam;
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
+        'team_id',
         'name',
         'sku',
         'description',

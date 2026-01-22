@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\ProductCategory;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,8 +21,16 @@ final class ProductCategoryFactory extends Factory
     public function definition(): array
     {
         return [
+            'team_id' => Team::factory(),
             'name' => fake()->words(2, true),
             'description' => fake()->optional()->sentence(),
         ];
+    }
+
+    public function forTeam(?Team $team = null): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'team_id' => $team ?? Team::factory(),
+        ]);
     }
 }

@@ -5,13 +5,17 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Interactions') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Track customer interactions and communications') }}</p>
         </div>
-        <a href="{{ route('dashboard.interactions.create') }}" wire:navigate
-            class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            {{ __('New Interaction') }}
-        </a>
+        <div class="flex items-center gap-2">
+            {{ $this->importAction }}
+            {{ $this->exportAction }}
+            <a href="{{ route('dashboard.interactions.create') }}" wire:navigate
+                class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                {{ __('New Interaction') }}
+            </a>
+        </div>
     </div>
 
     {{-- Filters --}}
@@ -243,4 +247,6 @@
     <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
         {{ __('Showing') }} {{ $interactions->firstItem() ?? 0 }} {{ __('to') }} {{ $interactions->lastItem() ?? 0 }} {{ __('of') }} {{ $interactions->total() }} {{ __('results') }}
     </div>
+
+    <x-filament-actions::modals />
 </div>

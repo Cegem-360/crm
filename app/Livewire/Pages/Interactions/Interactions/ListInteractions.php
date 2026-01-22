@@ -6,7 +6,16 @@ namespace App\Livewire\Pages\Interactions\Interactions;
 
 use App\Enums\InteractionStatus;
 use App\Enums\InteractionType;
+use App\Filament\Exports\InteractionExporter;
+use App\Filament\Imports\InteractionImporter;
 use App\Models\Interaction;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Actions\ExportAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\ImportAction;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -15,8 +24,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('components.layouts.dashboard')]
-final class ListInteractions extends Component
+final class ListInteractions extends Component implements HasActions, HasSchemas
 {
+    use InteractsWithActions;
+    use InteractsWithSchemas;
     use WithPagination;
 
     #[Url]
@@ -66,6 +77,22 @@ final class ListInteractions extends Component
     public function updatedStatus(): void
     {
         $this->resetPage();
+    }
+
+    public function importAction(): ImportAction
+    {
+        return ImportAction::make('import')
+            ->importer(InteractionImporter::class);
+    }
+
+    public function exportAction(): ExportAction
+    {
+        return ExportAction::make('export')
+            ->exporter(InteractionExporter::class)
+            ->formats([
+                ExportFormat::Xlsx,
+                ExportFormat::Csv,
+            ]);
     }
 
     public function render(): View

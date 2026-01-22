@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Enums\CustomerType;
 use App\Models\Company;
 use App\Models\Customer;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ final class CustomerFactory extends Factory
         $type = fake()->randomElement(CustomerType::class);
 
         return [
+            'team_id' => Team::factory(),
             'unique_identifier' => fake()->unique()->numerify('CUST-######'),
             'name' => $type === CustomerType::Company ? fake()->company() : fake()->name(),
             'type' => $type,
@@ -58,6 +60,13 @@ final class CustomerFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => [
             'is_active' => false,
+        ]);
+    }
+
+    public function forTeam(?Team $team = null): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'team_id' => $team ?? Team::factory(),
         ]);
     }
 }

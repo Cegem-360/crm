@@ -8,9 +8,14 @@ use App\Enums\InteractionCategory;
 use App\Enums\InteractionChannel;
 use App\Enums\InteractionStatus;
 use App\Enums\InteractionType;
+use App\Filament\Exports\InteractionExporter;
+use App\Filament\Imports\InteractionImporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
@@ -94,6 +99,16 @@ final class InteractionsTable
             ])
             ->recordActions([
                 EditAction::make(),
+            ])
+            ->headerActions([
+                ImportAction::make('Import Interactions')
+                    ->importer(InteractionImporter::class),
+                ExportAction::make('Export Interactions')
+                    ->exporter(InteractionExporter::class)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                        ExportFormat::Csv,
+                    ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

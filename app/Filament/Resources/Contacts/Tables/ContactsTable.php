@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Contacts\Tables;
 
+use App\Filament\Exports\CustomerContactExporter;
+use App\Filament\Imports\CustomerContactImporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\ImportAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -51,6 +56,16 @@ final class ContactsTable
             ])
             ->recordActions([
                 EditAction::make(),
+            ])
+            ->headerActions([
+                ImportAction::make('Import Contacts')
+                    ->importer(CustomerContactImporter::class),
+                ExportAction::make('Export Contacts')
+                    ->exporter(CustomerContactExporter::class)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                        ExportFormat::Csv,
+                    ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

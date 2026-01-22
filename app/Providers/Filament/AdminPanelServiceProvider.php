@@ -6,6 +6,10 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Auth\Register;
+use App\Filament\Pages\EditTeamProfile;
+use App\Filament\Pages\RegisterTeam;
+use App\Http\Middleware\ApplyTenantScopes;
+use App\Models\Team;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -20,6 +24,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 
@@ -34,6 +39,13 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->login(Login::class)
             ->registration(Register::class)
             ->profile()
+            ->tenant(Team::class, slugAttribute: 'slug')
+            ->tenantRegistration(RegisterTeam::class)
+            ->tenantProfile(EditTeamProfile::class)
+            ->tenantMenu(fn () => Auth::check() && (Auth::user()->isAdmin() || Auth::user()->teams()->count() > 1))
+            ->tenantMiddleware([
+                ApplyTenantScopes::class,
+            ], isPersistent: true)
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('3rem')
             ->colors([

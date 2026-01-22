@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Enums\CampaignStatus;
 use App\Models\Campaign;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,6 +26,7 @@ final class CampaignFactory extends Factory
         $endDate = fake()->boolean(80) ? fake()->dateTimeBetween($startDate, '+3 months') : null;
 
         return [
+            'team_id' => Team::factory(),
             'name' => fake()->words(3, true),
             'description' => fake()->boolean(70) ? fake()->paragraph() : null,
             'start_date' => $startDate,
@@ -37,5 +39,12 @@ final class CampaignFactory extends Factory
             ] : null,
             'created_by' => User::factory(),
         ];
+    }
+
+    public function forTeam(?Team $team = null): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'team_id' => $team ?? Team::factory(),
+        ]);
     }
 }

@@ -25,6 +25,8 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int|null $customer_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
  * @property-read \App\Models\User|null $assignedUser
  * @property-read \App\Models\Customer|null $customer
  * @property-read \App\Models\User|null $user
@@ -206,6 +208,8 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Customer> $customers
  * @property-read int|null $customers_count
  * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
@@ -437,6 +441,8 @@ namespace App\Models{
  * @property bool $is_primary
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
  * @property-read \App\Models\Customer $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Interaction> $interactions
  * @property-read int|null $interactions_count
@@ -559,6 +565,8 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \Carbon\CarbonImmutable|null $email_sent_at
  * @property string|null $email_recipient
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
  * @property-read \App\Models\CustomerContact|null $contact
  * @property-read \App\Models\Customer|null $customer
  * @property-read \App\Models\EmailTemplate|null $emailTemplate
@@ -951,6 +959,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereUpdatedAt($value)
  */
 	final class Task extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team query()
+ */
+	final class Team extends \Eloquent {}
 }
 
 namespace App\Models{

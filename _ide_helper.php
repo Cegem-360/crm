@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 12.47.0.
+ * Generated for Laravel 12.48.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -23183,6 +23183,14 @@ namespace AnourValar\EloquentSerialize\Facades {
             }
     }
 
+namespace Leandrocfe\FilamentApexCharts\Facades {
+    /**
+     * @see \Leandrocfe\FilamentApexCharts\FilamentApexCharts
+     */
+    class FilamentApexCharts {
+            }
+    }
+
 namespace Livewire {
     /**
      * @see \Livewire\LivewireManager
@@ -29207,6 +29215,20 @@ namespace  {
         }
 
         /**
+         * Add a select expression to the query.
+         *
+         * @param \Illuminate\Contracts\Database\Query\Expression $expression
+         * @param string $as
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function selectExpression($expression, $as)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->selectExpression($expression, $as);
+        }
+
+        /**
          * Add a new "raw" select expression to the query.
          *
          * @param string $expression
@@ -32160,6 +32182,7 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
     class Vite extends \Illuminate\Support\Facades\Vite {}
     class EloquentSerialize extends \AnourValar\EloquentSerialize\Facades\EloquentSerializeFacade {}
+    class FilamentApexCharts extends \Leandrocfe\FilamentApexCharts\Facades\FilamentApexCharts {}
     class Livewire extends \Livewire\Livewire {}
 }
 

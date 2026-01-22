@@ -35,6 +35,12 @@ return [
     | Workflow Integration
     |--------------------------------------------------------------------------
     */
+    'secondary_app' => [
+        'url' => env('SECONDARY_APP_URL'),
+        'api_key' => env('SECONDARY_APP_API_KEY'),
+    ],
+
+    'subscriber_api_key' => env('SUBSCRIBER_API_KEY'),
 
     'workflow' => [
         'webhook_url' => env('WORKFLOW_WEBHOOK_URL'),

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\ProductCategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,10 +13,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class ProductCategory extends Model
 {
+    use BelongsToTeam;
+
     /** @use HasFactory<ProductCategoryFactory> */
     use HasFactory;
 
     protected $fillable = [
+        'team_id',
         'name',
         'parent_id',
         'description',

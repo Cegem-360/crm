@@ -30,6 +30,10 @@ use App\Livewire\Pages\Products\ProductCategories\ViewProductCategory;
 use App\Livewire\Pages\Products\Products\EditProduct;
 use App\Livewire\Pages\Products\Products\ListProducts;
 use App\Livewire\Pages\Products\Products\ViewProduct;
+use App\Livewire\Pages\Reports\CustomerReports;
+use App\Livewire\Pages\Reports\OrderReports;
+use App\Livewire\Pages\Reports\ProductReports;
+use App\Livewire\Pages\Reports\SalesReports;
 use App\Livewire\Pages\Sales\Invoices\EditInvoice;
 use App\Livewire\Pages\Sales\Invoices\ListInvoices;
 use App\Livewire\Pages\Sales\Invoices\ViewInvoice;
@@ -170,6 +174,12 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
         // Marketing
         Route::get('/campaigns', Campaigns::class)->name('campaigns');
+
+        // Reports
+        Route::get('/reports/sales', SalesReports::class)->name('reports.sales');
+        Route::get('/reports/orders', OrderReports::class)->name('reports.orders');
+        Route::get('/reports/products', ProductReports::class)->name('reports.products');
+        Route::get('/reports/customers', CustomerReports::class)->name('reports.customers');
     });
 
     // Chat demo route

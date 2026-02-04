@@ -10,6 +10,7 @@ use App\Enums\CustomerType;
 use App\Enums\Role;
 use App\Models\Complaint;
 use App\Models\Customer;
+use App\Models\CustomerContact;
 use App\Models\User;
 use App\Notifications\NewComplaintNotification;
 use Illuminate\Contracts\View\Factory;
@@ -44,23 +45,29 @@ final class ComplaintSubmission extends Component
     {
         $this->validate();
 
-        // Find or create customer
-        $customer = Customer::query()
+        $existingContact = CustomerContact::query()
             ->where('email', $this->email)
             ->first();
 
-        if (! $customer) {
+        if ($existingContact) {
+            $customer = $existingContact->customer;
+        } else {
             $customer = Customer::query()->create([
                 'unique_identifier' => 'GUEST-'.now()->format('YmdHis'),
                 'name' => $this->name,
+                'phone' => $this->phone,
+                'type' => CustomerType::Company,
+                'is_active' => true,
+            ]);
+
+            $customer->contacts()->create([
+                'name' => $this->name,
                 'email' => $this->email,
                 'phone' => $this->phone,
-                'type' => CustomerType::B2C,
-                'is_active' => true,
+                'is_primary' => true,
             ]);
         }
 
-        // Create complaint (severity will be set by admin/manager later)
         $complaint = Complaint::query()->create([
             'customer_id' => $customer->id,
             'title' => $this->title,
@@ -70,12 +77,10 @@ final class ComplaintSubmission extends Component
             'reported_at' => now(),
         ]);
 
-        // Notify admins and managers
         $this->notifyAdmins($complaint);
 
         $this->submitted = true;
 
-        // Reset form
         $this->reset(['name', 'email', 'phone', 'title', 'description', 'order_number']);
     }
 
@@ -86,9 +91,10 @@ final class ComplaintSubmission extends Component
 
     private function notifyAdmins(Complaint $complaint): void
     {
-        // Get all users with admin or manager role
+        $roleNames = [Role::Admin->value, Role::Manager->value];
+
         $adminsAndManagers = User::query()
-            ->role([Role::Admin, Role::Manager])
+            ->whereHas('roles', fn ($query) => $query->whereIn('name', $roleNames))
             ->get();
 
         if ($adminsAndManagers->isNotEmpty()) {

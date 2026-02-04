@@ -11,11 +11,11 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - php - 8.4.17
 - filament/filament (FILAMENT) - v4
 - laravel/framework (LARAVEL) - v12
+- laravel/mcp (MCP) - v0
 - laravel/prompts (PROMPTS) - v0
 - laravel/reverb (REVERB) - v1
 - laravel/sanctum (SANCTUM) - v4
 - livewire/livewire (LIVEWIRE) - v3
-- laravel/mcp (MCP) - v0
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1
 - pestphp/pest (PEST) - v4
@@ -86,6 +86,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 
 ## PHP
 
+- Always use strict typing at the head of a `.php` file: `declare(strict_types=1);`.
 - Always use curly braces for control structures, even if it has one line.
 
 ### Constructors
@@ -193,6 +194,16 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 ### Models
 - Casts can and likely should be set in a `casts()` method on a model rather than the `$casts` property. Follow existing conventions from other models.
+
+=== mcp/core rules ===
+
+## Laravel MCP
+
+- MCP (Model Context Protocol) is very new. You must use the `search-docs` tool to get documentation for how to write and test Laravel MCP servers, tools, resources, and prompts effectively.
+- MCP servers need to be registered with a route or handle in `routes/ai.php`. Typically, they will be registered using `Mcp::web()` to register an HTTP streaming MCP server.
+- Servers are very testable; use the `search-docs` tool to find testing instructions.
+- Do not run `mcp:start`. This command hangs waiting for JSON-RPC MCP requests.
+- Some MCP clients use Node, which has its own certificate store. If a user tries to connect to their web MCP server locally using HTTPS, it could fail due to this reason. They will need to switch to HTTP during local development.
 
 === livewire/core rules ===
 
@@ -473,6 +484,7 @@ Select::make('type')
 TextInput::make('company_name')
     ->required()
     ->visible(fn (Get $get): bool => $get('type') === 'business'),
+
 </code-snippet>
 
 Use `state()` with a `Closure` to compute derived column values:
@@ -482,6 +494,7 @@ use Filament\Tables\Columns\TextColumn;
 
 TextColumn::make('full_name')
     ->state(fn (User $record): string => "{$record->first_name} {$record->last_name}"),
+
 </code-snippet>
 
 Actions encapsulate a button with optional modal form and logic:
@@ -495,6 +508,7 @@ Action::make('updateEmail')
         TextInput::make('email')->email()->required(),
     ])
     ->action(fn (array $data, User $record): void => $record->update($data)),
+
 </code-snippet>
 
 ### Testing
@@ -507,6 +521,7 @@ Authenticate before testing panel functionality. Filament uses Livewire, so use 
         ->searchTable($users->first()->name)
         ->assertCanSeeTableRecords($users->take(1))
         ->assertCanNotSeeTableRecords($users->skip(1));
+
 </code-snippet>
 
 <code-snippet name="Filament Create Resource Test" lang="php">
@@ -523,6 +538,7 @@ Authenticate before testing panel functionality. Filament uses Livewire, so use 
         'name' => 'Test',
         'email' => 'test@example.com',
     ]);
+
 </code-snippet>
 
 <code-snippet name="Testing Validation" lang="php">
@@ -537,6 +553,7 @@ Authenticate before testing panel functionality. Filament uses Livewire, so use 
             'email' => 'email',
         ])
         ->assertNotNotified();
+
 </code-snippet>
 
 <code-snippet name="Calling Actions" lang="php">
@@ -553,13 +570,14 @@ Authenticate before testing panel functionality. Filament uses Livewire, so use 
             'role' => 'admin',
         ])
         ->assertNotified();
+
 </code-snippet>
 
 ### Common Mistakes
 
 **Commonly Incorrect Namespaces:**
 - Form fields (TextInput, Select, etc.): `Filament\Forms\Components\`
-- Infolist entries (for read-only views) (TextEntry, IconEntry, etc.): `Filament\Forms\Components\`
+- Infolist entries (for read-only views) (TextEntry, IconEntry, etc.): `Filament\Infolists\Components\`
 - Layout components (Grid, Section, Fieldset, Tabs, Wizard, etc.): `Filament\Schemas\Components\`
 - Schema utilities (Get, Set, etc.): `Filament\Schemas\Components\Utilities\`
 - Actions: `Filament\Actions\` (no `Filament\Tables\Actions\` etc.)

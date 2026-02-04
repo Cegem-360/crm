@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum Role: string
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
+use Illuminate\Contracts\Support\Htmlable;
+
+enum Role: string implements HasColor, HasLabel
 {
     case Admin = 'Admin';
     case Manager = 'Manager';
@@ -87,6 +91,26 @@ enum Role: string
                 ...Permission::tasks(),
                 ...Permission::interactions(),
             ],
+        };
+    }
+
+    public function getLabel(): string|Htmlable|null
+    {
+        return match ($this) {
+            self::Admin => __('Admin'),
+            self::Manager => __('Manager'),
+            self::SalesRepresentative => __('Sales Representative'),
+            self::Support => __('Support'),
+        };
+    }
+
+    public function getColor(): string|array|null
+    {
+        return match ($this) {
+            self::Admin => 'danger',
+            self::Manager => 'warning',
+            self::SalesRepresentative => 'info',
+            self::Support => 'success',
         };
     }
 }

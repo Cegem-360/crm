@@ -1,0 +1,725 @@
+@startuml CRM Database Schema
+
+!theme cerulean-outline
+skinparam linetype ortho
+skinparam roundcorner 5
+skinparam classFontSize 10
+skinparam packageFontSize 12
+
+title CRM Database Entity Relationship Diagram
+
+' ====================
+' CORE / AUTH
+' ====================
+package "Core & Authentication" <<Rectangle>> #E3F2FD {
+    entity "users" as users {
+        * id : integer <<PK>>
+        --
+        name : varchar
+        email : varchar <<unique>>
+        email_verified_at : datetime
+        password : varchar
+        remember_token : varchar
+        is_online : boolean
+        last_seen_at : datetime
+        webhook_url : varchar
+        webhook_secret : varchar
+        workflow_api_token : varchar
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "teams" as teams {
+        * id : integer <<PK>>
+        --
+        name : varchar
+        slug : varchar
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "team_user" as team_user {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # user_id : integer <<FK>>
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "roles" as roles {
+        * id : integer <<PK>>
+        --
+        name : varchar
+        guard_name : varchar
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "permissions" as permissions {
+        * id : integer <<PK>>
+        --
+        name : varchar
+        guard_name : varchar
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "model_has_roles" as model_has_roles {
+        # role_id : integer <<FK>>
+        model_type : varchar
+        model_id : integer
+    }
+
+    entity "model_has_permissions" as model_has_permissions {
+        # permission_id : integer <<FK>>
+        model_type : varchar
+        model_id : integer
+    }
+
+    entity "role_has_permissions" as role_has_permissions {
+        # role_id : integer <<FK>>
+        # permission_id : integer <<FK>>
+    }
+
+    entity "sessions" as sessions {
+        * id : varchar <<PK>>
+        --
+        user_id : integer
+        ip_address : varchar
+        user_agent : text
+        payload : text
+        last_activity : integer
+    }
+}
+
+' ====================
+' CUSTOMERS
+' ====================
+package "Customers" <<Rectangle>> #E8F5E9 {
+    entity "customers" as customers {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # company_id : integer <<FK>>
+        name : varchar
+        unique_identifier : varchar
+        phone : varchar
+        type : varchar
+        is_active : boolean
+        notes : text
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "companies" as companies {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        name : varchar
+        email : varchar
+        tax_number : varchar
+        registration_number : varchar
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "customer_addresses" as customer_addresses {
+        * id : integer <<PK>>
+        --
+        # customer_id : integer <<FK>>
+        type : varchar
+        country : varchar
+        postal_code : varchar
+        city : varchar
+        street : varchar
+        building_number : varchar
+        floor : varchar
+        door : varchar
+        is_default : boolean
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "customer_contacts" as customer_contacts {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        name : varchar
+        email : varchar
+        phone : varchar
+        position : varchar
+        is_primary : boolean
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "customer_attributes" as customer_attributes {
+        * id : integer <<PK>>
+        --
+        # customer_id : integer <<FK>>
+        attribute_key : varchar
+        attribute_value : text
+        created_at : datetime
+        updated_at : datetime
+    }
+}
+
+' ====================
+' PRODUCTS
+' ====================
+package "Products & Pricing" <<Rectangle>> #FFF3E0 {
+    entity "products" as products {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # category_id : integer <<FK>>
+        name : varchar
+        sku : varchar
+        description : text
+        unit_price : decimal
+        tax_rate : decimal
+        is_active : boolean
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "product_categories" as product_categories {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # parent_id : integer <<FK>>
+        name : varchar
+        description : text
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "discounts" as discounts {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # product_id : integer <<FK>>
+        name : varchar
+        description : text
+        type : varchar
+        value : decimal
+        value_type : varchar
+        min_quantity : integer
+        min_value : decimal
+        valid_from : datetime
+        valid_until : datetime
+        is_active : boolean
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+}
+
+' ====================
+' SALES
+' ====================
+package "Sales" <<Rectangle>> #F3E5F5 {
+    entity "opportunities" as opportunities {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # assigned_to : integer <<FK>>
+        title : varchar
+        description : text
+        value : decimal
+        probability : integer
+        stage : varchar
+        expected_close_date : date
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "quotes" as quotes {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # opportunity_id : integer <<FK>>
+        quote_number : varchar
+        status : varchar
+        issue_date : date
+        valid_until : date
+        subtotal : decimal
+        discount_amount : decimal
+        tax_amount : decimal
+        total : decimal
+        notes : text
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "quote_items" as quote_items {
+        * id : integer <<PK>>
+        --
+        # quote_id : integer <<FK>>
+        # product_id : integer <<FK>>
+        description : text
+        quantity : integer
+        unit_price : decimal
+        discount_percent : decimal
+        discount_amount : decimal
+        tax_rate : decimal
+        total : decimal
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "orders" as orders {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # quote_id : integer <<FK>>
+        order_number : varchar
+        status : varchar
+        order_date : date
+        subtotal : decimal
+        discount_amount : decimal
+        tax_amount : decimal
+        total : decimal
+        notes : text
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "order_items" as order_items {
+        * id : integer <<PK>>
+        --
+        # order_id : integer <<FK>>
+        # product_id : integer <<FK>>
+        description : text
+        quantity : integer
+        unit_price : decimal
+        discount_amount : decimal
+        tax_rate : decimal
+        total : decimal
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "invoices" as invoices {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # order_id : integer <<FK>>
+        invoice_number : varchar
+        status : varchar
+        issue_date : date
+        due_date : date
+        subtotal : decimal
+        discount_amount : decimal
+        tax_amount : decimal
+        total : decimal
+        paid_at : datetime
+        notes : text
+        files : text
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+}
+
+' ====================
+' INTERACTIONS
+' ====================
+package "Interactions & Communications" <<Rectangle>> #FFEBEE {
+    entity "interactions" as interactions {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # user_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # customer_contact_id : integer <<FK>>
+        # email_template_id : integer <<FK>>
+        type : varchar
+        channel : varchar
+        category : varchar
+        direction : varchar
+        subject : varchar
+        description : text
+        status : varchar
+        interaction_date : datetime
+        duration : integer
+        email_recipient : varchar
+        email_sent_at : datetime
+        next_action : varchar
+        next_action_date : date
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "communications" as communications {
+        * id : integer <<PK>>
+        --
+        # customer_id : integer <<FK>>
+        channel : varchar
+        direction : varchar
+        subject : varchar
+        content : text
+        status : varchar
+        sent_at : datetime
+        delivered_at : datetime
+        read_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "chat_sessions" as chat_sessions {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # user_id : integer <<FK>>
+        status : varchar
+        priority : varchar
+        started_at : datetime
+        ended_at : datetime
+        last_message_at : datetime
+        unread_count : integer
+        rating : integer
+        notes : text
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "chat_messages" as chat_messages {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # chat_session_id : integer <<FK>>
+        # parent_message_id : integer <<FK>>
+        sender_type : varchar
+        sender_id : integer
+        message : text
+        is_read : boolean
+        read_at : datetime
+        edited_at : datetime
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "campaigns" as campaigns {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # created_by : integer <<FK>>
+        name : varchar
+        description : text
+        status : varchar
+        target_audience_criteria : text
+        start_date : date
+        end_date : date
+        deleted_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "campaign_responses" as campaign_responses {
+        * id : integer <<PK>>
+        --
+        # campaign_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        response_type : varchar
+        responded_at : datetime
+        notes : text
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "email_templates" as email_templates {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # created_by : integer <<FK>>
+        name : varchar
+        subject : varchar
+        body : text
+        category : varchar
+        variables : text
+        is_active : boolean
+        created_at : datetime
+        updated_at : datetime
+    }
+}
+
+' ====================
+' SUPPORT
+' ====================
+package "Support & Tasks" <<Rectangle>> #FFFDE7 {
+    entity "complaints" as complaints {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # order_id : integer <<FK>>
+        # reported_by : integer <<FK>>
+        # assigned_to : integer <<FK>>
+        title : varchar
+        description : text
+        status : varchar
+        severity : varchar
+        reported_at : datetime
+        resolved_at : datetime
+        resolution : text
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "complaint_escalations" as complaint_escalations {
+        * id : integer <<PK>>
+        --
+        # complaint_id : integer <<FK>>
+        # escalated_by : integer <<FK>>
+        # escalated_to : integer <<FK>>
+        reason : text
+        escalated_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "bug_reports" as bug_reports {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # user_id : integer <<FK>>
+        # assigned_to : integer <<FK>>
+        title : varchar
+        description : text
+        severity : varchar
+        status : varchar
+        source : varchar
+        resolved_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "tasks" as tasks {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # customer_id : integer <<FK>>
+        # assigned_to : integer <<FK>>
+        # assigned_by : integer <<FK>>
+        title : varchar
+        description : text
+        priority : varchar
+        status : varchar
+        due_date : date
+        completed_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+}
+
+' ====================
+' SYSTEM
+' ====================
+package "System & Audit" <<Rectangle>> #ECEFF1 {
+    entity "activity_log" as activity_log {
+        * id : integer <<PK>>
+        --
+        log_name : varchar
+        description : text
+        subject_type : varchar
+        subject_id : integer
+        causer_type : varchar
+        causer_id : integer
+        event : varchar
+        properties : text
+        batch_uuid : varchar
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "notifications" as notifications {
+        * id : varchar <<PK>>
+        --
+        type : varchar
+        notifiable_type : varchar
+        notifiable_id : integer
+        data : text
+        read_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "workflow_configs" as workflow_configs {
+        * id : integer <<PK>>
+        --
+        # team_id : integer <<FK>>
+        # user_id : integer <<FK>>
+        name : varchar
+        webhook_url : varchar
+        api_token : varchar
+        is_active : boolean
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "imports" as imports {
+        * id : integer <<PK>>
+        --
+        # user_id : integer <<FK>>
+        file_name : varchar
+        file_path : varchar
+        importer : varchar
+        total_rows : integer
+        processed_rows : integer
+        successful_rows : integer
+        completed_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "failed_import_rows" as failed_import_rows {
+        * id : integer <<PK>>
+        --
+        # import_id : integer <<FK>>
+        data : text
+        validation_error : text
+        created_at : datetime
+        updated_at : datetime
+    }
+
+    entity "exports" as exports {
+        * id : integer <<PK>>
+        --
+        # user_id : integer <<FK>>
+        exporter : varchar
+        file_disk : varchar
+        file_name : varchar
+        total_rows : integer
+        processed_rows : integer
+        successful_rows : integer
+        completed_at : datetime
+        created_at : datetime
+        updated_at : datetime
+    }
+}
+
+' ====================
+' RELATIONSHIPS
+' ====================
+
+' Core/Auth relationships
+team_user }o--|| teams
+team_user }o--|| users
+model_has_roles }o--|| roles
+role_has_permissions }o--|| roles
+role_has_permissions }o--|| permissions
+model_has_permissions }o--|| permissions
+
+' Customer relationships
+customers }o--|| teams
+customers }o--o| companies
+companies }o--|| teams
+customer_addresses }o--|| customers
+customer_contacts }o--|| teams
+customer_contacts }o--|| customers
+customer_attributes }o--|| customers
+
+' Product relationships
+products }o--|| teams
+products }o--o| product_categories
+product_categories }o--|| teams
+product_categories }o--o| product_categories : parent
+discounts }o--|| teams
+discounts }o--o| customers
+discounts }o--o| products
+
+' Sales relationships
+opportunities }o--|| teams
+opportunities }o--|| customers
+opportunities }o--o| users : assigned_to
+
+quotes }o--|| teams
+quotes }o--|| customers
+quotes }o--o| opportunities
+quote_items }o--|| quotes
+quote_items }o--|| products
+
+orders }o--|| teams
+orders }o--|| customers
+orders }o--o| quotes
+order_items }o--|| orders
+order_items }o--|| products
+
+invoices }o--|| teams
+invoices }o--|| customers
+invoices }o--o| orders
+
+' Interaction relationships
+interactions }o--|| teams
+interactions }o--|| users
+interactions }o--|| customers
+interactions }o--o| customer_contacts
+interactions }o--o| email_templates
+
+communications }o--|| customers
+
+chat_sessions }o--|| teams
+chat_sessions }o--|| customers
+chat_sessions }o--o| users
+
+chat_messages }o--|| teams
+chat_messages }o--|| chat_sessions
+chat_messages }o--o| chat_messages : parent
+
+campaigns }o--|| teams
+campaigns }o--|| users : created_by
+
+campaign_responses }o--|| campaigns
+campaign_responses }o--|| customers
+
+email_templates }o--|| teams
+email_templates }o--|| users : created_by
+
+' Support relationships
+complaints }o--|| teams
+complaints }o--|| customers
+complaints }o--o| orders
+complaints }o--o| users : reported_by
+complaints }o--o| users : assigned_to
+
+complaint_escalations }o--|| complaints
+complaint_escalations }o--|| users : escalated_by
+complaint_escalations }o--|| users : escalated_to
+
+bug_reports }o--|| teams
+bug_reports }o--o| customers
+bug_reports }o--o| users
+bug_reports }o--o| users : assigned_to
+
+tasks }o--|| teams
+tasks }o--o| customers
+tasks }o--o| users : assigned_to
+tasks }o--o| users : assigned_by
+
+' System relationships
+workflow_configs }o--|| teams
+workflow_configs }o--|| users
+
+imports }o--|| users
+exports }o--|| users
+failed_import_rows }o--|| imports
+
+@enduml

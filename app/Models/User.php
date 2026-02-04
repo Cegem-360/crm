@@ -34,6 +34,8 @@ final class User extends Authenticatable implements FilamentUser, HasTenants
         'webhook_url',
         'webhook_secret',
         'workflow_api_token',
+        'is_online',
+        'last_seen_at',
     ];
 
     /**

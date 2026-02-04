@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\StoreProductRequest;
+use App\Http\Requests\Api\V1\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,22 +33,10 @@ final class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function store(Request $request): ProductResource
+    public function store(StoreProductRequest $request): ProductResource
     {
-        $this->authorize('create', Product::class);
+        $validated = $request->validated();
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'sku' => ['required', 'string', 'max:255', 'unique:products'],
-            'description' => ['nullable', 'string'],
-            'category_id' => ['nullable', 'exists:product_categories,id'],
-            'unit_price' => ['required', 'numeric', 'min:0'],
-            'tax_rate' => ['required', 'numeric', 'min:0', 'max:100'],
-            'is_active' => ['boolean'],
-            'team_id' => ['sometimes', 'exists:teams,id'],
-        ]);
-
-        // Set team_id from request or user's first team
         if (! isset($validated['team_id'])) {
             $validated['team_id'] = $request->user()->teams()->first()?->id;
         }
@@ -63,21 +53,9 @@ final class ProductController extends Controller
         return new ProductResource($product->load('category'));
     }
 
-    public function update(Request $request, Product $product): ProductResource
+    public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
-        $this->authorize('update', $product);
-
-        $validated = $request->validate([
-            'name' => ['sometimes', 'string', 'max:255'],
-            'sku' => ['sometimes', 'string', 'max:255', 'unique:products,sku,'.$product->id],
-            'description' => ['nullable', 'string'],
-            'category_id' => ['nullable', 'exists:product_categories,id'],
-            'unit_price' => ['sometimes', 'numeric', 'min:0'],
-            'tax_rate' => ['sometimes', 'numeric', 'min:0', 'max:100'],
-            'is_active' => ['boolean'],
-        ]);
-
-        $product->update($validated);
+        $product->update($request->validated());
 
         return new ProductResource($product->fresh()->load('category'));
     }

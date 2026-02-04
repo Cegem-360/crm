@@ -14,7 +14,7 @@ enum OpportunityStage: string implements HasColor, HasLabel
     case Qualified = 'qualified';
     case Proposal = 'proposal';
     case Negotiation = 'negotiation';
-    case SendedQuotation = 'sended_quotation';
+    case SentQuotation = 'sent_quotation';
     case LostQuotation = 'lost_quotation';
 
     public static function getActiveStages(): array
@@ -30,7 +30,7 @@ enum OpportunityStage: string implements HasColor, HasLabel
     public static function getClosedStages(): array
     {
         return [
-            self::SendedQuotation,
+            self::SentQuotation,
             self::LostQuotation,
         ];
     }
@@ -42,7 +42,7 @@ enum OpportunityStage: string implements HasColor, HasLabel
             self::Qualified => __('Qualified'),
             self::Proposal => __('Proposal'),
             self::Negotiation => __('Negotiation'),
-            self::SendedQuotation => __('Sended Quotation'),
+            self::SentQuotation => __('Sent Quotation'),
             self::LostQuotation => __('Lost Quotation'),
         };
     }
@@ -54,7 +54,7 @@ enum OpportunityStage: string implements HasColor, HasLabel
             self::Qualified => 'info',
             self::Proposal => 'warning',
             self::Negotiation => 'primary',
-            self::SendedQuotation => 'success',
+            self::SentQuotation => 'success',
             self::LostQuotation => 'danger',
         };
     }

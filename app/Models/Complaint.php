@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 final class Complaint extends Model
 {
@@ -19,6 +21,8 @@ final class Complaint extends Model
 
     /** @use HasFactory<ComplaintFactory> */
     use HasFactory;
+
+    use LogsActivity;
 
     protected $fillable = [
         'team_id',
@@ -58,6 +62,14 @@ final class Complaint extends Model
     public function escalations(): HasMany
     {
         return $this->hasMany(ComplaintEscalation::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'status', 'severity', 'assigned_to', 'resolution', 'resolved_at'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 
     protected function casts(): array

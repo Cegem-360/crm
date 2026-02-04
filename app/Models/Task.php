@@ -9,6 +9,8 @@ use Database\Factories\TaskFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 final class Task extends Model
 {
@@ -16,6 +18,8 @@ final class Task extends Model
 
     /** @use HasFactory<TaskFactory> */
     use HasFactory;
+
+    use LogsActivity;
 
     protected $fillable = [
         'team_id',
@@ -43,6 +47,14 @@ final class Task extends Model
     public function assigner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_by');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'status', 'priority', 'assigned_to', 'due_date', 'completed_at'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 
     protected function casts(): array

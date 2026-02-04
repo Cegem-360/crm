@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\UserRole;
+use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ToggleUserActiveRequest;
 use App\Http\Requests\Api\UserSyncCreateRequest;
@@ -28,7 +28,7 @@ final class UserSyncController extends Controller
             'is_active' => false,
             'email_verified_at' => now(),
         ]);
-        $user->assignRole(UserRole::Subscriber);
+        $user->assignRole(Role::Subscriber);
         // Assign teams
         $teamIds = $validated['team_ids'] ?? [];
         if ($teamIds !== []) {

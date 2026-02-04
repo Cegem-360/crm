@@ -14,6 +14,7 @@ enum Role: string implements HasColor, HasLabel
     case Manager = 'Manager';
     case SalesRepresentative = 'Sales Representative';
     case Support = 'Support';
+    case Subscriber = 'Subscriber';
 
     /**
      * Get all role values.
@@ -91,6 +92,7 @@ enum Role: string implements HasColor, HasLabel
                 ...Permission::tasks(),
                 ...Permission::interactions(),
             ],
+            self::Subscriber => [],
         };
     }
 
@@ -101,6 +103,7 @@ enum Role: string implements HasColor, HasLabel
             self::Manager => __('Manager'),
             self::SalesRepresentative => __('Sales Representative'),
             self::Support => __('Support'),
+            self::Subscriber => __('Subscriber'),
         };
     }
 
@@ -111,6 +114,7 @@ enum Role: string implements HasColor, HasLabel
             self::Manager => 'warning',
             self::SalesRepresentative => 'info',
             self::Support => 'success',
+            self::Subscriber => 'gray',
         };
     }
 }

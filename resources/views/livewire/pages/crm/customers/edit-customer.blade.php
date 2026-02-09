@@ -45,5 +45,12 @@
         </div>
     </form>
 
+    {{-- Relation Managers --}}
+    @if ($customer?->exists)
+        <div class="mt-6">
+            {{ $this->relationManagers }}
+        </div>
+    @endif
+
     <x-filament-actions::modals />
 </div>

@@ -126,3 +126,19 @@ it('redirects to view page after save', function () {
         ->call('save')
         ->assertRedirectContains('/customers/');
 });
+
+it('displays relation managers for existing customers', function () {
+    $customer = Customer::factory()->for($this->team)->create();
+
+    Livewire::test(EditCustomer::class, ['customer' => $customer])
+        ->assertSuccessful()
+        ->assertSee('Contacts')
+        ->assertSee('Addresses');
+});
+
+it('does not display relation managers for new customers', function () {
+    Livewire::test(EditCustomer::class)
+        ->assertSuccessful()
+        ->assertDontSee('Contacts')
+        ->assertDontSee('Addresses');
+});

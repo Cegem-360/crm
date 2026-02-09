@@ -29,7 +29,7 @@ final class OpportunityFactory extends Factory
             OpportunityStage::Qualified => fake()->numberBetween(25, 50),
             OpportunityStage::Proposal => fake()->numberBetween(50, 75),
             OpportunityStage::Negotiation => fake()->numberBetween(75, 90),
-            OpportunityStage::SendedQuotation => 100,
+            OpportunityStage::SentQuotation => 100,
             OpportunityStage::LostQuotation => 0,
         };
 
@@ -65,7 +65,7 @@ final class OpportunityFactory extends Factory
     public function won(): static
     {
         return $this->state(fn (array $attributes): array => [
-            'stage' => OpportunityStage::SendedQuotation,
+            'stage' => OpportunityStage::SentQuotation,
             'probability' => 100,
         ]);
     }

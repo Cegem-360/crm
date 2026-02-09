@@ -36,9 +36,13 @@ final class Login extends BasePage
         $user = Auth::user();
 
         if ($user && ! $user->isAdmin()) {
-            $this->redirect(route('dashboard.dashboard'), navigate: true);
+            $team = $user->teams()->first();
 
-            return null;
+            if ($team) {
+                $this->redirect(route('dashboard.dashboard', ['team' => $team->slug]), navigate: true);
+
+                return null;
+            }
         }
 
         return $response;

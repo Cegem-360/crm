@@ -14,6 +14,7 @@ use App\Models\Interaction;
 use App\Models\Invoice;
 use App\Models\Opportunity;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Quote;
 use App\Models\Task;
 use App\Models\User;
@@ -50,6 +51,7 @@ final class AppServiceProvider extends ServiceProvider
             'invoice' => Invoice::class,
             'opportunity' => Opportunity::class,
             'order' => Order::class,
+            'product' => Product::class,
             'quote' => Quote::class,
             'task' => Task::class,
             'user' => User::class,

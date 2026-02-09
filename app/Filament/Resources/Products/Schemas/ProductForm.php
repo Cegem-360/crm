@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use App\Enums\CustomFieldModel;
+use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -12,6 +14,8 @@ use Filament\Schemas\Schema;
 
 final class ProductForm
 {
+    use HasCustomFieldsSchema;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -35,6 +39,7 @@ final class ProductForm
                     ->default(0),
                 Toggle::make('is_active')
                     ->required(),
+                ...self::getCustomFieldsFormSection(CustomFieldModel::Product),
             ]);
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tasks\Schemas;
 
+use App\Enums\CustomFieldModel;
+use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
@@ -13,6 +15,8 @@ use Filament\Schemas\Schema;
 
 final class TaskForm
 {
+    use HasCustomFieldsSchema;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -37,6 +41,7 @@ final class TaskForm
                     ->default('pending'),
                 DatePicker::make('due_date'),
                 DateTimePicker::make('completed_at'),
+                ...self::getCustomFieldsFormSection(CustomFieldModel::Task),
             ]);
     }
 }

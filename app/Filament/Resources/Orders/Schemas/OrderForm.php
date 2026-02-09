@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders\Schemas;
 
+use App\Enums\CustomFieldModel;
 use App\Enums\OrderStatus;
+use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -13,6 +15,8 @@ use Filament\Schemas\Schema;
 
 final class OrderForm
 {
+    use HasCustomFieldsSchema;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -49,6 +53,7 @@ final class OrderForm
                     ->default(0),
                 Textarea::make('notes')
                     ->columnSpanFull(),
+                ...self::getCustomFieldsFormSection(CustomFieldModel::Order),
             ]);
     }
 }

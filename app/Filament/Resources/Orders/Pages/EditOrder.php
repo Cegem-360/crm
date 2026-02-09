@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Orders\Pages;
 
 use App\Enums\InvoiceStatus;
+use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Orders\OrderResource;
 use App\Models\Invoice;
 use App\Models\Order;
@@ -18,6 +19,8 @@ use Filament\Resources\Pages\EditRecord;
 /** @property Order $record  */
 final class EditOrder extends EditRecord
 {
+    use ManagesCustomFields;
+
     protected static string $resource = OrderResource::class;
 
     protected function getHeaderActions(): array

@@ -6,6 +6,8 @@ namespace App\Filament\Resources\Complaints\Schemas;
 
 use App\Enums\ComplaintSeverity;
 use App\Enums\ComplaintStatus;
+use App\Enums\CustomFieldModel;
+use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -14,6 +16,8 @@ use Filament\Schemas\Schema;
 
 final class ComplaintForm
 {
+    use HasCustomFieldsSchema;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -49,6 +53,7 @@ final class ComplaintForm
                 DateTimePicker::make('reported_at')
                     ->required(),
                 DateTimePicker::make('resolved_at'),
+                ...self::getCustomFieldsFormSection(CustomFieldModel::Complaint),
             ]);
     }
 }

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tasks\Pages;
 
+use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Tasks\TaskResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 final class EditTask extends EditRecord
 {
+    use ManagesCustomFields;
+
     protected static string $resource = TaskResource::class;
 
     protected function getHeaderActions(): array

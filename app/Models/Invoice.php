@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\InvoiceStatus;
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\HasCustomFields;
 use Database\Factories\InvoiceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 final class Invoice extends Model
 {
     use BelongsToTeam;
+    use HasCustomFields;
 
     /** @use HasFactory<InvoiceFactory> */
     use HasFactory;

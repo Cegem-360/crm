@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\HasCustomFields;
 use Database\Factories\TaskFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 final class Task extends Model
 {
     use BelongsToTeam;
+    use HasCustomFields;
 
     /** @use HasFactory<TaskFactory> */
     use HasFactory;

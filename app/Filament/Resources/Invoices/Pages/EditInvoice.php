@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Pages;
 
+use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Invoices\InvoiceResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -13,6 +14,8 @@ use Filament\Resources\Pages\EditRecord;
 
 final class EditInvoice extends EditRecord
 {
+    use ManagesCustomFields;
+
     protected static string $resource = InvoiceResource::class;
 
     protected function getHeaderActions(): array

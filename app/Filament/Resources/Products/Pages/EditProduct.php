@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Products\Pages;
 
+use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Products\ProductResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -12,6 +13,8 @@ use Filament\Resources\Pages\EditRecord;
 
 final class EditProduct extends EditRecord
 {
+    use ManagesCustomFields;
+
     protected static string $resource = ProductResource::class;
 
     protected function getHeaderActions(): array

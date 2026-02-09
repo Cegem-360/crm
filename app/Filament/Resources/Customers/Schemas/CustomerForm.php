@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Customers\Schemas;
 
 use App\Enums\CustomerType;
+use App\Enums\CustomFieldModel;
+use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -14,6 +16,8 @@ use Illuminate\Support\Str;
 
 final class CustomerForm
 {
+    use HasCustomFieldsSchema;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -50,6 +54,7 @@ final class CustomerForm
                     ->columnSpanFull(),
                 Toggle::make('is_active')
                     ->required(),
+                ...self::getCustomFieldsFormSection(CustomFieldModel::Customer),
             ]);
     }
 }

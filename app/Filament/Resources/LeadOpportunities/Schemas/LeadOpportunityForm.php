@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\LeadOpportunities\Schemas;
 
+use App\Enums\CustomFieldModel;
 use App\Enums\OpportunityStage;
+use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Slider;
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 
 final class LeadOpportunityForm
 {
+    use HasCustomFieldsSchema;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -61,6 +65,7 @@ final class LeadOpportunityForm
                     ->nullable()
                     ->default(Auth::id())
                     ->required(),
+                ...self::getCustomFieldsFormSection(CustomFieldModel::Opportunity),
             ]);
     }
 }

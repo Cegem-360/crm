@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\ComplaintSeverity;
 use App\Enums\ComplaintStatus;
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\HasCustomFields;
 use Database\Factories\ComplaintFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 final class Complaint extends Model
 {
     use BelongsToTeam;
+    use HasCustomFields;
 
     /** @use HasFactory<ComplaintFactory> */
     use HasFactory;

@@ -1,0 +1,66 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Models;
+
+use App\Enums\CustomFieldModel;
+use App\Enums\CustomFieldType;
+use Database\Factories\CustomFieldFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
+
+final class CustomField extends Model
+{
+    /** @use HasFactory<CustomFieldFactory> */
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'type',
+        'model_type',
+        'options',
+        'description',
+        'sort_order',
+        'is_active',
+        'is_visible_in_form',
+        'is_visible_in_table',
+        'is_visible_in_infolist',
+    ];
+
+    /**
+     * @return HasMany<CustomFieldValue, $this>
+     */
+    public function values(): HasMany
+    {
+        return $this->hasMany(CustomFieldValue::class);
+    }
+
+    protected static function booted(): void
+    {
+        self::creating(function (CustomField $customField): void {
+            if (empty($customField->slug)) {
+                $customField->slug = Str::slug($customField->name).'-'.Str::random(6);
+            }
+        });
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function casts(): array
+    {
+        return [
+            'type' => CustomFieldType::class,
+            'model_type' => CustomFieldModel::class,
+            'options' => 'array',
+            'is_active' => 'boolean',
+            'is_visible_in_form' => 'boolean',
+            'is_visible_in_table' => 'boolean',
+            'is_visible_in_infolist' => 'boolean',
+        ];
+    }
+}

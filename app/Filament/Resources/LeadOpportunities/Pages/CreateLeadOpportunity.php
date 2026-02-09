@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\LeadOpportunities\Pages;
 
+use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\LeadOpportunities\LeadOpportunitiesResource;
 use Filament\Resources\Pages\CreateRecord;
 
 final class CreateLeadOpportunity extends CreateRecord
 {
+    use ManagesCustomFields;
+
     protected static string $resource = LeadOpportunitiesResource::class;
 }

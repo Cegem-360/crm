@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\CustomerType;
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\HasCustomFields;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 final class Customer extends Model
 {
     use BelongsToTeam;
+    use HasCustomFields;
     use HasFactory;
     use LogsActivity;
     use SoftDeletes;

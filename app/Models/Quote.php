@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\QuoteStatus;
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\HasCustomFields;
 use Database\Factories\QuoteFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 final class Quote extends Model
 {
     use BelongsToTeam;
+    use HasCustomFields;
 
     /** @use HasFactory<QuoteFactory> */
     use HasFactory;

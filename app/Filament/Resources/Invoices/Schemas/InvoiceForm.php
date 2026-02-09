@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Schemas;
 
+use App\Enums\CustomFieldModel;
 use App\Enums\InvoiceStatus;
+use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
@@ -15,6 +17,8 @@ use Filament\Schemas\Schema;
 
 final class InvoiceForm
 {
+    use HasCustomFieldsSchema;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -60,6 +64,7 @@ final class InvoiceForm
                     ->panelLayout('grid')
                     ->multiple()
                     ->columnSpanFull(),
+                ...self::getCustomFieldsFormSection(CustomFieldModel::Invoice),
             ]);
     }
 }

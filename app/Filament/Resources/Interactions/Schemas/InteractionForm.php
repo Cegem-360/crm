@@ -56,28 +56,23 @@ final class InteractionForm
                     ->preload()
                     ->required(),
                 Select::make('type')
-                    ->label('Type')
                     ->options(InteractionType::class)
                     ->required()
                     ->default(InteractionType::Note),
                 Select::make('category')
-                    ->label('Category')
                     ->options(InteractionCategory::class)
                     ->required()
                     ->default(InteractionCategory::General)
                     ->live(),
                 Select::make('channel')
-                    ->label('Channel')
                     ->options(InteractionChannel::class),
                 Select::make('direction')
-                    ->label('Direction')
                     ->options(InteractionDirection::class),
                 Select::make('status')
-                    ->label('Status')
                     ->options(InteractionStatus::class)
                     ->default(InteractionStatus::Completed),
                 Select::make('email_template_id')
-                    ->label('Email Template')
+                    ->label('Email template')
                     ->options(function (Get $get) {
                         $category = $get('category');
 
@@ -95,7 +90,7 @@ final class InteractionForm
                         InteractionCategory::Sales->value,
                         InteractionCategory::Marketing->value,
                     ])),
-                Section::make('Email Sending')
+                Section::make(__('Email sending'))
                     ->schema([
                         Toggle::make('send_email')
                             ->label('Send email on save')
@@ -104,14 +99,14 @@ final class InteractionForm
                         Select::make('recipient_type')
                             ->label('Send to')
                             ->options([
-                                'contact' => 'Contact',
-                                'company' => 'Company',
+                                'contact' => __('Contact'),
+                                'company' => __('Company'),
                             ])
                             ->default('contact')
                             ->live()
                             ->visible(fn (Get $get): bool => (bool) $get('send_email')),
                         TextInput::make('recipient_email')
-                            ->label('Recipient Email')
+                            ->label('Recipient email')
                             ->disabled()
                             ->dehydrated(false)
                             ->default(function (Get $get): ?string {
@@ -135,22 +130,18 @@ final class InteractionForm
                     ])
                     ->visible(fn (Get $get): bool => filled($get('email_template_id'))),
                 TextInput::make('subject')
-                    ->label('Subject')
                     ->required(),
                 Textarea::make('description')
-                    ->label('Description')
                     ->columnSpanFull(),
                 DateTimePicker::make('interaction_date')
-                    ->label('Interaction Date')
                     ->required()
                     ->default(now()),
                 TextInput::make('duration')
                     ->label('Duration (minutes)')
                     ->numeric(),
                 TextInput::make('next_action')
-                    ->label('Next Action'),
-                DatePicker::make('next_action_date')
-                    ->label('Next Action Date'),
+                    ->label('Next action'),
+                DatePicker::make('next_action_date'),
             ]);
     }
 }

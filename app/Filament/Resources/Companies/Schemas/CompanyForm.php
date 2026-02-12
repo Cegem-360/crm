@@ -15,12 +15,9 @@ final class CompanyForm
             ->components([
                 TextInput::make('name')
                     ->required(),
-                TextInput::make('tax_number')
-                    ->label('Tax Number'),
-                TextInput::make('registration_number')
-                    ->label('Registration Number'),
+                TextInput::make('tax_number'),
+                TextInput::make('registration_number'),
                 TextInput::make('email')
-                    ->label('Email')
                     ->email(),
             ]);
     }

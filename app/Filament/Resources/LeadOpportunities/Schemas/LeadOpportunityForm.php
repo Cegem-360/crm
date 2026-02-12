@@ -25,6 +25,7 @@ final class LeadOpportunityForm
         return $schema
             ->components([
                 Select::make('customer_id')
+                    ->label('Customer')
                     ->relationship('customer', 'name')
                     ->searchable()
                     ->preload()
@@ -59,6 +60,7 @@ final class LeadOpportunityForm
                     ->native(false)
                     ->required(),
                 Select::make('assigned_to')
+                    ->label('Assigned to')
                     ->relationship('assignedUser', 'name')
                     ->searchable()
                     ->preload()

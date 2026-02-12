@@ -19,6 +19,7 @@ use App\Models\Quote;
 use App\Models\Task;
 use App\Models\User;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
+use Filament\Forms\Components\Field;
 use Filament\Support\Facades\FilamentTimezone;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
@@ -41,6 +42,8 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         FilamentTimezone::set('Europe/Budapest');
+
+        Field::configureUsing(static fn (Field $field): Field => $field->translateLabel());
 
         $this->app->bind(BaseResourceClassGenerator::class, ResourceClassGenerator::class);
         Relation::enforceMorphMap([

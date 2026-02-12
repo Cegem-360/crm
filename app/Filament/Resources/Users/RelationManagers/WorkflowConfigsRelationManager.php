@@ -21,7 +21,7 @@ final class WorkflowConfigsRelationManager extends RelationManager
 {
     protected static string $relationship = 'workflowConfigs';
 
-    protected static ?string $title = 'Workflow Konfigurációk';
+    protected static ?string $title = 'Workflow Configurations';
 
     #[Override]
     public function form(Schema $schema): Schema
@@ -29,20 +29,20 @@ final class WorkflowConfigsRelationManager extends RelationManager
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Workflow neve')
+                    ->label(__('Workflow name'))
                     ->required()
-                    ->placeholder('pl. Raktárkezelő rendszer'),
+                    ->placeholder(__('e.g. Warehouse management system')),
                 TextInput::make('api_token')
                     ->label('API Token')
                     ->required()
                     ->maxLength(64)
-                    ->helperText('Ez a token azonosítja a workflow-t a webhook-okban'),
+                    ->helperText(__('This token identifies the workflow in webhooks')),
                 TextInput::make('webhook_url')
-                    ->label('Webhook URL (opcionális)')
+                    ->label(__('Webhook URL (optional)'))
                     ->url()
                     ->placeholder('https://workflow.example.com/api/...'),
                 Toggle::make('is_active')
-                    ->label('Aktív')
+                    ->label(__('Active'))
                     ->default(true),
             ]);
     }
@@ -52,7 +52,7 @@ final class WorkflowConfigsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Név')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('api_token')
                     ->label('API Token')
@@ -60,16 +60,16 @@ final class WorkflowConfigsRelationManager extends RelationManager
                     ->copyable()
                     ->tooltip(fn ($record) => $record->api_token),
                 IconColumn::make('is_active')
-                    ->label('Aktív')
+                    ->label(__('Active'))
                     ->boolean(),
                 TextColumn::make('created_at')
-                    ->label('Létrehozva')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable(),
             ])
             ->headerActions([
                 CreateAction::make()
-                    ->label('Új workflow'),
+                    ->label(__('New workflow')),
             ])
             ->actions([
                 EditAction::make(),

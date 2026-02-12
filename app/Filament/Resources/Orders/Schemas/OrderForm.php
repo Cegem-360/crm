@@ -22,9 +22,11 @@ final class OrderForm
         return $schema
             ->components([
                 Select::make('customer_id')
+                    ->label('Customer')
                     ->relationship('customer', 'name')
                     ->required(),
                 Select::make('quote_id')
+                    ->label('Quote')
                     ->relationship('quote', 'quote_number'),
                 TextInput::make('order_number')
                     ->unique(ignoreRecord: true)

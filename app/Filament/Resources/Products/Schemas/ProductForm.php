@@ -28,6 +28,7 @@ final class ProductForm
                 Textarea::make('description')
                     ->columnSpanFull(),
                 Select::make('category_id')
+                    ->label('Category')
                     ->relationship('category', 'name'),
                 TextInput::make('unit_price')
                     ->required()
@@ -38,6 +39,7 @@ final class ProductForm
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
+                    ->label('Active')
                     ->required(),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Product),
             ]);

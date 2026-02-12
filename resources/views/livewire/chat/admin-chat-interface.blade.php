@@ -16,7 +16,7 @@
                     @if ($session->status->value === 'active')
                         <span class="ml-2 inline-flex items-center">
                             <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-1"></span>
-                            Active
+                            {{ __('Active') }}
                         </span>
                     @endif
                 </p>
@@ -25,14 +25,14 @@
         <div class="flex items-center space-x-3">
             @if ($session->user)
                 <div class="text-right">
-                    <p class="text-sm font-medium">Assigned to</p>
+                    <p class="text-sm font-medium">{{ __('Assigned to') }}</p>
                     <p class="text-xs text-blue-100">{{ $session->user->name }}</p>
                 </div>
             @endif
 
             <button wire:click="markAllAsRead"
                 class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-medium"
-                title="Mark all as read">
+                title="{{ __('Mark all as read') }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
@@ -99,8 +99,8 @@
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
                     </path>
                 </svg>
-                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">No messages yet</p>
-                <p class="text-xs text-gray-400 dark:text-gray-500">Start the conversation below</p>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ __('No messages yet') }}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500">{{ __('Start the conversation below') }}</p>
             </div>
         @endforelse
     </div>
@@ -109,7 +109,7 @@
     <div class="px-6 py-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
         <form wire:submit="sendMessage" class="flex items-end space-x-3">
             <div class="flex-1">
-                <textarea wire:model.live.debounce.300ms="message" rows="2" placeholder="Type your message..."
+                <textarea wire:model.live.debounce.300ms="message" rows="2" placeholder="{{ __('Type your message...') }}"
                     class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                     @keydown.enter.prevent="if(!$event.shiftKey) { $wire.sendMessage(); }" @keydown.shift.enter=""></textarea>
                 @error('message')
@@ -119,8 +119,8 @@
             <button type="submit"
                 class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                 wire:loading.attr="disabled" wire:target="sendMessage">
-                <span wire:loading.remove wire:target="sendMessage">Send</span>
-                <span wire:loading wire:target="sendMessage">Sending...</span>
+                <span wire:loading.remove wire:target="sendMessage">{{ __('Send') }}</span>
+                <span wire:loading wire:target="sendMessage">{{ __('Sending...') }}</span>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -129,15 +129,15 @@
         </form>
 
         <div class="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>Press Enter to send, Shift+Enter for new line</span>
+            <span>{{ __('Press Enter to send, Shift+Enter for new line') }}</span>
             <div class="flex items-center space-x-4">
                 @if ($session->unread_count > 0)
                     <span class="flex items-center">
                         <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                        {{ $session->unread_count }} unread
+                        {{ $session->unread_count }} {{ __('unread') }}
                     </span>
                 @endif
-                <span>{{ $session->messages->count() }} messages</span>
+                <span>{{ $session->messages->count() }} {{ __('messages') }}</span>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ final class ChatSessionForm
     {
         return $schema
             ->components([
-                Section::make('Session Details')
+                Section::make(__('Session details'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
@@ -31,7 +31,7 @@ final class ChatSessionForm
                                     ->preload()
                                     ->required(),
                                 Select::make('user_id')
-                                    ->label('Assigned Agent')
+                                    ->label('Assigned agent')
                                     ->relationship('user', 'name')
                                     ->searchable()
                                     ->preload()
@@ -45,15 +45,15 @@ final class ChatSessionForm
                                     ->required(),
                                 Select::make('priority')
                                     ->options([
-                                        'low' => 'Low',
-                                        'normal' => 'Normal',
-                                        'high' => 'High',
-                                        'urgent' => 'Urgent',
+                                        'low' => __('Low'),
+                                        'normal' => __('Normal'),
+                                        'high' => __('High'),
+                                        'urgent' => __('Urgent'),
                                     ])
                                     ->default('normal')
                                     ->required(),
                                 TextInput::make('rating')
-                                    ->label('Customer Rating')
+                                    ->label('Customer rating')
                                     ->numeric()
                                     ->minValue(1)
                                     ->maxValue(5)
@@ -61,34 +61,32 @@ final class ChatSessionForm
                                     ->nullable(),
                             ]),
                     ]),
-                Section::make('Timestamps')
+                Section::make(__('Timestamps'))
                     ->schema([
                         Grid::make(3)
                             ->schema([
                                 DateTimePicker::make('started_at')
-                                    ->label('Started At')
                                     ->default(now())
                                     ->required()
                                     ->seconds(false),
                                 DateTimePicker::make('ended_at')
-                                    ->label('Ended At')
                                     ->nullable()
                                     ->seconds(false),
                                 DateTimePicker::make('last_message_at')
-                                    ->label('Last Message')
+                                    ->label('Last message')
                                     ->disabled()
                                     ->dehydrated(false)
                                     ->seconds(false),
                             ]),
                     ])
                     ->collapsible(),
-                Section::make('Additional Information')
+                Section::make(__('Additional information'))
                     ->schema([
                         Placeholder::make('unread_count')
-                            ->label('Unread Messages')
+                            ->label('Unread messages')
                             ->content(fn ($record) => $record?->unread_count ?? 0),
                         Textarea::make('notes')
-                            ->label('Internal Notes')
+                            ->label('Internal notes')
                             ->rows(4)
                             ->columnSpanFull()
                             ->nullable(),

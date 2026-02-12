@@ -22,18 +22,14 @@ final class ContactForm
                     ->preload()
                     ->required(),
                 TextInput::make('name')
-                    ->label('Name')
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email')
                     ->email(),
                 TextInput::make('phone')
-                    ->label('Phone')
                     ->tel(),
-                TextInput::make('position')
-                    ->label('Position'),
+                TextInput::make('position'),
                 Toggle::make('is_primary')
-                    ->label('Primary Contact')
+                    ->label('Primary contact')
                     ->default(false),
             ]);
     }

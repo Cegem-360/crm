@@ -42,10 +42,13 @@ final class DiscountForm
                 DatePicker::make('valid_from'),
                 DatePicker::make('valid_until'),
                 Select::make('customer_id')
+                    ->label('Customer')
                     ->relationship('customer', 'name'),
                 Select::make('product_id')
+                    ->label('Product')
                     ->relationship('product', 'name'),
                 Toggle::make('is_active')
+                    ->label('Active')
                     ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),

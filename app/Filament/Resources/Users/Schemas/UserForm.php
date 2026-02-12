@@ -32,10 +32,10 @@ final class UserForm
                     ->url()
                     ->placeholder('https://example.com/api/webhooks/...'),
                 TextInput::make('webhook_secret')
-                    ->label('Webhook titkos kulcs')
+                    ->label(__('Webhook secret key'))
                     ->password()
                     ->revealable()
-                    ->helperText('HMAC aláíráshoz használt titkos kulcs'),
+                    ->helperText(__('Secret key used for HMAC signing')),
             ]);
     }
 }

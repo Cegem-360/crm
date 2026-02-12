@@ -40,12 +40,9 @@ final class CustomerForm
                     ->createOptionForm([
                         TextInput::make('name')
                             ->required(),
-                        TextInput::make('tax_number')
-                            ->label('Tax Number'),
-                        TextInput::make('registration_number')
-                            ->label('Registration Number'),
+                        TextInput::make('tax_number'),
+                        TextInput::make('registration_number'),
                         TextInput::make('email')
-                            ->label('Email')
                             ->email(),
                     ]),
                 TextInput::make('phone')
@@ -53,6 +50,7 @@ final class CustomerForm
                 Textarea::make('notes')
                     ->columnSpanFull(),
                 Toggle::make('is_active')
+                    ->label('Active')
                     ->required(),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Customer),
             ]);

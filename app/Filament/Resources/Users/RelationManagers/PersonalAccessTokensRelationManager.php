@@ -20,7 +20,7 @@ final class PersonalAccessTokensRelationManager extends RelationManager
 {
     protected static string $relationship = 'tokens';
 
-    protected static ?string $title = 'API Tokenek';
+    protected static ?string $title = 'API Tokens';
 
     #[Override]
     public function form(Schema $schema): Schema
@@ -28,9 +28,9 @@ final class PersonalAccessTokensRelationManager extends RelationManager
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Token neve')
+                    ->label(__('Token name'))
                     ->required()
-                    ->placeholder('pl. Workflow Integration'),
+                    ->placeholder('e.g. Workflow Integration'),
             ]);
     }
 
@@ -39,10 +39,10 @@ final class PersonalAccessTokensRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Név')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('abilities')
-                    ->label('Jogosultságok')
+                    ->label(__('Abilities'))
                     ->badge()
                     ->formatStateUsing(function (mixed $state): string {
                         $abilities = is_string($state) ? json_decode($state, true) : $state;
@@ -51,46 +51,46 @@ final class PersonalAccessTokensRelationManager extends RelationManager
                     })
                     ->color('gray'),
                 TextColumn::make('created_at')
-                    ->label('Létrehozva')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable(),
                 TextColumn::make('last_used_at')
-                    ->label('Utoljára használva')
+                    ->label(__('Last used'))
                     ->dateTime('Y-m-d H:i')
-                    ->placeholder('Még nem használt')
+                    ->placeholder(__('Not yet used'))
                     ->sortable(),
             ])
             ->headerActions([
                 Action::make('create')
-                    ->label('Új token létrehozása')
+                    ->label(__('Create new token'))
                     ->icon('heroicon-o-plus')
                     ->form([
                         TextInput::make('name')
-                            ->label('Token neve')
+                            ->label(__('Token name'))
                             ->required()
-                            ->placeholder('pl. Workflow Integration'),
+                            ->placeholder('e.g. Workflow Integration'),
                         CheckboxList::make('abilities')
-                            ->label('Jogosultságok')
+                            ->label(__('Abilities'))
                             ->options([
-                                'products:read' => 'Termékek olvasása',
-                                'products:write' => 'Termékek írása',
-                                'products:delete' => 'Termékek törlése',
-                                'customers:read' => 'Ügyfelek olvasása',
-                                'customers:write' => 'Ügyfelek írása',
-                                'orders:read' => 'Rendelések olvasása',
-                                'orders:write' => 'Rendelések írása',
-                                '*' => 'Teljes hozzáférés (minden)',
+                                'products:read' => __('Read products'),
+                                'products:write' => __('Write products'),
+                                'products:delete' => __('Delete products'),
+                                'customers:read' => __('Read customers'),
+                                'customers:write' => __('Write customers'),
+                                'orders:read' => __('Read orders'),
+                                'orders:write' => __('Write orders'),
+                                '*' => __('Full access (all)'),
                             ])
                             ->columns(2)
-                            ->helperText('Válaszd ki, mihez férhet hozzá ez a token'),
+                            ->helperText(__('Select what this token can access')),
                     ])
                     ->action(function (array $data): void {
                         $abilities = $data['abilities'] ?? ['*'];
                         $token = $this->getOwnerRecord()->createToken($data['name'], $abilities);
 
                         Notification::make()
-                            ->title('Token létrehozva')
-                            ->body('Másold ki a tokent, mert többé nem lesz látható: '.$token->plainTextToken)
+                            ->title(__('Token created'))
+                            ->body(__('Copy the token, it will not be visible again: ').$token->plainTextToken)
                             ->success()
                             ->persistent()
                             ->send();
@@ -98,11 +98,11 @@ final class PersonalAccessTokensRelationManager extends RelationManager
             ])
             ->actions([
                 DeleteAction::make()
-                    ->label('Visszavonás'),
+                    ->label(__('Revoke')),
             ])
             ->bulkActions([
                 DeleteBulkAction::make()
-                    ->label('Kijelöltek visszavonása'),
+                    ->label(__('Revoke selected')),
             ]);
     }
 }

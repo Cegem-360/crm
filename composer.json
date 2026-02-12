@@ -10,17 +10,18 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "filament/filament": "^4.6.3",
-        "laravel/framework": "^12.49.0",
-        "laravel/mcp": "^0.5.3",
-        "laravel/reverb": "^1.7",
-        "laravel/sanctum": "^4.3.0",
-        "laravel/tinker": "^2.11.0",
+        "filament/filament": "^4.7.1",
+        "laravel/framework": "^12.51.0",
+        "laravel/mcp": "^0.5.6",
+        "laravel/reverb": "^1.7.1",
+        "laravel/sanctum": "^4.3.1",
+        "laravel/tinker": "^2.11.1",
         "leandrocfe/filament-apex-charts": "^4.0",
-        "livewire/livewire": ">=3.7.8",
+        "livewire/livewire": ">=3.7.10",
+        "madbox-99/laravel-user-team-sync": "^1.2",
         "nunomaduro/essentials": "@dev",
         "spatie/laravel-activitylog": "^4.11.0",
-        "spatie/laravel-permission": "^6.24",
+        "spatie/laravel-permission": "^6.24.1",
         "typesense/typesense-php": "^5.2"
     },
     "require-dev": {
@@ -28,18 +29,18 @@
         "driftingly/rector-laravel": "^2.1.9",
         "fakerphp/faker": "^1.24.1",
         "filament/blueprint": "^1.1",
-        "filament/upgrade": "^4.6.3",
-        "laravel/boost": "^1.8.10",
-        "laravel/pail": "^1.2.4",
-        "laravel/pint": "^1.27.0",
-        "laravel/sail": "^1.52",
+        "filament/upgrade": "^4.7.1",
+        "laravel/boost": ">=2.1.3",
+        "laravel/pail": "^1.2.6",
+        "laravel/pint": "^1.27.1",
+        "laravel/sail": "^1.53",
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^8.8.3",
         "pestphp/pest": ">=4.3.2",
         "pestphp/pest-plugin-faker": ">=4",
         "pestphp/pest-plugin-laravel": ">=4",
         "pestphp/pest-plugin-livewire": ">=4.1.0",
-        "rector/rector": ">=2.3.5"
+        "rector/rector": ">=2.3.6"
     },
     "autoload": {
         "psr-4": {
@@ -124,5 +125,5 @@
             "type": "composer",
             "url": "https://packages.filamentphp.com/composer"
         }
-        ]
+    ]
 }

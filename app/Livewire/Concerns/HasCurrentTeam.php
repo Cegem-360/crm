@@ -18,6 +18,13 @@ trait HasCurrentTeam
             $this->team = request()->attributes->get('current_team');
         }
 
+        // Ensure the container binding is set on every Livewire lifecycle,
+        // including subsequent AJAX requests where the route middleware doesn't run.
+        // This is required for the TeamScope global scope to filter correctly.
+        if ($this->team instanceof Team) {
+            app()->instance('current_team', $this->team);
+        }
+
         View::share('currentTeam', $this->team);
     }
 

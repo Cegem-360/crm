@@ -44,44 +44,21 @@
                 </div>
             </div>
 
-            {{-- Type filter --}}
-            <div class="sm:w-36">
-                <select
-                    wire:model.live="type"
-                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                    <option value="">{{ __('All types') }}</option>
-                    @foreach($types as $typeOption)
-                        <option value="{{ $typeOption->value }}">{{ $typeOption->getLabel() }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <x-filter-select wire:model.live="type" width="sm:w-36">
+                <option value="">{{ __('All types') }}</option>
+                @foreach($types as $typeOption)
+                    <option value="{{ $typeOption->value }}">{{ $typeOption->getLabel() }}</option>
+                @endforeach
+            </x-filter-select>
 
-            {{-- Status filter --}}
-            <div class="sm:w-40">
-                <select
-                    wire:model.live="status"
-                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                    <option value="">{{ __('All statuses') }}</option>
-                    @foreach($statuses as $statusOption)
-                        <option value="{{ $statusOption->value }}">{{ $statusOption->getLabel() }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <x-filter-select wire:model.live="status" width="sm:w-40">
+                <option value="">{{ __('All statuses') }}</option>
+                @foreach($statuses as $statusOption)
+                    <option value="{{ $statusOption->value }}">{{ $statusOption->getLabel() }}</option>
+                @endforeach
+            </x-filter-select>
 
-            {{-- Per page --}}
-            <div class="sm:w-32">
-                <select
-                    wire:model.live="perPage"
-                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
+            <x-per-page-select />
         </div>
     </div>
 

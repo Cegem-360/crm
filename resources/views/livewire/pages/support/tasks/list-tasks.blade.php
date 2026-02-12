@@ -40,46 +40,23 @@
                 </div>
             </div>
 
-            {{-- Status filter --}}
-            <div class="sm:w-40">
-                <select
-                    wire:model.live="status"
-                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                    <option value="">{{ __('All statuses') }}</option>
-                    <option value="pending">{{ __('Pending') }}</option>
-                    <option value="in_progress">{{ __('In Progress') }}</option>
-                    <option value="completed">{{ __('Completed') }}</option>
-                    <option value="cancelled">{{ __('Cancelled') }}</option>
-                </select>
-            </div>
+            <x-filter-select wire:model.live="status" width="sm:w-40">
+                <option value="">{{ __('All statuses') }}</option>
+                <option value="pending">{{ __('Pending') }}</option>
+                <option value="in_progress">{{ __('In Progress') }}</option>
+                <option value="completed">{{ __('Completed') }}</option>
+                <option value="cancelled">{{ __('Cancelled') }}</option>
+            </x-filter-select>
 
-            {{-- Priority filter --}}
-            <div class="sm:w-36">
-                <select
-                    wire:model.live="priority"
-                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                    <option value="">{{ __('All priorities') }}</option>
-                    <option value="low">{{ __('Low') }}</option>
-                    <option value="medium">{{ __('Medium') }}</option>
-                    <option value="high">{{ __('High') }}</option>
-                    <option value="urgent">{{ __('Urgent') }}</option>
-                </select>
-            </div>
+            <x-filter-select wire:model.live="priority" width="sm:w-36">
+                <option value="">{{ __('All priorities') }}</option>
+                <option value="low">{{ __('Low') }}</option>
+                <option value="medium">{{ __('Medium') }}</option>
+                <option value="high">{{ __('High') }}</option>
+                <option value="urgent">{{ __('Urgent') }}</option>
+            </x-filter-select>
 
-            {{-- Per page --}}
-            <div class="sm:w-32">
-                <select
-                    wire:model.live="perPage"
-                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
+            <x-per-page-select />
         </div>
     </div>
 

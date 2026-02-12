@@ -7,7 +7,7 @@ use App\Enums\CustomFieldType;
 use App\Models\Customer;
 use App\Models\CustomField;
 use App\Models\Team;
-use Carbon\Carbon;
+use Carbon\CarbonInterface;
 
 beforeEach(function (): void {
     $this->team = Team::factory()->create();
@@ -68,7 +68,7 @@ it('can set and get a date custom field value', function (): void {
 
     $value = $customer->getCustomFieldValue('contract-start-date');
 
-    expect($value)->toBeInstanceOf(Carbon::class);
+    expect($value)->toBeInstanceOf(CarbonInterface::class);
     expect($value->format('Y-m-d'))->toBe('2024-06-15');
 });
 

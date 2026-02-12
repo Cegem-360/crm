@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Campaigns\Pages;
 
-use Override;
 use App\Filament\Resources\Campaigns\CampaignResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditCampaign extends EditRecord
 {

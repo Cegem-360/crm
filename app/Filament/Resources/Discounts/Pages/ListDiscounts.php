@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Discounts\Pages;
 
-use Override;
 use App\Filament\Resources\Discounts\DiscountResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 final class ListDiscounts extends ListRecords
 {

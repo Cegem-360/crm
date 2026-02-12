@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\Pages;
 
-use Override;
 use App\Filament\Resources\Customers\CustomerResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Override;
 
 final class ViewCustomer extends ViewRecord
 {

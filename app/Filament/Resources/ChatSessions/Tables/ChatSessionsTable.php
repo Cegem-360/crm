@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions\Tables;
 
-use App\Models\ChatSession;
 use App\Enums\ChatSessionStatus;
+use App\Models\ChatSession;
 use App\Models\User;
 use App\Services\ChatService;
 use Filament\Actions\Action;

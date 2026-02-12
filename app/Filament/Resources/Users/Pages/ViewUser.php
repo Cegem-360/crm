@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users\Pages;
 
-use Override;
 use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Override;
 
 final class ViewUser extends ViewRecord
 {

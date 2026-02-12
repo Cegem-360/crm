@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
-use Override;
 use App\Enums\OpportunityStage;
 use App\Models\Opportunity;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
+use Override;
 
 final class OpportunityValueChart extends ChartWidget
 {

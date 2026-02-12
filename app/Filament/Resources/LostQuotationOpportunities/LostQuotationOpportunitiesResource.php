@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\LostQuotationOpportunities;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\LostQuotationOpportunities\Pages\ManageLostQuotationOpportunities;
 use App\Filament\Resources\LostQuotationOpportunities\Tables\LostQuotationOpportunitiesTable;
 use App\Models\Opportunity;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class LostQuotationOpportunitiesResource extends Resource

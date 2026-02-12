@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use Illuminate\Http\Client\Response;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\WorkflowConfig;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -56,7 +56,7 @@ final class SendWorkflowWebhook implements ShouldQueue
         }
 
         $payload = [
-            'event' => 'product.' . $this->event,
+            'event' => 'product.'.$this->event,
             'timestamp' => now()->toIso8601String(),
             'workflow_name' => $config->name,
             'data' => [
@@ -73,7 +73,7 @@ final class SendWorkflowWebhook implements ShouldQueue
 
         $headers = [
             'Content-Type' => 'application/json',
-            'X-Webhook-Event' => 'product.' . $this->event,
+            'X-Webhook-Event' => 'product.'.$this->event,
             'X-User-Token' => $config->api_token,
         ];
 
@@ -95,7 +95,7 @@ final class SendWorkflowWebhook implements ShouldQueue
                     'workflow_name' => $config->name,
                     'user_id' => $this->user->id,
                     'status' => $response->status(),
-                    'event' => 'product.' . $this->event,
+                    'event' => 'product.'.$this->event,
                 ]);
             }
         } catch (Exception $exception) {
@@ -105,7 +105,7 @@ final class SendWorkflowWebhook implements ShouldQueue
                 'workflow_name' => $config->name,
                 'user_id' => $this->user->id,
                 'error' => $exception->getMessage(),
-                'event' => 'product.' . $this->event,
+                'event' => 'product.'.$this->event,
             ]);
         }
     }

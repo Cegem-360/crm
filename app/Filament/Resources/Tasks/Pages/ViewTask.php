@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tasks\Pages;
 
-use Override;
 use App\Filament\Resources\Tasks\TaskResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Override;
 
 final class ViewTask extends ViewRecord
 {

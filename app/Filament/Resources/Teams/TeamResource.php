@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Teams;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Teams\Pages\CreateTeam;
 use App\Filament\Resources\Teams\Pages\EditTeam;
@@ -16,6 +15,7 @@ use App\Models\Team;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class TeamResource extends Resource

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Campaigns\Pages;
 
-use Override;
 use App\Filament\Resources\Campaigns\CampaignResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 final class ListCampaigns extends ListRecords
 {

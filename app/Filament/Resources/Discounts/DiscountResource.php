@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Discounts;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Discounts\Pages\CreateDiscount;
 use App\Filament\Resources\Discounts\Pages\EditDiscount;
@@ -17,6 +16,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Override;
 use UnitEnum;
 
 final class DiscountResource extends Resource

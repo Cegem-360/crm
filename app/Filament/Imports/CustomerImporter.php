@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
-use Override;
 use App\Enums\CustomerType;
 use App\Models\Customer;
 use Filament\Actions\Imports\ImportColumn;
@@ -12,6 +11,7 @@ use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Filament\Forms\Components\Checkbox;
 use Illuminate\Support\Number;
+use Override;
 
 final class CustomerImporter extends Importer
 {

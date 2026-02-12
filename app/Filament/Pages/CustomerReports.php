@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Widgets\CustomerStatsOverview;
 use App\Filament\Widgets\CustomerTypeChart;
 use App\Filament\Widgets\NewCustomersChart;
 use App\Filament\Widgets\TopCustomersChart;
 use Filament\Pages\Page;
-use Illuminate\Contracts\Support\Htmlable;
+use Override;
 use UnitEnum;
 
 final class CustomerReports extends Page

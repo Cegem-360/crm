@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BugReports;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\BugReports\Pages\CreateBugReport;
 use App\Filament\Resources\BugReports\Pages\EditBugReport;
@@ -15,6 +14,7 @@ use App\Models\BugReport;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class BugReportResource extends Resource

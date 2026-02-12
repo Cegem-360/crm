@@ -119,7 +119,7 @@ final class EmailService
             'direction' => InteractionDirection::Outbound,
             'status' => InteractionStatus::Completed,
             'subject' => $template->subject,
-            'description' => 'Email sent using template: ' . $template->name,
+            'description' => 'Email sent using template: '.$template->name,
             'interaction_date' => now(),
             'email_sent_at' => now(),
             'email_recipient' => $recipientEmail,

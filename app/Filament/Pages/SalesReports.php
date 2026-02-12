@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Widgets\MonthlySalesChart;
 use App\Filament\Widgets\OpportunityValueChart;
@@ -12,7 +11,7 @@ use App\Filament\Widgets\QuoteStatusChart;
 use App\Filament\Widgets\SalesFunnelChart;
 use App\Filament\Widgets\SalesStatsOverview;
 use Filament\Pages\Page;
-use Illuminate\Contracts\Support\Htmlable;
+use Override;
 use UnitEnum;
 
 final class SalesReports extends Page

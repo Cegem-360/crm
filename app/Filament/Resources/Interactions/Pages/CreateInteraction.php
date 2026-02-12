@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Interactions\Pages;
 
-use Override;
 use App\Filament\Resources\Interactions\InteractionResource;
 use App\Models\Customer;
 use App\Models\CustomerContact;
@@ -14,6 +13,7 @@ use App\Services\EmailService;
 use Exception;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
+use Override;
 
 final class CreateInteraction extends CreateRecord
 {
@@ -60,7 +60,7 @@ final class CreateInteraction extends CreateRecord
             Notification::make()
                 ->success()
                 ->title('Email sent')
-                ->body('Email sent successfully to ' . $recipient['email'])
+                ->body('Email sent successfully to '.$recipient['email'])
                 ->send();
         } catch (Exception $exception) {
             Notification::make()

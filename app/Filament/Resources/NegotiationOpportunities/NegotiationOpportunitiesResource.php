@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\NegotiationOpportunities;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\NegotiationOpportunities\Pages\ManageNegotiationOpportunities;
 use App\Filament\Resources\NegotiationOpportunities\Tables\NegotiationOpportunitiesTable;
 use App\Models\Opportunity;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class NegotiationOpportunitiesResource extends Resource

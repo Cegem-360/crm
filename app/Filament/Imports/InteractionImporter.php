@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
-use Override;
 use App\Enums\InteractionCategory;
 use App\Enums\InteractionChannel;
 use App\Enums\InteractionDirection;
@@ -20,6 +19,7 @@ use Filament\Actions\Imports\Models\Import;
 use Filament\Forms\Components\Checkbox;
 use Illuminate\Support\Number;
 use Illuminate\Validation\ValidationException;
+use Override;
 
 final class InteractionImporter extends Importer
 {
@@ -155,7 +155,7 @@ final class InteractionImporter extends Importer
 
         if ($this->resolvedCustomer === null) {
             throw ValidationException::withMessages([
-                'customer_identifier' => 'Customer not found: ' . $customerIdentifier,
+                'customer_identifier' => 'Customer not found: '.$customerIdentifier,
             ]);
         }
     }
@@ -164,7 +164,7 @@ final class InteractionImporter extends Importer
     {
         $contactEmail = $this->data['contact_email'] ?? null;
 
-        if (empty($contactEmail) || !$this->resolvedCustomer instanceof Customer) {
+        if (empty($contactEmail) || ! $this->resolvedCustomer instanceof Customer) {
             return;
         }
 
@@ -190,14 +190,14 @@ final class InteractionImporter extends Importer
 
         if ($this->resolvedUser === null) {
             throw ValidationException::withMessages([
-                'user_email' => 'User not found: ' . $userEmail,
+                'user_email' => 'User not found: '.$userEmail,
             ]);
         }
     }
 
     private function findExistingInteraction(): ?Interaction
     {
-        if (!$this->resolvedCustomer instanceof Customer) {
+        if (! $this->resolvedCustomer instanceof Customer) {
             return null;
         }
 

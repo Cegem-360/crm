@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatMessages;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ChatMessages\Pages\CreateChatMessage;
 use App\Filament\Resources\ChatMessages\Pages\EditChatMessage;
@@ -17,6 +16,7 @@ use App\Models\ChatMessage;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class ChatMessageResource extends Resource

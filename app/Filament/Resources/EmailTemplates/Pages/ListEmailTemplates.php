@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\EmailTemplates\Pages;
 
-use Override;
 use App\Filament\Resources\EmailTemplates\EmailTemplateResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 final class ListEmailTemplates extends ListRecords
 {

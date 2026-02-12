@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Contacts\Pages;
 
-use Override;
 use App\Filament\Resources\Contacts\ContactResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditContact extends EditRecord
 {

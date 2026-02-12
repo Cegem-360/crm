@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Override;
 use App\Enums\CustomFieldModel;
 use App\Enums\CustomFieldType;
 use Database\Factories\CustomFieldFactory;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Override;
 
 final class CustomField extends Model
 {

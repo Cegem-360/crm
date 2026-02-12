@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatMessages\Pages;
 
-use Override;
 use App\Filament\Resources\ChatMessages\ChatMessageResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Override;
 
 final class ViewChatMessage extends ViewRecord
 {

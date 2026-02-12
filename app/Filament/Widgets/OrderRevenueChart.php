@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
-use Override;
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\Order;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
+use Override;
 
 final class OrderRevenueChart extends ChartWidget
 {

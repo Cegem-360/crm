@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Pages;
 
-use Override;
 use App\Filament\Resources\Invoices\InvoiceResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Override;
 
 final class ViewInvoice extends ViewRecord
 {

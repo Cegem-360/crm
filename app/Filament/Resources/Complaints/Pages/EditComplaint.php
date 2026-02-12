@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Complaints\Pages;
 
-use Override;
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Complaints\ComplaintResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditComplaint extends EditRecord
 {

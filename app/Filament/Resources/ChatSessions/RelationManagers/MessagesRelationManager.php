@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions\RelationManagers;
 
-use Override;
 use App\Enums\ChatMessageSenderType;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -20,6 +19,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Override;
 
 final class MessagesRelationManager extends RelationManager
 {

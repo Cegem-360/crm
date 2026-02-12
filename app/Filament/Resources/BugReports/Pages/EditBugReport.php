@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BugReports\Pages;
 
-use Override;
 use App\Filament\Resources\BugReports\BugReportResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditBugReport extends EditRecord
 {

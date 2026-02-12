@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
-use Override;
 use App\Enums\OpportunityStage;
 use App\Models\Opportunity;
 use Filament\Support\RawJs;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
+use Override;
 
 final class SalesFunnelChart extends ApexChartWidget
 {

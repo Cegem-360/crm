@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users\RelationManagers;
 
-use Override;
 use App\Enums\Role;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
@@ -21,6 +20,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 final class PermissionsRelationManager extends RelationManager
 {

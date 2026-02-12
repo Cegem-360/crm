@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use Carbon\Carbon;
 use App\Enums\CustomFieldModel;
 use App\Enums\CustomFieldType;
 use App\Models\Customer;
 use App\Models\CustomField;
 use App\Models\Team;
+use Carbon\Carbon;
 
 beforeEach(function (): void {
     $this->team = Team::factory()->create();

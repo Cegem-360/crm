@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Crm\Customers;
 
-use App\Models\Team;
 use App\Filament\Resources\Customers\CustomerResource;
 use App\Filament\Resources\Customers\Pages\EditCustomer as FilamentEditCustomer;
 use App\Filament\Resources\Customers\Schemas\CustomerForm;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Customer;
+use App\Models\Team;
 use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\RelationManagers\RelationManager;

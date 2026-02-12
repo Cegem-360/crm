@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
-use Override;
 use App\Enums\QuoteStatus;
 use App\Filament\Resources\Customers\Actions\AcceptQuoteAction;
 use App\Filament\Resources\Customers\Actions\GenerateOrderAction;
@@ -31,6 +30,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Override;
 
 final class QuotesRelationManager extends RelationManager
 {

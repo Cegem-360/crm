@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders\RelationManagers;
 
-use Override;
 use App\Models\Order;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -20,6 +19,7 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Override;
 
 /** @property Order $ownerRecord */
 final class ItemsRelationManager extends RelationManager

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
-use Override;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use Filament\Actions\Imports\ImportColumn;
@@ -13,6 +12,7 @@ use Filament\Actions\Imports\Models\Import;
 use Filament\Forms\Components\Checkbox;
 use Illuminate\Support\Number;
 use Illuminate\Validation\ValidationException;
+use Override;
 
 final class CustomerContactImporter extends Importer
 {
@@ -78,9 +78,9 @@ final class CustomerContactImporter extends Importer
 
         $this->resolvedCustomer = $this->findCustomer($customerIdentifier);
 
-        if (!$this->resolvedCustomer instanceof Customer) {
+        if (! $this->resolvedCustomer instanceof Customer) {
             throw ValidationException::withMessages([
-                'customer_identifier' => 'Customer not found: ' . $customerIdentifier,
+                'customer_identifier' => 'Customer not found: '.$customerIdentifier,
             ]);
         }
 
@@ -114,7 +114,7 @@ final class CustomerContactImporter extends Importer
 
     private function findExistingContact(): ?CustomerContact
     {
-        if (!$this->resolvedCustomer instanceof Customer) {
+        if (! $this->resolvedCustomer instanceof Customer) {
             return null;
         }
 

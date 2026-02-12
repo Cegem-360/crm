@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Pages;
 
-use Override;
 use App\Filament\Resources\Invoices\InvoiceResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 final class ListInvoices extends ListRecords
 {

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProposalOpportunities;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ProposalOpportunities\Pages\ManageProposalOpportunities;
 use App\Filament\Resources\ProposalOpportunities\Tables\ProposalOpportunitiesTable;
 use App\Models\Opportunity;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class ProposalOpportunitiesResource extends Resource

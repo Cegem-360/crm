@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Override;
 use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\CustomerContactFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Override;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 

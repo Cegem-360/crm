@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tasks;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Tasks\Pages\CreateTask;
 use App\Filament\Resources\Tasks\Pages\EditTask;
@@ -15,6 +14,7 @@ use App\Models\Task;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class TaskResource extends Resource

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Pages;
 
-use Override;
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Invoices\InvoiceResource;
 use Filament\Actions\DeleteAction;
@@ -12,6 +11,7 @@ use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditInvoice extends EditRecord
 {

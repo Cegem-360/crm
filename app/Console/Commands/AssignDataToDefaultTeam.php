@@ -61,7 +61,7 @@ final class AssignDataToDefaultTeam extends Command
             $user->teams()->attach($team);
         }
 
-        $this->line('  Users assigned to team: ' . $usersWithoutTeams->count());
+        $this->line('  Users assigned to team: '.$usersWithoutTeams->count());
 
         $this->newLine();
         $this->info('All existing data has been assigned to the default team.');

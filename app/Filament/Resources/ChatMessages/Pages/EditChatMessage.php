@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatMessages\Pages;
 
-use Override;
 use App\Filament\Resources\ChatMessages\ChatMessageResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditChatMessage extends EditRecord
 {

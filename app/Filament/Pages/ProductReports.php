@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Widgets\ProductCategoryChart;
 use App\Filament\Widgets\ProductSalesChart;
 use App\Filament\Widgets\ProductStatsOverview;
 use App\Filament\Widgets\TopProductsChart;
 use Filament\Pages\Page;
-use Illuminate\Contracts\Support\Htmlable;
+use Override;
 use UnitEnum;
 
 final class ProductReports extends Page

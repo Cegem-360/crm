@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Discounts\Pages;
 
-use Override;
 use App\Filament\Resources\Discounts\DiscountResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Override;
 
 final class ViewDiscount extends ViewRecord
 {

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Widgets\OrderCountChart;
 use App\Filament\Widgets\OrderRevenueChart;
 use App\Filament\Widgets\OrderStatsOverview;
 use App\Filament\Widgets\OrderStatusChart;
 use Filament\Pages\Page;
-use Illuminate\Contracts\Support\Htmlable;
+use Override;
 use UnitEnum;
 
 final class OrderReports extends Page

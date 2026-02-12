@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
-use Override;
 use App\Enums\InvoiceStatus;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
@@ -31,6 +30,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Override;
 
 final class InvoicesRelationManager extends RelationManager
 {

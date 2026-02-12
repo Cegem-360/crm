@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
-use Override;
 use Filament\Auth\Pages\Register as BaseRegister;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
+use Override;
 
 final class Register extends BaseRegister
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Interactions\Pages;
 
-use Override;
 use App\Filament\Resources\Interactions\InteractionResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 final class ListInteractions extends ListRecords
 {

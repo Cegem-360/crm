@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions\Pages;
 
-use Override;
 use App\Filament\Resources\ChatSessions\ChatSessionResource;
 use App\Models\User;
 use App\Services\ChatService;
@@ -15,6 +14,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Colors\Color;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 final class ViewChatSession extends ViewRecord
 {

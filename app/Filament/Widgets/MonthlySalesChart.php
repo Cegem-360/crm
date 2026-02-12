@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
-use Override;
-use Illuminate\Support\Facades\Date;
 use App\Models\Order;
 use App\Models\Quote;
-use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Override;
 
 final class MonthlySalesChart extends ChartWidget
 {
@@ -42,8 +41,8 @@ final class MonthlySalesChart extends ChartWidget
 
         $orderData = Order::query()
             ->select(
-                DB::raw($orderYearExpression . ' as year'),
-                DB::raw($orderMonthExpression . ' as month'),
+                DB::raw($orderYearExpression.' as year'),
+                DB::raw($orderMonthExpression.' as month'),
                 DB::raw('SUM(total) as total')
             )
             ->where('order_date', '>=', Date::now()->subMonths(11)->startOfMonth())
@@ -53,8 +52,8 @@ final class MonthlySalesChart extends ChartWidget
 
         $quoteData = Quote::query()
             ->select(
-                DB::raw($quoteYearExpression . ' as year'),
-                DB::raw($quoteMonthExpression . ' as month'),
+                DB::raw($quoteYearExpression.' as year'),
+                DB::raw($quoteMonthExpression.' as month'),
                 DB::raw('SUM(total) as total')
             )
             ->where('issue_date', '>=', Date::now()->subMonths(11)->startOfMonth())

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions\Pages;
 
-use Override;
 use App\Filament\Resources\ChatSessions\ChatSessionResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 final class ListChatSessions extends ListRecords
 {

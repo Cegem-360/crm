@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
-use Override;
 use App\Enums\CustomerType;
 use App\Enums\OpportunityStage;
 use App\Models\Customer;
@@ -15,6 +14,7 @@ use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Number;
+use Override;
 
 final class OpportunityImporter extends Importer
 {

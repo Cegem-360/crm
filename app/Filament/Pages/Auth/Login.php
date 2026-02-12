@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
-use Override;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BasePage;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 final class Login extends BasePage
 {

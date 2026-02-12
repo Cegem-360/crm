@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProductCategories\Pages;
 
-use Override;
 use App\Filament\Resources\ProductCategories\ProductCategoryResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditProductCategory extends EditRecord
 {

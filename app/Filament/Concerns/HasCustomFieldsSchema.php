@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Concerns;
 
-use Filament\Tables\Columns\Column;
 use App\Enums\CustomFieldModel;
 use App\Services\CustomFieldService;
 use Filament\Schemas\Components\Section;
+use Filament\Tables\Columns\Column;
 
 trait HasCustomFieldsSchema
 {

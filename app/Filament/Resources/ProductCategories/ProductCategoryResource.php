@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProductCategories;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ProductCategories\Pages\CreateProductCategory;
 use App\Filament\Resources\ProductCategories\Pages\EditProductCategory;
@@ -17,6 +16,7 @@ use App\Models\ProductCategory;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class ProductCategoryResource extends Resource

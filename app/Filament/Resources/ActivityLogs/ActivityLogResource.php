@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ActivityLogs;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ActivityLogs\Pages\ListActivityLogs;
 use App\Filament\Resources\ActivityLogs\Pages\ViewActivityLog;
@@ -13,6 +12,7 @@ use App\Filament\Resources\ActivityLogs\Tables\ActivityLogsTable;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Override;
 use Spatie\Activitylog\Models\Activity;
 use UnitEnum;
 

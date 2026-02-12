@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\QuotationSendedOpportunities;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\QuotationSendedOpportunities\Pages\ManageQuotationSendedOpportunities;
 use App\Filament\Resources\QuotationSendedOpportunities\Tables\QuotationSendedOpportunitiesTable;
 use App\Models\Opportunity;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class QuotationSendedOpportunitiesResource extends Resource

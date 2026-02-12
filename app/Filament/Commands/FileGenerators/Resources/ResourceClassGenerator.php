@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Commands\FileGenerators\Resources;
 
-use Override;
 use App\Enums\NavigationGroup;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Literal;
+use Override;
 use UnitEnum;
 
 final class ResourceClassGenerator extends BaseResourceClassGenerator

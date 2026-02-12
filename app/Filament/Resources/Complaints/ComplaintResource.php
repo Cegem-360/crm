@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Complaints;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Complaints\Pages\CreateComplaint;
 use App\Filament\Resources\Complaints\Pages\EditComplaint;
@@ -15,6 +14,7 @@ use App\Models\Complaint;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class ComplaintResource extends Resource

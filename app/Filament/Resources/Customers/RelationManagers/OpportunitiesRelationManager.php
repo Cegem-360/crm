@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
-use Override;
 use App\Enums\OpportunityStage;
 use App\Filament\Resources\Customers\Actions\GenerateQuoteAction;
 use Filament\Actions\AssociateAction;
@@ -33,6 +32,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 final class OpportunitiesRelationManager extends RelationManager
 {

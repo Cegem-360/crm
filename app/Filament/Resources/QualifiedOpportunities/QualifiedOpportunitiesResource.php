@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\QualifiedOpportunities;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\QualifiedOpportunities\Pages\ManageQualifiedOpportunities;
 use App\Filament\Resources\QualifiedOpportunities\Tables\QualifiedOpportunitiesTable;
 use App\Models\Opportunity;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class QualifiedOpportunitiesResource extends Resource

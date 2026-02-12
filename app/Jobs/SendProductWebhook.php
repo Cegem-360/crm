@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use Illuminate\Http\Client\Response;
 use App\Models\Product;
 use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -39,7 +39,7 @@ final class SendProductWebhook implements ShouldQueue
     private function sendWebhook(User $user): void
     {
         $payload = [
-            'event' => 'product.' . $this->event,
+            'event' => 'product.'.$this->event,
             'timestamp' => now()->toIso8601String(),
             'data' => [
                 'id' => $this->product->id,
@@ -55,7 +55,7 @@ final class SendProductWebhook implements ShouldQueue
 
         $headers = [
             'Content-Type' => 'application/json',
-            'X-Webhook-Event' => 'product.' . $this->event,
+            'X-Webhook-Event' => 'product.'.$this->event,
         ];
 
         if ($user->webhook_secret) {
@@ -74,7 +74,7 @@ final class SendProductWebhook implements ShouldQueue
                     'user_id' => $user->id,
                     'url' => $user->webhook_url,
                     'status' => $response->status(),
-                    'event' => 'product.' . $this->event,
+                    'event' => 'product.'.$this->event,
                 ]);
             }
         } catch (Exception $exception) {
@@ -82,7 +82,7 @@ final class SendProductWebhook implements ShouldQueue
                 'user_id' => $user->id,
                 'url' => $user->webhook_url,
                 'error' => $exception->getMessage(),
-                'event' => 'product.' . $this->event,
+                'event' => 'product.'.$this->event,
             ]);
         }
     }

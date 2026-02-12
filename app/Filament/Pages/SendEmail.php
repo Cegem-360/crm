@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Override;
 use App\Enums\NavigationGroup;
 use App\Models\Company;
 use App\Models\Customer;
@@ -21,7 +20,7 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
-use Illuminate\Contracts\Support\Htmlable;
+use Override;
 use UnitEnum;
 
 final class SendEmail extends Page implements HasSchemas
@@ -188,7 +187,7 @@ final class SendEmail extends Page implements HasSchemas
             Notification::make()
                 ->success()
                 ->title('Email sent')
-                ->body('Email sent successfully to ' . $recipientEmail)
+                ->body('Email sent successfully to '.$recipientEmail)
                 ->send();
 
             $this->form->fill();

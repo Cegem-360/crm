@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders\Pages;
 
-use Override;
 use App\Enums\InvoiceStatus;
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Orders\OrderResource;
@@ -16,6 +15,7 @@ use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 /** @property Order $record  */
 final class EditOrder extends EditRecord

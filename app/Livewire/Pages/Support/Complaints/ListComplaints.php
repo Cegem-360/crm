@@ -6,7 +6,17 @@ namespace App\Livewire\Pages\Support\Complaints;
 
 use App\Enums\ComplaintSeverity;
 use App\Enums\ComplaintStatus;
+use App\Filament\Exports\ComplaintExporter;
+use App\Filament\Imports\ComplaintImporter;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Complaint;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Actions\ExportAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\ImportAction;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -15,8 +25,11 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('components.layouts.dashboard')]
-final class ListComplaints extends Component
+final class ListComplaints extends Component implements HasActions, HasSchemas
 {
+    use HasCurrentTeam;
+    use InteractsWithActions;
+    use InteractsWithSchemas;
     use WithPagination;
 
     #[Url]
@@ -67,6 +80,22 @@ final class ListComplaints extends Component
     public function updatedSeverity(): void
     {
         $this->resetPage();
+    }
+
+    public function importAction(): ImportAction
+    {
+        return ImportAction::make('import')
+            ->importer(ComplaintImporter::class);
+    }
+
+    public function exportAction(): ExportAction
+    {
+        return ExportAction::make('export')
+            ->exporter(ComplaintExporter::class)
+            ->formats([
+                ExportFormat::Xlsx,
+                ExportFormat::Csv,
+            ]);
     }
 
     public function render(): View

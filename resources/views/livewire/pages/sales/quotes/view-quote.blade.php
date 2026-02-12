@@ -54,7 +54,7 @@
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Total') }}</dt>
-                    <dd class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">{{ number_format($quote->total, 0, ',', ' ') }} Ft</dd>
+                    <dd class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">{{ Number::currency($quote->total, 'HUF', 'hu', 0) }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Status') }}</dt>
@@ -99,8 +99,8 @@
                             <tr>
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">{{ $item->product?->name ?? $item->description ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-white text-right">{{ $item->quantity }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-white text-right">{{ number_format($item->unit_price, 0, ',', ' ') }} Ft</td>
-                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ number_format($item->quantity * $item->unit_price, 0, ',', ' ') }} Ft</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-white text-right">{{ Number::currency($item->unit_price, 'HUF', 'hu', 0) }}</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ Number::currency($item->quantity * $item->unit_price, 'HUF', 'hu', 0) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -10,6 +10,7 @@ use App\Models\Opportunity;
 use App\Models\Quote;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Number;
 
 final class GenerateQuoteAction
 {
@@ -59,9 +60,9 @@ final class GenerateQuoteAction
                     ->success()
                     ->title('Quote Generated Successfully')
                     ->body(sprintf(
-                        'Quote #%s has been created with a value of %s HUF.',
+                        'Quote #%s has been created with a value of %s.',
                         $quote->quote_number,
-                        number_format($total, 2),
+                        Number::currency($total, 'HUF', 'hu', 0),
                     ))
                     ->send();
             })

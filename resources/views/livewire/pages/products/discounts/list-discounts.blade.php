@@ -5,9 +5,13 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Discounts') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your discount rules and promotions') }}</p>
         </div>
-        <x-primary-button :href="route('dashboard.discounts.create', ['team' => $currentTeam])" icon="plus">
-            {{ __('New Discount') }}
-        </x-primary-button>
+        <div class="flex items-center gap-2">
+            {{ $this->importAction }}
+            {{ $this->exportAction }}
+            <x-primary-button :href="route('dashboard.discounts.create', ['team' => $currentTeam])" icon="plus">
+                {{ __('New Discount') }}
+            </x-primary-button>
+        </div>
     </div>
 
     {{-- Filters --}}
@@ -64,7 +68,7 @@
                                     @if($discount->value_type->value === 'percentage')
                                         {{ $discount->value }}%
                                     @else
-                                        {{ number_format($discount->value, 0, ',', ' ') }} Ft
+                                        {{ Number::currency($discount->value, 'HUF', 'hu', 0) }}
                                     @endif
                                 </span>
                             </td>
@@ -137,4 +141,6 @@
 
     {{-- Results info --}}
     <x-results-info :paginator="$discounts" />
+
+    <x-filament-actions::modals />
 </div>

@@ -5,9 +5,13 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Quotes') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your sales quotes') }}</p>
         </div>
-        <x-primary-button :href="route('dashboard.quotes.create', ['team' => $currentTeam])" icon="plus">
-            {{ __('New Quote') }}
-        </x-primary-button>
+        <div class="flex items-center gap-2">
+            {{ $this->importAction }}
+            {{ $this->exportAction }}
+            <x-primary-button :href="route('dashboard.quotes.create', ['team' => $currentTeam])" icon="plus">
+                {{ __('New Quote') }}
+            </x-primary-button>
+        </div>
     </div>
 
     {{-- Filters --}}
@@ -60,7 +64,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ number_format($quote->total, 0, ',', ' ') }} Ft</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ Number::currency($quote->total, 'HUF', 'hu', 0) }}</span>
                             </td>
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
@@ -117,4 +121,6 @@
 
     {{-- Results info --}}
     <x-results-info :paginator="$quotes" />
+
+    <x-filament-actions::modals />
 </div>

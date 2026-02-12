@@ -93,7 +93,7 @@
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $product->name }}</p>
                                 <p class="text-xs text-gray-500 dark:text-gray-400 font-mono">{{ $product->sku }}</p>
                             </div>
-                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{ number_format($product->unit_price, 0, ',', ' ') }} Ft</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{ Number::currency($product->unit_price, 'HUF', 'hu', 0) }}</span>
                         </a>
                     </li>
                 @endforeach

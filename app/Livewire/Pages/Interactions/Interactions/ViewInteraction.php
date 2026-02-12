@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Interactions\Interactions;
 
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Interaction;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -12,6 +13,8 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class ViewInteraction extends Component
 {
+    use HasCurrentTeam;
+
     public Interaction $interaction;
 
     public function mount(Interaction $interaction): void

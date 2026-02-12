@@ -9,7 +9,6 @@ use App\Filament\Resources\Customers\Pages\EditCustomer as FilamentEditCustomer;
 use App\Filament\Resources\Customers\Schemas\CustomerForm;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Customer;
-use App\Models\Team;
 use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -49,10 +48,6 @@ final class EditCustomer extends Component implements HasSchemas
 
     public function rendering(): void
     {
-        if ($this->team instanceof Team) {
-            \Illuminate\Support\Facades\View::share('currentTeam', $this->team);
-        }
-
         if (! $this->customer?->exists) {
             return;
         }

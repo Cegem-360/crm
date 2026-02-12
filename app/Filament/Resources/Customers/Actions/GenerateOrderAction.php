@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Quote;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Number;
 
 final class GenerateOrderAction
 {
@@ -68,11 +69,11 @@ final class GenerateOrderAction
                     ->success()
                     ->title('Order Generated Successfully')
                     ->body(sprintf(
-                        'Order #%s has been created with %s %s and a total value of %s HUF.',
+                        'Order #%s has been created with %s %s and a total value of %s.',
                         $order->order_number,
                         $itemCount,
                         str('item')->plural($itemCount),
-                        number_format($order->total, 2),
+                        Number::currency($order->total, 'HUF', 'hu', 0),
                     ))
                     ->send();
             })

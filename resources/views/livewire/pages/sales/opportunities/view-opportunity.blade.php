@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Value') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ number_format($opportunity->value, 0, ',', ' ') }} Ft</dd>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ Number::currency($opportunity->value, 'HUF', 'hu', 0) }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Probability') }}</dt>
@@ -94,7 +94,7 @@
                         <a href="{{ route('dashboard.quotes.view', ['team' => $currentTeam, 'quote' => $quote]) }}" wire:navigate class="flex items-center justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
                             <div>
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $quote->quote_number }}</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ number_format($quote->total, 0, ',', ' ') }} Ft</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ Number::currency($quote->total, 'HUF', 'hu', 0) }}</p>
                             </div>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $quote->status->value === 'accepted' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-400' }}">
                                 {{ ucfirst($quote->status->value) }}

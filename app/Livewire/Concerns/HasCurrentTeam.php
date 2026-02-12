@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Concerns;
 
 use App\Models\Team;
+use Illuminate\Support\Facades\View;
 
 trait HasCurrentTeam
 {
@@ -16,6 +17,8 @@ trait HasCurrentTeam
         if ($this->team === null) {
             $this->team = request()->attributes->get('current_team');
         }
+
+        View::share('currentTeam', $this->team);
     }
 
     public function getCurrentTeam(): ?Team

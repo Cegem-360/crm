@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Interactions\ChatSessions;
 
 use App\Enums\ChatSessionStatus;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\ChatSession;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
@@ -16,6 +17,7 @@ use Livewire\WithPagination;
 #[Layout('components.layouts.dashboard')]
 final class ListChatSessions extends Component
 {
+    use HasCurrentTeam;
     use WithPagination;
 
     #[Url]

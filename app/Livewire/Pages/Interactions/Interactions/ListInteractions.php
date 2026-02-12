@@ -8,6 +8,7 @@ use App\Enums\InteractionStatus;
 use App\Enums\InteractionType;
 use App\Filament\Exports\InteractionExporter;
 use App\Filament\Imports\InteractionImporter;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Interaction;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -26,6 +27,7 @@ use Livewire\WithPagination;
 #[Layout('components.layouts.dashboard')]
 final class ListInteractions extends Component implements HasActions, HasSchemas
 {
+    use HasCurrentTeam;
     use InteractsWithActions;
     use InteractsWithSchemas;
     use WithPagination;

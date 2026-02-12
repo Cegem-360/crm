@@ -4,8 +4,18 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Products\Products;
 
+use App\Filament\Exports\ProductExporter;
+use App\Filament\Imports\ProductImporter;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Actions\ExportAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\ImportAction;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,8 +25,11 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('components.layouts.dashboard')]
-final class ListProducts extends Component
+final class ListProducts extends Component implements HasActions, HasSchemas
 {
+    use HasCurrentTeam;
+    use InteractsWithActions;
+    use InteractsWithSchemas;
     use WithPagination;
 
     #[Url]
@@ -67,6 +80,22 @@ final class ListProducts extends Component
     public function updatedActive(): void
     {
         $this->resetPage();
+    }
+
+    public function importAction(): ImportAction
+    {
+        return ImportAction::make('import')
+            ->importer(ProductImporter::class);
+    }
+
+    public function exportAction(): ExportAction
+    {
+        return ExportAction::make('export')
+            ->exporter(ProductExporter::class)
+            ->formats([
+                ExportFormat::Xlsx,
+                ExportFormat::Csv,
+            ]);
     }
 
     public function render(): View

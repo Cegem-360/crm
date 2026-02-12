@@ -5,9 +5,13 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Companies') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your company database') }}</p>
         </div>
-        <x-primary-button :href="route('dashboard.companies.create', ['team' => $currentTeam])" icon="plus">
-            {{ __('New Company') }}
-        </x-primary-button>
+        <div class="flex items-center gap-2">
+            {{ $this->importAction }}
+            {{ $this->exportAction }}
+            <x-primary-button :href="route('dashboard.companies.create', ['team' => $currentTeam])" icon="plus">
+                {{ __('New Company') }}
+            </x-primary-button>
+        </div>
     </div>
 
     {{-- Filters --}}
@@ -115,4 +119,5 @@
     {{-- Results info --}}
     <x-results-info :paginator="$companies" />
 
+    <x-filament-actions::modals />
 </div>

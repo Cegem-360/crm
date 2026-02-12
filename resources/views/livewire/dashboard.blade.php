@@ -13,7 +13,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Customers') }}</p>
-                    <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{{ number_format($customersCount) }}
+                    <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{{ Number::format($customersCount) }}
                     </p>
                 </div>
                 <div
@@ -27,7 +27,7 @@
             </div>
             <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
                 <span
-                    class="text-green-600 dark:text-green-400 font-medium">{{ number_format($activeCustomersCount) }}</span>
+                    class="text-green-600 dark:text-green-400 font-medium">{{ Number::format($activeCustomersCount) }}</span>
                 {{ __('active') }}
             </p>
         </a>
@@ -39,7 +39,7 @@
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Companies') }}</p>
                     <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
-                        {{ number_format($companiesCount) }}</p>
+                        {{ Number::format($companiesCount) }}</p>
                 </div>
                 <div
                     class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-900/50 transition">
@@ -60,7 +60,7 @@
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Contacts') }}</p>
                     <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
-                        {{ number_format($contactsCount) }}</p>
+                        {{ Number::format($contactsCount) }}</p>
                 </div>
                 <div
                     class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-900/50 transition">

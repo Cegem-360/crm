@@ -5,9 +5,13 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Tasks') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage and track support tasks') }}</p>
         </div>
-        <x-primary-button :href="route('dashboard.tasks.create', ['team' => $currentTeam])" icon="plus">
-            {{ __('New Task') }}
-        </x-primary-button>
+        <div class="flex items-center gap-2">
+            {{ $this->importAction }}
+            {{ $this->exportAction }}
+            <x-primary-button :href="route('dashboard.tasks.create', ['team' => $currentTeam])" icon="plus">
+                {{ __('New Task') }}
+            </x-primary-button>
+        </div>
     </div>
 
     {{-- Filters --}}
@@ -131,4 +135,6 @@
 
     {{-- Results info --}}
     <x-results-info :paginator="$tasks" />
+
+    <x-filament-actions::modals />
 </div>

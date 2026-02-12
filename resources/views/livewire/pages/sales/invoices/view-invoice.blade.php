@@ -54,7 +54,7 @@
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Total') }}</dt>
-                    <dd class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">{{ number_format($invoice->total, 0, ',', ' ') }} Ft</dd>
+                    <dd class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">{{ Number::currency($invoice->total, 'HUF', 'hu', 0) }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Status') }}</dt>
@@ -68,7 +68,10 @@
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Due Date') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white {{ $invoice->due_date?->isPast() && $invoice->status->value !== 'paid' ? 'text-red-500 dark:text-red-400' : '' }}">
+                    @php
+                        $isOverdue = $invoice->due_date?->isPast() && $invoice->status->value !== 'paid';
+                    @endphp
+                    <dd class="mt-1 text-sm {{ $isOverdue ? 'text-red-500 dark:text-red-400 font-medium' : 'text-gray-900 dark:text-white' }}">
                         {{ $invoice->due_date?->format('Y-m-d') ?? '-' }}
                     </dd>
                 </div>
@@ -99,7 +102,7 @@
                         @foreach($invoice->payments as $payment)
                             <tr>
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">{{ $payment->payment_date?->format('Y-m-d') ?? '-' }}</td>
-                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ number_format($payment->amount, 0, ',', ' ') }} Ft</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ Number::currency($payment->amount, 'HUF', 'hu', 0) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $payment->payment_method ?? '-' }}</td>
                             </tr>
                         @endforeach

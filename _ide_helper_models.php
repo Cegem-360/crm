@@ -25,10 +25,12 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int|null $customer_id
+ * @property int|null $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\User|null $assignedUser
  * @property-read \App\Models\Customer|null $customer
+ * @property-read \App\Models\Team|null $team
  * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\BugReportFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport newModelQuery()
@@ -43,6 +45,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereSeverity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereUserId($value)
@@ -63,9 +66,11 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int $team_id
  * @property-read \App\Models\User|null $creator
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CampaignResponse> $responses
  * @property-read int|null $responses_count
+ * @property-read \App\Models\Team $team
  * @method static \Database\Factories\CampaignFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign newQuery()
@@ -81,6 +86,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign whereTargetAudienceCriteria($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Campaign withoutTrashed()
@@ -130,11 +136,13 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int|null $team_id
  * @property-read \App\Models\ChatSession $chatSession
  * @property-read ChatMessage|null $parentMessage
  * @property-read \Illuminate\Database\Eloquent\Collection<int, ChatMessage> $replies
  * @property-read int|null $replies_count
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $sender
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\ChatMessageFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage newQuery()
@@ -151,6 +159,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage whereReadAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage whereSenderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage whereSenderType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatMessage withoutTrashed()
@@ -173,9 +182,11 @@ namespace App\Models{
  * @property string|null $notes
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int $team_id
  * @property-read \App\Models\Customer|null $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChatMessage> $messages
  * @property-read int|null $messages_count
+ * @property-read \App\Models\Team $team
  * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\ChatSessionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession newModelQuery()
@@ -191,6 +202,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession whereRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession whereStartedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession whereUnreadCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ChatSession whereUserId($value)
@@ -208,10 +220,12 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Customer> $customers
  * @property-read int|null $customers_count
+ * @property-read \App\Models\Team $team
  * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newQuery()
@@ -224,6 +238,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereRegistrationNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereTaxNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company withoutTrashed()
@@ -247,12 +262,18 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $resolved_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int|null $team_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
  * @property-read \App\Models\User|null $assignedUser
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
  * @property-read \App\Models\Customer $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ComplaintEscalation> $escalations
  * @property-read int|null $escalations_count
  * @property-read \App\Models\Order|null $order
  * @property-read \App\Models\User|null $reporter
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\ComplaintFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint newQuery()
@@ -269,6 +290,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint whereResolvedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint whereSeverity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Complaint whereUpdatedAt($value)
  */
@@ -307,6 +329,72 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property \App\Enums\CustomFieldType $type
+ * @property \App\Enums\CustomFieldModel $model_type
+ * @property array<array-key, mixed>|null $options
+ * @property string|null $description
+ * @property int $sort_order
+ * @property bool $is_active
+ * @property bool $is_visible_in_form
+ * @property bool $is_visible_in_table
+ * @property bool $is_visible_in_infolist
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $values
+ * @property-read int|null $values_count
+ * @method static \Database\Factories\CustomFieldFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereIsVisibleInForm($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereIsVisibleInInfolist($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereIsVisibleInTable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereModelType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomField whereUpdatedAt($value)
+ */
+	final class CustomField extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $custom_field_id
+ * @property string $model_type
+ * @property int $model_id
+ * @property string|null $value
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \App\Models\CustomField $customField
+ * @property-read \Illuminate\Database\Eloquent\Model $model
+ * @method static \Database\Factories\CustomFieldValueFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue whereCustomFieldId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue whereModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue whereModelType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomFieldValue whereValue($value)
+ */
+	final class CustomFieldValue extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property string $unique_identifier
  * @property string $name
  * @property \App\Enums\CustomerType $type
@@ -317,6 +405,7 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property int|null $company_id
+ * @property int|null $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomerAddress> $addresses
@@ -334,6 +423,8 @@ namespace App\Models{
  * @property-read int|null $complaints_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomerContact> $contacts
  * @property-read int|null $contacts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Discount> $discounts
  * @property-read int|null $discounts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Interaction> $interactions
@@ -348,6 +439,7 @@ namespace App\Models{
  * @property-read int|null $quotes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
  * @property-read int|null $tasks_count
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\CustomerFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer newQuery()
@@ -361,6 +453,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereUniqueIdentifier($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereUpdatedAt($value)
@@ -441,11 +534,13 @@ namespace App\Models{
  * @property bool $is_primary
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int|null $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Customer $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Interaction> $interactions
  * @property-read int|null $interactions_count
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\CustomerContactFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerContact newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerContact newQuery()
@@ -458,6 +553,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerContact whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerContact wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerContact wherePosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerContact whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerContact whereUpdatedAt($value)
  */
 	final class CustomerContact extends \Eloquent {}
@@ -481,8 +577,10 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int|null $team_id
  * @property-read \App\Models\Customer|null $customer
  * @property-read \App\Models\Product|null $product
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\DiscountFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount newQuery()
@@ -498,6 +596,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount whereMinValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Discount whereValidFrom($value)
@@ -522,9 +621,11 @@ namespace App\Models{
  * @property int|null $created_by
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int $team_id
  * @property-read \App\Models\User|null $createdBy
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Interaction> $interactions
  * @property-read int|null $interactions_count
+ * @property-read \App\Models\Team $team
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate query()
@@ -536,6 +637,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate whereSubject($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate whereVariables($value)
  */
@@ -565,11 +667,13 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \Carbon\CarbonImmutable|null $email_sent_at
  * @property string|null $email_recipient
+ * @property int|null $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\CustomerContact|null $contact
  * @property-read \App\Models\Customer|null $customer
  * @property-read \App\Models\EmailTemplate|null $emailTemplate
+ * @property-read \App\Models\Team|null $team
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\InteractionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction newModelQuery()
@@ -594,6 +698,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereNextActionDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereSubject($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereUserId($value)
@@ -622,8 +727,14 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int|null $team_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
  * @property-read \App\Models\Customer $customer
  * @property-read \App\Models\Order|null $order
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\InvoiceFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newQuery()
@@ -644,6 +755,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereSubtotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereTaxAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice withTrashed(bool $withTrashed = true)
@@ -666,12 +778,16 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int|null $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\User|null $assignedUser
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
  * @property-read \App\Models\Customer $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Quote> $quotes
  * @property-read int|null $quotes_count
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\OpportunityFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity newQuery()
@@ -686,6 +802,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity whereProbability($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity whereStage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opportunity whereValue($value)
@@ -711,12 +828,18 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int|null $team_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
  * @property-read \App\Models\Customer $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
  * @property-read int|null $invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItem> $orderItems
  * @property-read int|null $order_items_count
  * @property-read \App\Models\Quote|null $quote
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\OrderFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
@@ -734,6 +857,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereSubtotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTaxAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order withTrashed(bool $withTrashed = true)
@@ -789,7 +913,11 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int $team_id
  * @property-read \App\Models\ProductCategory|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
+ * @property-read \App\Models\Team $team
  * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
@@ -804,6 +932,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereSku($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereTaxRate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUnitPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product withTrashed(bool $withTrashed = true)
@@ -820,11 +949,13 @@ namespace App\Models{
  * @property string|null $description
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, ProductCategory> $children
  * @property-read int|null $children_count
  * @property-read ProductCategory|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
+ * @property-read \App\Models\Team $team
  * @method static \Database\Factories\ProductCategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductCategory newQuery()
@@ -834,6 +965,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductCategory whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductCategory whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductCategory whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductCategory whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductCategory whereUpdatedAt($value)
  */
 	final class ProductCategory extends \Eloquent {}
@@ -856,12 +988,18 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property int|null $team_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
  * @property-read \App\Models\Customer $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\QuoteItem> $items
  * @property-read int|null $items_count
  * @property-read \App\Models\Opportunity|null $opportunity
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  * @property-read int|null $orders_count
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\QuoteFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote newQuery()
@@ -879,6 +1017,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote whereSubtotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote whereTaxAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Quote whereValidUntil($value)
@@ -938,9 +1077,15 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $completed_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int|null $team_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
  * @property-read \App\Models\User $assignedUser
  * @property-read \App\Models\User $assigner
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
+ * @property-read int|null $custom_field_values_count
  * @property-read \App\Models\Customer|null $customer
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newQuery()
@@ -955,6 +1100,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task wherePriority($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereUpdatedAt($value)
  */
@@ -963,11 +1109,36 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Campaign> $campaigns
+ * @property-read int|null $campaigns_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
+ * @property-read int|null $companies_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Customer> $customers
+ * @property-read int|null $customers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EmailTemplate> $emailTemplates
+ * @property-read int|null $email_templates_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductCategory> $productCategories
+ * @property-read int|null $product_categories_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WorkflowConfig> $workflowConfigs
+ * @property-read int|null $workflow_configs_count
+ * @method static \Database\Factories\TeamFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Team newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Team newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Team query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereUpdatedAt($value)
  */
 	final class Team extends \Eloquent {}
 }
@@ -999,6 +1170,8 @@ namespace App\Models{
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
  * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
+ * @property-read int|null $teams_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WorkflowConfig> $workflowConfigs
@@ -1025,7 +1198,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutRole($roles, $guard = null)
  */
-	final class User extends \Eloquent implements \Filament\Models\Contracts\FilamentUser {}
+	final class User extends \Eloquent implements \Filament\Models\Contracts\FilamentUser, \Filament\Models\Contracts\HasTenants {}
 }
 
 namespace App\Models{
@@ -1038,6 +1211,8 @@ namespace App\Models{
  * @property bool $is_active
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int $team_id
+ * @property-read \App\Models\Team $team
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig newQuery()
@@ -1047,6 +1222,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|WorkflowConfig whereWebhookUrl($value)

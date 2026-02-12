@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Unit Price') }}</dt>
-                    <dd class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">{{ number_format($product->unit_price, 0, ',', ' ') }} Ft</dd>
+                    <dd class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">{{ Number::currency($product->unit_price, 'HUF', 'hu', 0) }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Tax Rate') }}</dt>

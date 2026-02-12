@@ -5,9 +5,13 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Invoices') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your invoices') }}</p>
         </div>
-        <x-primary-button :href="route('dashboard.invoices.create', ['team' => $currentTeam])" icon="plus">
-            {{ __('New Invoice') }}
-        </x-primary-button>
+        <div class="flex items-center gap-2">
+            {{ $this->importAction }}
+            {{ $this->exportAction }}
+            <x-primary-button :href="route('dashboard.invoices.create', ['team' => $currentTeam])" icon="plus">
+                {{ __('New Invoice') }}
+            </x-primary-button>
+        </div>
     </div>
 
     {{-- Filters --}}
@@ -60,7 +64,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ number_format($invoice->total, 0, ',', ' ') }} Ft</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ Number::currency($invoice->total, 'HUF', 'hu', 0) }}</span>
                             </td>
                             <td class="px-6 py-4">
                                 <x-status-badge :color="$invoice->status->badgeColor()" :label="$invoice->status->getLabel()" />
@@ -122,4 +126,6 @@
 
     {{-- Results info --}}
     <x-results-info :paginator="$invoices" />
+
+    <x-filament-actions::modals />
 </div>

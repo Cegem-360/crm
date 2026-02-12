@@ -46,7 +46,7 @@
                         @if($discount->value_type->value === 'percentage')
                             {{ $discount->value }}%
                         @else
-                            {{ number_format($discount->value, 0, ',', ' ') }} Ft
+                            {{ Number::currency($discount->value, 'HUF', 'hu', 0) }}
                         @endif
                     </dd>
                 </div>
@@ -83,7 +83,7 @@
                 @if($discount->min_value)
                     <div>
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Minimum Value') }}</dt>
-                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ number_format($discount->min_value, 0, ',', ' ') }} Ft</dd>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ Number::currency($discount->min_value, 'HUF', 'hu', 0) }}</dd>
                     </div>
                 @endif
                 <div>

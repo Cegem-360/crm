@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Pages\Marketing;
 
 use App\Enums\CampaignStatus;
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Campaign;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
@@ -14,6 +15,7 @@ use Livewire\WithPagination;
 
 final class Campaigns extends Component
 {
+    use HasCurrentTeam;
     use WithPagination;
 
     #[Url]

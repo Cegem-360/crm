@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerContact;
@@ -12,6 +13,8 @@ use Livewire\Component;
 
 final class Dashboard extends Component
 {
+    use HasCurrentTeam;
+
     public int $customersCount = 0;
 
     public int $companiesCount = 0;

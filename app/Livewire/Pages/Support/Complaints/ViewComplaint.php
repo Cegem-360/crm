@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Support\Complaints;
 
+use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Complaint;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -12,6 +13,8 @@ use Livewire\Component;
 #[Layout('components.layouts.dashboard')]
 final class ViewComplaint extends Component
 {
+    use HasCurrentTeam;
+
     public Complaint $complaint;
 
     public function mount(Complaint $complaint): void

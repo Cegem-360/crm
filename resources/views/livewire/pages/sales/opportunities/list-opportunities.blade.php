@@ -5,9 +5,13 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Opportunities') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your sales opportunities') }}</p>
         </div>
-        <x-primary-button :href="route('dashboard.opportunities.create', ['team' => $currentTeam])" icon="plus">
-            {{ __('New Opportunity') }}
-        </x-primary-button>
+        <div class="flex items-center gap-2">
+            {{ $this->importAction }}
+            {{ $this->exportAction }}
+            <x-primary-button :href="route('dashboard.opportunities.create', ['team' => $currentTeam])" icon="plus">
+                {{ __('New Opportunity') }}
+            </x-primary-button>
+        </div>
     </div>
 
     {{-- Filters --}}
@@ -60,7 +64,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ number_format($opportunity->value, 0, ',', ' ') }} Ft</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ $opportunity->value !== null ? Number::currency($opportunity->value, 'HUF', 'hu', 0) : '-' }}</span>
                             </td>
                             <td class="px-6 py-4">
                                 <span class="text-sm text-gray-600 dark:text-gray-300">{{ $opportunity->probability }}%</span>
@@ -125,4 +129,6 @@
 
     {{-- Results info --}}
     <x-results-info :paginator="$opportunities" />
+
+    <x-filament-actions::modals />
 </div>

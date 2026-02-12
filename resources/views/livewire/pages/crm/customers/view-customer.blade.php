@@ -84,32 +84,10 @@
         </div>
     </div>
 
-    {{-- Related contacts --}}
-    @if($customer->contacts->count() > 0)
-        <div class="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Contacts') }} ({{ $customer->contacts->count() }})</h2>
-            </div>
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                @foreach($customer->contacts as $contact)
-                    <li>
-                        <a href="{{ route('dashboard.contacts.view', ['team' => $currentTeam, 'contact' => $contact]) }}" wire:navigate class="flex items-center gap-4 px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                            <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-semibold text-sm shrink-0">
-                                {{ strtoupper(substr($contact->name, 0, 2)) }}
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ $contact->name }}</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ $contact->position ?: $contact->email }}</p>
-                            </div>
-                            @if($contact->is_primary)
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-400">
-                                    {{ __('Primary') }}
-                                </span>
-                            @endif
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    {{-- Relation Managers --}}
+    <div class="mt-6">
+        {{ $this->relationManagers }}
+    </div>
+
+    <x-filament-actions::modals />
 </div>

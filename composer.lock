@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "500b234d39f1d963e8a0d2c765bd5092",
+    "content-hash": "5428d7840723b994f58c2e24657bcd3f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3835,16 +3835,16 @@
         },
         {
             "name": "madbox-99/laravel-user-team-sync",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MadBox-99/laravel-user-team-sync.git",
-                "reference": "da4a8aaa1e2e3ce9e1c568c36f131a266e9fe05b"
+                "reference": "d5fb2f52ed1a8c32b76ac1fd7b25a0e36935dfd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MadBox-99/laravel-user-team-sync/zipball/da4a8aaa1e2e3ce9e1c568c36f131a266e9fe05b",
-                "reference": "da4a8aaa1e2e3ce9e1c568c36f131a266e9fe05b",
+                "url": "https://api.github.com/repos/MadBox-99/laravel-user-team-sync/zipball/d5fb2f52ed1a8c32b76ac1fd7b25a0e36935dfd7",
+                "reference": "d5fb2f52ed1a8c32b76ac1fd7b25a0e36935dfd7",
                 "shasum": ""
             },
             "require": {
@@ -3893,9 +3893,9 @@
             ],
             "support": {
                 "issues": "https://github.com/MadBox-99/laravel-user-team-sync/issues",
-                "source": "https://github.com/MadBox-99/laravel-user-team-sync/tree/v1.2.0"
+                "source": "https://github.com/MadBox-99/laravel-user-team-sync/tree/v1.3.0"
             },
-            "time": "2026-02-10T15:32:41+00:00"
+            "time": "2026-02-12T11:42:30+00:00"
         },
         {
             "name": "monolog/monolog",

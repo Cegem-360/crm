@@ -18,7 +18,7 @@
         "laravel/tinker": "^2.11.1",
         "leandrocfe/filament-apex-charts": "^4.0",
         "livewire/livewire": ">=3.7.10",
-        "madbox-99/laravel-user-team-sync": "^1.2",
+        "madbox-99/laravel-user-team-sync": "^1.3",
         "nunomaduro/essentials": "@dev",
         "spatie/laravel-activitylog": "^4.11.0",
         "spatie/laravel-permission": "^6.24.1",

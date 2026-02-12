@@ -96,6 +96,7 @@ final class User extends Authenticatable implements FilamentUser, HasTenants
     protected function casts(): array
     {
         return [
+            'password' => 'hashed',
             'email_verified_at' => 'datetime',
             'is_online' => 'boolean',
             'last_seen_at' => 'datetime',

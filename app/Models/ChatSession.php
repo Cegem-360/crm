@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\ChatSessionStatus;
 use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\ChatSessionFactory;
@@ -48,6 +49,7 @@ final class ChatSession extends Model
         return $this->hasMany(ChatMessage::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

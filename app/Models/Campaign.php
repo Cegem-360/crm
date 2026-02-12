@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\CampaignFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,6 +43,7 @@ final class Campaign extends Model
         return $this->hasMany(CampaignResponse::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

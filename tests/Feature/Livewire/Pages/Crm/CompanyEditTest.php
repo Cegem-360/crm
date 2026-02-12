@@ -7,20 +7,20 @@ use App\Models\Company;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create();
     $this->actingAs($this->user);
     $this->team = setUpFrontendTenant($this->user);
 });
 
-it('can render create page', function () {
+it('can render create page', function (): void {
     $component = Livewire::test(EditCompany::class)
         ->assertSuccessful();
 
     expect($component->get('company')?->exists)->toBeFalsy();
 });
 
-it('can render edit page with existing company', function () {
+it('can render edit page with existing company', function (): void {
     $company = Company::factory()->for($this->team)->create([
         'name' => 'Existing Company',
         'email' => 'existing@company.com',
@@ -34,7 +34,7 @@ it('can render edit page with existing company', function () {
         ]);
 });
 
-it('can create a company', function () {
+it('can create a company', function (): void {
     Livewire::test(EditCompany::class)
         ->set('team', $this->team)
         ->fillForm([
@@ -46,10 +46,10 @@ it('can create a company', function () {
         ->call('save')
         ->assertRedirect();
 
-    expect(Company::where('name', 'Test Company')->exists())->toBeTrue();
+    expect(Company::query()->where('name', 'Test Company')->exists())->toBeTrue();
 });
 
-it('validates required fields on create', function () {
+it('validates required fields on create', function (): void {
     Livewire::test(EditCompany::class)
         ->fillForm([
             'name' => '',
@@ -58,7 +58,7 @@ it('validates required fields on create', function () {
         ->assertHasFormErrors(['name' => 'required']);
 });
 
-it('validates email format', function () {
+it('validates email format', function (): void {
     Livewire::test(EditCompany::class)
         ->fillForm([
             'name' => 'Test Company',
@@ -68,7 +68,7 @@ it('validates email format', function () {
         ->assertHasFormErrors(['email']);
 });
 
-it('can update an existing company', function () {
+it('can update an existing company', function (): void {
     $company = Company::factory()->for($this->team)->create([
         'name' => 'Old Name',
     ]);
@@ -84,7 +84,7 @@ it('can update an existing company', function () {
     expect($company->fresh()->name)->toBe('New Name');
 });
 
-it('redirects to view page after save', function () {
+it('redirects to view page after save', function (): void {
     $company = Company::factory()->for($this->team)->create();
 
     Livewire::test(EditCompany::class, ['company' => $company])

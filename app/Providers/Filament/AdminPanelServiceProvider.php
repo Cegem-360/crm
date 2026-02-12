@@ -42,7 +42,7 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->tenant(Team::class, slugAttribute: 'slug')
             ->tenantRegistration(RegisterTeam::class)
             ->tenantProfile(EditTeamProfile::class)
-            ->tenantMenu(fn () => Auth::check() && (Auth::user()->isAdmin() || Auth::user()->teams()->count() > 1))
+            ->tenantMenu(fn (): bool => Auth::check() && (Auth::user()->isAdmin() || Auth::user()->teams()->count() > 1))
             ->tenantMiddleware([
                 ApplyTenantScopes::class,
             ], isPersistent: true)

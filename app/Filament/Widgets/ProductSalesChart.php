@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\OrderItem;
 use Filament\Widgets\ChartWidget;
@@ -15,6 +16,7 @@ final class ProductSalesChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     protected function getData(): array
     {
         $data = OrderItem::query()
@@ -60,6 +62,7 @@ final class ProductSalesChart extends ChartWidget
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     protected function getOptions(): array
     {
         return [

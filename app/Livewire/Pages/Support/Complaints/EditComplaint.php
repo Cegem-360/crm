@@ -47,7 +47,7 @@ final class EditComplaint extends Component implements HasSchemas
             $this->complaint->update($data);
             $message = __('Complaint updated successfully.');
         } else {
-            $this->complaint = Complaint::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->complaint = Complaint::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->complaint)->saveRelationships();
             $message = __('Complaint created successfully.');
         }

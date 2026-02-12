@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
+use Override;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use Filament\Actions\Imports\ImportColumn;
@@ -54,6 +55,7 @@ final class CustomerContactImporter extends Importer
         return $body;
     }
 
+    #[Override]
     public static function getOptionsFormComponents(): array
     {
         return [
@@ -63,6 +65,7 @@ final class CustomerContactImporter extends Importer
         ];
     }
 
+    #[Override]
     public function resolveRecord(): CustomerContact
     {
         $customerIdentifier = $this->data['customer_identifier'] ?? null;
@@ -75,9 +78,9 @@ final class CustomerContactImporter extends Importer
 
         $this->resolvedCustomer = $this->findCustomer($customerIdentifier);
 
-        if ($this->resolvedCustomer === null) {
+        if (!$this->resolvedCustomer instanceof Customer) {
             throw ValidationException::withMessages([
-                'customer_identifier' => "Customer not found: {$customerIdentifier}",
+                'customer_identifier' => 'Customer not found: ' . $customerIdentifier,
             ]);
         }
 
@@ -95,7 +98,7 @@ final class CustomerContactImporter extends Importer
 
     protected function afterFill(): void
     {
-        if ($this->resolvedCustomer !== null) {
+        if ($this->resolvedCustomer instanceof Customer) {
             $this->record->customer_id = $this->resolvedCustomer->id;
         }
     }
@@ -111,7 +114,7 @@ final class CustomerContactImporter extends Importer
 
     private function findExistingContact(): ?CustomerContact
     {
-        if ($this->resolvedCustomer === null) {
+        if (!$this->resolvedCustomer instanceof Customer) {
             return null;
         }
 

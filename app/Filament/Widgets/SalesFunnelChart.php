@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Enums\OpportunityStage;
 use App\Models\Opportunity;
 use Filament\Support\RawJs;
@@ -18,6 +19,7 @@ final class SalesFunnelChart extends ApexChartWidget
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     protected function getOptions(): array
     {
         $stageCounts = Opportunity::query()
@@ -76,7 +78,7 @@ final class SalesFunnelChart extends ApexChartWidget
         ];
     }
 
-    protected function extraJsOptions(): ?RawJs
+    protected function extraJsOptions(): RawJs
     {
         return RawJs::make(<<<'JS'
         {

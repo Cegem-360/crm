@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\ChatMessageSenderType;
 use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\ChatMessageFactory;
@@ -55,6 +56,7 @@ final class ChatMessage extends Model
         return $this->hasMany(self::class, 'parent_message_id');
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

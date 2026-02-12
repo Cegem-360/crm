@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Concerns;
 
+use Filament\Tables\Columns\Column;
 use App\Enums\CustomFieldModel;
 use App\Services\CustomFieldService;
 use Filament\Schemas\Components\Section;
@@ -17,7 +18,7 @@ trait HasCustomFieldsSchema
      */
     protected static function getCustomFieldsFormSection(CustomFieldModel $modelType): array
     {
-        $service = app(CustomFieldService::class);
+        $service = resolve(CustomFieldService::class);
         $components = $service->getFormComponents($modelType);
 
         if (empty($components)) {
@@ -35,11 +36,11 @@ trait HasCustomFieldsSchema
     /**
      * Get custom field table columns.
      *
-     * @return array<\Filament\Tables\Columns\Column>
+     * @return array<Column>
      */
     protected static function getCustomFieldsTableColumns(CustomFieldModel $modelType): array
     {
-        return app(CustomFieldService::class)->getTableColumns($modelType);
+        return resolve(CustomFieldService::class)->getTableColumns($modelType);
     }
 
     /**
@@ -49,7 +50,7 @@ trait HasCustomFieldsSchema
      */
     protected static function getCustomFieldsInfolistSection(CustomFieldModel $modelType): array
     {
-        $service = app(CustomFieldService::class);
+        $service = resolve(CustomFieldService::class);
         $entries = $service->getInfolistEntries($modelType);
 
         if (empty($entries)) {

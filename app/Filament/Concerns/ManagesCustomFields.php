@@ -11,7 +11,7 @@ trait ManagesCustomFields
     protected function mutateFormDataBeforeFill(array $data): array
     {
         if (isset($this->record) && method_exists($this->record, 'customFieldValues')) {
-            $customFieldData = app(CustomFieldService::class)->prepareFormData($this->record);
+            $customFieldData = resolve(CustomFieldService::class)->prepareFormData($this->record);
             $data = array_merge($data, $customFieldData);
         }
 
@@ -40,7 +40,7 @@ trait ManagesCustomFields
     {
         if (isset($this->record) && method_exists($this->record, 'saveCustomFieldValues')) {
             $data = $this->form->getState();
-            app(CustomFieldService::class)->saveFormData($this->record, $data);
+            resolve(CustomFieldService::class)->saveFormData($this->record, $data);
         }
     }
 }

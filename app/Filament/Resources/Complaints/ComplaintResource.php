@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Complaints;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Complaints\Pages\CreateComplaint;
 use App\Filament\Resources\Complaints\Pages\EditComplaint;
@@ -22,16 +23,19 @@ final class ComplaintResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ComplaintForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ComplaintsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -39,6 +43,7 @@ final class ComplaintResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

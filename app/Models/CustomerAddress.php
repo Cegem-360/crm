@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use Database\Factories\CustomerAddressFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,7 @@ final class CustomerAddress extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

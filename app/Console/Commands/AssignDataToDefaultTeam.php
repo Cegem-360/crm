@@ -32,7 +32,7 @@ final class AssignDataToDefaultTeam extends Command
             ['name' => $teamName]
         );
 
-        $this->info("Using team: {$team->name} (ID: {$team->id})");
+        $this->info(sprintf('Using team: %s (ID: %s)', $team->name, $team->id));
 
         $models = [
             Customer::class,
@@ -50,7 +50,7 @@ final class AssignDataToDefaultTeam extends Command
                 ->update(['team_id' => $team->id]);
 
             $modelName = class_basename($modelClass);
-            $this->line("  {$modelName}: {$updated} records updated");
+            $this->line(sprintf('  %s: %d records updated', $modelName, $updated));
         }
 
         $usersWithoutTeams = User::query()
@@ -61,7 +61,7 @@ final class AssignDataToDefaultTeam extends Command
             $user->teams()->attach($team);
         }
 
-        $this->line("  Users assigned to team: {$usersWithoutTeams->count()}");
+        $this->line('  Users assigned to team: ' . $usersWithoutTeams->count());
 
         $this->newLine();
         $this->info('All existing data has been assigned to the default team.');

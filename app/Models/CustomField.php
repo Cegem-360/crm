@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\CustomFieldModel;
 use App\Enums\CustomFieldType;
 use Database\Factories\CustomFieldFactory;
@@ -39,6 +40,7 @@ final class CustomField extends Model
         return $this->hasMany(CustomFieldValue::class);
     }
 
+    #[Override]
     protected static function booted(): void
     {
         self::creating(function (CustomField $customField): void {
@@ -51,6 +53,7 @@ final class CustomField extends Model
     /**
      * @return array<string, mixed>
      */
+    #[Override]
     protected function casts(): array
     {
         return [

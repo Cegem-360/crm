@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\LeadOpportunities\Pages;
 
+use Override;
 use App\Filament\Imports\OpportunityImporter;
 use App\Filament\Resources\LeadOpportunities\LeadOpportunitiesResource;
 use Filament\Actions\CreateAction;
@@ -14,6 +15,7 @@ final class ListLeadOpportunities extends ListRecords
 {
     protected static string $resource = LeadOpportunitiesResource::class;
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [

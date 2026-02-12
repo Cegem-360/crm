@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\QualifiedOpportunities;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\QualifiedOpportunities\Pages\ManageQualifiedOpportunities;
 use App\Filament\Resources\QualifiedOpportunities\Tables\QualifiedOpportunitiesTable;
@@ -26,11 +27,13 @@ final class QualifiedOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 11;
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return QualifiedOpportunitiesTable::configure($table);
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ChatSessions\Pages\CreateChatSession;
 use App\Filament\Resources\ChatSessions\Pages\EditChatSession;
@@ -32,16 +33,19 @@ final class ChatSessionResource extends Resource
 
     protected static ?int $navigationSort = 10;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ChatSessionForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ChatSessionsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -49,6 +53,7 @@ final class ChatSessionResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

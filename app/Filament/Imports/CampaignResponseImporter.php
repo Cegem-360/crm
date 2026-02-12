@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
+use Override;
 use App\Models\CampaignResponse;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
@@ -46,6 +47,7 @@ final class CampaignResponseImporter extends Importer
         return $body;
     }
 
+    #[Override]
     public static function getOptionsFormComponents(): array
     {
         return [
@@ -54,6 +56,7 @@ final class CampaignResponseImporter extends Importer
         ];
     }
 
+    #[Override]
     public function resolveRecord(): CampaignResponse
     {
         if ($this->options['updateExisting'] ?? false) {

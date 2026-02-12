@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
+use Override;
 use App\Enums\QuoteStatus;
 use App\Filament\Resources\Customers\Actions\AcceptQuoteAction;
 use App\Filament\Resources\Customers\Actions\GenerateOrderAction;
@@ -35,6 +36,7 @@ final class QuotesRelationManager extends RelationManager
 {
     protected static string $relationship = 'quotes';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

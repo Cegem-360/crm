@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\EmailTemplates;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\EmailTemplates\Pages\CreateEmailTemplate;
 use App\Filament\Resources\EmailTemplates\Pages\EditEmailTemplate;
@@ -30,16 +31,19 @@ final class EmailTemplateResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return EmailTemplateForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return EmailTemplatesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -47,6 +51,7 @@ final class EmailTemplateResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

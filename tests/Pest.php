@@ -66,7 +66,7 @@ function setUpFilamentTenant(?User $user = null): Team
 {
     $team = Team::factory()->create();
 
-    if ($user) {
+    if ($user instanceof User) {
         $user->teams()->attach($team);
     }
 
@@ -84,15 +84,13 @@ function setUpFrontendTenant(?User $user = null): Team
 {
     $team = Team::factory()->create();
 
-    if ($user) {
+    if ($user instanceof User) {
         $user->teams()->attach($team);
     }
 
-    // Share with views (for Blade templates)
     View::share('currentTeam', $team);
-
-    // Set request attribute for HasCurrentTeam trait
     request()->attributes->set('current_team', $team);
+    app()->instance('current_team', $team);
 
     return $team;
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions\Pages;
 
+use Override;
 use App\Filament\Resources\ChatSessions\ChatSessionResource;
 use App\Models\User;
 use App\Services\ChatService;
@@ -19,11 +20,13 @@ final class ViewChatSession extends ViewRecord
 {
     protected static string $resource = ChatSessionResource::class;
 
+    #[Override]
     public function getView(): string
     {
         return 'filament.resources.chat-sessions.pages.view-chat-session';
     }
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [
@@ -35,7 +38,7 @@ final class ViewChatSession extends ViewRecord
                 ->visible(fn (): bool => $this->record->user_id === null)
                 ->requiresConfirmation()
                 ->action(function (): void {
-                    $chatService = app(ChatService::class);
+                    $chatService = resolve(ChatService::class);
                     $chatService->assignSession($this->record, Auth::user());
 
                     Notification::make()
@@ -58,7 +61,7 @@ final class ViewChatSession extends ViewRecord
                         ->required(),
                 ])
                 ->action(function (array $data): void {
-                    $chatService = app(ChatService::class);
+                    $chatService = resolve(ChatService::class);
                     $newUser = User::query()->find($data['new_user_id']);
                     $chatService->transferSession($this->record, $newUser);
 
@@ -77,7 +80,7 @@ final class ViewChatSession extends ViewRecord
                 ->requiresConfirmation()
                 ->modalDescription('Are you sure you want to close this chat session?')
                 ->action(function (): void {
-                    $chatService = app(ChatService::class);
+                    $chatService = resolve(ChatService::class);
                     $chatService->closeSession($this->record);
 
                     Notification::make()

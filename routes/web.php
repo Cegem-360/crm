@@ -73,9 +73,7 @@ Route::get('/complaints/submit', ComplaintSubmission::class)->name('complaints.s
 
 // Language switch route
 Route::get('/language/{locale}', function (string $locale) {
-    if (! in_array($locale, ['en', 'hu'], true)) {
-        abort(400);
-    }
+    abort_unless(in_array($locale, ['en', 'hu'], true), 400);
 
     $cookie = cookie('locale', $locale, 60 * 24 * 365);
 
@@ -93,10 +91,10 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
         $team = $user->teams()->first();
 
         if (! $team) {
-            return redirect()->route('filament.admin.tenant.registration');
+            return to_route('filament.admin.tenant.registration');
         }
 
-        return redirect()->route('dashboard.dashboard', ['team' => $team->slug]);
+        return to_route('dashboard.dashboard', ['team' => $team->slug]);
     })->name('dashboard');
 
     Route::prefix('dashboard/{team:slug}')->name('dashboard.')->middleware(SetFrontendTenant::class)

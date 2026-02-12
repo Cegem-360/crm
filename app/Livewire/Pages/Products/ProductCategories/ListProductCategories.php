@@ -37,6 +37,7 @@ final class ListProductCategories extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -62,9 +63,9 @@ final class ListProductCategories extends Component
         return ProductCategory::query()
             ->with(['parent', 'children'])
             ->withCount('products')
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('name', 'like', $search)
                         ->orWhere('description', 'like', $search);
                 });

@@ -32,9 +32,9 @@ final class Dashboard extends Component
 
     private function loadStats(): void
     {
-        $this->customersCount = Customer::count();
-        $this->companiesCount = Company::count();
-        $this->contactsCount = CustomerContact::count();
-        $this->activeCustomersCount = Customer::where('is_active', true)->count();
+        $this->customersCount = Customer::query()->count();
+        $this->companiesCount = Company::query()->count();
+        $this->contactsCount = CustomerContact::query()->count();
+        $this->activeCustomersCount = Customer::query()->where('is_active', true)->count();
     }
 }

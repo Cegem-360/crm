@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
+use Override;
 use App\Enums\InteractionCategory;
 use App\Enums\InteractionChannel;
 use App\Enums\InteractionDirection;
@@ -49,20 +50,20 @@ final class InteractionImporter extends Importer
             ImportColumn::make('type')
                 ->requiredMapping()
                 ->rules(['required'])
-                ->examples(array_map(fn ($case) => $case->value, InteractionType::cases())),
+                ->examples(array_map(fn (InteractionType $case) => $case->value, InteractionType::cases())),
             ImportColumn::make('category')
                 ->rules(['nullable'])
-                ->examples(array_map(fn ($case) => $case->value, InteractionCategory::cases())),
+                ->examples(array_map(fn (InteractionCategory $case) => $case->value, InteractionCategory::cases())),
             ImportColumn::make('channel')
                 ->rules(['nullable'])
-                ->examples(array_map(fn ($case) => $case->value, InteractionChannel::cases())),
+                ->examples(array_map(fn (InteractionChannel $case) => $case->value, InteractionChannel::cases())),
             ImportColumn::make('direction')
                 ->rules(['nullable'])
-                ->examples(array_map(fn ($case) => $case->value, InteractionDirection::cases())),
+                ->examples(array_map(fn (InteractionDirection $case) => $case->value, InteractionDirection::cases())),
             ImportColumn::make('status')
                 ->requiredMapping()
                 ->rules(['required'])
-                ->examples(array_map(fn ($case) => $case->value, InteractionStatus::cases())),
+                ->examples(array_map(fn (InteractionStatus $case) => $case->value, InteractionStatus::cases())),
             ImportColumn::make('subject')
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),
@@ -92,6 +93,7 @@ final class InteractionImporter extends Importer
         return $body;
     }
 
+    #[Override]
     public static function getOptionsFormComponents(): array
     {
         return [
@@ -101,6 +103,7 @@ final class InteractionImporter extends Importer
         ];
     }
 
+    #[Override]
     public function resolveRecord(): Interaction
     {
         $this->resolveCustomer();
@@ -121,15 +124,15 @@ final class InteractionImporter extends Importer
 
     protected function afterFill(): void
     {
-        if ($this->resolvedCustomer !== null) {
+        if ($this->resolvedCustomer instanceof Customer) {
             $this->record->customer_id = $this->resolvedCustomer->id;
         }
 
-        if ($this->resolvedContact !== null) {
+        if ($this->resolvedContact instanceof CustomerContact) {
             $this->record->customer_contact_id = $this->resolvedContact->id;
         }
 
-        if ($this->resolvedUser !== null) {
+        if ($this->resolvedUser instanceof User) {
             $this->record->user_id = $this->resolvedUser->id;
         }
     }
@@ -152,7 +155,7 @@ final class InteractionImporter extends Importer
 
         if ($this->resolvedCustomer === null) {
             throw ValidationException::withMessages([
-                'customer_identifier' => "Customer not found: {$customerIdentifier}",
+                'customer_identifier' => 'Customer not found: ' . $customerIdentifier,
             ]);
         }
     }
@@ -161,7 +164,7 @@ final class InteractionImporter extends Importer
     {
         $contactEmail = $this->data['contact_email'] ?? null;
 
-        if (empty($contactEmail) || $this->resolvedCustomer === null) {
+        if (empty($contactEmail) || !$this->resolvedCustomer instanceof Customer) {
             return;
         }
 
@@ -187,14 +190,14 @@ final class InteractionImporter extends Importer
 
         if ($this->resolvedUser === null) {
             throw ValidationException::withMessages([
-                'user_email' => "User not found: {$userEmail}",
+                'user_email' => 'User not found: ' . $userEmail,
             ]);
         }
     }
 
     private function findExistingInteraction(): ?Interaction
     {
-        if ($this->resolvedCustomer === null) {
+        if (!$this->resolvedCustomer instanceof Customer) {
             return null;
         }
 

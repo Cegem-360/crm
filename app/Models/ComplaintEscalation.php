@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use Database\Factories\ComplaintEscalationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,7 @@ final class ComplaintEscalation extends Model
         return $this->belongsTo(User::class, 'escalated_by');
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

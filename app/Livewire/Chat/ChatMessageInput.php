@@ -56,7 +56,7 @@ final class ChatMessageInput extends Component
             return;
         }
 
-        $chatService = app(ChatService::class);
+        $chatService = resolve(ChatService::class);
 
         $chatService->sendMessage(
             session: $this->session,

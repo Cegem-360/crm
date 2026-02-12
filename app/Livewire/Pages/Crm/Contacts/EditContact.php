@@ -48,7 +48,7 @@ final class EditContact extends Component implements HasSchemas
             $this->contact->update($data);
             $message = __('Contact updated successfully.');
         } else {
-            $this->contact = CustomerContact::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->contact = CustomerContact::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->contact)->saveRelationships();
             $message = __('Contact created successfully.');
         }

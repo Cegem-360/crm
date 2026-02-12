@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
+use Override;
 use App\Enums\CustomerType;
 use App\Enums\OpportunityStage;
 use App\Models\Customer;
@@ -103,6 +104,7 @@ final class OpportunityImporter extends Importer
         return $body;
     }
 
+    #[Override]
     public function resolveRecord(): Opportunity
     {
         $customer = $this->resolveCustomer();

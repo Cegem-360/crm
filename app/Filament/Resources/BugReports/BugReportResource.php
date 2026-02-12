@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BugReports;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\BugReports\Pages\CreateBugReport;
 use App\Filament\Resources\BugReports\Pages\EditBugReport;
@@ -22,16 +23,19 @@ final class BugReportResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return BugReportForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return BugReportsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -39,6 +43,7 @@ final class BugReportResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

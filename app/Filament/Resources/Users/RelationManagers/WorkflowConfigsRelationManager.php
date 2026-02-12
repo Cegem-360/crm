@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users\RelationManagers;
 
+use Override;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -22,6 +23,7 @@ final class WorkflowConfigsRelationManager extends RelationManager
 
     protected static ?string $title = 'Workflow Konfigurációk';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

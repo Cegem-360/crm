@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Interactions\Pages;
 
+use Override;
 use App\Filament\Resources\Interactions\InteractionResource;
 use App\Models\Customer;
 use App\Models\CustomerContact;
@@ -27,7 +28,7 @@ final class CreateInteraction extends CreateRecord
             return;
         }
 
-        $template = EmailTemplate::find($this->data['email_template_id']);
+        $template = EmailTemplate::query()->find($this->data['email_template_id']);
         if (! $template) {
             return;
         }
@@ -44,7 +45,7 @@ final class CreateInteraction extends CreateRecord
         }
 
         try {
-            app(EmailService::class)->send(
+            resolve(EmailService::class)->send(
                 template: $template,
                 recipientEmail: $recipient['email'],
                 recipientName: $recipient['name'],
@@ -59,17 +60,18 @@ final class CreateInteraction extends CreateRecord
             Notification::make()
                 ->success()
                 ->title('Email sent')
-                ->body("Email sent successfully to {$recipient['email']}")
+                ->body('Email sent successfully to ' . $recipient['email'])
                 ->send();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Notification::make()
                 ->danger()
                 ->title('Email failed')
-                ->body('Failed to send email: '.$e->getMessage())
+                ->body('Failed to send email: '.$exception->getMessage())
                 ->send();
         }
     }
 
+    #[Override]
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         // Remove non-model fields
@@ -100,7 +102,7 @@ final class CreateInteraction extends CreateRecord
         }
 
         if ($recipientType === 'contact' && $interaction->customer_contact_id) {
-            $contact = CustomerContact::find($interaction->customer_contact_id);
+            $contact = CustomerContact::query()->find($interaction->customer_contact_id);
             if ($contact?->email) {
                 $context['contact'] = $contact;
 

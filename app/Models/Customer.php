@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\CustomerType;
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
@@ -134,6 +135,7 @@ final class Customer extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

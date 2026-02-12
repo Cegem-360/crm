@@ -36,7 +36,7 @@ final class AdminChatInterface extends Component
             return;
         }
 
-        $chatService = app(ChatService::class);
+        $chatService = resolve(ChatService::class);
 
         $chatService->sendMessage(
             $this->session,
@@ -67,7 +67,7 @@ final class AdminChatInterface extends Component
 
     public function markAllAsRead(): void
     {
-        $chatService = app(ChatService::class);
+        $chatService = resolve(ChatService::class);
         $chatService->markAllMessagesAsRead($this->session, ChatMessageSenderType::Customer);
 
         $this->session->refresh();

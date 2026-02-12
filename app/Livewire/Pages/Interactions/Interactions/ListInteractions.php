@@ -56,6 +56,7 @@ final class ListInteractions extends Component implements HasActions, HasSchemas
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -108,19 +109,19 @@ final class ListInteractions extends Component implements HasActions, HasSchemas
     {
         return Interaction::query()
             ->with(['customer', 'contact', 'user'])
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('subject', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                        ->orWhereHas('customer', function ($customerQuery) use ($search): void {
                             $customerQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->type !== '', function ($query) {
+            ->when($this->type !== '', function ($query): void {
                 $query->where('type', $this->type);
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 $query->where('status', $this->status);
             })
             ->orderBy($this->sortBy, $this->sortDir)

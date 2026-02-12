@@ -47,7 +47,7 @@ final class EditInteraction extends Component implements HasSchemas
             $this->interaction->update($data);
             $message = __('Interaction updated successfully.');
         } else {
-            $this->interaction = Interaction::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->interaction = Interaction::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->interaction)->saveRelationships();
             $message = __('Interaction created successfully.');
         }

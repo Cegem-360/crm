@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Models\Company;
 use App\Models\Customer;
@@ -36,6 +37,7 @@ final class SendEmail extends Page implements HasSchemas
 
     protected static ?int $navigationSort = 3;
 
+    #[Override]
     public static function getNavigationLabel(): string
     {
         return 'Send Email';
@@ -46,7 +48,8 @@ final class SendEmail extends Page implements HasSchemas
         $this->form->fill();
     }
 
-    public function getTitle(): string|Htmlable
+    #[Override]
+    public function getTitle(): string
     {
         return 'Send Email';
     }
@@ -68,7 +71,7 @@ final class SendEmail extends Page implements HasSchemas
                     ->live()
                     ->afterStateUpdated(function (?string $state, Set $set): void {
                         if ($state) {
-                            $template = EmailTemplate::find($state);
+                            $template = EmailTemplate::query()->find($state);
                             if ($template) {
                                 $set('preview_subject', $template->subject);
                             }
@@ -112,7 +115,7 @@ final class SendEmail extends Page implements HasSchemas
                     ->visible(fn (Get $get): bool => $get('recipient_type') === 'contact')
                     ->afterStateUpdated(function (?string $state, Set $set): void {
                         if ($state) {
-                            $contact = CustomerContact::find($state);
+                            $contact = CustomerContact::query()->find($state);
                             if ($contact?->email) {
                                 $set('recipient_email', $contact->email);
                             }
@@ -133,7 +136,7 @@ final class SendEmail extends Page implements HasSchemas
                     ->visible(fn (Get $get): bool => $get('recipient_type') === 'company')
                     ->afterStateUpdated(function (?string $state, Set $set): void {
                         if ($state) {
-                            $company = Company::find($state);
+                            $company = Company::query()->find($state);
                             if ($company?->email) {
                                 $set('recipient_email', $company->email);
                             }
@@ -158,7 +161,7 @@ final class SendEmail extends Page implements HasSchemas
     {
         $data = $this->form->getState();
 
-        $template = EmailTemplate::find($data['email_template_id']);
+        $template = EmailTemplate::query()->find($data['email_template_id']);
         if (! $template) {
             $this->sendErrorNotification('Email template not found.');
 
@@ -175,7 +178,7 @@ final class SendEmail extends Page implements HasSchemas
         $recipient = $this->resolveRecipient($data);
 
         try {
-            app(EmailService::class)->send(
+            resolve(EmailService::class)->send(
                 template: $template,
                 recipientEmail: $recipientEmail,
                 recipientName: $recipient['name'],
@@ -185,15 +188,15 @@ final class SendEmail extends Page implements HasSchemas
             Notification::make()
                 ->success()
                 ->title('Email sent')
-                ->body("Email sent successfully to {$recipientEmail}")
+                ->body('Email sent successfully to ' . $recipientEmail)
                 ->send();
 
             $this->form->fill();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Notification::make()
                 ->danger()
                 ->title('Email failed')
-                ->body('Failed to send email: '.$e->getMessage())
+                ->body('Failed to send email: '.$exception->getMessage())
                 ->send();
         }
     }
@@ -221,7 +224,7 @@ final class SendEmail extends Page implements HasSchemas
         }
 
         if ($data['recipient_type'] === 'company' && isset($data['company_id'])) {
-            $company = Company::find($data['company_id']);
+            $company = Company::query()->find($data['company_id']);
             if ($company) {
                 return [
                     'name' => $company->name,

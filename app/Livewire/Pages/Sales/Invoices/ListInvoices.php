@@ -41,6 +41,7 @@ final class ListInvoices extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -71,16 +72,16 @@ final class ListInvoices extends Component
     {
         return Invoice::query()
             ->with(['customer', 'order'])
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('invoice_number', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                        ->orWhereHas('customer', function ($customerQuery) use ($search): void {
                             $customerQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 $query->where('status', $this->status);
             })
             ->orderBy($this->sortBy, $this->sortDir)

@@ -33,7 +33,7 @@ final class CustomFieldService
      */
     public function getFieldsForModel(CustomFieldModel $modelType): Collection
     {
-        $cacheKey = "custom_fields.{$modelType->value}";
+        $cacheKey = 'custom_fields.' . $modelType->value;
 
         return Cache::remember(
             $cacheKey,
@@ -51,11 +51,11 @@ final class CustomFieldService
      */
     public function clearCache(?CustomFieldModel $modelType = null): void
     {
-        if ($modelType) {
-            Cache::forget("custom_fields.{$modelType->value}");
+        if ($modelType instanceof CustomFieldModel) {
+            Cache::forget('custom_fields.' . $modelType->value);
         } else {
             foreach (CustomFieldModel::cases() as $type) {
-                Cache::forget("custom_fields.{$type->value}");
+                Cache::forget('custom_fields.' . $type->value);
             }
         }
     }
@@ -115,7 +115,7 @@ final class CustomFieldService
         $record->loadMissing('customFieldValues.customField');
 
         foreach ($record->customFieldValues as $value) {
-            $data["custom_fields.{$value->customField->slug}"] = $value->getTypedValue();
+            $data['custom_fields.' . $value->customField->slug] = $value->getTypedValue();
         }
 
         return $data;
@@ -145,11 +145,11 @@ final class CustomFieldService
     private function makeFormComponent(CustomField $field): Component
     {
         $component = match ($field->type) {
-            CustomFieldType::Text => TextInput::make("custom_fields.{$field->slug}"),
-            CustomFieldType::Number => TextInput::make("custom_fields.{$field->slug}")->numeric(),
-            CustomFieldType::Date => DatePicker::make("custom_fields.{$field->slug}"),
-            CustomFieldType::Checkbox => Checkbox::make("custom_fields.{$field->slug}"),
-            CustomFieldType::Select => Select::make("custom_fields.{$field->slug}")
+            CustomFieldType::Text => TextInput::make('custom_fields.' . $field->slug),
+            CustomFieldType::Number => TextInput::make('custom_fields.' . $field->slug)->numeric(),
+            CustomFieldType::Date => DatePicker::make('custom_fields.' . $field->slug),
+            CustomFieldType::Checkbox => Checkbox::make('custom_fields.' . $field->slug),
+            CustomFieldType::Select => Select::make('custom_fields.' . $field->slug)
                 ->options(array_combine($field->options ?? [], $field->options ?? [])),
         };
 
@@ -164,17 +164,17 @@ final class CustomFieldService
     private function makeTableColumn(CustomField $field): Column
     {
         return match ($field->type) {
-            CustomFieldType::Checkbox => IconColumn::make("custom_field_{$field->slug}")
+            CustomFieldType::Checkbox => IconColumn::make('custom_field_' . $field->slug)
                 ->label($field->name)
                 ->boolean()
                 ->state(fn (Model $record): bool => (bool) $this->getCustomFieldValueFromRecord($record, $field->slug))
                 ->toggleable(),
-            CustomFieldType::Date => TextColumn::make("custom_field_{$field->slug}")
+            CustomFieldType::Date => TextColumn::make('custom_field_' . $field->slug)
                 ->label($field->name)
                 ->date()
                 ->state(fn (Model $record): ?string => $this->getCustomFieldValueFromRecord($record, $field->slug))
                 ->toggleable(),
-            default => TextColumn::make("custom_field_{$field->slug}")
+            default => TextColumn::make('custom_field_' . $field->slug)
                 ->label($field->name)
                 ->state(fn (Model $record): ?string => $this->getCustomFieldValueFromRecord($record, $field->slug))
                 ->toggleable(),
@@ -187,16 +187,16 @@ final class CustomFieldService
     private function makeInfolistEntry(CustomField $field): Entry
     {
         return match ($field->type) {
-            CustomFieldType::Checkbox => IconEntry::make("custom_field_{$field->slug}")
+            CustomFieldType::Checkbox => IconEntry::make('custom_field_' . $field->slug)
                 ->label($field->name)
                 ->boolean()
                 ->state(fn (Model $record): bool => (bool) $this->getCustomFieldValueFromRecord($record, $field->slug)),
-            CustomFieldType::Date => TextEntry::make("custom_field_{$field->slug}")
+            CustomFieldType::Date => TextEntry::make('custom_field_' . $field->slug)
                 ->label($field->name)
                 ->date()
                 ->state(fn (Model $record): ?string => $this->getCustomFieldValueFromRecord($record, $field->slug))
                 ->placeholder('-'),
-            default => TextEntry::make("custom_field_{$field->slug}")
+            default => TextEntry::make('custom_field_' . $field->slug)
                 ->label($field->name)
                 ->state(fn (Model $record): ?string => $this->getCustomFieldValueFromRecord($record, $field->slug))
                 ->placeholder('-'),

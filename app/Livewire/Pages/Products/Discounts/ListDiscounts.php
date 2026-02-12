@@ -44,6 +44,7 @@ final class ListDiscounts extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -79,22 +80,22 @@ final class ListDiscounts extends Component
     {
         return Discount::query()
             ->with(['customer', 'product'])
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('name', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                        ->orWhereHas('customer', function ($customerQuery) use ($search): void {
                             $customerQuery->where('name', 'like', $search);
                         })
-                        ->orWhereHas('product', function ($productQuery) use ($search) {
+                        ->orWhereHas('product', function ($productQuery) use ($search): void {
                             $productQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->type !== '', function ($query) {
+            ->when($this->type !== '', function ($query): void {
                 $query->where('type', $this->type);
             })
-            ->when($this->active !== '', function ($query) {
+            ->when($this->active !== '', function ($query): void {
                 $query->where('is_active', $this->active === '1');
             })
             ->orderBy($this->sortBy, $this->sortDir)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\LeadOpportunities\RelationManagers;
 
+use Override;
 use App\Enums\QuoteStatus;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -23,6 +24,7 @@ final class QuotesRelationManager extends RelationManager
 {
     protected static string $relationship = 'quotes';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -15,6 +16,7 @@ final class ProductStatsOverview extends BaseWidget
     /**
      * @return array<Stat>
      */
+    #[Override]
     protected function getStats(): array
     {
         $totalProducts = Product::query()->count();

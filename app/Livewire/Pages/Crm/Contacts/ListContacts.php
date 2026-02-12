@@ -75,18 +75,18 @@ final class ListContacts extends Component
     {
         return CustomerContact::query()
             ->with('customer')
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('name', 'like', "%{$this->search}%")
-                        ->orWhere('email', 'like', "%{$this->search}%")
-                        ->orWhere('phone', 'like', "%{$this->search}%")
-                        ->orWhere('position', 'like', "%{$this->search}%")
-                        ->orWhereHas('customer', function ($q) {
-                            $q->where('name', 'like', "%{$this->search}%");
+            ->when($this->search, function ($query): void {
+                $query->where(function ($q): void {
+                    $q->where('name', 'like', sprintf('%%%s%%', $this->search))
+                        ->orWhere('email', 'like', sprintf('%%%s%%', $this->search))
+                        ->orWhere('phone', 'like', sprintf('%%%s%%', $this->search))
+                        ->orWhere('position', 'like', sprintf('%%%s%%', $this->search))
+                        ->orWhereHas('customer', function ($q): void {
+                            $q->where('name', 'like', sprintf('%%%s%%', $this->search));
                         });
                 });
             })
-            ->when($this->primary !== '', function ($query) {
+            ->when($this->primary !== '', function ($query): void {
                 $query->where('is_primary', $this->primary === 'yes');
             })
             ->orderBy($this->sortBy, $this->sortDir)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Invoices\Pages\CreateInvoice;
 use App\Filament\Resources\Invoices\Pages\EditInvoice;
@@ -28,21 +29,25 @@ final class InvoiceResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return InvoiceForm::configure($schema);
     }
 
+    #[Override]
     public static function infolist(Schema $schema): Schema
     {
         return InvoiceInfolist::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return InvoicesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -50,6 +55,7 @@ final class InvoiceResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -60,6 +66,7 @@ final class InvoiceResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use Override;
 use App\Models\Team;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Tenancy\RegisterTenant;
@@ -25,6 +26,7 @@ final class RegisterTeam extends RegisterTenant
         return Gate::allows('create', Team::class);
     }
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -33,7 +35,7 @@ final class RegisterTeam extends RegisterTenant
                 ->required()
                 ->maxLength(255)
                 ->live(onBlur: true)
-                ->afterStateUpdated(static fn (?string $state, Set $set) => $set('slug', Str::slug($state ?? ''))),
+                ->afterStateUpdated(static fn (?string $state, Set $set): mixed => $set('slug', Str::slug($state ?? ''))),
             TextInput::make('slug')
                 ->label('Team Slug')
                 ->required()
@@ -44,6 +46,7 @@ final class RegisterTeam extends RegisterTenant
         ]);
     }
 
+    #[Override]
     protected function handleRegistration(array $data): Team
     {
         $team = Team::query()->create($data);

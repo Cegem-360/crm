@@ -48,7 +48,7 @@ final class EditDiscount extends Component implements HasSchemas
             $this->discount->update($data);
             $message = __('Discount updated successfully.');
         } else {
-            $this->discount = Discount::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->discount = Discount::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->discount)->saveRelationships();
             $message = __('Discount created successfully.');
         }

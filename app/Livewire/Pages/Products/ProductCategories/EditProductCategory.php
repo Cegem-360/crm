@@ -48,7 +48,7 @@ final class EditProductCategory extends Component implements HasSchemas
             $this->productCategory->update($data);
             $message = __('Product category updated successfully.');
         } else {
-            $this->productCategory = ProductCategory::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->productCategory = ProductCategory::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->productCategory)->saveRelationships();
             $message = __('Product category created successfully.');
         }

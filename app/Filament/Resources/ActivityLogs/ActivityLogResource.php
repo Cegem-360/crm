@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ActivityLogs;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ActivityLogs\Pages\ListActivityLogs;
 use App\Filament\Resources\ActivityLogs\Pages\ViewActivityLog;
@@ -31,16 +32,19 @@ final class ActivityLogResource extends Resource
 
     protected static ?int $navigationSort = 100;
 
+    #[Override]
     public static function infolist(Schema $schema): Schema
     {
         return ActivityLogInfolist::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ActivityLogsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -48,6 +52,7 @@ final class ActivityLogResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -56,16 +61,19 @@ final class ActivityLogResource extends Resource
         ];
     }
 
+    #[Override]
     public static function canCreate(): bool
     {
         return false;
     }
 
+    #[Override]
     public static function canEdit($record): bool
     {
         return false;
     }
 
+    #[Override]
     public static function canDelete($record): bool
     {
         return false;

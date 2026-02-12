@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Companies;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Companies\Pages\CreateCompany;
 use App\Filament\Resources\Companies\Pages\EditCompany;
@@ -26,16 +27,19 @@ final class CompanyResource extends Resource
 
     protected static ?int $navigationSort = 0;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return CompanyForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return CompaniesTable::configure($table);
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -45,6 +49,7 @@ final class CompanyResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()

@@ -47,7 +47,7 @@ final class EditTask extends Component implements HasSchemas
             $this->task->update($data);
             $message = __('Task updated successfully.');
         } else {
-            $this->task = Task::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->task = Task::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->task)->saveRelationships();
             $message = __('Task created successfully.');
         }

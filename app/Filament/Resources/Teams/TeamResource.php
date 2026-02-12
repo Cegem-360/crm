@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Teams;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Teams\Pages\CreateTeam;
 use App\Filament\Resources\Teams\Pages\EditTeam;
@@ -25,16 +26,19 @@ final class TeamResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::System;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return TeamForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return TeamsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -42,6 +46,7 @@ final class TeamResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

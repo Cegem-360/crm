@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
+use Override;
 use App\Models\Product;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
@@ -53,6 +54,7 @@ final class ProductImporter extends Importer
         return $body;
     }
 
+    #[Override]
     public function resolveRecord(): Product
     {
         return Product::query()->firstOrNew([

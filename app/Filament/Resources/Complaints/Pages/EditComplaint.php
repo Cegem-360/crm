@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Complaints\Pages;
 
+use Override;
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Complaints\ComplaintResource;
 use Filament\Actions\DeleteAction;
@@ -15,6 +16,7 @@ final class EditComplaint extends EditRecord
 
     protected static string $resource = ComplaintResource::class;
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [

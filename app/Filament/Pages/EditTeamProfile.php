@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use Override;
 use App\Models\Team;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Tenancy\EditTenantProfile;
@@ -19,11 +20,13 @@ final class EditTeamProfile extends EditTenantProfile
         return 'Team Profile';
     }
 
+    #[Override]
     public static function canAccess(): bool
     {
         return Gate::allows('update', Team::class);
     }
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -32,7 +35,7 @@ final class EditTeamProfile extends EditTenantProfile
                 ->required()
                 ->maxLength(255)
                 ->live(onBlur: true)
-                ->afterStateUpdated(static fn (?string $state, Set $set) => $set('slug', Str::slug($state ?? ''))),
+                ->afterStateUpdated(static fn (?string $state, Set $set): mixed => $set('slug', Str::slug($state ?? ''))),
             TextInput::make('slug')
                 ->label('Team Slug')
                 ->required()

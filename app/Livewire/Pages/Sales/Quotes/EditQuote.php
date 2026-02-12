@@ -48,7 +48,7 @@ final class EditQuote extends Component implements HasSchemas
             $this->quote->update($data);
             $message = __('Quote updated successfully.');
         } else {
-            $this->quote = Quote::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->quote = Quote::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->quote)->saveRelationships();
             $message = __('Quote created successfully.');
         }

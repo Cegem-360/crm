@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
 use App\Enums\CustomFieldModel;
 use App\Enums\CustomFieldType;
 use App\Models\Customer;
@@ -67,7 +68,7 @@ it('can set and get a date custom field value', function (): void {
 
     $value = $customer->getCustomFieldValue('contract-start-date');
 
-    expect($value)->toBeInstanceOf(Carbon\Carbon::class);
+    expect($value)->toBeInstanceOf(Carbon::class);
     expect($value->format('Y-m-d'))->toBe('2024-06-15');
 });
 
@@ -132,6 +133,7 @@ it('can update an existing custom field value', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
 
     $customer->setCustomFieldValue('updatable-field', 'Original Value');
+
     expect($customer->getCustomFieldValue('updatable-field'))->toBe('Original Value');
 
     $customer->setCustomFieldValue('updatable-field', 'Updated Value');

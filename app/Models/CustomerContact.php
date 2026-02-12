@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\CustomerContactFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,6 +51,7 @@ final class CustomerContact extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

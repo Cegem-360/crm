@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
+use Illuminate\Support\Facades\Date;
 use App\Models\Order;
 use App\Models\Quote;
 use Carbon\Carbon;
@@ -16,11 +18,12 @@ final class MonthlySalesChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     protected function getData(): array
     {
         $months = collect();
         for ($i = 11; $i >= 0; $i--) {
-            $months->push(Carbon::now()->subMonths($i));
+            $months->push(Date::now()->subMonths($i));
         }
 
         $driver = DB::connection()->getDriverName();
@@ -39,25 +42,25 @@ final class MonthlySalesChart extends ChartWidget
 
         $orderData = Order::query()
             ->select(
-                DB::raw("{$orderYearExpression} as year"),
-                DB::raw("{$orderMonthExpression} as month"),
+                DB::raw($orderYearExpression . ' as year'),
+                DB::raw($orderMonthExpression . ' as month'),
                 DB::raw('SUM(total) as total')
             )
-            ->where('order_date', '>=', Carbon::now()->subMonths(11)->startOfMonth())
+            ->where('order_date', '>=', Date::now()->subMonths(11)->startOfMonth())
             ->groupBy('year', 'month')
             ->get()
-            ->keyBy(fn ($item) => $item->year.'-'.$item->month);
+            ->keyBy(fn ($item): string => $item->year.'-'.$item->month);
 
         $quoteData = Quote::query()
             ->select(
-                DB::raw("{$quoteYearExpression} as year"),
-                DB::raw("{$quoteMonthExpression} as month"),
+                DB::raw($quoteYearExpression . ' as year'),
+                DB::raw($quoteMonthExpression . ' as month'),
                 DB::raw('SUM(total) as total')
             )
-            ->where('issue_date', '>=', Carbon::now()->subMonths(11)->startOfMonth())
+            ->where('issue_date', '>=', Date::now()->subMonths(11)->startOfMonth())
             ->groupBy('year', 'month')
             ->get()
-            ->keyBy(fn ($item) => $item->year.'-'.$item->month);
+            ->keyBy(fn ($item): string => $item->year.'-'.$item->month);
 
         $labels = [];
         $orderValues = [];

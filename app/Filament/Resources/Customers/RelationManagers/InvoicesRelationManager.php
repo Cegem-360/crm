@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
+use Override;
 use App\Enums\InvoiceStatus;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
@@ -35,6 +36,7 @@ final class InvoicesRelationManager extends RelationManager
 {
     protected static string $relationship = 'invoices';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

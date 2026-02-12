@@ -107,7 +107,7 @@ final class EmailService
         $tenant = Filament::getTenant();
         $teamId = $tenant?->id ?? $context['customer']?->team_id ?? null;
 
-        return Interaction::create([
+        return Interaction::query()->create([
             'team_id' => $teamId,
             'customer_id' => $context['customer']?->id ?? null,
             'customer_contact_id' => $context['contact']?->id ?? null,
@@ -119,7 +119,7 @@ final class EmailService
             'direction' => InteractionDirection::Outbound,
             'status' => InteractionStatus::Completed,
             'subject' => $template->subject,
-            'description' => "Email sent using template: {$template->name}",
+            'description' => 'Email sent using template: ' . $template->name,
             'interaction_date' => now(),
             'email_sent_at' => now(),
             'email_recipient' => $recipientEmail,
@@ -151,6 +151,6 @@ final class EmailService
                 'subject' => $template->subject,
             ])
             ->event('email_sent')
-            ->log("Email sent to {$recipientEmail} using template '{$template->name}'");
+            ->log(sprintf("Email sent to %s using template '%s'", $recipientEmail, $template->name));
     }
 }

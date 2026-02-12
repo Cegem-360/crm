@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions\RelationManagers;
 
+use Override;
 use App\Enums\ChatMessageSenderType;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -24,6 +25,7 @@ final class MessagesRelationManager extends RelationManager
 {
     protected static string $relationship = 'messages';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

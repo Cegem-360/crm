@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
 use App\Observers\ProductObserver;
@@ -37,6 +38,7 @@ final class Product extends Model
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

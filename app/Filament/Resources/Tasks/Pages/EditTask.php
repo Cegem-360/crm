@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tasks\Pages;
 
+use Override;
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Tasks\TaskResource;
 use Filament\Actions\DeleteAction;
@@ -15,6 +16,7 @@ final class EditTask extends EditRecord
 
     protected static string $resource = TaskResource::class;
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\InteractionCategory;
 use App\Enums\InteractionChannel;
 use App\Enums\InteractionDirection;
@@ -77,6 +78,7 @@ final class Interaction extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Override;
 use App\Filament\Commands\FileGenerators\Resources\ResourceClassGenerator;
 use App\Models\BugReport;
 use App\Models\Company;
@@ -28,6 +29,7 @@ final class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+    #[Override]
     public function register(): void
     {
         //

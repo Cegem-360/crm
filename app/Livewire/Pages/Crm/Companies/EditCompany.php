@@ -48,7 +48,7 @@ final class EditCompany extends Component implements HasSchemas
             $this->company->update($data);
             $message = __('Company updated successfully.');
         } else {
-            $this->company = Company::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->company = Company::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->company)->saveRelationships();
             $message = __('Company created successfully.');
         }

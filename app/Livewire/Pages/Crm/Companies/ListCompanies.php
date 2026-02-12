@@ -67,12 +67,12 @@ final class ListCompanies extends Component
     {
         return Company::query()
             ->withCount('customers')
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('name', 'like', "%{$this->search}%")
-                        ->orWhere('email', 'like', "%{$this->search}%")
-                        ->orWhere('tax_number', 'like', "%{$this->search}%")
-                        ->orWhere('registration_number', 'like', "%{$this->search}%");
+            ->when($this->search, function ($query): void {
+                $query->where(function ($q): void {
+                    $q->where('name', 'like', sprintf('%%%s%%', $this->search))
+                        ->orWhere('email', 'like', sprintf('%%%s%%', $this->search))
+                        ->orWhere('tax_number', 'like', sprintf('%%%s%%', $this->search))
+                        ->orWhere('registration_number', 'like', sprintf('%%%s%%', $this->search));
                 });
             })
             ->orderBy($this->sortBy, $this->sortDir)

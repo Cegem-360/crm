@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Campaigns\RelationManagers;
 
+use Override;
 use App\Enums\CampaignResponseType;
 use App\Filament\Imports\CampaignResponseImporter;
 use Filament\Actions\BulkActionGroup;
@@ -24,6 +25,7 @@ final class ResponsesRelationManager extends RelationManager
 {
     protected static string $relationship = 'responses';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

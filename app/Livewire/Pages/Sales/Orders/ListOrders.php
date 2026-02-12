@@ -41,6 +41,7 @@ final class ListOrders extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -72,16 +73,16 @@ final class ListOrders extends Component
         return Order::query()
             ->with(['customer', 'quote'])
             ->withCount('orderItems')
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('order_number', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                        ->orWhereHas('customer', function ($customerQuery) use ($search): void {
                             $customerQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 $query->where('status', $this->status);
             })
             ->orderBy($this->sortBy, $this->sortDir)

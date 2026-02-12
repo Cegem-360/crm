@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
@@ -91,6 +92,7 @@ final class User extends Authenticatable implements FilamentUser, HasTenants
         return true;
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

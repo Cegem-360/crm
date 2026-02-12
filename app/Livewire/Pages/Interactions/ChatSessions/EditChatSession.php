@@ -47,7 +47,7 @@ final class EditChatSession extends Component implements HasSchemas
             $this->chatSession->update($data);
             $message = __('Chat session updated successfully.');
         } else {
-            $this->chatSession = ChatSession::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->chatSession = ChatSession::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->chatSession)->saveRelationships();
             $message = __('Chat session created successfully.');
         }

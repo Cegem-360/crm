@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
+use Override;
 use App\Enums\CustomerType;
 use App\Models\Customer;
 use Filament\Actions\Imports\ImportColumn;
@@ -53,6 +54,7 @@ final class CustomerImporter extends Importer
         return $body;
     }
 
+    #[Override]
     public static function getOptionsFormComponents(): array
     {
         return [
@@ -61,6 +63,7 @@ final class CustomerImporter extends Importer
         ];
     }
 
+    #[Override]
     public function resolveRecord(): Customer
     {
         if ($this->options['updateExisting'] ?? false) {

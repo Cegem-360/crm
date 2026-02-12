@@ -18,5 +18,6 @@ arch()->preset()->security();
 arch()
     ->expect('App\Models')
     ->classes()
-    ->toExtend(Model::class);
+    ->toExtend(Model::class)
+    ->ignoring('App\Models\Scopes');
 arch()->expect('App\Controllers\Controller')->toBeAbstract();

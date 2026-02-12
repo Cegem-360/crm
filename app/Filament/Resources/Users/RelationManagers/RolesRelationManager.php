@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users\RelationManagers;
 
+use Override;
 use App\Enums\Role;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
@@ -25,11 +26,13 @@ final class RolesRelationManager extends RelationManager
 {
     protected static string $relationship = 'roles';
 
+    #[Override]
     public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
     {
         return Auth::user()->hasRole(Role::Admin);
     }
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

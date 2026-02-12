@@ -43,6 +43,7 @@ final class ListTasks extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -77,19 +78,19 @@ final class ListTasks extends Component
     {
         return Task::query()
             ->with(['customer', 'assignedUser', 'assigner'])
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('title', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                        ->orWhereHas('customer', function ($customerQuery) use ($search): void {
                             $customerQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 $query->where('status', $this->status);
             })
-            ->when($this->priority !== '', function ($query) {
+            ->when($this->priority !== '', function ($query): void {
                 $query->where('priority', $this->priority);
             })
             ->orderBy($this->sortBy, $this->sortDir)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\DiscountType;
 use App\Enums\DiscountValueType;
 use App\Models\Concerns\BelongsToTeam;
@@ -48,6 +49,7 @@ final class Discount extends Model
         return $this->belongsTo(Product::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

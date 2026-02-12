@@ -48,7 +48,7 @@ final class EditOpportunity extends Component implements HasSchemas
             $this->opportunity->update($data);
             $message = __('Opportunity updated successfully.');
         } else {
-            $this->opportunity = Opportunity::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->opportunity = Opportunity::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->opportunity)->saveRelationships();
             $message = __('Opportunity created successfully.');
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Enums\OpportunityStage;
 use App\Enums\QuoteStatus;
 use App\Models\Opportunity;
@@ -18,6 +19,7 @@ final class SalesStatsOverview extends BaseWidget
     /**
      * @return array<Stat>
      */
+    #[Override]
     protected function getStats(): array
     {
         $totalOpportunities = Opportunity::query()->count();
@@ -42,7 +44,7 @@ final class SalesStatsOverview extends BaseWidget
 
         return [
             Stat::make('Active Opportunities', Number::format($activeOpportunities))
-                ->description("{$totalOpportunities} total opportunities")
+                ->description($totalOpportunities . ' total opportunities')
                 ->icon('heroicon-o-funnel')
                 ->color('primary'),
 
@@ -56,8 +58,8 @@ final class SalesStatsOverview extends BaseWidget
                 ->icon('heroicon-o-trophy')
                 ->color('success'),
 
-            Stat::make('Quote Conversion Rate', "{$conversionRate}%")
-                ->description("{$acceptedQuotes} of {$totalQuotes} quotes accepted")
+            Stat::make('Quote Conversion Rate', $conversionRate . '%')
+                ->description(sprintf('%d of %d quotes accepted', $acceptedQuotes, $totalQuotes))
                 ->icon('heroicon-o-chart-bar')
                 ->color('info'),
         ];

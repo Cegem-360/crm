@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Quotes;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Quotes\Pages\CreateQuote;
 use App\Filament\Resources\Quotes\Pages\EditQuote;
@@ -28,16 +29,19 @@ final class QuoteResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return QuoteForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return QuotesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -46,6 +50,7 @@ final class QuoteResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -55,6 +60,7 @@ final class QuoteResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()

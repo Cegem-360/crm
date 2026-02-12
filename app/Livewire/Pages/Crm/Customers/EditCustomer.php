@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Crm\Customers;
 
+use App\Models\Team;
 use App\Filament\Resources\Customers\CustomerResource;
 use App\Filament\Resources\Customers\Pages\EditCustomer as FilamentEditCustomer;
 use App\Filament\Resources\Customers\Schemas\CustomerForm;
@@ -48,7 +49,7 @@ final class EditCustomer extends Component implements HasSchemas
 
     public function rendering(): void
     {
-        if ($this->team) {
+        if ($this->team instanceof Team) {
             \Illuminate\Support\Facades\View::share('currentTeam', $this->team);
         }
 
@@ -80,7 +81,7 @@ final class EditCustomer extends Component implements HasSchemas
 
         $managers = $this->getRelationManagers();
 
-        if (empty($managers)) {
+        if ($managers === []) {
             return $schema->components([Group::make()->hidden()]);
         }
 
@@ -141,7 +142,7 @@ final class EditCustomer extends Component implements HasSchemas
             $this->customer->update($data);
             $message = __('Customer updated successfully.');
         } else {
-            $this->customer = Customer::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->customer = Customer::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->customer)->saveRelationships();
             $message = __('Customer created successfully.');
         }
@@ -162,7 +163,7 @@ final class EditCustomer extends Component implements HasSchemas
     /**
      * @return array<class-string<RelationManager> | RelationGroup | RelationManagerConfiguration>
      */
-    protected function getRelationManagers(): array
+    private function getRelationManagers(): array
     {
         if (! $this->customer?->exists) {
             return [];
@@ -180,7 +181,7 @@ final class EditCustomer extends Component implements HasSchemas
      * @param  class-string<RelationManager> | RelationManagerConfiguration  $manager
      * @return class-string<RelationManager>
      */
-    protected function normalizeRelationManagerClass(string|RelationManagerConfiguration $manager): string
+    private function normalizeRelationManagerClass(string|RelationManagerConfiguration $manager): string
     {
         if ($manager instanceof RelationManagerConfiguration) {
             return $manager->relationManager;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use Override;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -14,6 +15,7 @@ final class CustomerCollection extends ResourceCollection
      *
      * @return array<int|string, mixed>
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return parent::toArray($request);

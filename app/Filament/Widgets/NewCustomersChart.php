@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\Customer;
 use Filament\Widgets\ChartWidget;
@@ -15,6 +16,7 @@ final class NewCustomersChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     protected function getData(): array
     {
         $data = Customer::query()

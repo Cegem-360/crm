@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\LeadOpportunities;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\LeadOpportunities\Pages\CreateLeadOpportunity;
 use App\Filament\Resources\LeadOpportunities\Pages\EditLeadOpportunity;
@@ -31,16 +32,19 @@ final class LeadOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 10;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return LeadOpportunityForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return LeadOpportunitiesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -48,6 +52,7 @@ final class LeadOpportunitiesResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

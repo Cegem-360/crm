@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Discounts;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Discounts\Pages\CreateDiscount;
 use App\Filament\Resources\Discounts\Pages\EditDiscount;
@@ -24,16 +25,19 @@ final class DiscountResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Products;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return DiscountForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return DiscountsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -41,6 +45,7 @@ final class DiscountResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -50,6 +55,7 @@ final class DiscountResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()

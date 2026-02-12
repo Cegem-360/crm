@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\ComplaintSeverity;
 use App\Enums\ComplaintStatus;
 use App\Models\Concerns\BelongsToTeam;
@@ -74,6 +75,7 @@ final class Complaint extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

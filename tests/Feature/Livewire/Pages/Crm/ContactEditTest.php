@@ -8,20 +8,20 @@ use App\Models\CustomerContact;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create();
     $this->actingAs($this->user);
     $this->team = setUpFrontendTenant($this->user);
 });
 
-it('can render create page', function () {
+it('can render create page', function (): void {
     $component = Livewire::test(EditContact::class)
         ->assertSuccessful();
 
     expect($component->get('contact')?->exists)->toBeFalsy();
 });
 
-it('can render edit page with existing contact', function () {
+it('can render edit page with existing contact', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
     $contact = CustomerContact::factory()->for($customer)->create([
         'name' => 'Jane Doe',
@@ -38,7 +38,7 @@ it('can render edit page with existing contact', function () {
         ]);
 });
 
-it('can create a contact', function () {
+it('can create a contact', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
 
     Livewire::test(EditContact::class)
@@ -54,10 +54,10 @@ it('can create a contact', function () {
         ->call('save')
         ->assertRedirect();
 
-    expect(CustomerContact::where('name', 'John Doe')->exists())->toBeTrue();
+    expect(CustomerContact::query()->where('name', 'John Doe')->exists())->toBeTrue();
 });
 
-it('validates required fields on create', function () {
+it('validates required fields on create', function (): void {
     Livewire::test(EditContact::class)
         ->fillForm([
             'customer_id' => null,
@@ -67,7 +67,7 @@ it('validates required fields on create', function () {
         ->assertHasFormErrors(['customer_id' => 'required', 'name' => 'required']);
 });
 
-it('validates email format', function () {
+it('validates email format', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
 
     Livewire::test(EditContact::class)
@@ -80,7 +80,7 @@ it('validates email format', function () {
         ->assertHasFormErrors(['email']);
 });
 
-it('can update a contact', function () {
+it('can update a contact', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
     $contact = CustomerContact::factory()->for($customer)->create([
         'name' => 'Old Name',
@@ -101,7 +101,7 @@ it('can update a contact', function () {
     expect($contact->is_primary)->toBeTrue();
 });
 
-it('redirects to view page after save', function () {
+it('redirects to view page after save', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
     $contact = CustomerContact::factory()->for($customer)->create();
 

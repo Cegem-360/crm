@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Enums\OrderStatus;
 use App\Models\Order;
 use Filament\Widgets\ChartWidget;
@@ -14,7 +15,7 @@ final class OrderStatusChart extends ChartWidget
     /**
      * @var array<string, string>
      */
-    private const STATUS_COLORS = [
+    private const array STATUS_COLORS = [
         'pending' => 'rgba(245, 158, 11, 0.8)',
         'confirmed' => 'rgba(59, 130, 246, 0.8)',
         'processing' => 'rgba(139, 92, 246, 0.8)',
@@ -27,6 +28,7 @@ final class OrderStatusChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     protected function getData(): array
     {
         $data = Order::query()

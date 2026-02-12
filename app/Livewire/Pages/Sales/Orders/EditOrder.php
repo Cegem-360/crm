@@ -48,7 +48,7 @@ final class EditOrder extends Component implements HasSchemas
             $this->order->update($data);
             $message = __('Order updated successfully.');
         } else {
-            $this->order = Order::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->order = Order::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->order)->saveRelationships();
             $message = __('Order created successfully.');
         }

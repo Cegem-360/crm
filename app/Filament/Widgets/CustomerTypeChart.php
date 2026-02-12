@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Enums\CustomerType;
 use App\Models\Customer;
 use Filament\Widgets\ChartWidget;
@@ -14,7 +15,7 @@ final class CustomerTypeChart extends ChartWidget
     /**
      * @var array<string, string>
      */
-    private const TYPE_COLORS = [
+    private const array TYPE_COLORS = [
         'individual' => 'rgba(59, 130, 246, 0.8)',
         'company' => 'rgba(16, 185, 129, 0.8)',
     ];
@@ -23,6 +24,7 @@ final class CustomerTypeChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     protected function getData(): array
     {
         $data = Customer::query()

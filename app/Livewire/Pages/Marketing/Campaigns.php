@@ -39,6 +39,7 @@ final class Campaigns extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -70,14 +71,14 @@ final class Campaigns extends Component
         return Campaign::query()
             ->with(['creator'])
             ->withCount('responses')
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('name', 'like', $search)
                         ->orWhere('description', 'like', $search);
                 });
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 $query->where('status', $this->status);
             })
             ->orderBy($this->sortBy, $this->sortDir)

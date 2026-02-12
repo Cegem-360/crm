@@ -14,6 +14,6 @@ final class CreateCustomField extends CreateRecord
 
     protected function afterCreate(): void
     {
-        app(CustomFieldService::class)->clearCache($this->record->model_type);
+        resolve(CustomFieldService::class)->clearCache($this->record->model_type);
     }
 }

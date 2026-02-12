@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users\RelationManagers;
 
+use Override;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -21,6 +22,7 @@ final class PersonalAccessTokensRelationManager extends RelationManager
 
     protected static ?string $title = 'API Tokenek';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

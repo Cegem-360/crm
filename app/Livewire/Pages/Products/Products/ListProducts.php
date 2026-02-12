@@ -45,6 +45,7 @@ final class ListProducts extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -80,17 +81,17 @@ final class ListProducts extends Component
     {
         return Product::query()
             ->with(['category'])
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('name', 'like', $search)
                         ->orWhere('sku', 'like', $search);
                 });
             })
-            ->when($this->category !== '', function ($query) {
+            ->when($this->category !== '', function ($query): void {
                 $query->where('category_id', $this->category);
             })
-            ->when($this->active !== '', function ($query) {
+            ->when($this->active !== '', function ($query): void {
                 $query->where('is_active', $this->active === '1');
             })
             ->orderBy($this->sortBy, $this->sortDir)

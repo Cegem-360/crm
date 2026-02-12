@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders\RelationManagers;
 
+use Override;
 use App\Models\Order;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -25,6 +26,7 @@ final class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'orderItems';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

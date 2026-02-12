@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\BugReportStatus;
 use App\Enums\ComplaintSeverity;
 use App\Models\Concerns\BelongsToTeam;
@@ -59,6 +60,7 @@ final class BugReport extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

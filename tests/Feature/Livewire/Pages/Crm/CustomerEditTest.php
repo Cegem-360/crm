@@ -9,26 +9,26 @@ use App\Models\Customer;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create();
     $this->actingAs($this->user);
     $this->team = setUpFrontendTenant($this->user);
 });
 
-it('can render create page', function () {
+it('can render create page', function (): void {
     $component = Livewire::test(EditCustomer::class)
         ->assertSuccessful();
 
     expect($component->get('customer')?->exists)->toBeFalsy();
 });
 
-it('has form component for unique identifier', function () {
+it('has form component for unique identifier', function (): void {
     Livewire::test(EditCustomer::class)
         ->assertFormExists()
         ->assertFormFieldExists('unique_identifier');
 });
 
-it('can render edit page with existing customer', function () {
+it('can render edit page with existing customer', function (): void {
     $customer = Customer::factory()->for($this->team)->create([
         'name' => 'Existing Customer',
         'type' => CustomerType::Company,
@@ -44,7 +44,7 @@ it('can render edit page with existing customer', function () {
         ]);
 });
 
-it('can create a customer', function () {
+it('can create a customer', function (): void {
     $company = Company::factory()->for($this->team)->create();
 
     Livewire::test(EditCustomer::class)
@@ -60,10 +60,10 @@ it('can create a customer', function () {
         ->call('save')
         ->assertRedirect();
 
-    expect(Customer::where('name', 'Test Customer')->exists())->toBeTrue();
+    expect(Customer::query()->where('name', 'Test Customer')->exists())->toBeTrue();
 });
 
-it('validates required fields on create', function () {
+it('validates required fields on create', function (): void {
     Livewire::test(EditCustomer::class)
         ->fillForm([
             'unique_identifier' => '',
@@ -73,7 +73,7 @@ it('validates required fields on create', function () {
         ->assertHasFormErrors(['unique_identifier' => 'required', 'name' => 'required']);
 });
 
-it('validates unique identifier uniqueness', function () {
+it('validates unique identifier uniqueness', function (): void {
     Customer::factory()->for($this->team)->create(['unique_identifier' => 'CUST-EXISTING']);
 
     Livewire::test(EditCustomer::class)
@@ -86,7 +86,7 @@ it('validates unique identifier uniqueness', function () {
         ->assertHasFormErrors(['unique_identifier']);
 });
 
-it('can update a customer', function () {
+it('can update a customer', function (): void {
     $customer = Customer::factory()->for($this->team)->create([
         'name' => 'Old Name',
         'is_active' => true,
@@ -106,7 +106,7 @@ it('can update a customer', function () {
     expect($customer->is_active)->toBeFalse();
 });
 
-it('allows same unique identifier when editing the same customer', function () {
+it('allows same unique identifier when editing the same customer', function (): void {
     $customer = Customer::factory()->for($this->team)->create(['unique_identifier' => 'CUST-EXISTING']);
 
     Livewire::test(EditCustomer::class, ['customer' => $customer])
@@ -115,7 +115,7 @@ it('allows same unique identifier when editing the same customer', function () {
         ->assertHasNoFormErrors(['unique_identifier']);
 });
 
-it('redirects to view page after save', function () {
+it('redirects to view page after save', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
 
     Livewire::test(EditCustomer::class, ['customer' => $customer])
@@ -127,7 +127,7 @@ it('redirects to view page after save', function () {
         ->assertRedirectContains('/customers/');
 });
 
-it('displays relation managers for existing customers', function () {
+it('displays relation managers for existing customers', function (): void {
     $customer = Customer::factory()->for($this->team)->create();
 
     Livewire::test(EditCustomer::class, ['customer' => $customer])
@@ -136,7 +136,7 @@ it('displays relation managers for existing customers', function () {
         ->assertSee('Addresses');
 });
 
-it('does not display relation managers for new customers', function () {
+it('does not display relation managers for new customers', function (): void {
     Livewire::test(EditCustomer::class)
         ->assertSuccessful()
         ->assertDontSee('Contacts')

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Enums\QuoteStatus;
 use App\Models\Quote;
 use Filament\Widgets\ChartWidget;
@@ -14,7 +15,7 @@ final class QuoteStatusChart extends ChartWidget
     /**
      * @var array<string, string>
      */
-    private const STATUS_COLORS = [
+    private const array STATUS_COLORS = [
         'draft' => 'rgba(156, 163, 175, 0.8)',
         'sent' => 'rgba(59, 130, 246, 0.8)',
         'accepted' => 'rgba(16, 185, 129, 0.8)',
@@ -26,6 +27,7 @@ final class QuoteStatusChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     protected function getData(): array
     {
         $data = Quote::query()

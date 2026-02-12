@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('custom_field_values', function (Blueprint $table) {
+        Schema::create('custom_field_values', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('custom_field_id')->constrained()->cascadeOnDelete();
             $table->morphs('model');

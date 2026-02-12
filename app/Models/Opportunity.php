@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\OpportunityStage;
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
@@ -61,6 +62,7 @@ final class Opportunity extends Model
 
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

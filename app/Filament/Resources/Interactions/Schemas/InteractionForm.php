@@ -120,7 +120,7 @@ final class InteractionForm
                                 $contactId = $get('customer_contact_id');
 
                                 if ($recipientType === 'contact' && $contactId) {
-                                    return CustomerContact::find($contactId)?->email;
+                                    return CustomerContact::query()->find($contactId)?->email;
                                 }
 
                                 if ($recipientType === 'company' && $customerId) {

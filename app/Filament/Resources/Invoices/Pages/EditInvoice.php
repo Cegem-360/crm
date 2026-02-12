@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Pages;
 
+use Override;
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Invoices\InvoiceResource;
 use Filament\Actions\DeleteAction;
@@ -18,6 +19,7 @@ final class EditInvoice extends EditRecord
 
     protected static string $resource = InvoiceResource::class;
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [

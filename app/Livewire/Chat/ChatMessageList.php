@@ -39,7 +39,7 @@ final class ChatMessageList extends Component
 
     public function markMessagesAsRead(): void
     {
-        $chatService = app(ChatService::class);
+        $chatService = resolve(ChatService::class);
 
         $unreadMessages = $this->session->messages()
             ->where('sender_type', 'user')

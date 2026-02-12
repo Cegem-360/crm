@@ -48,7 +48,7 @@ final class EditProduct extends Component implements HasSchemas
             $this->product->update($data);
             $message = __('Product updated successfully.');
         } else {
-            $this->product = Product::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->product = Product::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->product)->saveRelationships();
             $message = __('Product created successfully.');
         }

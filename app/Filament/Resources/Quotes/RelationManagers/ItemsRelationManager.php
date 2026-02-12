@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Quotes\RelationManagers;
 
+use Override;
 use App\Models\QuoteItem;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -23,6 +24,7 @@ final class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

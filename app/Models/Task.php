@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
 use Database\Factories\TaskFactory;
@@ -59,6 +60,7 @@ final class Task extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

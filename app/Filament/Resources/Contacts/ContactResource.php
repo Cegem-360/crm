@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Contacts;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Contacts\Pages\CreateContact;
 use App\Filament\Resources\Contacts\Pages\EditContact;
@@ -30,16 +31,19 @@ final class ContactResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ContactForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ContactsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -47,6 +51,7 @@ final class ContactResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

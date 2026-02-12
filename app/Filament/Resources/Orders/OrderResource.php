@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Orders\Pages\CreateOrder;
 use App\Filament\Resources\Orders\Pages\EditOrder;
@@ -27,16 +28,19 @@ final class OrderResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return OrderForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return OrdersTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -44,6 +48,7 @@ final class OrderResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -53,6 +58,7 @@ final class OrderResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CustomFields;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\CustomFields\Pages\CreateCustomField;
 use App\Filament\Resources\CustomFields\Pages\EditCustomField;
@@ -26,16 +27,19 @@ final class CustomFieldResource extends Resource
 
     protected static ?int $navigationSort = 100;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return CustomFieldForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return CustomFieldsTable::configure($table);
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -45,16 +49,19 @@ final class CustomFieldResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getNavigationLabel(): string
     {
         return __('Custom Fields');
     }
 
+    #[Override]
     public static function getModelLabel(): string
     {
         return __('Custom Field');
     }
 
+    #[Override]
     public static function getPluralModelLabel(): string
     {
         return __('Custom Fields');

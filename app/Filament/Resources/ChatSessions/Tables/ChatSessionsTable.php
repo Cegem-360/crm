@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatSessions\Tables;
 
+use App\Models\ChatSession;
 use App\Enums\ChatSessionStatus;
 use App\Models\User;
 use App\Services\ChatService;
@@ -143,8 +144,8 @@ final class ChatSessionsTable
                     ->color(Color::Blue)
                     ->visible(fn ($record): bool => $record->user_id === null)
                     ->requiresConfirmation()
-                    ->action(function ($record): void {
-                        $chatService = app(ChatService::class);
+                    ->action(function (ChatSession $record): void {
+                        $chatService = resolve(ChatService::class);
                         $chatService->assignSession($record, Auth::user());
 
                         Notification::make()
@@ -164,8 +165,8 @@ final class ChatSessionsTable
                             ->searchable()
                             ->required(),
                     ])
-                    ->action(function ($record, array $data): void {
-                        $chatService = app(ChatService::class);
+                    ->action(function (ChatSession $record, array $data): void {
+                        $chatService = resolve(ChatService::class);
                         $newUser = User::query()->find($data['new_user_id']);
                         $chatService->transferSession($record, $newUser);
 
@@ -181,8 +182,8 @@ final class ChatSessionsTable
                     ->visible(fn ($record): bool => $record->status === ChatSessionStatus::Active)
                     ->requiresConfirmation()
                     ->modalDescription('Are you sure you want to close this chat session?')
-                    ->action(function ($record): void {
-                        $chatService = app(ChatService::class);
+                    ->action(function (ChatSession $record): void {
+                        $chatService = resolve(ChatService::class);
                         $chatService->closeSession($record);
 
                         Notification::make()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProductCategories;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ProductCategories\Pages\CreateProductCategory;
 use App\Filament\Resources\ProductCategories\Pages\EditProductCategory;
@@ -24,16 +25,19 @@ final class ProductCategoryResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Products;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ProductCategoryForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ProductCategoriesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -42,6 +46,7 @@ final class ProductCategoryResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

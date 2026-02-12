@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Models\Customer;
 use App\Models\Order;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -16,6 +17,7 @@ final class CustomerStatsOverview extends BaseWidget
     /**
      * @return array<Stat>
      */
+    #[Override]
     protected function getStats(): array
     {
         $totalCustomers = Customer::query()->count();

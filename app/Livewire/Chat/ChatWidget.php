@@ -43,7 +43,7 @@ final class ChatWidget extends Component
             return;
         }
 
-        $chatService = app(ChatService::class);
+        $chatService = resolve(ChatService::class);
         $this->session = $chatService->startSession($this->customer);
 
         $this->isOpen = true;
@@ -67,7 +67,7 @@ final class ChatWidget extends Component
     public function closeChat(): void
     {
         if ($this->session instanceof ChatSession) {
-            $chatService = app(ChatService::class);
+            $chatService = resolve(ChatService::class);
             $chatService->closeSession($this->session);
         }
 

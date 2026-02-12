@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Products;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Products\Pages\CreateProduct;
 use App\Filament\Resources\Products\Pages\EditProduct;
@@ -26,16 +27,19 @@ final class ProductResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ProductForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ProductsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -43,6 +47,7 @@ final class ProductResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -52,6 +57,7 @@ final class ProductResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()

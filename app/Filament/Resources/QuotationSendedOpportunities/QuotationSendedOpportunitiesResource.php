@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\QuotationSendedOpportunities;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\QuotationSendedOpportunities\Pages\ManageQuotationSendedOpportunities;
 use App\Filament\Resources\QuotationSendedOpportunities\Tables\QuotationSendedOpportunitiesTable;
@@ -26,11 +27,13 @@ final class QuotationSendedOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 14;
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return QuotationSendedOpportunitiesTable::configure($table);
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

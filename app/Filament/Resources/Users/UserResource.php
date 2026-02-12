@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
@@ -32,16 +33,19 @@ final class UserResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::System;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return UserForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return UsersTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -56,6 +60,7 @@ final class UserResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

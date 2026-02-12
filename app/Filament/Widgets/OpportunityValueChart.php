@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Enums\OpportunityStage;
 use App\Models\Opportunity;
 use Filament\Widgets\ChartWidget;
@@ -14,7 +15,7 @@ final class OpportunityValueChart extends ChartWidget
     /**
      * @var array<string, string>
      */
-    private const STAGE_COLORS = [
+    private const array STAGE_COLORS = [
         'lead' => 'rgba(156, 163, 175, 0.8)',
         'qualified' => 'rgba(59, 130, 246, 0.8)',
         'proposal' => 'rgba(245, 158, 11, 0.8)',
@@ -27,6 +28,7 @@ final class OpportunityValueChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     protected function getData(): array
     {
         $data = Opportunity::query()

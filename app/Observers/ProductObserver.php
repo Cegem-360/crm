@@ -45,9 +45,9 @@ final class ProductObserver
         }
 
         // Workflow webhook - user token-nel
-        SendWorkflowWebhook::dispatch($product, $event, $user);
+        dispatch(new SendWorkflowWebhook($product, $event, $user));
 
         // Felhasználó-specifikus webhook
-        SendProductWebhook::dispatch($product, $event, $user);
+        dispatch(new SendProductWebhook($product, $event, $user));
     }
 }

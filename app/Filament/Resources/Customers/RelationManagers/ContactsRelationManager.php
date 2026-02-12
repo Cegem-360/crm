@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
+use Override;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -24,6 +25,7 @@ final class ContactsRelationManager extends RelationManager
 {
     protected static string $relationship = 'contacts';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

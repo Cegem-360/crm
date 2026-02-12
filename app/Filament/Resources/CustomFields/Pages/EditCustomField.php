@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\CustomFields\Pages;
 
+use Override;
 use App\Filament\Resources\CustomFields\CustomFieldResource;
 use App\Services\CustomFieldService;
 use Filament\Actions\DeleteAction;
@@ -13,6 +14,7 @@ final class EditCustomField extends EditRecord
 {
     protected static string $resource = CustomFieldResource::class;
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [
@@ -22,11 +24,11 @@ final class EditCustomField extends EditRecord
 
     protected function afterSave(): void
     {
-        app(CustomFieldService::class)->clearCache($this->record->model_type);
+        resolve(CustomFieldService::class)->clearCache($this->record->model_type);
     }
 
     protected function afterDelete(): void
     {
-        app(CustomFieldService::class)->clearCache($this->record->model_type);
+        resolve(CustomFieldService::class)->clearCache($this->record->model_type);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
+use Override;
 use App\Enums\OpportunityStage;
 use App\Filament\Resources\Customers\Actions\GenerateQuoteAction;
 use Filament\Actions\AssociateAction;
@@ -37,6 +38,7 @@ final class OpportunitiesRelationManager extends RelationManager
 {
     protected static string $relationship = 'opportunities';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

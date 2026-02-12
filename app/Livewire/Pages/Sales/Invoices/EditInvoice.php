@@ -48,7 +48,7 @@ final class EditInvoice extends Component implements HasSchemas
             $this->invoice->update($data);
             $message = __('Invoice updated successfully.');
         } else {
-            $this->invoice = Invoice::create(array_merge($data, ['team_id' => $this->team->id]));
+            $this->invoice = Invoice::query()->create(array_merge($data, ['team_id' => $this->team->id]));
             $this->form->model($this->invoice)->saveRelationships();
             $message = __('Invoice created successfully.');
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Widgets\MonthlySalesChart;
 use App\Filament\Widgets\OpportunityValueChart;
@@ -24,20 +25,20 @@ final class SalesReports extends Page
 
     protected static ?string $title = 'Sales Reports';
 
+    #[Override]
     public static function getNavigationLabel(): string
     {
         return 'Sales Reports';
     }
 
-    public function getTitle(): string|Htmlable
+    #[Override]
+    public function getTitle(): string
     {
         return self::$title;
     }
 
-    /**
-     * @return int|array<string, int>
-     */
-    public function getFooterWidgetsColumns(): int|array
+    #[Override]
+    public function getFooterWidgetsColumns(): int
     {
         return 2;
     }
@@ -45,6 +46,7 @@ final class SalesReports extends Page
     /**
      * @return array<class-string>
      */
+    #[Override]
     protected function getHeaderWidgets(): array
     {
         return [
@@ -55,6 +57,7 @@ final class SalesReports extends Page
     /**
      * @return array<class-string>
      */
+    #[Override]
     protected function getFooterWidgets(): array
     {
         return [

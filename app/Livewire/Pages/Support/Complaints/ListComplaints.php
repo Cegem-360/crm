@@ -45,6 +45,7 @@ final class ListComplaints extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -81,19 +82,19 @@ final class ListComplaints extends Component
     {
         return Complaint::query()
             ->with(['customer', 'order', 'assignedUser'])
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('title', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search) {
+                        ->orWhereHas('customer', function ($customerQuery) use ($search): void {
                             $customerQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 $query->where('status', $this->status);
             })
-            ->when($this->severity !== '', function ($query) {
+            ->when($this->severity !== '', function ($query): void {
                 $query->where('severity', $this->severity);
             })
             ->orderBy($this->sortBy, $this->sortDir)

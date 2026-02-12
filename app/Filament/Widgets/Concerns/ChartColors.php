@@ -14,7 +14,7 @@ final class ChartColors
      *
      * @var array<int, string>
      */
-    public const DEFAULT = [
+    public const array DEFAULT = [
         'rgba(59, 130, 246, 0.8)',   // Blue
         'rgba(16, 185, 129, 0.8)',   // Green
         'rgba(245, 158, 11, 0.8)',   // Amber
@@ -30,27 +30,27 @@ final class ChartColors
     /**
      * Primary color for single-dataset charts.
      */
-    public const PRIMARY = 'rgba(59, 130, 246, 0.8)';
+    public const string PRIMARY = 'rgba(59, 130, 246, 0.8)';
 
-    public const PRIMARY_BORDER = 'rgba(59, 130, 246, 1)';
+    public const string PRIMARY_BORDER = 'rgba(59, 130, 246, 1)';
 
-    public const PRIMARY_FILL = 'rgba(59, 130, 246, 0.1)';
+    public const string PRIMARY_FILL = 'rgba(59, 130, 246, 0.1)';
 
     /**
      * Success color for positive metrics.
      */
-    public const SUCCESS = 'rgba(16, 185, 129, 0.8)';
+    public const string SUCCESS = 'rgba(16, 185, 129, 0.8)';
 
-    public const SUCCESS_BORDER = 'rgba(16, 185, 129, 1)';
+    public const string SUCCESS_BORDER = 'rgba(16, 185, 129, 1)';
 
-    public const SUCCESS_FILL = 'rgba(16, 185, 129, 0.1)';
+    public const string SUCCESS_FILL = 'rgba(16, 185, 129, 0.1)';
 
     /**
      * Danger color for negative metrics.
      */
-    public const DANGER = 'rgba(239, 68, 68, 0.8)';
+    public const string DANGER = 'rgba(239, 68, 68, 0.8)';
 
-    public const DANGER_BORDER = 'rgba(239, 68, 68, 1)';
+    public const string DANGER_BORDER = 'rgba(239, 68, 68, 1)';
 
-    public const DANGER_FILL = 'rgba(239, 68, 68, 0.1)';
+    public const string DANGER_FILL = 'rgba(239, 68, 68, 0.1)';
 }

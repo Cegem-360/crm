@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use Override;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,7 @@ final class ProductResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [
@@ -22,7 +24,7 @@ final class ProductResource extends JsonResource
             'sku' => $this->sku,
             'description' => $this->description,
             'category_id' => $this->category_id,
-            'category' => $this->whenLoaded('category', fn () => [
+            'category' => $this->whenLoaded('category', fn (): array => [
                 'id' => $this->category->id,
                 'name' => $this->category->name,
             ]),

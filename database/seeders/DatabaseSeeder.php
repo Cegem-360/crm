@@ -70,7 +70,7 @@ final class DatabaseSeeder extends Seeder
         // Some customers belong to companies, some are individuals
         Customer::factory(50)
             ->for($team)
-            ->state(fn () => [
+            ->state(fn (): array => [
                 'company_id' => fake()->boolean(60) ? $companies->random()->id : null,
             ])
             ->has(

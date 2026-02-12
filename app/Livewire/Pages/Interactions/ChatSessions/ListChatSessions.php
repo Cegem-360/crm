@@ -41,6 +41,7 @@ final class ListChatSessions extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -72,18 +73,18 @@ final class ListChatSessions extends Component
         return ChatSession::query()
             ->with(['customer', 'user'])
             ->withCount('messages')
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
-                    $q->whereHas('customer', function ($customerQuery) use ($search) {
+                $query->where(function ($q) use ($search): void {
+                    $q->whereHas('customer', function ($customerQuery) use ($search): void {
                         $customerQuery->where('name', 'like', $search);
                     })
-                        ->orWhereHas('user', function ($userQuery) use ($search) {
+                        ->orWhereHas('user', function ($userQuery) use ($search): void {
                             $userQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 $query->where('status', $this->status);
             })
             ->orderBy($this->sortBy, $this->sortDir)

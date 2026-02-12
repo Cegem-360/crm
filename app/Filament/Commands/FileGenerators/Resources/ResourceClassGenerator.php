@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Commands\FileGenerators\Resources;
 
+use Override;
 use App\Enums\NavigationGroup;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
 use Nette\PhpGenerator\ClassType;
@@ -12,6 +13,7 @@ use UnitEnum;
 
 final class ResourceClassGenerator extends BaseResourceClassGenerator
 {
+    #[Override]
     protected function addPropertiesToClass(ClassType $class): void
     {
         parent::addPropertiesToClass($class);
@@ -19,6 +21,7 @@ final class ResourceClassGenerator extends BaseResourceClassGenerator
         $this->addNavigationGroupPropertyToClass($class);
     }
 
+    #[Override]
     protected function addNavigationIconPropertyToClass(ClassType $class): void
     {
         // Do nothing, we don't want navigation icon property

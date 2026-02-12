@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\NegotiationOpportunities;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\NegotiationOpportunities\Pages\ManageNegotiationOpportunities;
 use App\Filament\Resources\NegotiationOpportunities\Tables\NegotiationOpportunitiesTable;
@@ -26,11 +27,13 @@ final class NegotiationOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 13;
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return NegotiationOpportunitiesTable::configure($table);
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

@@ -129,9 +129,7 @@ describe('Product API Store', function (): void {
                 'tax_rate' => 27.00,
             ]);
 
-        Queue::assertPushed(SendProductWebhook::class, function ($job) use ($user) {
-            return $job->event === 'created' && $job->user->id === $user->id;
-        });
+        Queue::assertPushed(SendProductWebhook::class, fn($job): bool => $job->event === 'created' && $job->user->id === $user->id);
     });
 
     it('validates required fields', function (): void {
@@ -189,7 +187,7 @@ describe('Product API Show', function (): void {
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
-            ->getJson("/api/v1/products/{$product->id}");
+            ->getJson('/api/v1/products/' . $product->id);
 
         $response->assertSuccessful()
             ->assertJsonPath('data.id', $product->id)
@@ -201,7 +199,7 @@ describe('Product API Show', function (): void {
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
-            ->getJson("/api/v1/products/{$product->id}");
+            ->getJson('/api/v1/products/' . $product->id);
 
         $response->assertForbidden();
     });
@@ -227,7 +225,7 @@ describe('Product API Update', function (): void {
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
-            ->putJson("/api/v1/products/{$product->id}", [
+            ->putJson('/api/v1/products/' . $product->id, [
                 'name' => 'Updated Name',
             ]);
 
@@ -248,13 +246,11 @@ describe('Product API Update', function (): void {
         $product = Product::factory()->create();
 
         $this->actingAs($user, 'sanctum')
-            ->putJson("/api/v1/products/{$product->id}", [
+            ->putJson('/api/v1/products/' . $product->id, [
                 'name' => 'Updated Name',
             ]);
 
-        Queue::assertPushed(SendProductWebhook::class, function ($job) use ($user) {
-            return $job->event === 'updated' && $job->user->id === $user->id;
-        });
+        Queue::assertPushed(SendProductWebhook::class, fn($job): bool => $job->event === 'updated' && $job->user->id === $user->id);
     });
 
     it('denies access for unauthorized user', function (): void {
@@ -262,7 +258,7 @@ describe('Product API Update', function (): void {
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
-            ->putJson("/api/v1/products/{$product->id}", [
+            ->putJson('/api/v1/products/' . $product->id, [
                 'name' => 'Updated Name',
             ]);
 
@@ -279,7 +275,7 @@ describe('Product API Delete', function (): void {
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
-            ->deleteJson("/api/v1/products/{$product->id}");
+            ->deleteJson('/api/v1/products/' . $product->id);
 
         $response->assertSuccessful()
             ->assertJsonPath('message', 'Product deleted successfully');
@@ -295,11 +291,9 @@ describe('Product API Delete', function (): void {
         $product = Product::factory()->create();
 
         $this->actingAs($user, 'sanctum')
-            ->deleteJson("/api/v1/products/{$product->id}");
+            ->deleteJson('/api/v1/products/' . $product->id);
 
-        Queue::assertPushed(SendProductWebhook::class, function ($job) use ($user) {
-            return $job->event === 'deleted' && $job->user->id === $user->id;
-        });
+        Queue::assertPushed(SendProductWebhook::class, fn($job): bool => $job->event === 'deleted' && $job->user->id === $user->id);
     });
 
     it('denies access for unauthorized user', function (): void {
@@ -307,7 +301,7 @@ describe('Product API Delete', function (): void {
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
-            ->deleteJson("/api/v1/products/{$product->id}");
+            ->deleteJson('/api/v1/products/' . $product->id);
 
         $response->assertForbidden();
     });

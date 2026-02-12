@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatMessages;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ChatMessages\Pages\CreateChatMessage;
 use App\Filament\Resources\ChatMessages\Pages\EditChatMessage;
@@ -24,21 +25,25 @@ final class ChatMessageResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ChatMessageForm::configure($schema);
     }
 
+    #[Override]
     public static function infolist(Schema $schema): Schema
     {
         return ChatMessageInfolist::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ChatMessagesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -46,6 +51,7 @@ final class ChatMessageResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

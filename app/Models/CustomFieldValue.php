@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Date;
 use App\Enums\CustomFieldType;
 use Carbon\Carbon;
 use Database\Factories\CustomFieldValueFactory;
@@ -52,7 +53,7 @@ final class CustomFieldValue extends Model
         return match ($this->customField->type) {
             CustomFieldType::Number => (float) $this->value,
             CustomFieldType::Checkbox => filter_var($this->value, FILTER_VALIDATE_BOOLEAN),
-            CustomFieldType::Date => Carbon::parse($this->value),
+            CustomFieldType::Date => Date::parse($this->value),
             default => $this->value,
         };
     }

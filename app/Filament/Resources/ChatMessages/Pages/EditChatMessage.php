@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ChatMessages\Pages;
 
+use Override;
 use App\Filament\Resources\ChatMessages\ChatMessageResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
@@ -13,6 +14,7 @@ final class EditChatMessage extends EditRecord
 {
     protected static string $resource = ChatMessageResource::class;
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [

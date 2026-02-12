@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProposalOpportunities;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\ProposalOpportunities\Pages\ManageProposalOpportunities;
 use App\Filament\Resources\ProposalOpportunities\Tables\ProposalOpportunitiesTable;
@@ -26,11 +27,13 @@ final class ProposalOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 12;
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return ProposalOpportunitiesTable::configure($table);
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

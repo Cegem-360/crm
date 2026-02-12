@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Campaigns;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Campaigns\Pages\CreateCampaign;
 use App\Filament\Resources\Campaigns\Pages\EditCampaign;
@@ -27,21 +28,25 @@ final class CampaignResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Marketing;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return CampaignForm::configure($schema);
     }
 
+    #[Override]
     public static function infolist(Schema $schema): Schema
     {
         return CampaignInfolist::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return CampaignsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -49,6 +54,7 @@ final class CampaignResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [
@@ -59,6 +65,7 @@ final class CampaignResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()

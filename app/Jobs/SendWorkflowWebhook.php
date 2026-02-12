@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use Illuminate\Http\Client\Response;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\WorkflowConfig;
@@ -55,7 +56,7 @@ final class SendWorkflowWebhook implements ShouldQueue
         }
 
         $payload = [
-            'event' => "product.{$this->event}",
+            'event' => 'product.' . $this->event,
             'timestamp' => now()->toIso8601String(),
             'workflow_name' => $config->name,
             'data' => [
@@ -72,17 +73,17 @@ final class SendWorkflowWebhook implements ShouldQueue
 
         $headers = [
             'Content-Type' => 'application/json',
-            'X-Webhook-Event' => "product.{$this->event}",
+            'X-Webhook-Event' => 'product.' . $this->event,
             'X-User-Token' => $config->api_token,
         ];
 
         $secret = config('services.workflow.webhook_secret');
         if ($secret) {
-            $headers['X-Webhook-Signature'] = hash_hmac('sha256', json_encode($payload), $secret);
+            $headers['X-Webhook-Signature'] = hash_hmac('sha256', json_encode($payload), (string) $secret);
         }
 
         try {
-            /** @var \Illuminate\Http\Client\Response $response */
+            /** @var Response $response */
             $response = Http::withHeaders($headers)
                 ->timeout(10)
                 ->post($url, $payload);
@@ -94,17 +95,17 @@ final class SendWorkflowWebhook implements ShouldQueue
                     'workflow_name' => $config->name,
                     'user_id' => $this->user->id,
                     'status' => $response->status(),
-                    'event' => "product.{$this->event}",
+                    'event' => 'product.' . $this->event,
                 ]);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Log::error('Workflow webhook delivery error', [
                 'url' => $url,
                 'workflow_id' => $config->id,
                 'workflow_name' => $config->name,
                 'user_id' => $this->user->id,
-                'error' => $e->getMessage(),
-                'event' => "product.{$this->event}",
+                'error' => $exception->getMessage(),
+                'event' => 'product.' . $this->event,
             ]);
         }
     }

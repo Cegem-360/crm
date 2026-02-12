@@ -41,7 +41,7 @@ it('can submit a complaint and create a new customer with contact', function ():
         ->assertSet('submitted', true)
         ->assertHasNoErrors();
 
-    $contact = CustomerContact::where('email', 'john@example.com')->first();
+    $contact = CustomerContact::query()->where('email', 'john@example.com')->first();
     expect($contact)->not->toBeNull();
     expect($contact->name)->toBe('John Doe');
     expect($contact->phone)->toBe('+36 20 123 4567');
@@ -54,9 +54,9 @@ it('can submit a complaint and create a new customer with contact', function ():
     expect($customer->is_active)->toBeTrue();
     expect($customer->unique_identifier)->toStartWith('GUEST-');
 
-    expect(Complaint::where('customer_id', $customer->id)->exists())->toBeTrue();
+    expect(Complaint::query()->where('customer_id', $customer->id)->exists())->toBeTrue();
 
-    $complaint = Complaint::where('customer_id', $customer->id)->first();
+    $complaint = Complaint::query()->where('customer_id', $customer->id)->first();
     expect($complaint->title)->toBe('Product Defect');
     expect($complaint->description)->toBe('The product arrived damaged and does not work properly.');
     expect($complaint->severity)->toBe(ComplaintSeverity::Medium);
@@ -84,9 +84,9 @@ it('reuses existing customer when contact email already exists', function (): vo
         ->call('submit')
         ->assertSet('submitted', true);
 
-    expect(CustomerContact::where('email', 'existing@example.com')->count())->toBe(1);
+    expect(CustomerContact::query()->where('email', 'existing@example.com')->count())->toBe(1);
 
-    $complaint = Complaint::where('customer_id', $existingCustomer->id)->first();
+    $complaint = Complaint::query()->where('customer_id', $existingCustomer->id)->first();
     expect($complaint)->not->toBeNull();
     expect($complaint->title)->toBe('Service Issue');
 });

@@ -47,6 +47,7 @@ final class ListCustomers extends Component
             $this->sortBy = $column;
             $this->sortDir = 'asc';
         }
+
         $this->resetPage();
     }
 
@@ -76,18 +77,18 @@ final class ListCustomers extends Component
     {
         return Customer::query()
             ->with(['company', 'contacts'])
-            ->when($this->search !== '', function ($query) {
+            ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search) {
+                $query->where(function ($q) use ($search): void {
                     $q->where('name', 'like', $search)
                         ->orWhere('unique_identifier', 'like', $search)
                         ->orWhere('phone', 'like', $search)
-                        ->orWhereHas('company', function ($companyQuery) use ($search) {
+                        ->orWhereHas('company', function ($companyQuery) use ($search): void {
                             $companyQuery->where('name', 'like', $search);
                         });
                 });
             })
-            ->when($this->status !== '', function ($query) {
+            ->when($this->status !== '', function ($query): void {
                 if ($this->status === 'active') {
                     $query->where('is_active', true);
                 } elseif ($this->status === 'inactive') {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use App\Enums\CampaignResponseType;
 use Database\Factories\CampaignResponseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +34,7 @@ final class CampaignResponse extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

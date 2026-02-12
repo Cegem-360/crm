@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Interactions;
 
+use Override;
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Interactions\Pages\CreateInteraction;
 use App\Filament\Resources\Interactions\Pages\EditInteraction;
@@ -24,16 +25,19 @@ final class InteractionResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return InteractionForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return InteractionsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -41,6 +45,7 @@ final class InteractionResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

@@ -39,48 +39,13 @@
             <table class="w-full">
                 <thead class="bg-gray-50 dark:bg-gray-700/50">
                     <tr>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('name')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Name') }}
-                                @if($sortBy === 'name')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('type')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Type') }}
-                                @if($sortBy === 'type')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('value')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Value') }}
-                                @if($sortBy === 'value')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Customer / Product') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Valid Period') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Status') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-right">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Actions') }}</span>
-                        </th>
+                        <x-sortable-header field="name" :$sortBy :$sortDir>{{ __('Name') }}</x-sortable-header>
+                        <x-sortable-header field="type" :$sortBy :$sortDir>{{ __('Type') }}</x-sortable-header>
+                        <x-sortable-header field="value" :$sortBy :$sortDir>{{ __('Value') }}</x-sortable-header>
+                        <x-table-header>{{ __('Customer / Product') }}</x-table-header>
+                        <x-table-header>{{ __('Valid Period') }}</x-table-header>
+                        <x-table-header>{{ __('Status') }}</x-table-header>
+                        <x-table-header align="right">{{ __('Actions') }}</x-table-header>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -92,17 +57,7 @@
                                 </a>
                             </td>
                             <td class="px-6 py-4">
-                                @php
-                                    $typeColors = [
-                                        'quantity' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                        'value_threshold' => 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-                                        'time_based' => 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
-                                        'custom' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                                    ];
-                                @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $typeColors[$discount->type->value] ?? 'bg-gray-100 text-gray-800' }}">
-                                    {{ $discount->type->getLabel() }}
-                                </span>
+                                <x-status-badge :color="$discount->type->badgeColor()" :label="$discount->type->getLabel()" />
                             </td>
                             <td class="px-6 py-4">
                                 <span class="text-sm font-medium text-gray-900 dark:text-white">
@@ -142,29 +97,12 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                @if($discount->is_active)
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                                        {{ __('Active') }}
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400">
-                                        {{ __('Inactive') }}
-                                    </span>
-                                @endif
+                                <x-status-badge :color="$discount->is_active ? 'green' : 'gray'" :label="$discount->is_active ? __('Active') : __('Inactive')" />
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('dashboard.discounts.view', ['team' => $currentTeam, 'discount' => $discount]) }}" wire:navigate class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition" title="{{ __('View') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="{{ route('dashboard.discounts.edit', ['team' => $currentTeam, 'discount' => $discount]) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('Edit') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                        </svg>
-                                    </a>
+                                    <x-action-button :href="route('dashboard.discounts.view', ['team' => $currentTeam, 'discount' => $discount])" icon="view" :title="__('View')" />
+                                    <x-action-button :href="route('dashboard.discounts.edit', ['team' => $currentTeam, 'discount' => $discount])" icon="edit" :title="__('Edit')" />
                                 </div>
                             </td>
                         </tr>
@@ -198,7 +136,5 @@
     </div>
 
     {{-- Results info --}}
-    <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-        {{ __('Showing') }} {{ $discounts->firstItem() ?? 0 }} {{ __('to') }} {{ $discounts->lastItem() ?? 0 }} {{ __('of') }} {{ $discounts->total() }} {{ __('results') }}
-    </div>
+    <x-results-info :paginator="$discounts" />
 </div>

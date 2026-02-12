@@ -23,4 +23,14 @@ enum ComplaintStatus: string implements HasLabel
             self::Closed => __('Closed'),
         };
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Open => 'red',
+            self::InProgress => 'blue',
+            self::Resolved => 'green',
+            self::Closed => 'gray',
+        };
+    }
 }

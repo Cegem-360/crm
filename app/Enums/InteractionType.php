@@ -23,4 +23,14 @@ enum InteractionType: string implements HasLabel
             self::Note => __('Note'),
         };
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Call => 'blue',
+            self::Email => 'purple',
+            self::Meeting => 'green',
+            self::Note => 'gray',
+        };
+    }
 }

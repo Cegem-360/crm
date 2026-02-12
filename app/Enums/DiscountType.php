@@ -23,4 +23,14 @@ enum DiscountType: string implements HasLabel
             self::Custom => __('Custom'),
         };
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Quantity => 'blue',
+            self::ValueThreshold => 'purple',
+            self::TimeBased => 'orange',
+            self::Custom => 'gray',
+        };
+    }
 }

@@ -31,31 +31,13 @@
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Status') }}</dt>
                     <dd class="mt-1">
-                        @if($discount->is_active)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                                {{ __('Active') }}
-                            </span>
-                        @else
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400">
-                                {{ __('Inactive') }}
-                            </span>
-                        @endif
+                        <x-status-badge :color="$discount->is_active ? 'green' : 'gray'" :label="$discount->is_active ? __('Active') : __('Inactive')" />
                     </dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Type') }}</dt>
                     <dd class="mt-1">
-                        @php
-                            $typeColors = [
-                                'quantity' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                'value_threshold' => 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-                                'time_based' => 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
-                                'custom' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                            ];
-                        @endphp
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $typeColors[$discount->type->value] ?? 'bg-gray-100 text-gray-800' }}">
-                            {{ $discount->type->getLabel() }}
-                        </span>
+                        <x-status-badge :color="$discount->type->badgeColor()" :label="$discount->type->getLabel()" />
                     </dd>
                 </div>
                 <div>

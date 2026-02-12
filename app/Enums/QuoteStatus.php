@@ -25,4 +25,15 @@ enum QuoteStatus: string implements HasLabel
             self::Expired => __('Expired'),
         };
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Draft => 'gray',
+            self::Sent => 'blue',
+            self::Accepted => 'green',
+            self::Rejected => 'red',
+            self::Expired => 'yellow',
+        };
+    }
 }

@@ -33,41 +33,13 @@
             <table class="w-full">
                 <thead class="bg-gray-50 dark:bg-gray-700/50">
                     <tr>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Customer') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Agent') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Messages') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('status')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Status') }}
-                                @if($sortBy === 'status')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Rating') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('last_message_at')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Last Message') }}
-                                @if($sortBy === 'last_message_at')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-right">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Actions') }}</span>
-                        </th>
+                        <x-table-header>{{ __('Customer') }}</x-table-header>
+                        <x-table-header>{{ __('Agent') }}</x-table-header>
+                        <x-table-header>{{ __('Messages') }}</x-table-header>
+                        <x-sortable-header field="status" :$sortBy :$sortDir>{{ __('Status') }}</x-sortable-header>
+                        <x-table-header>{{ __('Rating') }}</x-table-header>
+                        <x-sortable-header field="last_message_at" :$sortBy :$sortDir>{{ __('Last Message') }}</x-sortable-header>
+                        <x-table-header align="right">{{ __('Actions') }}</x-table-header>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -102,16 +74,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                @php
-                                    $statusColors = [
-                                        'active' => 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-                                        'closed' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                                        'transferred' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                    ];
-                                @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColors[$session->status->value] ?? 'bg-gray-100 text-gray-800' }}">
-                                    {{ ucfirst($session->status->value) }}
-                                </span>
+                                <x-status-badge :color="$session->status->badgeColor()" :label="ucfirst($session->status->value)" />
                             </td>
                             <td class="px-6 py-4">
                                 @if($session->rating)
@@ -135,17 +98,8 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('dashboard.chat-sessions.view', ['team' => $currentTeam, 'chatSession' => $session]) }}" wire:navigate class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition" title="{{ __('View') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="{{ route('dashboard.chat-sessions.edit', ['team' => $currentTeam, 'chatSession' => $session]) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('Edit') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                        </svg>
-                                    </a>
+                                    <x-action-button :href="route('dashboard.chat-sessions.view', ['team' => $currentTeam, 'chatSession' => $session])" icon="view" :title="__('View')" />
+                                    <x-action-button :href="route('dashboard.chat-sessions.edit', ['team' => $currentTeam, 'chatSession' => $session])" icon="edit" :title="__('Edit')" />
                                 </div>
                             </td>
                         </tr>
@@ -179,7 +133,5 @@
     </div>
 
     {{-- Results info --}}
-    <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-        {{ __('Showing') }} {{ $chatSessions->firstItem() ?? 0 }} {{ __('to') }} {{ $chatSessions->lastItem() ?? 0 }} {{ __('of') }} {{ $chatSessions->total() }} {{ __('results') }}
-    </div>
+    <x-results-info :paginator="$chatSessions" />
 </div>

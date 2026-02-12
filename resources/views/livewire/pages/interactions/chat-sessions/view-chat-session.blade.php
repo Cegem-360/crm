@@ -39,16 +39,7 @@
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Status') }}</dt>
                     <dd class="mt-1">
-                        @php
-                            $statusColors = [
-                                'active' => 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-                                'closed' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                                'transferred' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                            ];
-                        @endphp
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColors[$chatSession->status->value] ?? 'bg-gray-100 text-gray-800' }}">
-                            {{ ucfirst($chatSession->status->value) }}
-                        </span>
+                        <x-status-badge :color="$chatSession->status->badgeColor()" :label="ucfirst($chatSession->status->value)" />
                     </dd>
                 </div>
                 <div>

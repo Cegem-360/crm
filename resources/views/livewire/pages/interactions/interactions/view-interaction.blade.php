@@ -31,32 +31,13 @@
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Status') }}</dt>
                     <dd class="mt-1">
-                        @php
-                            $statusColors = [
-                                'pending' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-                                'completed' => 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-                                'failed' => 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-                            ];
-                        @endphp
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColors[$interaction->status->value] ?? 'bg-gray-100 text-gray-800' }}">
-                            {{ $interaction->status->getLabel() }}
-                        </span>
+                        <x-status-badge :color="$interaction->status->badgeColor()" :label="$interaction->status->getLabel()" />
                     </dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Type') }}</dt>
                     <dd class="mt-1">
-                        @php
-                            $typeColors = [
-                                'call' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                'email' => 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-                                'meeting' => 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-                                'note' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                            ];
-                        @endphp
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $typeColors[$interaction->type->value] ?? 'bg-gray-100 text-gray-800' }}">
-                            {{ $interaction->type->getLabel() }}
-                        </span>
+                        <x-status-badge :color="$interaction->type->badgeColor()" :label="$interaction->type->getLabel()" />
                     </dd>
                 </div>
                 <div>

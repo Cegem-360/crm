@@ -33,62 +33,13 @@
             <table class="w-full">
                 <thead class="bg-gray-50 dark:bg-gray-700/50">
                     <tr>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('invoice_number')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Invoice #') }}
-                                @if($sortBy === 'invoice_number')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Customer') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('total')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Total') }}
-                                @if($sortBy === 'total')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('status')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Status') }}
-                                @if($sortBy === 'status')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('issue_date')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Issue Date') }}
-                                @if($sortBy === 'issue_date')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('due_date')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Due Date') }}
-                                @if($sortBy === 'due_date')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-right">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Actions') }}</span>
-                        </th>
+                        <x-sortable-header field="invoice_number" :$sortBy :$sortDir>{{ __('Invoice #') }}</x-sortable-header>
+                        <x-table-header>{{ __('Customer') }}</x-table-header>
+                        <x-sortable-header field="total" :$sortBy :$sortDir>{{ __('Total') }}</x-sortable-header>
+                        <x-sortable-header field="status" :$sortBy :$sortDir>{{ __('Status') }}</x-sortable-header>
+                        <x-sortable-header field="issue_date" :$sortBy :$sortDir>{{ __('Issue Date') }}</x-sortable-header>
+                        <x-sortable-header field="due_date" :$sortBy :$sortDir>{{ __('Due Date') }}</x-sortable-header>
+                        <x-table-header align="right">{{ __('Actions') }}</x-table-header>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -112,18 +63,7 @@
                                 <span class="text-sm font-medium text-gray-900 dark:text-white">{{ number_format($invoice->total, 0, ',', ' ') }} Ft</span>
                             </td>
                             <td class="px-6 py-4">
-                                @php
-                                    $statusColors = [
-                                        'draft' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
-                                        'active' => 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-                                        'completed' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                        'cancelled' => 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-                                        'paid' => 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
-                                    ];
-                                @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColors[$invoice->status->value] ?? 'bg-gray-100 text-gray-800' }}">
-                                    {{ $invoice->status->getLabel() }}
-                                </span>
+                                <x-status-badge :color="$invoice->status->badgeColor()" :label="$invoice->status->getLabel()" />
                             </td>
                             <td class="px-6 py-4">
                                 @if($invoice->issue_date)
@@ -134,7 +74,10 @@
                             </td>
                             <td class="px-6 py-4">
                                 @if($invoice->due_date)
-                                    <span class="text-sm text-gray-500 dark:text-gray-400 {{ $invoice->due_date->isPast() && $invoice->status->value !== 'paid' ? 'text-red-500 dark:text-red-400' : '' }}">
+                                    @php
+                                        $isOverdue = $invoice->due_date->isPast() && $invoice->status->value !== 'paid';
+                                    @endphp
+                                    <span class="text-sm {{ $isOverdue ? 'text-red-500 dark:text-red-400 font-medium' : 'text-gray-500 dark:text-gray-400' }}">
                                         {{ $invoice->due_date->format('Y-m-d') }}
                                     </span>
                                 @else
@@ -143,17 +86,8 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('dashboard.invoices.view', ['team' => $currentTeam, 'invoice' => $invoice]) }}" wire:navigate class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition" title="{{ __('View') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="{{ route('dashboard.invoices.edit', ['team' => $currentTeam, 'invoice' => $invoice]) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('Edit') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                        </svg>
-                                    </a>
+                                    <x-action-button :href="route('dashboard.invoices.view', ['team' => $currentTeam, 'invoice' => $invoice])" icon="view" :title="__('View')" />
+                                    <x-action-button :href="route('dashboard.invoices.edit', ['team' => $currentTeam, 'invoice' => $invoice])" icon="edit" :title="__('Edit')" />
                                 </div>
                             </td>
                         </tr>
@@ -187,7 +121,5 @@
     </div>
 
     {{-- Results info --}}
-    <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-        {{ __('Showing') }} {{ $invoices->firstItem() ?? 0 }} {{ __('to') }} {{ $invoices->lastItem() ?? 0 }} {{ __('of') }} {{ $invoices->total() }} {{ __('results') }}
-    </div>
+    <x-results-info :paginator="$invoices" />
 </div>

@@ -60,4 +60,15 @@ enum CampaignStatus: string implements HasColor, HasIcon, HasLabel
     {
         return in_array($this, [self::Paused, self::Completed, self::Cancelled], true);
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Draft => 'gray',
+            self::Active => 'green',
+            self::Paused => 'yellow',
+            self::Completed => 'blue',
+            self::Cancelled => 'red',
+        };
+    }
 }

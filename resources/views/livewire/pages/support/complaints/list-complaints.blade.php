@@ -40,55 +40,13 @@
             <table class="w-full">
                 <thead class="bg-gray-50 dark:bg-gray-700/50">
                     <tr>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('title')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Title') }}
-                                @if($sortBy === 'title')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Customer') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Order') }}</span>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('severity')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Severity') }}
-                                @if($sortBy === 'severity')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('status')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Status') }}
-                                @if($sortBy === 'status')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-left">
-                            <button wire:click="sort('reported_at')" class="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-200">
-                                {{ __('Reported') }}
-                                @if($sortBy === 'reported_at')
-                                    <svg class="w-4 h-4 {{ $sortDir === 'desc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-6 py-3 text-right">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Actions') }}</span>
-                        </th>
+                        <x-sortable-header field="title" :$sortBy :$sortDir>{{ __('Title') }}</x-sortable-header>
+                        <x-table-header>{{ __('Customer') }}</x-table-header>
+                        <x-table-header>{{ __('Order') }}</x-table-header>
+                        <x-sortable-header field="severity" :$sortBy :$sortDir>{{ __('Severity') }}</x-sortable-header>
+                        <x-sortable-header field="status" :$sortBy :$sortDir>{{ __('Status') }}</x-sortable-header>
+                        <x-sortable-header field="reported_at" :$sortBy :$sortDir>{{ __('Reported') }}</x-sortable-header>
+                        <x-table-header align="right">{{ __('Actions') }}</x-table-header>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -118,30 +76,10 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                @php
-                                    $severityColors = [
-                                        'low' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                                        'medium' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-                                        'high' => 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
-                                        'critical' => 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-                                    ];
-                                @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $severityColors[$complaint->severity->value] ?? 'bg-gray-100 text-gray-800' }}">
-                                    {{ $complaint->severity->getLabel() }}
-                                </span>
+                                <x-status-badge :color="$complaint->severity->badgeColor()" :label="$complaint->severity->getLabel()" />
                             </td>
                             <td class="px-6 py-4">
-                                @php
-                                    $statusColors = [
-                                        'open' => 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-                                        'in_progress' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                        'resolved' => 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-                                        'closed' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                                    ];
-                                @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColors[$complaint->status->value] ?? 'bg-gray-100 text-gray-800' }}">
-                                    {{ $complaint->status->getLabel() }}
-                                </span>
+                                <x-status-badge :color="$complaint->status->badgeColor()" :label="$complaint->status->getLabel()" />
                             </td>
                             <td class="px-6 py-4">
                                 @if($complaint->reported_at)
@@ -152,17 +90,8 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('dashboard.complaints.view', ['team' => $currentTeam, 'complaint' => $complaint]) }}" wire:navigate class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition" title="{{ __('View') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="{{ route('dashboard.complaints.edit', ['team' => $currentTeam, 'complaint' => $complaint]) }}" wire:navigate class="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" title="{{ __('Edit') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                        </svg>
-                                    </a>
+                                    <x-action-button :href="route('dashboard.complaints.view', ['team' => $currentTeam, 'complaint' => $complaint])" icon="view" :title="__('View')" />
+                                    <x-action-button :href="route('dashboard.complaints.edit', ['team' => $currentTeam, 'complaint' => $complaint])" icon="edit" :title="__('Edit')" />
                                 </div>
                             </td>
                         </tr>
@@ -196,7 +125,5 @@
     </div>
 
     {{-- Results info --}}
-    <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-        {{ __('Showing') }} {{ $complaints->firstItem() ?? 0 }} {{ __('to') }} {{ $complaints->lastItem() ?? 0 }} {{ __('of') }} {{ $complaints->total() }} {{ __('results') }}
-    </div>
+    <x-results-info :paginator="$complaints" />
 </div>

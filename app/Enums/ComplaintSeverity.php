@@ -23,4 +23,14 @@ enum ComplaintSeverity: string implements HasLabel
             self::Critical => __('Critical'),
         };
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Low => 'gray',
+            self::Medium => 'yellow',
+            self::High => 'orange',
+            self::Critical => 'red',
+        };
+    }
 }

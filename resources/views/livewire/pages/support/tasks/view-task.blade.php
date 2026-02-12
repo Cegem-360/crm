@@ -31,33 +31,13 @@
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Status') }}</dt>
                     <dd class="mt-1">
-                        @php
-                            $statusColors = [
-                                'pending' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-                                'in_progress' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                'completed' => 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-                                'cancelled' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                            ];
-                        @endphp
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColors[$task->status] ?? 'bg-gray-100 text-gray-800' }}">
-                            {{ ucfirst(str_replace('_', ' ', $task->status)) }}
-                        </span>
+                        <x-status-badge :color="match($task->status) { 'pending' => 'yellow', 'in_progress' => 'blue', 'completed' => 'green', 'cancelled' => 'gray', default => 'gray' }" :label="ucfirst(str_replace('_', ' ', $task->status))" />
                     </dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Priority') }}</dt>
                     <dd class="mt-1">
-                        @php
-                            $priorityColors = [
-                                'low' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
-                                'medium' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-                                'high' => 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
-                                'urgent' => 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-                            ];
-                        @endphp
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $priorityColors[$task->priority] ?? 'bg-gray-100 text-gray-800' }}">
-                            {{ ucfirst($task->priority) }}
-                        </span>
+                        <x-status-badge :color="match($task->priority) { 'low' => 'gray', 'medium' => 'blue', 'high' => 'orange', 'urgent' => 'red', default => 'gray' }" :label="ucfirst($task->priority)" />
                     </dd>
                 </div>
                 <div>

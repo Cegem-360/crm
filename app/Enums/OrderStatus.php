@@ -40,4 +40,16 @@ enum OrderStatus: string implements HasColor, HasLabel
             self::Cancelled => 'danger',
         };
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Pending => 'yellow',
+            self::Confirmed => 'blue',
+            self::Processing => 'indigo',
+            self::Shipped => 'purple',
+            self::Delivered => 'green',
+            self::Cancelled => 'red',
+        };
+    }
 }

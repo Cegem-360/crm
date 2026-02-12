@@ -21,4 +21,13 @@ enum InteractionStatus: string implements HasLabel
             self::Failed => __('Failed'),
         };
     }
+
+    public function badgeColor(): string
+    {
+        return match ($this) {
+            self::Pending => 'yellow',
+            self::Completed => 'green',
+            self::Failed => 'red',
+        };
+    }
 }

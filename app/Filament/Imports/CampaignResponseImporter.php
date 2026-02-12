@@ -56,7 +56,6 @@ final class CampaignResponseImporter extends Importer
 
     public function resolveRecord(): CampaignResponse
     {
-
         if ($this->options['updateExisting'] ?? false) {
             return CampaignResponse::query()->firstOrNew([
                 'id' => $this->data['id'],

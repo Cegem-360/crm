@@ -33,7 +33,7 @@ final class OrderForm
                     ->required(),
                 Select::make('status')
                     ->required()
-                    ->default(OrderStatus::Pending->value)
+                    ->default(OrderStatus::Pending)
                     ->options(OrderStatus::class),
                 TextInput::make('subtotal')
                     ->required()

@@ -30,7 +30,7 @@ final class OrderReports extends Page
 
     public function getTitle(): string|Htmlable
     {
-        return self::$title ?? 'Order Reports';
+        return self::$title;
     }
 
     /**

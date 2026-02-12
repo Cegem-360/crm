@@ -6,17 +6,14 @@ namespace App\Filament\Concerns;
 
 use App\Enums\CustomFieldModel;
 use App\Services\CustomFieldService;
-use Filament\Infolists\Components\Section as InfolistSection;
-use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Section;
-use Filament\Tables\Columns\Column;
 
 trait HasCustomFieldsSchema
 {
     /**
      * Get custom field form components wrapped in a section.
      *
-     * @return array<Component>
+     * @return array<Section>
      */
     protected static function getCustomFieldsFormSection(CustomFieldModel $modelType): array
     {
@@ -38,7 +35,7 @@ trait HasCustomFieldsSchema
     /**
      * Get custom field table columns.
      *
-     * @return array<Column>
+     * @return array<\Filament\Tables\Columns\Column>
      */
     protected static function getCustomFieldsTableColumns(CustomFieldModel $modelType): array
     {
@@ -48,7 +45,7 @@ trait HasCustomFieldsSchema
     /**
      * Get custom field infolist entries wrapped in a section.
      *
-     * @return array<Component>
+     * @return array<Section>
      */
     protected static function getCustomFieldsInfolistSection(CustomFieldModel $modelType): array
     {
@@ -60,7 +57,7 @@ trait HasCustomFieldsSchema
         }
 
         return [
-            InfolistSection::make(__('Custom Fields'))
+            Section::make(__('Custom Fields'))
                 ->schema($entries)
                 ->columns(2)
                 ->collapsible(),

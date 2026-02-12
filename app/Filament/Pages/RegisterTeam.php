@@ -7,6 +7,7 @@ namespace App\Filament\Pages;
 use App\Models\Team;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Tenancy\RegisterTenant;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -32,7 +33,7 @@ final class RegisterTeam extends RegisterTenant
                 ->required()
                 ->maxLength(255)
                 ->live(onBlur: true)
-                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                ->afterStateUpdated(static fn (?string $state, Set $set) => $set('slug', Str::slug($state ?? ''))),
             TextInput::make('slug')
                 ->label('Team Slug')
                 ->required()

@@ -47,7 +47,7 @@ final class CustomFieldForm
                         TagsInput::make('options')
                             ->label(__('Dropdown Options'))
                             ->placeholder(__('Add option and press Enter'))
-                            ->visible(fn (Get $get): bool => $get('type') === CustomFieldType::Select->value || $get('type') === CustomFieldType::Select)
+                            ->visible(fn (Get $get): bool => in_array($get('type'), [CustomFieldType::Select, CustomFieldType::Select->value], true))
                             ->helperText(__('Enter each option and press Enter')),
                         Textarea::make('description')
                             ->label(__('Help Text'))

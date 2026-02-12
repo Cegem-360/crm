@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace App\Filament\Imports;
 
-use App\Enums\CommunicationChannel;
-use App\Enums\CommunicationDirection;
-use App\Enums\CommunicationStatus;
 use App\Enums\CustomerType;
 use App\Enums\OpportunityStage;
-use App\Models\Communication;
 use App\Models\Customer;
 use App\Models\Opportunity;
 use App\Models\User;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Number;
 
 final class OpportunityImporter extends Importer
@@ -25,7 +22,6 @@ final class OpportunityImporter extends Importer
     public static function getColumns(): array
     {
         return [
-            // Customer fields
             ImportColumn::make('customer_unique_identifier')
                 ->label('Unique Identifier')
                 ->requiredMapping()
@@ -66,7 +62,6 @@ final class OpportunityImporter extends Importer
                 ->rules(['required', 'in:email,sms,chat,social'])
                 ->example('email'),
 
-            // Opportunity fields
             ImportColumn::make('title')
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),
@@ -110,65 +105,10 @@ final class OpportunityImporter extends Importer
 
     public function resolveRecord(): Opportunity
     {
-        // First, try to find existing customer by any of the identifying fields
-        $customer = Customer::query()
-            ->where(function ($query): void {
-                $query->where('unique_identifier', $this->data['customer_unique_identifier'])
-                    ->orWhere('name', $this->data['customer_name'])
-                    ->orWhere('email', $this->data['customer_email']);
+        $customer = $this->resolveCustomer();
 
-                // Only check tax_number if it's provided
-                if (! empty($this->data['customer_tax_number'])) {
-                    $query->orWhere('tax_number', $this->data['customer_tax_number']);
-                }
-            })
-            ->first();
+        $assignedUserId = $this->resolveAssignedUserId();
 
-        // If customer exists, update it; otherwise create a new one
-        if ($customer) {
-            $customer->update([
-                'unique_identifier' => $this->data['customer_unique_identifier'],
-                'name' => $this->data['customer_name'],
-                'type' => CustomerType::from($this->data['customer_type']),
-                'tax_number' => $this->data['customer_tax_number'] ?? null,
-                'registration_number' => $this->data['customer_registration_number'] ?? null,
-                'email' => $this->data['customer_email'],
-                'phone' => $this->data['customer_phone'] ?? null,
-                'is_active' => true,
-            ]);
-        } else {
-            $customer = Customer::query()->create([
-                'unique_identifier' => $this->data['customer_unique_identifier'],
-                'name' => $this->data['customer_name'],
-                'type' => CustomerType::from($this->data['customer_type']),
-                'tax_number' => $this->data['customer_tax_number'] ?? null,
-                'registration_number' => $this->data['customer_registration_number'] ?? null,
-                'email' => $this->data['customer_email'],
-                'phone' => $this->data['customer_phone'] ?? null,
-                'is_active' => true,
-            ]);
-        }
-
-        // Create a Communication record to track the source
-        Communication::query()->create([
-            'customer_id' => $customer->id,
-            'channel' => CommunicationChannel::from($this->data['source']),
-            'direction' => CommunicationDirection::Inbound,
-            'subject' => 'Lead from '.$this->data['source'],
-            'content' => 'Customer lead imported from '.$this->data['source'].' source. Opportunity: '.$this->data['title'],
-            'status' => CommunicationStatus::Delivered,
-            'sent_at' => now(),
-            'delivered_at' => now(),
-        ]);
-
-        // Resolve assigned user if email is provided
-        $assignedUserId = null;
-        if (! empty($this->data['assigned_to'])) {
-            $assignedUser = User::query()->where('email', $this->data['assigned_to'])->first();
-            $assignedUserId = $assignedUser?->id;
-        }
-
-        // Create or return opportunity
         return Opportunity::query()->make([
             'customer_id' => $customer->id,
             'title' => $this->data['title'],
@@ -179,5 +119,50 @@ final class OpportunityImporter extends Importer
             'expected_close_date' => $this->data['expected_close_date'] ?? null,
             'assigned_to' => $assignedUserId,
         ]);
+    }
+
+    private function resolveCustomer(): Customer
+    {
+        $customerData = [
+            'unique_identifier' => $this->data['customer_unique_identifier'],
+            'name' => $this->data['customer_name'],
+            'type' => CustomerType::from($this->data['customer_type']),
+            'tax_number' => $this->data['customer_tax_number'] ?? null,
+            'registration_number' => $this->data['customer_registration_number'] ?? null,
+            'email' => $this->data['customer_email'],
+            'phone' => $this->data['customer_phone'] ?? null,
+            'is_active' => true,
+        ];
+
+        $customer = Customer::query()
+            ->where(function (Builder $query): void {
+                $query->where('unique_identifier', $this->data['customer_unique_identifier'])
+                    ->orWhere('name', $this->data['customer_name'])
+                    ->orWhere('email', $this->data['customer_email']);
+
+                if (! empty($this->data['customer_tax_number'])) {
+                    $query->orWhere('tax_number', $this->data['customer_tax_number']);
+                }
+            })
+            ->first();
+
+        if ($customer) {
+            $customer->update($customerData);
+        } else {
+            $customer = Customer::query()->create($customerData);
+        }
+
+        return $customer;
+    }
+
+    private function resolveAssignedUserId(): ?int
+    {
+        if (empty($this->data['assigned_to'])) {
+            return null;
+        }
+
+        return User::query()
+            ->where('email', $this->data['assigned_to'])
+            ->value('id');
     }
 }

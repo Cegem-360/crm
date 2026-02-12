@@ -16,6 +16,10 @@ use Spatie\Permission\Models\Permission;
 
 use function Pest\Livewire\livewire;
 
+/**
+ * @property User $user
+ * @property Team $team
+ */
 beforeEach(function (): void {
     $this->user = User::factory()->create();
 
@@ -41,7 +45,7 @@ it('displays lead opportunities in the lead opportunities resource', function ()
 
     $otherOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
-        'stage' => OpportunityStage::SendedQuotation,
+        'stage' => OpportunityStage::SentQuotation,
         'title' => 'Won Test Opportunity',
     ]);
 
@@ -111,7 +115,7 @@ it('displays won opportunities in the won opportunities resource', function (): 
     $customer = Customer::factory()->for($this->team)->create();
     $wonOpportunity = Opportunity::factory()->for($this->team)->create([
         'customer_id' => $customer->id,
-        'stage' => OpportunityStage::SendedQuotation,
+        'stage' => OpportunityStage::SentQuotation,
         'title' => 'Won Test Opportunity',
     ]);
 
@@ -288,7 +292,7 @@ it('can render all opportunity stage pages', function (string $pageClass, Opport
     'Qualified' => [ManageQualifiedOpportunities::class, OpportunityStage::Qualified],
     'Proposals' => [ManageProposalOpportunities::class, OpportunityStage::Proposal],
     'Negotiations' => [ManageNegotiationOpportunities::class, OpportunityStage::Negotiation],
-    'Won' => [ManageQuotationSendedOpportunities::class, OpportunityStage::SendedQuotation],
+    'Won' => [ManageQuotationSendedOpportunities::class, OpportunityStage::SentQuotation],
     'Lost' => [ManageLostQuotationOpportunities::class, OpportunityStage::LostQuotation],
 ]);
 
@@ -309,10 +313,10 @@ it('only shows opportunities for the correct stage', function (string $pageClass
         ->assertCanSeeTableRecords([$correctOpportunity])
         ->assertCanNotSeeTableRecords([$wrongOpportunity]);
 })->with([
-    'Leads' => [ListLeadOpportunities::class, OpportunityStage::Lead, OpportunityStage::SendedQuotation],
+    'Leads' => [ListLeadOpportunities::class, OpportunityStage::Lead, OpportunityStage::SentQuotation],
     'Qualified' => [ManageQualifiedOpportunities::class, OpportunityStage::Qualified, OpportunityStage::Lead],
     'Proposals' => [ManageProposalOpportunities::class, OpportunityStage::Proposal, OpportunityStage::Lead],
     'Negotiations' => [ManageNegotiationOpportunities::class, OpportunityStage::Negotiation, OpportunityStage::Lead],
-    'Won' => [ManageQuotationSendedOpportunities::class, OpportunityStage::SendedQuotation, OpportunityStage::Lead],
+    'Won' => [ManageQuotationSendedOpportunities::class, OpportunityStage::SentQuotation, OpportunityStage::Lead],
     'Lost' => [ManageLostQuotationOpportunities::class, OpportunityStage::LostQuotation, OpportunityStage::Lead],
 ]);

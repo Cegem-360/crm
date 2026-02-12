@@ -63,7 +63,6 @@ final class CustomerImporter extends Importer
 
     public function resolveRecord(): Customer
     {
-
         if ($this->options['updateExisting'] ?? false) {
             return Customer::query()->firstOrNew([
                 'unique_identifier' => $this->data['unique_identifier'],

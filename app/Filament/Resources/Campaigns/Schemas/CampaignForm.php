@@ -35,8 +35,8 @@ final class CampaignForm
                     ->columnSpanFull(),
                 Select::make('created_by')
                     ->relationship('creator', 'name')
-                    ->default(Auth::user()->id)
-                    ->visible(fn () => Auth::user()->hasRole(Role::Admin))
+                    ->default(static fn (): ?int => Auth::id())
+                    ->visible(static fn (): bool => Auth::user()?->hasRole(Role::Admin) ?? false)
                     ->searchable()
                     ->preload()
                     ->nullable(),

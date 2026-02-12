@@ -19,7 +19,9 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
 
 final class InteractionForm
 {
@@ -35,17 +37,18 @@ final class InteractionForm
                     ->live(),
                 Select::make('customer_contact_id')
                     ->label('Contact')
-                    ->options(function ($get) {
+                    ->options(function (Get $get) {
                         $customerId = $get('customer_id');
                         if (! $customerId) {
                             return [];
                         }
 
-                        return CustomerContact::where('customer_id', $customerId)
+                        return CustomerContact::query()
+                            ->where('customer_id', $customerId)
                             ->pluck('name', 'id');
                     })
                     ->searchable()
-                    ->visible(fn ($get) => filled($get('customer_id'))),
+                    ->visible(fn (Get $get): bool => filled($get('customer_id'))),
                 Select::make('user_id')
                     ->label('User')
                     ->relationship('user', 'name')
@@ -75,19 +78,20 @@ final class InteractionForm
                     ->default(InteractionStatus::Completed),
                 Select::make('email_template_id')
                     ->label('Email Template')
-                    ->options(function ($get) {
+                    ->options(function (Get $get) {
                         $category = $get('category');
 
                         return EmailTemplate::query()
                             ->where('is_active', true)
-                            ->when($category && $category !== InteractionCategory::General->value, function ($query) use ($category) {
-                                $query->where('category', $category);
-                            })
+                            ->when(
+                                $category && $category !== InteractionCategory::General->value,
+                                fn (Builder $query) => $query->where('category', $category),
+                            )
                             ->pluck('name', 'id');
                     })
                     ->searchable()
                     ->live()
-                    ->visible(fn ($get) => in_array($get('category'), [
+                    ->visible(fn (Get $get): bool => in_array($get('category'), [
                         InteractionCategory::Sales->value,
                         InteractionCategory::Marketing->value,
                     ])),
@@ -105,12 +109,12 @@ final class InteractionForm
                             ])
                             ->default('contact')
                             ->live()
-                            ->visible(fn ($get) => $get('send_email')),
+                            ->visible(fn (Get $get): bool => (bool) $get('send_email')),
                         TextInput::make('recipient_email')
                             ->label('Recipient Email')
                             ->disabled()
                             ->dehydrated(false)
-                            ->default(function ($get) {
+                            ->default(function (Get $get): ?string {
                                 $recipientType = $get('recipient_type');
                                 $customerId = $get('customer_id');
                                 $contactId = $get('customer_contact_id');
@@ -127,9 +131,9 @@ final class InteractionForm
 
                                 return null;
                             })
-                            ->visible(fn ($get) => $get('send_email')),
+                            ->visible(fn (Get $get): bool => (bool) $get('send_email')),
                     ])
-                    ->visible(fn ($get) => filled($get('email_template_id'))),
+                    ->visible(fn (Get $get): bool => filled($get('email_template_id'))),
                 TextInput::make('subject')
                     ->label('Subject')
                     ->required(),

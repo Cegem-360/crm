@@ -24,8 +24,6 @@ final class GenerateOrderAction
             ->modalDescription('This will create a new order based on this quote data.')
             ->modalSubmitActionLabel('Generate Order')
             ->action(function (Quote $record): void {
-
-                // Generate unique order number
                 $lastOrder = Order::query()
                     ->whereYear('created_at', now()->year)
                     ->orderBy('id', 'desc')
@@ -39,7 +37,6 @@ final class GenerateOrderAction
                     STR_PAD_LEFT
                 );
 
-                // Create order from quote data
                 $order = Order::query()->create([
                     'customer_id' => $record->customer_id,
                     'quote_id' => $record->id,
@@ -50,12 +47,9 @@ final class GenerateOrderAction
                     'discount_amount' => $record->discount_amount,
                     'tax_amount' => $record->tax_amount,
                     'total' => $record->total,
-                    'notes' => 'Generated from Quote #'.$record->quote_number.($record->notes ? '
-
-'.$record->notes : ''),
+                    'notes' => 'Generated from Quote #'.$record->quote_number.($record->notes ? "\n\n".$record->notes : ''),
                 ]);
 
-                // Copy quote items to order items
                 foreach ($record->items as $quoteItem) {
                     $order->orderItems()->create([
                         'product_id' => $quoteItem->product_id,
@@ -73,7 +67,13 @@ final class GenerateOrderAction
                 Notification::make()
                     ->success()
                     ->title('Order Generated Successfully')
-                    ->body(sprintf('Order #%s has been created with %s ', $order->order_number, $itemCount).str('item')->plural($itemCount).' and a total value of {$orderNumber} HUF.')
+                    ->body(sprintf(
+                        'Order #%s has been created with %s %s and a total value of %s HUF.',
+                        $order->order_number,
+                        $itemCount,
+                        str('item')->plural($itemCount),
+                        number_format($order->total, 2),
+                    ))
                     ->send();
             })
             ->visible(fn (Quote $record): bool => $record->status === QuoteStatus::Accepted && ! $record->orders()->exists());

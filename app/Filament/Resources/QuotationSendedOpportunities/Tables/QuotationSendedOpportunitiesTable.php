@@ -13,7 +13,7 @@ final class QuotationSendedOpportunitiesTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn ($query) => $query->where('stage', OpportunityStage::SendedQuotation))
+            ->modifyQueryUsing(fn ($query) => $query->where('stage', OpportunityStage::SentQuotation))
             ->columns([
                 TextColumn::make('customer.name')
                     ->label('Customer Name')

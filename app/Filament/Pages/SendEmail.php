@@ -15,6 +15,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
@@ -64,7 +66,7 @@ final class SendEmail extends Page implements HasSchemas
                     ->preload()
                     ->required()
                     ->live()
-                    ->afterStateUpdated(function ($state, callable $set) {
+                    ->afterStateUpdated(function (?string $state, Set $set): void {
                         if ($state) {
                             $template = EmailTemplate::find($state);
                             if ($template) {
@@ -89,11 +91,11 @@ final class SendEmail extends Page implements HasSchemas
                     ->searchable()
                     ->preload()
                     ->live()
-                    ->visible(fn ($get) => $get('recipient_type') === 'contact'),
+                    ->visible(fn (Get $get): bool => $get('recipient_type') === 'contact'),
 
                 Select::make('contact_id')
                     ->label('Contact')
-                    ->options(function ($get) {
+                    ->options(function (Get $get) {
                         $customerId = $get('customer_id');
                         if (! $customerId) {
                             return CustomerContact::query()->pluck('name', 'id');
@@ -107,8 +109,8 @@ final class SendEmail extends Page implements HasSchemas
                     ->preload()
                     ->required()
                     ->live()
-                    ->visible(fn ($get) => $get('recipient_type') === 'contact')
-                    ->afterStateUpdated(function ($state, callable $set) {
+                    ->visible(fn (Get $get): bool => $get('recipient_type') === 'contact')
+                    ->afterStateUpdated(function (?string $state, Set $set): void {
                         if ($state) {
                             $contact = CustomerContact::find($state);
                             if ($contact?->email) {
@@ -128,8 +130,8 @@ final class SendEmail extends Page implements HasSchemas
                     ->preload()
                     ->required()
                     ->live()
-                    ->visible(fn ($get) => $get('recipient_type') === 'company')
-                    ->afterStateUpdated(function ($state, callable $set) {
+                    ->visible(fn (Get $get): bool => $get('recipient_type') === 'company')
+                    ->afterStateUpdated(function (?string $state, Set $set): void {
                         if ($state) {
                             $company = Company::find($state);
                             if ($company?->email) {

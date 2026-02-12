@@ -16,7 +16,6 @@
     "Inactive": "Inaktív",
     "No customers yet": "Még nincsenek ügyfelek",
     "No companies yet": "Még nincsenek cégek",
-
     "Features": "Funkciók",
     "Integrations": "Integrációk",
     "Results": "Eredmények",
@@ -26,7 +25,6 @@
     "Free trial": "Ingyenes próba",
     "Log out": "Kijelentkezés",
     "Change language": "Nyelv váltása",
-
     "Navigation": "Navigáció",
     "Home": "Főoldal",
     "Sales": "Értékesítés",
@@ -47,7 +45,6 @@
     "Administration": "Adminisztráció",
     "Admin Panel": "Admin felület",
     "Quick Links": "Gyorslinkek",
-
     "Name": "Név",
     "Email": "E-mail",
     "Phone": "Telefon",
@@ -58,7 +55,6 @@
     "View": "Megtekintés",
     "Search...": "Keresés...",
     "My Profile": "Profilom",
-
     "Manage your customer database": "Ügyféladatbázis kezelése",
     "Search customers...": "Ügyfelek keresése...",
     "All statuses": "Minden státusz",
@@ -69,12 +65,10 @@
     "to": "-",
     "of": "/",
     "results": "eredmény",
-
     "Manage your company database": "Cégadatbázis kezelése",
     "Search companies...": "Cégek keresése...",
     "Tax Number": "Adószám",
     "No companies found": "Nincsenek cégek",
-
     "Manage your customer contacts": "Ügyfelkapcsolattartók kezelése",
     "New Contact": "Új kapcsolattartó",
     "Search contacts...": "Kapcsolattartók keresése...",
@@ -87,7 +81,6 @@
     "Yes": "Igen",
     "No": "Nem",
     "No contacts found": "Nincsenek kapcsolattartók",
-
     "Manage your sales opportunities": "Értékesítési lehetőségek kezelése",
     "New Opportunity": "Új lehetőség",
     "Search opportunities...": "Lehetőségek keresése...",
@@ -98,7 +91,6 @@
     "Stage": "Szakasz",
     "Expected Close": "Várható zárás",
     "No opportunities found": "Nincsenek lehetőségek",
-
     "Manage your sales quotes": "Értékesítési ajánlatok kezelése",
     "New Quote": "Új árajánlat",
     "Search quotes...": "Árajánlatok keresése...",
@@ -107,14 +99,12 @@
     "Items": "Tételek",
     "Valid Until": "Érvényesség",
     "No quotes found": "Nincsenek árajánlatok",
-
     "Manage your sales orders": "Értékesítési rendelések kezelése",
     "New Order": "Új rendelés",
     "Search orders...": "Rendelések keresése...",
     "Order #": "Rendelés #",
     "Order Date": "Rendelés dátuma",
     "No orders found": "Nincsenek rendelések",
-
     "Manage your invoices": "Számlák kezelése",
     "New Invoice": "Új számla",
     "Search invoices...": "Számlák keresése...",
@@ -122,7 +112,6 @@
     "Issue Date": "Kiállítás dátuma",
     "Due Date": "Esedékesség",
     "No invoices found": "Nincsenek számlák",
-
     "Manage your product catalog": "Termékkatalógus kezelése",
     "New Product": "Új termék",
     "Search products...": "Termékek keresése...",
@@ -133,7 +122,6 @@
     "Price": "Ár",
     "Tax Rate": "ÁFA kulcs",
     "No products found": "Nincsenek termékek",
-
     "Product Categories": "Termékkategóriák",
     "Organize your products into categories": "Rendszerezze termékeit kategóriákba",
     "New Category": "Új kategória",
@@ -143,7 +131,6 @@
     "Description": "Leírás",
     "Root": "Gyökér",
     "No categories found": "Nincsenek kategóriák",
-
     "Manage your discount rules and promotions": "Kedvezmények és promóciók kezelése",
     "New Discount": "Új kedvezmény",
     "Search discounts...": "Kedvezmények keresése...",
@@ -156,7 +143,6 @@
     "Global": "Globális",
     "No limit": "Nincs korlát",
     "No discounts found": "Nincsenek kedvezmények",
-
     "Manage and track support tasks": "Támogatási feladatok kezelése",
     "New Task": "Új feladat",
     "Search tasks...": "Feladatok keresése...",
@@ -173,7 +159,6 @@
     "Priority": "Prioritás",
     "Unassigned": "Nincs hozzárendelve",
     "No tasks found": "Nincsenek feladatok",
-
     "Track and resolve customer complaints": "Ügyfélpanaszok nyomon követése és megoldása",
     "New Complaint": "Új panasz",
     "Search complaints...": "Panaszok keresése...",
@@ -182,7 +167,6 @@
     "Severity": "Súlyosság",
     "Reported": "Bejelentve",
     "No complaints found": "Nincsenek panaszok",
-
     "Track customer interactions and communications": "Ügyfélinterakciók és kommunikáció nyomon követése",
     "New Interaction": "Új interakció",
     "Search interactions...": "Interakciók keresése...",
@@ -191,7 +175,6 @@
     "Date": "Dátum",
     "No subject": "Nincs tárgy",
     "No interactions found": "Nincsenek interakciók",
-
     "View and manage customer chat sessions": "Ügyfél beszélgetések megtekintése és kezelése",
     "New Chat": "Új beszélgetés",
     "Search chat sessions...": "Beszélgetések keresése...",
@@ -202,7 +185,6 @@
     "Guest": "Vendég",
     "unread": "olvasatlan",
     "No chat sessions found": "Nincsenek beszélgetések",
-
     "Manage your marketing campaigns": "Marketing kampányok kezelése",
     "New Campaign": "Új kampány",
     "Search campaigns...": "Kampányok keresése...",
@@ -211,7 +193,6 @@
     "End Date": "Befejezés dátuma",
     "Created By": "Létrehozta",
     "No campaigns found": "Nincsenek kampányok",
-
     "Sign in to your account": "Jelentkezz be a fiókodba",
     "Sign in": "Bejelentkezés",
     "Don't have an account?": "Nincs még fiókod?",
@@ -243,5 +224,7 @@
     "Deal closed!": "Üzlet lezárva!",
     "Reminder": "Emlékeztető",
     "Call back Péter Kovács": "Hívd vissza Kovács Pétert",
-    "New lead": "Új lead"
+    "New lead": "Új lead",
+    "Save": "Mentés",
+    "Cancel": "Mégse"
 }

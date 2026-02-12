@@ -8,7 +8,7 @@ use App\Enums\CustomFieldModel;
 use App\Enums\CustomFieldType;
 use App\Models\CustomField;
 use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\Component;
+use Filament\Schemas\Components\Component;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -144,6 +144,7 @@ final class CustomFieldService
      */
     private function makeFormComponent(CustomField $field): Component
     {
+        /** @var Component $component */
         $component = match ($field->type) {
             CustomFieldType::Text => TextInput::make('custom_fields.'.$field->slug),
             CustomFieldType::Number => TextInput::make('custom_fields.'.$field->slug)->numeric(),

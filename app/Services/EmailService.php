@@ -16,8 +16,6 @@ use App\Models\Customer;
 use App\Models\CustomerContact;
 use App\Models\EmailTemplate;
 use App\Models\Interaction;
-use App\Models\Team;
-use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -67,7 +65,6 @@ final class EmailService
             'contact_name' => $recipientName,
         ];
 
-        /** @var User|null $user */
         $user = Auth::user();
         if ($user) {
             $variables['user_name'] = $user->name;
@@ -100,10 +97,9 @@ final class EmailService
         string $recipientEmail,
         array $context,
     ): Interaction {
-        /** @var User|null $user */
+
         $user = Auth::user();
 
-        /** @var Team|null $tenant */
         $tenant = Filament::getTenant();
         $teamId = $tenant?->id ?? $context['customer']?->team_id ?? null;
 

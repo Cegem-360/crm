@@ -60,7 +60,7 @@ final class Login extends BasePage
             ->required()
             ->autocomplete()
             ->autofocus()
-            ->placeholder('example@company.com')
+            ->placeholder(__('example@company.com'))
             ->extraInputAttributes(['tabindex' => 1]);
     }
 

@@ -12,9 +12,14 @@ use Override;
 
 final class ProductCategoryChart extends ChartWidget
 {
-    protected ?string $heading = 'Products by Category';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Products by Category');
+    }
 
     #[Override]
     protected function getData(): array
@@ -26,7 +31,7 @@ final class ProductCategoryChart extends ChartWidget
             ->orderByDesc('count')
             ->get();
 
-        $labels = $data->pluck('name')->map(fn ($name) => $name ?? 'Uncategorized')->toArray();
+        $labels = $data->pluck('name')->map(fn ($name) => $name ?? __('Uncategorized'))->toArray();
 
         return [
             'datasets' => [

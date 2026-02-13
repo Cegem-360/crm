@@ -20,9 +20,14 @@ final class CustomerTypeChart extends ChartWidget
         'company' => 'rgba(16, 185, 129, 0.8)',
     ];
 
-    protected ?string $heading = 'Customers by Type';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Customers by Type');
+    }
 
     #[Override]
     protected function getData(): array

@@ -43,23 +43,23 @@ final class SalesStatsOverview extends BaseWidget
             : 0;
 
         return [
-            Stat::make('Active Opportunities', Number::format($activeOpportunities))
-                ->description($totalOpportunities.' total opportunities')
+            Stat::make(__('Active Opportunities'), Number::format($activeOpportunities))
+                ->description($totalOpportunities.' '.__('total opportunities'))
                 ->icon('heroicon-o-funnel')
                 ->color('primary'),
 
-            Stat::make('Pipeline Value', Number::currency($pipelineValue, 'HUF'))
-                ->description('Active opportunities value')
+            Stat::make(__('Pipeline Value'), Number::currency($pipelineValue, 'HUF'))
+                ->description(__('Active opportunities value'))
                 ->icon('heroicon-o-currency-dollar')
                 ->color('warning'),
 
-            Stat::make('Won Deals Value', Number::currency($wonDealsValue, 'HUF'))
-                ->description('Total order value')
+            Stat::make(__('Won Deals Value'), Number::currency($wonDealsValue, 'HUF'))
+                ->description(__('Total order value'))
                 ->icon('heroicon-o-trophy')
                 ->color('success'),
 
-            Stat::make('Quote Conversion Rate', $conversionRate.'%')
-                ->description(sprintf('%d of %d quotes accepted', $acceptedQuotes, $totalQuotes))
+            Stat::make(__('Quote Conversion Rate'), $conversionRate.'%')
+                ->description(sprintf(__('%d of %d quotes accepted'), $acceptedQuotes, $totalQuotes))
                 ->icon('heroicon-o-chart-bar')
                 ->color('info'),
         ];

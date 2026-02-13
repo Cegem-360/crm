@@ -27,11 +27,11 @@ final class OrderImporter extends Importer
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
-                ->label('Customer Identifier')
+                ->label(__('Customer Identifier'))
                 ->requiredMapping()
                 ->rules(['required', 'string']),
             ImportColumn::make('quote_number')
-                ->label('Quote Number')
+                ->label(__('Quote Number'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('order_date')
                 ->requiredMapping()
@@ -73,7 +73,7 @@ final class OrderImporter extends Importer
     {
         return [
             Checkbox::make('updateExisting')
-                ->label('Update existing records'),
+                ->label(__('Update existing records')),
         ];
     }
 

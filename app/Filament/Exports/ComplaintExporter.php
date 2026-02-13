@@ -20,15 +20,15 @@ final class ComplaintExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('title'),
             ExportColumn::make('customer.unique_identifier'),
             ExportColumn::make('customer.name'),
             ExportColumn::make('order.order_number'),
             ExportColumn::make('reporter.name')
-                ->label('Reported By'),
+                ->label(__('Reported By')),
             ExportColumn::make('assignedUser.name')
-                ->label('Assigned To'),
+                ->label(__('Assigned To')),
             ExportColumn::make('severity')->formatStateUsing(fn (ComplaintSeverity $state): string => $state->value),
             ExportColumn::make('status')->formatStateUsing(fn (ComplaintStatus $state): string => $state->value),
             ExportColumn::make('description'),

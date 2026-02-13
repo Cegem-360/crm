@@ -13,9 +13,14 @@ use Override;
 
 final class MonthlySalesChart extends ChartWidget
 {
-    protected ?string $heading = 'Monthly Sales Trend';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Monthly Sales Trend');
+    }
 
     #[Override]
     protected function getData(): array
@@ -75,7 +80,7 @@ final class MonthlySalesChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Orders',
+                    'label' => __('Orders'),
                     'data' => $orderValues,
                     'borderColor' => 'rgba(16, 185, 129, 1)',
                     'backgroundColor' => 'rgba(16, 185, 129, 0.1)',
@@ -83,7 +88,7 @@ final class MonthlySalesChart extends ChartWidget
                     'tension' => 0.3,
                 ],
                 [
-                    'label' => 'Quotes',
+                    'label' => __('Quotes'),
                     'data' => $quoteValues,
                     'borderColor' => 'rgba(59, 130, 246, 1)',
                     'backgroundColor' => 'rgba(59, 130, 246, 0.1)',

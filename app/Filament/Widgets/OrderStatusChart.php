@@ -24,9 +24,14 @@ final class OrderStatusChart extends ChartWidget
         'cancelled' => 'rgba(239, 68, 68, 0.8)',
     ];
 
-    protected ?string $heading = 'Orders by Status';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Orders by Status');
+    }
 
     #[Override]
     protected function getData(): array

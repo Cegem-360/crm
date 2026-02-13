@@ -16,15 +16,15 @@ final class ActivityLogInfolist
     {
         return $schema
             ->components([
-                Section::make('Activity Details')
+                Section::make(__('Activity Details'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextEntry::make('log_name')
-                                    ->label('Log Name')
+                                    ->label(__('Log Name'))
                                     ->badge(),
                                 TextEntry::make('event')
-                                    ->label('Event')
+                                    ->label(__('Event'))
                                     ->badge()
                                     ->colors([
                                         'success' => 'created',
@@ -32,60 +32,60 @@ final class ActivityLogInfolist
                                         'danger' => 'deleted',
                                     ]),
                                 TextEntry::make('description')
-                                    ->label('Description')
+                                    ->label(__('Description'))
                                     ->columnSpanFull(),
                             ]),
                     ]),
-                Section::make('Subject Information')
+                Section::make(__('Subject Information'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextEntry::make('subject_type')
-                                    ->label('Subject Type')
+                                    ->label(__('Subject Type'))
                                     ->formatStateUsing(fn ($state): string => $state ? class_basename($state) : 'N/A'),
                                 TextEntry::make('subject_id')
-                                    ->label('Subject ID'),
+                                    ->label(__('Subject ID')),
                             ]),
                     ]),
-                Section::make('Causer Information')
+                Section::make(__('Causer Information'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextEntry::make('causer_type')
-                                    ->label('Causer Type')
+                                    ->label(__('Causer Type'))
                                     ->formatStateUsing(fn ($state): string => $state ? class_basename($state) : 'System'),
                                 TextEntry::make('causer_id')
-                                    ->label('Causer ID')
-                                    ->placeholder('System'),
+                                    ->label(__('Causer ID'))
+                                    ->placeholder(__('System')),
                                 TextEntry::make('causer.name')
-                                    ->label('User Name')
-                                    ->placeholder('System'),
+                                    ->label(__('User Name'))
+                                    ->placeholder(__('System')),
                                 TextEntry::make('causer.email')
-                                    ->label('User Email')
-                                    ->placeholder('System'),
+                                    ->label(__('User Email'))
+                                    ->placeholder(__('System')),
                             ]),
                     ]),
-                Section::make('Changes')
+                Section::make(__('Changes'))
                     ->schema([
                         KeyValueEntry::make('properties.attributes')
-                            ->label('New Values')
+                            ->label(__('New Values'))
                             ->columnSpanFull()
                             ->visible(fn ($record): bool => ! empty($record->properties['attributes'] ?? [])),
                         KeyValueEntry::make('properties.old')
-                            ->label('Old Values')
+                            ->label(__('Old Values'))
                             ->columnSpanFull()
                             ->visible(fn ($record): bool => ! empty($record->properties['old'] ?? [])),
                     ])
                     ->collapsed(),
-                Section::make('Metadata')
+                Section::make(__('Metadata'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextEntry::make('batch_uuid')
-                                    ->label('Batch UUID')
-                                    ->placeholder('N/A'),
+                                    ->label(__('Batch UUID'))
+                                    ->placeholder(__('N/A')),
                                 TextEntry::make('created_at')
-                                    ->label('Created At')
+                                    ->label(__('Created At'))
                                     ->dateTime(),
                             ]),
                     ])

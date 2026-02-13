@@ -22,11 +22,11 @@ final class QuoteForm
         return $schema
             ->components([
                 Select::make('customer_id')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name')
                     ->required(),
                 Select::make('opportunity_id')
-                    ->label('Opportunity')
+                    ->label(__('Opportunity'))
                     ->relationship('opportunity', 'title'),
                 TextInput::make('quote_number')
                     ->required(),

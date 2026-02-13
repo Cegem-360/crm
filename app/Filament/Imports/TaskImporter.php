@@ -25,10 +25,10 @@ final class TaskImporter extends Importer
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
-                ->label('Customer Identifier')
+                ->label(__('Customer Identifier'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('assigned_to_email')
-                ->label('Assigned To (Email)')
+                ->label(__('Assigned To (Email)'))
                 ->requiredMapping()
                 ->rules(['required', 'email']),
             ImportColumn::make('priority')

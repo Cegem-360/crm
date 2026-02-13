@@ -29,7 +29,7 @@ final class CompaniesTable
                 TextColumn::make('email')
                     ->searchable(),
                 TextColumn::make('customers_count')
-                    ->label('Customers')
+                    ->label(__('Customers'))
                     ->counts('customers')
                     ->sortable(),
                 TextColumn::make('created_at')

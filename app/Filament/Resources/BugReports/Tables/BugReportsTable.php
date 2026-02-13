@@ -17,7 +17,7 @@ final class BugReportsTable
         return $table
             ->columns([
                 TextColumn::make('customer.name')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('user.name')

@@ -14,19 +14,19 @@ final class AcceptQuoteAction
     public static function make(): Action
     {
         return Action::make('accept_quote')
-            ->label('Accept Quote')
+            ->label(__('Accept Quote'))
             ->color('success')
             ->icon('heroicon-o-check-circle')
             ->requiresConfirmation()
-            ->modalHeading('Accept Quote')
+            ->modalHeading(__('Accept Quote'))
             ->action(function (Quote $record): void {
                 $record->update([
                     'status' => QuoteStatus::Accepted,
                 ]);
                 Notification::make()
                     ->success()
-                    ->title('Quote Accepted')
-                    ->body(sprintf('Quote #%s has been accepted.', $record->quote_number))
+                    ->title(__('Quote Accepted'))
+                    ->body(sprintf(__('Quote #%s has been accepted.'), $record->quote_number))
                     ->send();
             })
             ->visible(fn (Quote $record): bool => in_array($record->status, [QuoteStatus::Draft, QuoteStatus::Sent]));

@@ -19,7 +19,7 @@ final class BugReportForm
         return $schema
             ->components([
                 Select::make('customer_id')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name')
                     ->searchable()
                     ->preload(),

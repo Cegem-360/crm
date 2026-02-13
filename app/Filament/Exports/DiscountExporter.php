@@ -20,7 +20,7 @@ final class DiscountExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('name'),
             ExportColumn::make('type')->formatStateUsing(fn (DiscountType $state): string => $state->value),
             ExportColumn::make('value_type')->formatStateUsing(fn (DiscountValueType $state): string => $state->value),
@@ -30,9 +30,9 @@ final class DiscountExporter extends Exporter
             ExportColumn::make('valid_from'),
             ExportColumn::make('valid_until'),
             ExportColumn::make('customer.name')
-                ->label('Customer'),
+                ->label(__('Customer')),
             ExportColumn::make('product.name')
-                ->label('Product'),
+                ->label(__('Product')),
             ExportColumn::make('is_active'),
             ExportColumn::make('description'),
             ExportColumn::make('created_at'),

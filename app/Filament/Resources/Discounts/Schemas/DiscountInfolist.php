@@ -22,33 +22,33 @@ final class DiscountInfolist
                     ->numeric(),
                 TextEntry::make('min_quantity')
                     ->numeric()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('min_value')
                     ->numeric()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('valid_from')
                     ->date()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('valid_until')
                     ->date()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('customer.name')
-                    ->label('Customer')
-                    ->placeholder('-'),
+                    ->label(__('Customer'))
+                    ->placeholder(__('-')),
                 TextEntry::make('product.name')
-                    ->label('Product')
-                    ->placeholder('-'),
+                    ->label(__('Product'))
+                    ->placeholder(__('-')),
                 IconEntry::make('is_active')
                     ->boolean(),
                 TextEntry::make('description')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('deleted_at')
                     ->dateTime()
                     ->visible(fn (Discount $record): bool => $record->trashed()),

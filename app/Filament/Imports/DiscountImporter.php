@@ -49,10 +49,10 @@ final class DiscountImporter extends Importer
             ImportColumn::make('valid_until')
                 ->rules(['nullable', 'date']),
             ImportColumn::make('customer_identifier')
-                ->label('Customer Identifier')
+                ->label(__('Customer Identifier'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('product_name')
-                ->label('Product Name')
+                ->label(__('Product Name'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('is_active')
                 ->boolean()
@@ -78,7 +78,7 @@ final class DiscountImporter extends Importer
     {
         return [
             Checkbox::make('updateExisting')
-                ->label('Update existing records'),
+                ->label(__('Update existing records')),
         ];
     }
 

@@ -37,15 +37,15 @@ final class InteractionImporter extends Importer
             ImportColumn::make('customer_identifier')
                 ->requiredMapping()
                 ->rules(['required'])
-                ->label('Customer Identifier')
+                ->label(__('Customer Identifier'))
                 ->exampleHeader('customer_identifier')
                 ->examples(['CUST-001', 'ABC Company']),
             ImportColumn::make('contact_email')
-                ->label('Contact Email')
+                ->label(__('Contact Email'))
                 ->rules(['nullable', 'email']),
             ImportColumn::make('user_email')
                 ->requiredMapping()
-                ->label('User Email')
+                ->label(__('User Email'))
                 ->rules(['required', 'email']),
             ImportColumn::make('type')
                 ->requiredMapping()
@@ -98,8 +98,8 @@ final class InteractionImporter extends Importer
     {
         return [
             Checkbox::make('updateExisting')
-                ->label('Update existing records')
-                ->helperText('Match existing interactions by customer + subject + interaction_date'),
+                ->label(__('Update existing records'))
+                ->helperText(__('Match existing interactions by customer + subject + interaction_date')),
         ];
     }
 

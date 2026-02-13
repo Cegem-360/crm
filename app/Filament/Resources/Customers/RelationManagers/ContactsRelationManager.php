@@ -33,7 +33,7 @@ final class ContactsRelationManager extends RelationManager
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('Email address'))
                     ->email(),
                 TextInput::make('phone')
                     ->tel(),
@@ -51,7 +51,7 @@ final class ContactsRelationManager extends RelationManager
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label(__('Email address'))
                     ->searchable(),
                 TextColumn::make('phone')
                     ->searchable(),

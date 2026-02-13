@@ -17,13 +17,13 @@ final class ProductInfolist
             ->components([
                 TextEntry::make('name'),
                 TextEntry::make('sku')
-                    ->label('SKU'),
+                    ->label(__('SKU')),
                 TextEntry::make('description')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('category.name')
-                    ->label('Category')
-                    ->placeholder('-'),
+                    ->label(__('Category'))
+                    ->placeholder(__('-')),
                 TextEntry::make('unit_price')
                     ->numeric(),
                 TextEntry::make('tax_rate')
@@ -32,10 +32,10 @@ final class ProductInfolist
                     ->boolean(),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('deleted_at')
                     ->dateTime()
                     ->visible(fn (Product $record): bool => $record->trashed()),

@@ -19,21 +19,21 @@ final class CustomerInfolist
                 TextEntry::make('name'),
                 TextEntry::make('type'),
                 TextEntry::make('company.name')
-                    ->label('Company')
-                    ->placeholder('-'),
+                    ->label(__('Company'))
+                    ->placeholder(__('-')),
                 TextEntry::make('phone')
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('notes')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 IconEntry::make('is_active')
                     ->boolean(),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('deleted_at')
                     ->dateTime()
                     ->visible(fn (Customer $record): bool => $record->trashed()),

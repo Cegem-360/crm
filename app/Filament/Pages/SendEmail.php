@@ -39,7 +39,7 @@ final class SendEmail extends Page implements HasSchemas
     #[Override]
     public static function getNavigationLabel(): string
     {
-        return 'Send Email';
+        return __('Send Email');
     }
 
     public function mount(): void
@@ -50,7 +50,7 @@ final class SendEmail extends Page implements HasSchemas
     #[Override]
     public function getTitle(): string
     {
-        return 'Send Email';
+        return __('Send Email');
     }
 
     public function form(Schema $schema): Schema
@@ -58,7 +58,7 @@ final class SendEmail extends Page implements HasSchemas
         return $schema
             ->components([
                 Select::make('email_template_id')
-                    ->label('Email Template')
+                    ->label(__('Email Template'))
                     ->options(
                         EmailTemplate::query()
                             ->where('is_active', true)
@@ -78,17 +78,17 @@ final class SendEmail extends Page implements HasSchemas
                     }),
 
                 Select::make('recipient_type')
-                    ->label('Send to')
+                    ->label(__('Send to'))
                     ->options([
-                        'contact' => 'Contact',
-                        'company' => 'Company',
+                        'contact' => __('Contact'),
+                        'company' => __('Company'),
                     ])
                     ->default('contact')
                     ->required()
                     ->live(),
 
                 Select::make('customer_id')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->options(Customer::query()->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
@@ -96,7 +96,7 @@ final class SendEmail extends Page implements HasSchemas
                     ->visible(fn (Get $get): bool => $get('recipient_type') === 'contact'),
 
                 Select::make('contact_id')
-                    ->label('Contact')
+                    ->label(__('Contact'))
                     ->options(function (Get $get) {
                         $customerId = $get('customer_id');
                         if (! $customerId) {
@@ -122,7 +122,7 @@ final class SendEmail extends Page implements HasSchemas
                     }),
 
                 Select::make('company_id')
-                    ->label('Company')
+                    ->label(__('Company'))
                     ->options(
                         Company::query()
                             ->whereNotNull('email')
@@ -143,13 +143,13 @@ final class SendEmail extends Page implements HasSchemas
                     }),
 
                 TextInput::make('recipient_email')
-                    ->label('Recipient Email')
+                    ->label(__('Recipient Email'))
                     ->email()
                     ->required()
                     ->disabled(),
 
                 TextInput::make('preview_subject')
-                    ->label('Subject Preview')
+                    ->label(__('Subject Preview'))
                     ->disabled()
                     ->dehydrated(false),
             ])
@@ -162,14 +162,14 @@ final class SendEmail extends Page implements HasSchemas
 
         $template = EmailTemplate::query()->find($data['email_template_id']);
         if (! $template) {
-            $this->sendErrorNotification('Email template not found.');
+            $this->sendErrorNotification(__('Email template not found.'));
 
             return;
         }
 
         $recipientEmail = $data['recipient_email'] ?? null;
         if (! $recipientEmail) {
-            $this->sendErrorNotification('No recipient email address.');
+            $this->sendErrorNotification(__('No recipient email address.'));
 
             return;
         }
@@ -186,16 +186,16 @@ final class SendEmail extends Page implements HasSchemas
 
             Notification::make()
                 ->success()
-                ->title('Email sent')
-                ->body('Email sent successfully to '.$recipientEmail)
+                ->title(__('Email sent'))
+                ->body(__('Email sent successfully to :email', ['email' => $recipientEmail]))
                 ->send();
 
             $this->form->fill();
         } catch (Exception $exception) {
             Notification::make()
                 ->danger()
-                ->title('Email failed')
-                ->body('Failed to send email: '.$exception->getMessage())
+                ->title(__('Email failed'))
+                ->body(__('Failed to send email: :message', ['message' => $exception->getMessage()]))
                 ->send();
         }
     }
@@ -239,7 +239,7 @@ final class SendEmail extends Page implements HasSchemas
     {
         Notification::make()
             ->danger()
-            ->title('Error')
+            ->title(__('Error'))
             ->body($message)
             ->send();
     }

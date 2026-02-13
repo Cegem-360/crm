@@ -18,25 +18,25 @@ final class EmailTemplateForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Template Name')
+                    ->label(__('Template Name'))
                     ->required()
                     ->placeholder(__('e.g. Welcome email')),
                 Select::make('category')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->options(EmailTemplateCategory::class)
                     ->default(EmailTemplateCategory::Sales)
                     ->required(),
                 TextInput::make('subject')
-                    ->label('Email Subject')
+                    ->label(__('Email Subject'))
                     ->required()
                     ->placeholder(__('e.g. Welcome to our company!')),
                 RichEditor::make('body')
-                    ->label('Email Body')
+                    ->label(__('Email Body'))
                     ->required()
                     ->columnSpanFull()
                     ->helperText(__('Available variables: {customer_name}, {contact_name}, {user_name}')),
                 Toggle::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->default(true),
             ]);
     }

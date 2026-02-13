@@ -18,7 +18,7 @@ final class RegisterTeam extends RegisterTenant
 {
     public static function getLabel(): string
     {
-        return 'Register Team';
+        return __('Register Team');
     }
 
     public static function canAccess(): bool
@@ -31,18 +31,18 @@ final class RegisterTeam extends RegisterTenant
     {
         return $schema->components([
             TextInput::make('name')
-                ->label('Team Name')
+                ->label(__('Team Name'))
                 ->required()
                 ->maxLength(255)
                 ->live(onBlur: true)
                 ->afterStateUpdated(static fn (?string $state, Set $set): mixed => $set('slug', Str::slug($state ?? ''))),
             TextInput::make('slug')
-                ->label('Team Slug')
+                ->label(__('Team Slug'))
                 ->required()
                 ->maxLength(255)
                 ->unique(Team::class, 'slug')
                 ->alphaDash()
-                ->helperText('This will be used in the URL: /admin/{slug}/...'),
+                ->helperText(__('This will be used in the URL: /admin/{slug}/...')),
         ]);
     }
 

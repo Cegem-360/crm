@@ -19,7 +19,7 @@ final class CustomerExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('unique_identifier'),
             ExportColumn::make('name'),
             ExportColumn::make('type')->formatStateUsing(fn (CustomerType $state): string => $state->value),

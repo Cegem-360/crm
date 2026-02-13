@@ -18,10 +18,10 @@ final class ProductExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('name'),
             ExportColumn::make('sku')
-                ->label('SKU'),
+                ->label(__('SKU')),
             ExportColumn::make('description'),
             ExportColumn::make('category.name'),
             ExportColumn::make('unit_price'),

@@ -19,12 +19,12 @@ final class QuoteExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('quote_number'),
             ExportColumn::make('customer.unique_identifier'),
             ExportColumn::make('customer.name'),
             ExportColumn::make('opportunity.title')
-                ->label('Opportunity'),
+                ->label(__('Opportunity')),
             ExportColumn::make('issue_date'),
             ExportColumn::make('valid_until'),
             ExportColumn::make('status')->formatStateUsing(fn (QuoteStatus $state): string => $state->value),

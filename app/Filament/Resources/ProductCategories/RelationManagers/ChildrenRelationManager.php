@@ -48,7 +48,7 @@ final class ChildrenRelationManager extends RelationManager
                     ->toggleable(),
                 TextColumn::make('products_count')
                     ->counts('products')
-                    ->label('Products')
+                    ->label(__('Products'))
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

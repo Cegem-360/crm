@@ -12,9 +12,14 @@ use Override;
 
 final class TopProductsChart extends ChartWidget
 {
-    protected ?string $heading = 'Top 10 Products by Quantity';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Top 10 Products by Quantity');
+    }
 
     #[Override]
     protected function getData(): array
@@ -30,7 +35,7 @@ final class TopProductsChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Quantity Sold',
+                    'label' => __('Quantity Sold'),
                     'data' => $data->pluck('total_quantity')->toArray(),
                     'backgroundColor' => ChartColors::DEFAULT,
                 ],

@@ -14,19 +14,19 @@ final class ChatMessageInfolist
         return $schema
             ->components([
                 TextEntry::make('chatSession.id')
-                    ->label('Chat session'),
+                    ->label(__('Chat session')),
                 TextEntry::make('sender_type'),
                 TextEntry::make('sender_id')
                     ->numeric()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('message')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
             ]);
     }
 }

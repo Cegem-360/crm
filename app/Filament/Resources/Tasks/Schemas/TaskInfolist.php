@@ -14,30 +14,30 @@ final class TaskInfolist
         return $schema
             ->components([
                 TextEntry::make('customer.name')
-                    ->label('Customer')
-                    ->placeholder('-'),
+                    ->label(__('Customer'))
+                    ->placeholder(__('-')),
                 TextEntry::make('assigned_to')
                     ->numeric(),
                 TextEntry::make('assigned_by')
                     ->numeric(),
                 TextEntry::make('title'),
                 TextEntry::make('description')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('priority'),
                 TextEntry::make('status'),
                 TextEntry::make('due_date')
                     ->date()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('completed_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
             ]);
     }
 }

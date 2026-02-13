@@ -12,9 +12,14 @@ use Override;
 
 final class OrderCountChart extends ChartWidget
 {
-    protected ?string $heading = 'Orders Count (Last 12 Months)';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Orders Count (Last 12 Months)');
+    }
 
     #[Override]
     protected function getData(): array
@@ -32,7 +37,7 @@ final class OrderCountChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Orders',
+                    'label' => __('Orders'),
                     'data' => $data->pluck('count')->toArray(),
                     'backgroundColor' => ChartColors::PRIMARY,
                     'borderColor' => ChartColors::PRIMARY_BORDER,

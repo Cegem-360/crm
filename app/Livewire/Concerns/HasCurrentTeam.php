@@ -15,7 +15,8 @@ trait HasCurrentTeam
     {
         // Only set from request if not already hydrated (prevents overwriting on Livewire updates)
         if ($this->team === null) {
-            $this->team = request()->attributes->get('current_team');
+            $this->team = request()->attributes->get('current_team')
+                ?? (app()->bound('current_team') ? resolve('current_team') : null);
         }
 
         // Ensure the container binding is set on every Livewire lifecycle,

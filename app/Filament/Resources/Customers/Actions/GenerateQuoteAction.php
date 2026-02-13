@@ -17,13 +17,13 @@ final class GenerateQuoteAction
     public static function make(): Action
     {
         return Action::make('generate_quote')
-            ->label('Generate Quote')
+            ->label(__('Generate Quote'))
             ->icon('heroicon-o-document-text')
             ->color('success')
             ->requiresConfirmation()
-            ->modalHeading('Generate Quote from Opportunity')
-            ->modalDescription('This will create a new quote based on this opportunity data.')
-            ->modalSubmitActionLabel('Generate Quote')
+            ->modalHeading(__('Generate Quote from Opportunity'))
+            ->modalDescription(__('This will create a new quote based on this opportunity data.'))
+            ->modalSubmitActionLabel(__('Generate Quote'))
             ->action(function (Opportunity $record): void {
                 $lastQuote = Quote::query()
                     ->whereYear('created_at', now()->year)
@@ -58,9 +58,9 @@ final class GenerateQuoteAction
 
                 Notification::make()
                     ->success()
-                    ->title('Quote Generated Successfully')
+                    ->title(__('Quote Generated Successfully'))
                     ->body(sprintf(
-                        'Quote #%s has been created with a value of %s.',
+                        __('Quote #%s has been created with a value of %s.'),
                         $quote->quote_number,
                         Number::currency($total, 'HUF', 'hu', 0),
                     ))

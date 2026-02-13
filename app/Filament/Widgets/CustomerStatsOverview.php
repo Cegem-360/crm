@@ -35,23 +35,23 @@ final class CustomerStatsOverview extends BaseWidget
             ->value('avg_value') ?? 0;
 
         return [
-            Stat::make('Total Customers', Number::format($totalCustomers))
-                ->description('All customers')
+            Stat::make(__('Total Customers'), Number::format($totalCustomers))
+                ->description(__('All customers'))
                 ->icon('heroicon-o-users')
                 ->color('primary'),
 
-            Stat::make('Active Customers', Number::format($activeCustomers))
-                ->description('Currently active')
+            Stat::make(__('Active Customers'), Number::format($activeCustomers))
+                ->description(__('Currently active'))
                 ->icon('heroicon-o-check-circle')
                 ->color('success'),
 
-            Stat::make('Customers with Orders', Number::format($customersWithOrders))
-                ->description('Have placed orders')
+            Stat::make(__('Customers with Orders'), Number::format($customersWithOrders))
+                ->description(__('Have placed orders'))
                 ->icon('heroicon-o-shopping-bag')
                 ->color('info'),
 
-            Stat::make('Avg. Customer Value', Number::currency($avgCustomerValue, 'HUF'))
-                ->description('Average lifetime value')
+            Stat::make(__('Avg. Customer Value'), Number::currency($avgCustomerValue, 'HUF'))
+                ->description(__('Average lifetime value'))
                 ->icon('heroicon-o-currency-dollar')
                 ->color('warning'),
         ];

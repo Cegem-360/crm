@@ -14,30 +14,30 @@ final class InteractionInfolist
         return $schema
             ->components([
                 TextEntry::make('customer.name')
-                    ->label('Customer'),
+                    ->label(__('Customer')),
                 TextEntry::make('user.name')
-                    ->label('User'),
+                    ->label(__('User')),
                 TextEntry::make('type'),
                 TextEntry::make('subject'),
                 TextEntry::make('description')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('interaction_date')
                     ->dateTime(),
                 TextEntry::make('duration')
                     ->numeric()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('next_action')
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('next_action_date')
                     ->date()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
             ]);
     }
 }

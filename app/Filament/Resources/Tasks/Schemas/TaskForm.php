@@ -22,7 +22,7 @@ final class TaskForm
         return $schema
             ->components([
                 Select::make('customer_id')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name'),
                 TextInput::make('assigned_to')
                     ->required()

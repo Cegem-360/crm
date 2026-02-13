@@ -19,7 +19,7 @@ final class OpportunityExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('customer.unique_identifier'),
             ExportColumn::make('customer.name'),
             ExportColumn::make('title'),
@@ -29,9 +29,9 @@ final class OpportunityExporter extends Exporter
             ExportColumn::make('stage')->formatStateUsing(fn (OpportunityStage $state): string => $state->value),
             ExportColumn::make('expected_close_date'),
             ExportColumn::make('assignedUser.name')
-                ->label('Assigned To'),
+                ->label(__('Assigned To')),
             ExportColumn::make('assignedUser.email')
-                ->label('Assigned Email'),
+                ->label(__('Assigned Email')),
             ExportColumn::make('created_at'),
             ExportColumn::make('updated_at'),
         ];

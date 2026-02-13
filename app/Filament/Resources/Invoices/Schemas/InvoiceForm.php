@@ -24,11 +24,11 @@ final class InvoiceForm
         return $schema
             ->components([
                 Select::make('customer_id')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name')
                     ->required(),
                 Select::make('order_id')
-                    ->label('Order')
+                    ->label(__('Order'))
                     ->relationship('order', 'order_number'),
                 TextInput::make('invoice_number')
                     ->unique(ignoreRecord: true)

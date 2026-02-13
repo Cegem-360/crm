@@ -39,7 +39,7 @@ final class ProductsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 TextInput::make('sku')
-                    ->label('SKU')
+                    ->label(__('SKU'))
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
@@ -74,7 +74,7 @@ final class ProductsRelationManager extends RelationManager
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('sku')
-                    ->label('SKU')
+                    ->label(__('SKU'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('unit_price')

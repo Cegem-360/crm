@@ -22,7 +22,7 @@ final class ProductImporter extends Importer
                 ->requiredMapping()
                 ->rules(['required']),
             ImportColumn::make('sku')
-                ->label('SKU')
+                ->label(__('SKU'))
                 ->requiredMapping()
                 ->rules(['required']),
             ImportColumn::make('description'),

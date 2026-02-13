@@ -18,11 +18,11 @@ final class CustomerContactExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('customer.unique_identifier')
-                ->label('Customer Identifier'),
+                ->label(__('Customer Identifier')),
             ExportColumn::make('customer.name')
-                ->label('Customer Name'),
+                ->label(__('Customer Name')),
             ExportColumn::make('name'),
             ExportColumn::make('email'),
             ExportColumn::make('phone'),

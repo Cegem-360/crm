@@ -14,34 +14,34 @@ final class ComplaintInfolist
         return $schema
             ->components([
                 TextEntry::make('customer.name')
-                    ->label('Customer'),
+                    ->label(__('Customer')),
                 TextEntry::make('order.id')
-                    ->label('Order')
-                    ->placeholder('-'),
+                    ->label(__('Order'))
+                    ->placeholder(__('-')),
                 TextEntry::make('reported_by')
                     ->numeric(),
                 TextEntry::make('assigned_to')
                     ->numeric()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('title'),
                 TextEntry::make('description')
                     ->columnSpanFull(),
                 TextEntry::make('severity'),
                 TextEntry::make('status'),
                 TextEntry::make('resolution')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('reported_at')
                     ->dateTime(),
                 TextEntry::make('resolved_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
             ]);
     }
 }

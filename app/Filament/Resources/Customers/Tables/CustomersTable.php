@@ -32,7 +32,7 @@ final class CustomersTable
                 TextColumn::make('type')
                     ->searchable(),
                 TextColumn::make('company.name')
-                    ->label('Company')
+                    ->label(__('Company'))
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('phone')
@@ -59,8 +59,8 @@ final class CustomersTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ImportAction::make('Import Customers')->importer(CustomerImporter::class),
-                ExportAction::make('Export Customers')
+                ImportAction::make(__('Import Customers'))->importer(CustomerImporter::class),
+                ExportAction::make(__('Export Customers'))
                     ->exporter(CustomerExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

@@ -24,26 +24,26 @@ final class ContactsTable
         return $table
             ->columns([
                 TextColumn::make('customer.name')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
-                    ->label('Email')
+                    ->label(__('Email'))
                     ->searchable(),
                 TextColumn::make('phone')
-                    ->label('Phone')
+                    ->label(__('Phone'))
                     ->searchable(),
                 TextColumn::make('position')
-                    ->label('Position'),
+                    ->label(__('Position')),
                 IconColumn::make('is_primary')
-                    ->label('Primary')
+                    ->label(__('Primary'))
                     ->boolean(),
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -58,9 +58,9 @@ final class ContactsTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ImportAction::make('Import Contacts')
+                ImportAction::make(__('Import Contacts'))
                     ->importer(CustomerContactImporter::class),
-                ExportAction::make('Export Contacts')
+                ExportAction::make(__('Export Contacts'))
                     ->exporter(CustomerContactExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

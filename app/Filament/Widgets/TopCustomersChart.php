@@ -12,9 +12,14 @@ use Override;
 
 final class TopCustomersChart extends ChartWidget
 {
-    protected ?string $heading = 'Top 10 Customers by Revenue';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Top 10 Customers by Revenue');
+    }
 
     #[Override]
     protected function getData(): array
@@ -30,7 +35,7 @@ final class TopCustomersChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Revenue (HUF)',
+                    'label' => __('Revenue (HUF)'),
                     'data' => $data->pluck('revenue')->toArray(),
                     'backgroundColor' => ChartColors::DEFAULT,
                 ],

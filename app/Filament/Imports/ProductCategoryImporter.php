@@ -23,7 +23,7 @@ final class ProductCategoryImporter extends Importer
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('parent_name')
-                ->label('Parent Category Name')
+                ->label(__('Parent Category Name'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('description')
                 ->rules(['nullable', 'string']),
@@ -46,7 +46,7 @@ final class ProductCategoryImporter extends Importer
     {
         return [
             Checkbox::make('updateExisting')
-                ->label('Update existing records'),
+                ->label(__('Update existing records')),
         ];
     }
 

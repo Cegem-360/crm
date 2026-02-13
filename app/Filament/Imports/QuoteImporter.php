@@ -26,7 +26,7 @@ final class QuoteImporter extends Importer
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
-                ->label('Customer Identifier')
+                ->label(__('Customer Identifier'))
                 ->requiredMapping()
                 ->rules(['required', 'string']),
             ImportColumn::make('issue_date')
@@ -72,7 +72,7 @@ final class QuoteImporter extends Importer
     {
         return [
             Checkbox::make('updateExisting')
-                ->label('Update existing records'),
+                ->label(__('Update existing records')),
         ];
     }
 

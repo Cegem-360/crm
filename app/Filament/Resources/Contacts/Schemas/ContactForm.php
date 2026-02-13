@@ -16,7 +16,7 @@ final class ContactForm
         return $schema
             ->components([
                 Select::make('customer_id')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name')
                     ->searchable()
                     ->preload()
@@ -29,7 +29,7 @@ final class ContactForm
                     ->tel(),
                 TextInput::make('position'),
                 Toggle::make('is_primary')
-                    ->label('Primary contact')
+                    ->label(__('Primary contact'))
                     ->default(false),
             ]);
     }

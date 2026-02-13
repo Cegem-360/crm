@@ -27,11 +27,11 @@ final class InvoiceImporter extends Importer
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
-                ->label('Customer Identifier')
+                ->label(__('Customer Identifier'))
                 ->requiredMapping()
                 ->rules(['required', 'string']),
             ImportColumn::make('order_number')
-                ->label('Order Number')
+                ->label(__('Order Number'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('issue_date')
                 ->requiredMapping()
@@ -76,7 +76,7 @@ final class InvoiceImporter extends Importer
     {
         return [
             Checkbox::make('updateExisting')
-                ->label('Update existing records'),
+                ->label(__('Update existing records')),
         ];
     }
 

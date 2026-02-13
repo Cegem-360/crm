@@ -18,10 +18,10 @@ final class ProductCategoryExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('name'),
             ExportColumn::make('parent.name')
-                ->label('Parent Category'),
+                ->label(__('Parent Category')),
             ExportColumn::make('description'),
             ExportColumn::make('created_at'),
         ];

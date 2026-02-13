@@ -23,18 +23,18 @@ final class ComplaintForm
         return $schema
             ->components([
                 Select::make('customer_id')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name')
                     ->required(),
                 Select::make('order_id')
-                    ->label('Order')
+                    ->label(__('Order'))
                     ->relationship('order', 'order_number'),
                 Select::make('reported_by')
-                    ->label('Reported by')
+                    ->label(__('Reported by'))
                     ->relationship('reporter', 'name')
                     ->nullable(),
                 Select::make('assigned_to')
-                    ->label('Assigned to')
+                    ->label(__('Assigned to'))
                     ->relationship('assignedUser', 'name')
                     ->nullable(),
                 TextInput::make('title')

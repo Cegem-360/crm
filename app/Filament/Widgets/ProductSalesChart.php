@@ -12,9 +12,14 @@ use Override;
 
 final class ProductSalesChart extends ChartWidget
 {
-    protected ?string $heading = 'Product Sales Trend (Last 12 Months)';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Product Sales Trend (Last 12 Months)');
+    }
 
     #[Override]
     protected function getData(): array
@@ -34,7 +39,7 @@ final class ProductSalesChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Revenue (HUF)',
+                    'label' => __('Revenue (HUF)'),
                     'data' => $data->pluck('revenue')->toArray(),
                     'borderColor' => ChartColors::PRIMARY_BORDER,
                     'backgroundColor' => ChartColors::PRIMARY_FILL,
@@ -42,7 +47,7 @@ final class ProductSalesChart extends ChartWidget
                     'yAxisID' => 'y',
                 ],
                 [
-                    'label' => 'Quantity',
+                    'label' => __('Quantity'),
                     'data' => $data->pluck('quantity')->toArray(),
                     'borderColor' => ChartColors::SUCCESS_BORDER,
                     'backgroundColor' => ChartColors::SUCCESS_FILL,

@@ -27,7 +27,7 @@ final class ProductsTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('sku')
-                    ->label('SKU')
+                    ->label(__('SKU'))
                     ->searchable(),
                 TextColumn::make('category.name')
                     ->searchable(),
@@ -59,8 +59,8 @@ final class ProductsTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ExportAction::make('Export Products')->exporter(ProductExporter::class),
-                ImportAction::make('Import Products')->importer(ProductImporter::class),
+                ExportAction::make(__('Export Products'))->exporter(ProductExporter::class),
+                ImportAction::make(__('Import Products'))->importer(ProductImporter::class),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

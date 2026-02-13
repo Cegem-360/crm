@@ -18,7 +18,7 @@ final class CompanyExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('name'),
             ExportColumn::make('tax_number'),
             ExportColumn::make('registration_number'),

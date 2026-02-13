@@ -18,7 +18,7 @@ final class ProductCategoryForm
                 TextInput::make('name')
                     ->required(),
                 Select::make('parent_id')
-                    ->label('Parent category')
+                    ->label(__('Parent category'))
                     ->relationship('parent', 'name'),
                 Textarea::make('description')
                     ->columnSpanFull(),

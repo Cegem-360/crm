@@ -33,14 +33,14 @@ final class WorkflowConfigsRelationManager extends RelationManager
                     ->required()
                     ->placeholder(__('e.g. Warehouse management system')),
                 TextInput::make('api_token')
-                    ->label('API Token')
+                    ->label(__('API Token'))
                     ->required()
                     ->maxLength(64)
                     ->helperText(__('This token identifies the workflow in webhooks')),
                 TextInput::make('webhook_url')
                     ->label(__('Webhook URL (optional)'))
                     ->url()
-                    ->placeholder('https://workflow.example.com/api/...'),
+                    ->placeholder(__('https://workflow.example.com/api/...')),
                 Toggle::make('is_active')
                     ->label(__('Active'))
                     ->default(true),
@@ -55,7 +55,7 @@ final class WorkflowConfigsRelationManager extends RelationManager
                     ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('api_token')
-                    ->label('API Token')
+                    ->label(__('API Token'))
                     ->limit(20)
                     ->copyable()
                     ->tooltip(fn ($record) => $record->api_token),

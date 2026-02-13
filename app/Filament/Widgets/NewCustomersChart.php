@@ -12,9 +12,14 @@ use Override;
 
 final class NewCustomersChart extends ChartWidget
 {
-    protected ?string $heading = 'New Customers (Last 12 Months)';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('New Customers (Last 12 Months)');
+    }
 
     #[Override]
     protected function getData(): array
@@ -32,7 +37,7 @@ final class NewCustomersChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'New Customers',
+                    'label' => __('New Customers'),
                     'data' => $data->pluck('count')->toArray(),
                     'borderColor' => ChartColors::PRIMARY_BORDER,
                     'backgroundColor' => ChartColors::PRIMARY_FILL,

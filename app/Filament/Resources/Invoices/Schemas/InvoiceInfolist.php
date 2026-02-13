@@ -15,10 +15,10 @@ final class InvoiceInfolist
         return $schema
             ->components([
                 TextEntry::make('customer.name')
-                    ->label('Customer'),
+                    ->label(__('Customer')),
                 TextEntry::make('order.id')
-                    ->label('Order')
-                    ->placeholder('-'),
+                    ->label(__('Order'))
+                    ->placeholder(__('-')),
                 TextEntry::make('invoice_number'),
                 TextEntry::make('issue_date')
                     ->date(),
@@ -34,17 +34,17 @@ final class InvoiceInfolist
                 TextEntry::make('total')
                     ->numeric(),
                 TextEntry::make('notes')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('paid_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('deleted_at')
                     ->dateTime()
                     ->visible(fn (Invoice $record): bool => $record->trashed()),

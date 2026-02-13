@@ -23,9 +23,14 @@ final class QuoteStatusChart extends ChartWidget
         'expired' => 'rgba(245, 158, 11, 0.8)',
     ];
 
-    protected ?string $heading = 'Quotes by Status';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Quotes by Status');
+    }
 
     #[Override]
     protected function getData(): array

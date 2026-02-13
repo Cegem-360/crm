@@ -18,19 +18,19 @@ final class InteractionExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('customer.unique_identifier')
-                ->label('Customer Identifier'),
+                ->label(__('Customer Identifier')),
             ExportColumn::make('customer.name')
-                ->label('Customer Name'),
+                ->label(__('Customer Name')),
             ExportColumn::make('contact.name')
-                ->label('Contact Name'),
+                ->label(__('Contact Name')),
             ExportColumn::make('contact.email')
-                ->label('Contact Email'),
+                ->label(__('Contact Email')),
             ExportColumn::make('user.name')
-                ->label('User Name'),
+                ->label(__('User Name')),
             ExportColumn::make('user.email')
-                ->label('User Email'),
+                ->label(__('User Email')),
             ExportColumn::make('type'),
             ExportColumn::make('category'),
             ExportColumn::make('channel'),

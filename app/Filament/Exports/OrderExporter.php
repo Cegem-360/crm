@@ -19,7 +19,7 @@ final class OrderExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('order_number'),
             ExportColumn::make('customer.unique_identifier'),
             ExportColumn::make('customer.name'),

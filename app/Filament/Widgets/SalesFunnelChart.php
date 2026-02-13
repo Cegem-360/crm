@@ -14,7 +14,12 @@ final class SalesFunnelChart extends ApexChartWidget
 {
     protected static ?string $chartId = 'salesFunnelChart';
 
-    protected static ?string $heading = 'Sales Funnel';
+    protected static ?string $heading = null;
+
+    public function getHeading(): string
+    {
+        return __('Sales Funnel');
+    }
 
     /**
      * @return array<string, mixed>
@@ -50,7 +55,7 @@ final class SalesFunnelChart extends ApexChartWidget
             ],
             'series' => [
                 [
-                    'name' => 'Opportunities',
+                    'name' => __('Opportunities'),
                     'data' => $data,
                 ],
             ],

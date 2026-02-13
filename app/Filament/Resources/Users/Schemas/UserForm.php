@@ -17,7 +17,7 @@ final class UserForm
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('Email address'))
                     ->email()
                     ->required(),
                 DateTimePicker::make('email_verified_at'),
@@ -28,9 +28,9 @@ final class UserForm
                     ->saved(fn (?string $state): bool => filled($state)),
 
                 TextInput::make('webhook_url')
-                    ->label('Webhook URL')
+                    ->label(__('Webhook URL'))
                     ->url()
-                    ->placeholder('https://example.com/api/webhooks/...'),
+                    ->placeholder(__('https://example.com/api/webhooks/...')),
                 TextInput::make('webhook_secret')
                     ->label(__('Webhook secret key'))
                     ->password()

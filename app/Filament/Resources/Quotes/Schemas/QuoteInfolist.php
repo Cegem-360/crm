@@ -15,10 +15,10 @@ final class QuoteInfolist
         return $schema
             ->components([
                 TextEntry::make('customer.name')
-                    ->label('Customer'),
+                    ->label(__('Customer')),
                 TextEntry::make('opportunity.title')
-                    ->label('Opportunity')
-                    ->placeholder('-'),
+                    ->label(__('Opportunity'))
+                    ->placeholder(__('-')),
                 TextEntry::make('quote_number'),
                 TextEntry::make('issue_date')
                     ->date(),
@@ -34,14 +34,14 @@ final class QuoteInfolist
                 TextEntry::make('total')
                     ->numeric(),
                 TextEntry::make('notes')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('deleted_at')
                     ->dateTime()
                     ->visible(fn (Quote $record): bool => $record->trashed()),

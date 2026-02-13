@@ -16,26 +16,26 @@ final class CampaignInfolist
             ->components([
                 TextEntry::make('name'),
                 TextEntry::make('description')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('start_date')
                     ->date(),
                 TextEntry::make('end_date')
                     ->date()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('status'),
                 TextEntry::make('target_audience_criteria')
-                    ->placeholder('-')
+                    ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('created_by')
                     ->numeric()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('created_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('updated_at')
                     ->dateTime()
-                    ->placeholder('-'),
+                    ->placeholder(__('-')),
                 TextEntry::make('deleted_at')
                     ->dateTime()
                     ->visible(fn (Campaign $record): bool => $record->trashed()),

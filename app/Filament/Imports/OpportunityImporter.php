@@ -24,41 +24,41 @@ final class OpportunityImporter extends Importer
     {
         return [
             ImportColumn::make('customer_unique_identifier')
-                ->label('Unique Identifier')
+                ->label(__('Unique Identifier'))
                 ->requiredMapping()
                 ->rules(['nullable', 'string', 'max:255'])
                 ->example('CUST-123456'),
 
             ImportColumn::make('customer_name')
-                ->label('Name')
+                ->label(__('Name'))
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
 
             ImportColumn::make('customer_type')
-                ->label('Type')
+                ->label(__('Type'))
                 ->requiredMapping()
                 ->rules(['required', 'in:individual,company'])
                 ->example('company'),
 
             ImportColumn::make('customer_tax_number')
-                ->label('Tax Number')
+                ->label(__('Tax Number'))
                 ->rules(['nullable', 'string', 'max:255']),
 
             ImportColumn::make('customer_registration_number')
-                ->label('Registration Number')
+                ->label(__('Registration Number'))
                 ->rules(['nullable', 'string', 'max:255']),
 
             ImportColumn::make('customer_email')
-                ->label('Email Address')
+                ->label(__('Email Address'))
                 ->requiredMapping()
                 ->rules(['required', 'email', 'max:255']),
 
             ImportColumn::make('customer_phone')
-                ->label('Phone')
+                ->label(__('Phone'))
                 ->rules(['nullable', 'string', 'max:255']),
 
             ImportColumn::make('source')
-                ->label('Source')
+                ->label(__('Source'))
                 ->requiredMapping()
                 ->rules(['required', 'in:email,sms,chat,social'])
                 ->example('email'),
@@ -88,7 +88,7 @@ final class OpportunityImporter extends Importer
                 ->rules(['nullable', 'date']),
 
             ImportColumn::make('assigned_to')
-                ->label('Assigned User Email')
+                ->label(__('Assigned User Email'))
                 ->rules(['nullable', 'email', 'exists:users,email']),
         ];
     }

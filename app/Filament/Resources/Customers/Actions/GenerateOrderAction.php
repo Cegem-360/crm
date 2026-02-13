@@ -17,13 +17,13 @@ final class GenerateOrderAction
     public static function make(): Action
     {
         return Action::make('generate_order')
-            ->label('Generate Order')
+            ->label(__('Generate Order'))
             ->icon('heroicon-o-shopping-cart')
             ->color('success')
             ->requiresConfirmation()
-            ->modalHeading('Generate Order from Quote')
-            ->modalDescription('This will create a new order based on this quote data.')
-            ->modalSubmitActionLabel('Generate Order')
+            ->modalHeading(__('Generate Order from Quote'))
+            ->modalDescription(__('This will create a new order based on this quote data.'))
+            ->modalSubmitActionLabel(__('Generate Order'))
             ->action(function (Quote $record): void {
                 $lastOrder = Order::query()
                     ->whereYear('created_at', now()->year)
@@ -67,9 +67,9 @@ final class GenerateOrderAction
 
                 Notification::make()
                     ->success()
-                    ->title('Order Generated Successfully')
+                    ->title(__('Order Generated Successfully'))
                     ->body(sprintf(
-                        'Order #%s has been created with %s %s and a total value of %s.',
+                        __('Order #%s has been created with %s %s and a total value of %s.'),
                         $order->order_number,
                         $itemCount,
                         str('item')->plural($itemCount),

@@ -26,13 +26,13 @@ final class ProductReports extends Page
     #[Override]
     public static function getNavigationLabel(): string
     {
-        return 'Product Reports';
+        return __('Product Reports');
     }
 
     #[Override]
     public function getTitle(): string
     {
-        return self::$title;
+        return __('Product Reports');
     }
 
     #[Override]

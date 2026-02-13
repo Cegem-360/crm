@@ -24,9 +24,14 @@ final class OpportunityValueChart extends ChartWidget
         'lost_quotation' => 'rgba(239, 68, 68, 0.8)',
     ];
 
-    protected ?string $heading = 'Pipeline Value by Stage';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Pipeline Value by Stage');
+    }
 
     #[Override]
     protected function getData(): array

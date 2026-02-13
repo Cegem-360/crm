@@ -28,56 +28,56 @@ final class InteractionsTable
         return $table
             ->columns([
                 TextColumn::make('customer.name')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable()
                     ->placeholder('-'),
                 TextColumn::make('contact.name')
-                    ->label('Contact')
+                    ->label(__('Contact'))
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('user.name')
-                    ->label('User')
+                    ->label(__('User'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->badge(),
                 TextColumn::make('category')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->badge(),
                 TextColumn::make('channel')
-                    ->label('Channel')
+                    ->label(__('Channel'))
                     ->badge()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge(),
                 TextColumn::make('subject')
-                    ->label('Subject')
+                    ->label(__('Subject'))
                     ->searchable()
                     ->limit(30),
                 TextColumn::make('interaction_date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable(),
                 TextColumn::make('duration')
-                    ->label('Duration')
-                    ->suffix(' min')
+                    ->label(__('Duration'))
+                    ->suffix(__(' min'))
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('next_action')
-                    ->label('Next Action')
+                    ->label(__('Next Action'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('next_action_date')
-                    ->label('Next Action Date')
+                    ->label(__('Next Action Date'))
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -101,9 +101,9 @@ final class InteractionsTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ImportAction::make('Import Interactions')
+                ImportAction::make(__('Import Interactions'))
                     ->importer(InteractionImporter::class),
-                ExportAction::make('Export Interactions')
+                ExportAction::make(__('Export Interactions'))
                     ->exporter(InteractionExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

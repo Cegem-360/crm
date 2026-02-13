@@ -12,9 +12,14 @@ use Override;
 
 final class OrderRevenueChart extends ChartWidget
 {
-    protected ?string $heading = 'Revenue Trend (Last 12 Months)';
+    protected ?string $heading = null;
 
     protected ?string $maxHeight = '300px';
+
+    public function getHeading(): string
+    {
+        return __('Revenue Trend (Last 12 Months)');
+    }
 
     #[Override]
     protected function getData(): array
@@ -33,14 +38,14 @@ final class OrderRevenueChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Revenue (HUF)',
+                    'label' => __('Revenue (HUF)'),
                     'data' => $data->pluck('revenue')->toArray(),
                     'borderColor' => ChartColors::SUCCESS_BORDER,
                     'backgroundColor' => ChartColors::SUCCESS_FILL,
                     'fill' => true,
                 ],
                 [
-                    'label' => 'Discounts (HUF)',
+                    'label' => __('Discounts (HUF)'),
                     'data' => $data->pluck('discounts')->toArray(),
                     'borderColor' => ChartColors::DANGER_BORDER,
                     'backgroundColor' => ChartColors::DANGER_FILL,

@@ -26,13 +26,13 @@ final class OrderReports extends Page
     #[Override]
     public static function getNavigationLabel(): string
     {
-        return 'Order Reports';
+        return __('Order Reports');
     }
 
     #[Override]
     public function getTitle(): string
     {
-        return self::$title;
+        return __('Order Reports');
     }
 
     #[Override]

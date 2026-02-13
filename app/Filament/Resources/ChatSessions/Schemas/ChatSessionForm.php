@@ -25,13 +25,13 @@ final class ChatSessionForm
                         Grid::make(2)
                             ->schema([
                                 Select::make('customer_id')
-                                    ->label('Customer')
+                                    ->label(__('Customer'))
                                     ->relationship('customer', 'name')
                                     ->searchable()
                                     ->preload()
                                     ->required(),
                                 Select::make('user_id')
-                                    ->label('Assigned agent')
+                                    ->label(__('Assigned agent'))
                                     ->relationship('user', 'name')
                                     ->searchable()
                                     ->preload()
@@ -53,7 +53,7 @@ final class ChatSessionForm
                                     ->default('normal')
                                     ->required(),
                                 TextInput::make('rating')
-                                    ->label('Customer rating')
+                                    ->label(__('Customer rating'))
                                     ->numeric()
                                     ->minValue(1)
                                     ->maxValue(5)
@@ -73,7 +73,7 @@ final class ChatSessionForm
                                     ->nullable()
                                     ->seconds(false),
                                 DateTimePicker::make('last_message_at')
-                                    ->label('Last message')
+                                    ->label(__('Last message'))
                                     ->disabled()
                                     ->dehydrated(false)
                                     ->seconds(false),
@@ -83,10 +83,10 @@ final class ChatSessionForm
                 Section::make(__('Additional information'))
                     ->schema([
                         Placeholder::make('unread_count')
-                            ->label('Unread messages')
+                            ->label(__('Unread messages'))
                             ->content(fn ($record) => $record?->unread_count ?? 0),
                         Textarea::make('notes')
-                            ->label('Internal notes')
+                            ->label(__('Internal notes'))
                             ->rows(4)
                             ->columnSpanFull()
                             ->nullable(),

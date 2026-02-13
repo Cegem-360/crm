@@ -25,23 +25,23 @@ final class ProductStatsOverview extends BaseWidget
         $totalSold = OrderItem::query()->sum('quantity');
 
         return [
-            Stat::make('Total Products', Number::format($totalProducts))
-                ->description('All products in catalog')
+            Stat::make(__('Total Products'), Number::format($totalProducts))
+                ->description(__('All products in catalog'))
                 ->icon('heroicon-o-cube')
                 ->color('primary'),
 
-            Stat::make('Active Products', Number::format($activeProducts))
-                ->description('Available for sale')
+            Stat::make(__('Active Products'), Number::format($activeProducts))
+                ->description(__('Available for sale'))
                 ->icon('heroicon-o-check-circle')
                 ->color('success'),
 
-            Stat::make('Average Price', Number::currency($averagePrice, 'HUF'))
-                ->description('Active product average')
+            Stat::make(__('Average Price'), Number::currency($averagePrice, 'HUF'))
+                ->description(__('Active product average'))
                 ->icon('heroicon-o-currency-dollar')
                 ->color('warning'),
 
-            Stat::make('Total Sold', Number::format($totalSold))
-                ->description('Total items sold')
+            Stat::make(__('Total Sold'), Number::format($totalSold))
+                ->description(__('Total items sold'))
                 ->icon('heroicon-o-shopping-cart')
                 ->color('info'),
         ];

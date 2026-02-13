@@ -20,5 +20,6 @@ test('to array', function (): void {
             'webhook_url',
             'webhook_secret',
             'workflow_api_token',
+            'is_active',
         ]);
 });

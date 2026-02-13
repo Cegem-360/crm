@@ -26,7 +26,7 @@ final class CustomerContactImporter extends Importer
             ImportColumn::make('customer_identifier')
                 ->requiredMapping()
                 ->rules(['required'])
-                ->label('Customer Identifier')
+                ->label(__('Customer Identifier'))
                 ->exampleHeader('customer_identifier')
                 ->examples(['CUST-001', 'ABC Company']),
             ImportColumn::make('name')
@@ -60,8 +60,8 @@ final class CustomerContactImporter extends Importer
     {
         return [
             Checkbox::make('updateExisting')
-                ->label('Update existing records')
-                ->helperText('Match existing contacts by customer + email or customer + name'),
+                ->label(__('Update existing records'))
+                ->helperText(__('Match existing contacts by customer + email or customer + name')),
         ];
     }
 

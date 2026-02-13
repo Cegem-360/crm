@@ -33,7 +33,7 @@ final class CustomerForm
                     ->options(CustomerType::class)
                     ->default(CustomerType::Individual),
                 Select::make('company_id')
-                    ->label('Company')
+                    ->label(__('Company'))
                     ->relationship('company', 'name')
                     ->searchable()
                     ->preload()
@@ -50,7 +50,7 @@ final class CustomerForm
                 Textarea::make('notes')
                     ->columnSpanFull(),
                 Toggle::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->required(),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Customer),
             ]);

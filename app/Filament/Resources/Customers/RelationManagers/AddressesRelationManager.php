@@ -32,8 +32,8 @@ final class AddressesRelationManager extends RelationManager
                     ->required()
                     ->default('billing')
                     ->options([
-                        'billing' => 'Billing',
-                        'shipping' => 'Shipping',
+                        'billing' => __('Billing'),
+                        'shipping' => __('Shipping'),
                     ]),
                 TextInput::make('country')
                     ->required(),

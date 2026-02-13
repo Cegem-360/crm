@@ -18,16 +18,16 @@ final class TaskExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
+                ->label(__('ID')),
             ExportColumn::make('title'),
             ExportColumn::make('customer.name')
-                ->label('Customer'),
+                ->label(__('Customer')),
             ExportColumn::make('assignedUser.name')
-                ->label('Assigned To'),
+                ->label(__('Assigned To')),
             ExportColumn::make('assignedUser.email')
-                ->label('Assigned Email'),
+                ->label(__('Assigned Email')),
             ExportColumn::make('assigner.name')
-                ->label('Assigned By'),
+                ->label(__('Assigned By')),
             ExportColumn::make('priority'),
             ExportColumn::make('status'),
             ExportColumn::make('description'),

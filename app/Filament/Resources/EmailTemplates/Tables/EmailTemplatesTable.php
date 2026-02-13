@@ -20,24 +20,24 @@ final class EmailTemplatesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('subject')
-                    ->label('Subject')
+                    ->label(__('Subject'))
                     ->searchable()
                     ->limit(40),
                 TextColumn::make('category')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->badge(),
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->boolean(),
                 TextColumn::make('createdBy.name')
-                    ->label('Created By')
+                    ->label(__('Created By'))
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -47,8 +47,8 @@ final class EmailTemplatesTable
                     ->options(EmailTemplateCategory::class),
                 SelectFilter::make('is_active')
                     ->options([
-                        true => 'Active',
-                        false => 'Inactive',
+                        true => __('Active'),
+                        false => __('Inactive'),
                     ]),
             ])
             ->recordActions([

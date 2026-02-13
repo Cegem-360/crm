@@ -24,23 +24,23 @@ final class OrderStatsOverview extends BaseWidget
         $totalDiscount = Order::query()->sum('discount_amount');
 
         return [
-            Stat::make('Total Orders', Number::format($totalOrders))
-                ->description('All orders')
+            Stat::make(__('Total Orders'), Number::format($totalOrders))
+                ->description(__('All orders'))
                 ->icon('heroicon-o-shopping-cart')
                 ->color('primary'),
 
-            Stat::make('Total Revenue', Number::currency($totalRevenue, 'HUF'))
-                ->description('Gross revenue')
+            Stat::make(__('Total Revenue'), Number::currency($totalRevenue, 'HUF'))
+                ->description(__('Gross revenue'))
                 ->icon('heroicon-o-banknotes')
                 ->color('success'),
 
-            Stat::make('Average Order Value', Number::currency($averageOrderValue, 'HUF'))
-                ->description('Per order average')
+            Stat::make(__('Average Order Value'), Number::currency($averageOrderValue, 'HUF'))
+                ->description(__('Per order average'))
                 ->icon('heroicon-o-calculator')
                 ->color('warning'),
 
-            Stat::make('Total Discounts', Number::currency($totalDiscount, 'HUF'))
-                ->description('Discounts given')
+            Stat::make(__('Total Discounts'), Number::currency($totalDiscount, 'HUF'))
+                ->description(__('Discounts given'))
                 ->icon('heroicon-o-tag')
                 ->color('danger'),
         ];

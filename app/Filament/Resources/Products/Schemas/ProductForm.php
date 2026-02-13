@@ -23,12 +23,12 @@ final class ProductForm
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('sku')
-                    ->label('SKU')
+                    ->label(__('SKU'))
                     ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),
                 Select::make('category_id')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->relationship('category', 'name'),
                 TextInput::make('unit_price')
                     ->required()
@@ -39,7 +39,7 @@ final class ProductForm
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->required(),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Product),
             ]);

@@ -30,7 +30,7 @@ final class PersonalAccessTokensRelationManager extends RelationManager
                 TextInput::make('name')
                     ->label(__('Token name'))
                     ->required()
-                    ->placeholder('e.g. Workflow Integration'),
+                    ->placeholder(__('e.g. Workflow Integration')),
             ]);
     }
 
@@ -68,7 +68,7 @@ final class PersonalAccessTokensRelationManager extends RelationManager
                         TextInput::make('name')
                             ->label(__('Token name'))
                             ->required()
-                            ->placeholder('e.g. Workflow Integration'),
+                            ->placeholder(__('e.g. Workflow Integration')),
                         CheckboxList::make('abilities')
                             ->label(__('Abilities'))
                             ->options([

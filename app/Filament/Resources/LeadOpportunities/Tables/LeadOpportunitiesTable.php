@@ -16,36 +16,36 @@ final class LeadOpportunitiesTable
             ->modifyQueryUsing(fn ($query) => $query->where('stage', OpportunityStage::Lead))
             ->columns([
                 TextColumn::make('customer.name')
-                    ->label('Customer Name')
+                    ->label(__('Customer Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('customer.email')
-                    ->label('Customer Email')
+                    ->label(__('Customer Email'))
                     ->searchable(),
                 TextColumn::make('customer.phone')
-                    ->label('Customer Phone')
+                    ->label(__('Customer Phone'))
                     ->searchable(),
                 TextColumn::make('customer.type')
-                    ->label('Customer Type')
+                    ->label(__('Customer Type'))
                     ->badge(),
                 TextColumn::make('title')
-                    ->label('Opportunity Title')
+                    ->label(__('Opportunity Title'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('probability')
-                    ->label('Probability')
+                    ->label(__('Probability'))
                     ->suffix('%')
                     ->sortable(),
                 TextColumn::make('expected_close_date')
-                    ->label('Expected Close Date')
+                    ->label(__('Expected Close Date'))
                     ->date()
                     ->sortable(),
                 TextColumn::make('assignedUser.name')
-                    ->label('Assigned To')
+                    ->label(__('Assigned To'))
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->label('Created At')
+                    ->label(__('Created At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

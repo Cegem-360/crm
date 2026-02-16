@@ -21,11 +21,13 @@ use App\Models\Product;
 use App\Models\Quote;
 use App\Models\Task;
 use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
 use Filament\Forms\Components\Field;
 use Filament\Infolists\Components\Entry;
 use Filament\Support\Facades\FilamentTimezone;
 use Filament\Tables\Columns\Column;
+use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Override;
@@ -51,6 +53,8 @@ final class AppServiceProvider extends ServiceProvider
         Field::configureUsing(static fn (Field $field): Field => $field->translateLabel());
         Column::configureUsing(static fn (Column $column): Column => $column->translateLabel());
         Entry::configureUsing(static fn (Entry $entry): Entry => $entry->translateLabel());
+        Action::configureUsing(static fn (Action $action): Action => $action->translateLabel());
+        BaseFilter::configureUsing(static fn (BaseFilter $filter): BaseFilter => $filter->translateLabel());
 
         $this->app->bind(BaseResourceClassGenerator::class, ResourceClassGenerator::class);
         Relation::enforceMorphMap([

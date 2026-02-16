@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use App\Models\Opportunity;
 use App\Models\Order;
 use App\Models\Quote;
+use App\Models\Team;
 use Filament\Facades\Filament;
 use Filament\Schemas\Components\Component;
 use Illuminate\Database\Eloquent\Model;
@@ -73,36 +74,71 @@ final class DocumentChain extends Component
         }
 
         $tenant = Filament::getTenant();
+        $team = $tenant ?? (app()->bound('current_team') ? app('current_team') : null);
 
         return [
             [
                 'type' => 'opportunity',
                 'label' => __('Opportunity'),
                 'number' => $opportunity?->title,
-                'url' => $opportunity ? route('filament.admin.resources.lead-opportunities.edit', ['record' => $opportunity, 'tenant' => $tenant]) : null,
+                'url' => $opportunity ? $this->generateUrl('opportunity', $opportunity, $tenant, $team) : null,
                 'current' => $currentType === 'opportunity',
             ],
             [
                 'type' => 'quote',
                 'label' => __('Quote'),
                 'number' => $quote?->quote_number,
-                'url' => $quote ? route('filament.admin.resources.quotes.edit', ['record' => $quote, 'tenant' => $tenant]) : null,
+                'url' => $quote ? $this->generateUrl('quote', $quote, $tenant, $team) : null,
                 'current' => $currentType === 'quote',
             ],
             [
                 'type' => 'order',
                 'label' => __('Order'),
                 'number' => $order?->order_number,
-                'url' => $order ? route('filament.admin.resources.orders.edit', ['record' => $order, 'tenant' => $tenant]) : null,
+                'url' => $order ? $this->generateUrl('order', $order, $tenant, $team) : null,
                 'current' => $currentType === 'order',
             ],
             [
                 'type' => 'invoice',
                 'label' => __('Invoice'),
                 'number' => $invoice?->invoice_number,
-                'url' => $invoice ? route('filament.admin.resources.invoices.view', ['record' => $invoice, 'tenant' => $tenant]) : null,
+                'url' => $invoice ? $this->generateUrl('invoice', $invoice, $tenant, $team) : null,
                 'current' => $currentType === 'invoice',
             ],
         ];
+    }
+
+    private function generateUrl(string $type, Model $record, ?Team $tenant, ?Team $team): ?string
+    {
+        if ($tenant) {
+            $routeMap = [
+                'opportunity' => 'filament.admin.resources.lead-opportunities.edit',
+                'quote' => 'filament.admin.resources.quotes.edit',
+                'order' => 'filament.admin.resources.orders.edit',
+                'invoice' => 'filament.admin.resources.invoices.view',
+            ];
+
+            return route($routeMap[$type], ['record' => $record, 'tenant' => $tenant]);
+        }
+
+        if ($team) {
+            $routeMap = [
+                'opportunity' => 'dashboard.opportunities.edit',
+                'quote' => 'dashboard.quotes.edit',
+                'order' => 'dashboard.orders.edit',
+                'invoice' => 'dashboard.invoices.view',
+            ];
+
+            $paramKey = match ($type) {
+                'opportunity' => 'opportunity',
+                'quote' => 'quote',
+                'order' => 'order',
+                'invoice' => 'invoice',
+            };
+
+            return route($routeMap[$type], ['team' => $team, $paramKey => $record]);
+        }
+
+        return null;
     }
 }

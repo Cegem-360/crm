@@ -9,7 +9,7 @@
             </a>
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ $productCategory->name }}</h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Category details') }}</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Product category details') }}</p>
             </div>
         </div>
         <x-primary-button :href="route('dashboard.product-categories.edit', ['team' => $currentTeam, 'productCategory' => $productCategory])" icon="edit">
@@ -17,87 +17,9 @@
         </x-primary-button>
     </div>
 
-    {{-- Category details --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Category Information') }}</h2>
-        </div>
-        <div class="p-6">
-            <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Name') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $productCategory->name }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Parent Category') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                        @if($productCategory->parent)
-                            <a href="{{ route('dashboard.product-categories.view', ['team' => $currentTeam, 'productCategory' => $productCategory->parent]) }}" wire:navigate class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                                {{ $productCategory->parent->name }}
-                            </a>
-                        @else
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-400">
-                                {{ __('Root') }}
-                            </span>
-                        @endif
-                    </dd>
-                </div>
-                <div class="sm:col-span-2">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Description') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $productCategory->description ?? '-' }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Created') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $productCategory->created_at->format('Y-m-d H:i') }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Updated') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $productCategory->updated_at->format('Y-m-d H:i') }}</dd>
-                </div>
-            </dl>
-        </div>
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        {{ $this->infolist }}
     </div>
 
-    {{-- Subcategories --}}
-    @if($productCategory->children->count() > 0)
-        <div class="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Subcategories') }} ({{ $productCategory->children->count() }})</h2>
-            </div>
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                @foreach($productCategory->children as $child)
-                    <li>
-                        <a href="{{ route('dashboard.product-categories.view', ['team' => $currentTeam, 'productCategory' => $child]) }}" wire:navigate class="flex items-center justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{ $child->name }}</span>
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    {{-- Products --}}
-    @if($productCategory->products->count() > 0)
-        <div class="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Products') }} ({{ $productCategory->products->count() }})</h2>
-            </div>
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                @foreach($productCategory->products as $product)
-                    <li>
-                        <a href="{{ route('dashboard.products.view', ['team' => $currentTeam, 'product' => $product]) }}" wire:navigate class="flex items-center justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                            <div>
-                                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $product->name }}</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 font-mono">{{ $product->sku }}</p>
-                            </div>
-                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{ Number::currency($product->unit_price, 'HUF', 'hu', 0) }}</span>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <x-filament-actions::modals />
 </div>

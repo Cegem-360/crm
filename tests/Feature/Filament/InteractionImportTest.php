@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Filament\Imports\InteractionImporter;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Interaction;
 use App\Models\User;
@@ -110,7 +109,7 @@ it('can find customer by unique identifier', function (): void {
     $foundCustomer = Customer::query()
         ->where('unique_identifier', 'TEST-001')
         ->orWhere('name', 'TEST-001')
-        ->orWhereHas('company', fn ($query) => $query->where('email', 'TEST-001'))
+        ->orWhere('email', 'TEST-001')
         ->first();
 
     expect($foundCustomer)->not()->toBeNull();
@@ -126,28 +125,24 @@ it('can find customer by name', function (): void {
     $foundCustomer = Customer::query()
         ->where('unique_identifier', 'Another Customer')
         ->orWhere('name', 'Another Customer')
-        ->orWhereHas('company', fn ($query) => $query->where('email', 'Another Customer'))
+        ->orWhere('email', 'Another Customer')
         ->first();
 
     expect($foundCustomer)->not()->toBeNull();
     expect($foundCustomer->id)->toBe($customer->id);
 });
 
-it('can find customer by company email', function (): void {
-    $company = Company::factory()->create([
-        'email' => 'company@example.com',
-    ]);
-
+it('can find customer by email', function (): void {
     $customer = Customer::factory()->create([
         'unique_identifier' => 'TEST-003',
         'name' => 'Email Customer',
-        'company_id' => $company->id,
+        'email' => 'company@example.com',
     ]);
 
     $foundCustomer = Customer::query()
         ->where('unique_identifier', 'company@example.com')
         ->orWhere('name', 'company@example.com')
-        ->orWhereHas('company', fn ($query) => $query->where('email', 'company@example.com'))
+        ->orWhere('email', 'company@example.com')
         ->first();
 
     expect($foundCustomer)->not()->toBeNull();
@@ -158,7 +153,7 @@ it('returns null when customer not found', function (): void {
     $foundCustomer = Customer::query()
         ->where('unique_identifier', 'NON-EXISTENT')
         ->orWhere('name', 'NON-EXISTENT')
-        ->orWhereHas('company', fn ($query) => $query->where('email', 'NON-EXISTENT'))
+        ->orWhere('email', 'NON-EXISTENT')
         ->first();
 
     expect($foundCustomer)->toBeNull();

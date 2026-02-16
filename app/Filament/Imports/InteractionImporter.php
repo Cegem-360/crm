@@ -150,7 +150,7 @@ final class InteractionImporter extends Importer
         $this->resolvedCustomer = Customer::query()
             ->where('unique_identifier', $customerIdentifier)
             ->orWhere('name', $customerIdentifier)
-            ->orWhereHas('company', fn ($query) => $query->where('email', $customerIdentifier))
+            ->orWhere('email', $customerIdentifier)
             ->first();
 
         if ($this->resolvedCustomer === null) {

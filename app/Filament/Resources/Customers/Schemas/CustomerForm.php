@@ -71,7 +71,15 @@ final class CustomerForm
                     ->placeholder(__('email@example.com'))
                     ->live(onBlur: true),
                 Section::make(__('Company information'))
-                    ->visible(fn (Get $get): bool => $get('type') === CustomerType::Company->value)
+                    ->visible(function (Get $get): bool {
+                        $type = $get('type');
+
+                        if ($type instanceof CustomerType) {
+                            return $type === CustomerType::Company;
+                        }
+
+                        return $type === CustomerType::Company->value;
+                    })
                     ->schema([
                         TextInput::make('tax_number')
                             ->label(__('Tax number'))

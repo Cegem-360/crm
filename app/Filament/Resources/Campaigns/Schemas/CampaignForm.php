@@ -20,8 +20,10 @@ final class CampaignForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->placeholder(__('e.g., Q1 2024 Marketing Initiative')),
                 Textarea::make('description')
+                    ->placeholder(__('Campaign goals and details...'))
                     ->columnSpanFull(),
                 DatePicker::make('start_date')
                     ->required(),
@@ -32,6 +34,8 @@ final class CampaignForm
                     ->enum(CampaignStatus::class)
                     ->default(CampaignStatus::Draft),
                 Textarea::make('target_audience_criteria')
+                    ->placeholder(__('Define who this campaign targets...'))
+                    ->helperText(__('Describe the target audience segment'))
                     ->columnSpanFull(),
                 Select::make('created_by')
                     ->relationship('creator', 'name')

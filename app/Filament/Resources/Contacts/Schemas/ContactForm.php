@@ -22,12 +22,16 @@ final class ContactForm
                     ->preload()
                     ->required(),
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->placeholder(__('e.g., John Smith')),
                 TextInput::make('email')
-                    ->email(),
+                    ->email()
+                    ->placeholder(__('email@example.com')),
                 TextInput::make('phone')
-                    ->tel(),
-                TextInput::make('position'),
+                    ->tel()
+                    ->placeholder(__('+36 XX XXX XXXX')),
+                TextInput::make('position')
+                    ->placeholder(__('e.g., Sales Manager')),
                 Toggle::make('is_primary')
                     ->label(__('Primary contact'))
                     ->default(false),

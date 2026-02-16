@@ -20,7 +20,8 @@ final class DiscountForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->placeholder(__('e.g., Summer Sale 2024')),
                 Select::make('type')
                     ->required()
                     ->default(DiscountType::Custom)
@@ -34,11 +35,16 @@ final class DiscountForm
                 TextInput::make('value')
                     ->required()
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->helperText(__('Percentage or fixed amount depending on value type')),
                 TextInput::make('min_quantity')
-                    ->numeric(),
+                    ->numeric()
+                    ->placeholder(__('0'))
+                    ->helperText(__('Minimum quantity to apply discount')),
                 TextInput::make('min_value')
-                    ->numeric(),
+                    ->numeric()
+                    ->placeholder(__('0'))
+                    ->helperText(__('Minimum order value to apply discount')),
                 DatePicker::make('valid_from'),
                 DatePicker::make('valid_until'),
                 Select::make('customer_id')
@@ -51,6 +57,7 @@ final class DiscountForm
                     ->label(__('Active'))
                     ->required(),
                 Textarea::make('description')
+                    ->placeholder(__('Description of the discount...'))
                     ->columnSpanFull(),
             ]);
     }

@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use App\Models\Product;
 use App\Models\User;
 use App\Models\WorkflowConfig;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 final class SendWorkflowWebhook implements ShouldQueue
 {
@@ -23,7 +24,7 @@ final class SendWorkflowWebhook implements ShouldQueue
     public int $backoff = 30;
 
     public function __construct(
-        public Product $product,
+        public Model $model,
         public string $event,
         public User $user
     ) {}
@@ -32,7 +33,6 @@ final class SendWorkflowWebhook implements ShouldQueue
     {
         $baseUrl = config('services.workflow.webhook_url');
 
-        // Lekérdezzük a user aktív workflow konfigurációit
         $workflowConfigs = $this->user->workflowConfigs()
             ->where('is_active', true)
             ->get();
@@ -48,32 +48,26 @@ final class SendWorkflowWebhook implements ShouldQueue
 
     private function sendToWorkflow(WorkflowConfig $config, ?string $baseUrl): void
     {
-        // Ha a workflow-nak van saját URL-je, azt használjuk, különben a globálist
         $url = $config->webhook_url ?: $baseUrl;
 
         if (empty($url)) {
             return;
         }
 
+        $modelType = Str::snake(class_basename($this->model));
+        $eventName = $modelType.'.'.$this->event;
+
         $payload = [
-            'event' => 'product.'.$this->event,
+            'event' => $eventName,
             'timestamp' => now()->toIso8601String(),
             'workflow_name' => $config->name,
-            'data' => [
-                'id' => $this->product->id,
-                'name' => $this->product->name,
-                'sku' => $this->product->sku,
-                'description' => $this->product->description,
-                'category_id' => $this->product->category_id,
-                'unit_price' => $this->product->unit_price,
-                'tax_rate' => $this->product->tax_rate,
-                'is_active' => $this->product->is_active,
-            ],
+            'model_type' => $modelType,
+            'data' => $this->model->toArray(),
         ];
 
         $headers = [
             'Content-Type' => 'application/json',
-            'X-Webhook-Event' => 'product.'.$this->event,
+            'X-Webhook-Event' => $eventName,
             'X-User-Token' => $config->api_token,
         ];
 
@@ -95,7 +89,7 @@ final class SendWorkflowWebhook implements ShouldQueue
                     'workflow_name' => $config->name,
                     'user_id' => $this->user->id,
                     'status' => $response->status(),
-                    'event' => 'product.'.$this->event,
+                    'event' => $eventName,
                 ]);
             }
         } catch (Exception $exception) {
@@ -105,7 +99,7 @@ final class SendWorkflowWebhook implements ShouldQueue
                 'workflow_name' => $config->name,
                 'user_id' => $this->user->id,
                 'error' => $exception->getMessage(),
-                'event' => 'product.'.$this->event,
+                'event' => $eventName,
             ]);
         }
     }

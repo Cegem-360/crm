@@ -876,6 +876,8 @@
     "Rejected": "Elutasítva",
 
     "Activities": "Tevékenységek",
+    "Log calls, meetings, and emails": "Hívások, meetingek és emailek naplózása",
+    "Real-time customer conversations": "Valós idejű ügyfélbeszélgetések",
     "Conversations": "Beszélgetések",
     "Conversation": "Beszélgetés",
 
@@ -904,5 +906,54 @@
     "Interactions — synced as timed events based on interaction date and duration": "Interakciók — időzített eseményként szinkronizálva a dátum és időtartam alapján",
     "Get Started": "Kezdje el",
     "Connect your Google Calendar to automatically sync your CRM tasks and interactions. Click the \"Connect Google Calendar\" button above to get started.": "Csatlakoztassa Google Naptárát a CRM feladatok és interakciók automatikus szinkronizálásához. Kattintson a fenti \"Google Naptár csatlakoztatása\" gombra a kezdéshez.",
-    "Team not found.": "Csapat nem található."
+    "Team not found.": "Csapat nem található.",
+
+    "e.g., John Smith": "pl. Kiss János",
+    "e.g., Sales Manager": "pl. Értékesítési vezető",
+    "e.g., Electronics": "pl. Elektronika",
+    "Description of the category...": "Kategória leírása...",
+    "e.g., Summer Sale 2024": "pl. Nyári akció 2024",
+    "Percentage or fixed amount depending on value type": "Százalék vagy fix összeg az értéktípus függvényében",
+    "Minimum quantity to apply discount": "Minimális mennyiség a kedvezmény alkalmazásához",
+    "Minimum order value to apply discount": "Minimális rendelési érték a kedvezmény alkalmazásához",
+    "Description of the discount...": "Kedvezmény leírása...",
+    "Campaign goals and details...": "Kampány célok és részletek...",
+    "Define who this campaign targets...": "Határozza meg, kiket céloz a kampány...",
+    "Describe the target audience segment": "A célközönség szegmens leírása",
+    "e.g., Damaged product received": "pl. Sérült termék érkezett",
+    "Describe the complaint in detail...": "A panasz részletes leírása...",
+    "How was the complaint resolved...": "Hogyan lett megoldva a panasz...",
+    "e.g., Follow up with client": "pl. Ügyfél megkeresése",
+    "Task details and instructions...": "Feladat részletei és utasítások...",
+    "Additional notes for the quote...": "További megjegyzések az árajánlathoz...",
+    "In Progress": "Folyamatban",
+    "Cancelled": "Törölve",
+    "Urgent": "Sürgős",
+
+    "Addresses": "Címek",
+    "Attributes": "Attribútumok",
+    "Consents": "Hozzájárulások",
+
+    "Country": "Ország",
+    "Postal code": "Irányítószám",
+    "City": "Város",
+    "Street": "Utca",
+    "Building number": "Házszám",
+    "Floor": "Emelet",
+    "Door": "Ajtó",
+    "Is default": "Alapértelmezett",
+
+    "Attribute key": "Attribútum kulcs",
+    "Attribute value": "Attribútum érték",
+    "Is primary": "Elsődleges",
+
+    "Created at": "Létrehozva",
+    "Updated at": "Frissítve",
+    "Deleted at": "Törölve",
+    "Paid at": "Fizetve",
+
+    "Assigned user": "Felelős",
+    "Reporter": "Bejelentő",
+    "Assigner": "Kiosztó",
+    "Order order number": "Rendelés szám"
 }

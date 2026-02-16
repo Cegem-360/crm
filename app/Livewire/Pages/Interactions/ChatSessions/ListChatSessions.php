@@ -4,92 +4,47 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Interactions\ChatSessions;
 
-use App\Enums\ChatSessionStatus;
+use App\Filament\Resources\ChatSessions\Tables\ChatSessionsTable;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\ChatSession;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Filament\Actions\Action;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Url;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 #[Layout('components.layouts.dashboard')]
-final class ListChatSessions extends Component
+final class ListChatSessions extends Component implements HasActions, HasSchemas, HasTable
 {
     use HasCurrentTeam;
-    use WithPagination;
+    use InteractsWithActions;
+    use InteractsWithSchemas;
+    use InteractsWithTable;
 
-    #[Url]
-    public string $search = '';
-
-    #[Url]
-    public string $sortBy = 'last_message_at';
-
-    #[Url]
-    public string $sortDir = 'desc';
-
-    #[Url]
-    public int $perPage = 10;
-
-    #[Url]
-    public string $status = '';
-
-    public function sort(string $column): void
+    public function table(Table $table): Table
     {
-        if ($this->sortBy === $column) {
-            $this->sortDir = $this->sortDir === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortBy = $column;
-            $this->sortDir = 'asc';
-        }
-
-        $this->resetPage();
-    }
-
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedPerPage(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedStatus(): void
-    {
-        $this->resetPage();
+        return ChatSessionsTable::configure($table)
+            ->query(ChatSession::query())
+            ->recordUrl(fn (ChatSession $record): string => route('dashboard.chat-sessions.view', ['team' => $this->team, 'chatSession' => $record]))
+            ->recordActions([
+                Action::make('view')
+                    ->url(fn (ChatSession $record): string => route('dashboard.chat-sessions.view', ['team' => $this->team, 'chatSession' => $record]))
+                    ->icon(Heroicon::Eye),
+                Action::make('edit')
+                    ->url(fn (ChatSession $record): string => route('dashboard.chat-sessions.edit', ['team' => $this->team, 'chatSession' => $record]))
+                    ->icon(Heroicon::PencilSquare),
+            ]);
     }
 
     public function render(): View
     {
-        return view('livewire.pages.interactions.chat-sessions.list-chat-sessions', [
-            'chatSessions' => $this->getChatSessions(),
-            'statuses' => ChatSessionStatus::cases(),
-        ]);
-    }
-
-    private function getChatSessions(): LengthAwarePaginator
-    {
-        return ChatSession::query()
-            ->with(['customer', 'user'])
-            ->withCount('messages')
-            ->when($this->search !== '', function ($query): void {
-                $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search): void {
-                    $q->whereHas('customer', function ($customerQuery) use ($search): void {
-                        $customerQuery->where('name', 'like', $search);
-                    })
-                        ->orWhereHas('user', function ($userQuery) use ($search): void {
-                            $userQuery->where('name', 'like', $search);
-                        });
-                });
-            })
-            ->when($this->status !== '', function ($query): void {
-                $query->where('status', $this->status);
-            })
-            ->orderBy($this->sortBy, $this->sortDir)
-            ->paginate($this->perPage);
+        return view('livewire.pages.interactions.chat-sessions.list-chat-sessions');
     }
 }

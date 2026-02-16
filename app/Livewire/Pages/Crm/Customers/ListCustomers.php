@@ -4,126 +4,49 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Crm\Customers;
 
-use App\Filament\Exports\CustomerExporter;
-use App\Filament\Imports\CustomerImporter;
+use App\Filament\Resources\Customers\Tables\CustomersTable;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Customer;
+use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Actions\ExportAction;
-use Filament\Actions\Exports\Enums\ExportFormat;
-use Filament\Actions\ImportAction;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Url;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 #[Layout('components.layouts.dashboard')]
-final class ListCustomers extends Component implements HasActions, HasSchemas
+final class ListCustomers extends Component implements HasActions, HasSchemas, HasTable
 {
     use HasCurrentTeam;
     use InteractsWithActions;
     use InteractsWithSchemas;
-    use WithPagination;
+    use InteractsWithTable;
 
-    #[Url]
-    public string $search = '';
-
-    #[Url]
-    public string $sortBy = 'name';
-
-    #[Url]
-    public string $sortDir = 'asc';
-
-    #[Url]
-    public int $perPage = 10;
-
-    #[Url]
-    public string $status = '';
-
-    #[On('customer-saved')]
-    public function refreshList(): void
+    public function table(Table $table): Table
     {
-        // The list will be refreshed automatically
-    }
-
-    public function sort(string $column): void
-    {
-        if ($this->sortBy === $column) {
-            $this->sortDir = $this->sortDir === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortBy = $column;
-            $this->sortDir = 'asc';
-        }
-
-        $this->resetPage();
-    }
-
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedPerPage(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedStatus(): void
-    {
-        $this->resetPage();
-    }
-
-    public function importAction(): ImportAction
-    {
-        return ImportAction::make('import')
-            ->importer(CustomerImporter::class);
-    }
-
-    public function exportAction(): ExportAction
-    {
-        return ExportAction::make('export')
-            ->exporter(CustomerExporter::class)
-            ->formats([
-                ExportFormat::Xlsx,
-                ExportFormat::Csv,
+        return CustomersTable::configure($table)
+            ->query(Customer::query())
+            ->modifyQueryUsing(fn (Builder $query): Builder => $query->with(['contacts']))
+            ->recordUrl(fn (Customer $record): string => route('dashboard.customers.view', ['team' => $this->team, 'customer' => $record]))
+            ->recordActions([
+                Action::make('view')
+                    ->url(fn (Customer $record): string => route('dashboard.customers.view', ['team' => $this->team, 'customer' => $record]))
+                    ->icon(Heroicon::Eye),
+                Action::make('edit')
+                    ->url(fn (Customer $record): string => route('dashboard.customers.edit', ['team' => $this->team, 'customer' => $record]))
+                    ->icon(Heroicon::PencilSquare),
             ]);
     }
 
     public function render(): View
     {
-        return view('livewire.pages.crm.customers.list-customers', [
-            'customers' => $this->getCustomers(),
-        ]);
-    }
-
-    private function getCustomers(): LengthAwarePaginator
-    {
-        return Customer::query()
-            ->with(['contacts'])
-            ->when($this->search !== '', function ($query): void {
-                $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search): void {
-                    $q->where('name', 'like', $search)
-                        ->orWhere('unique_identifier', 'like', $search)
-                        ->orWhere('phone', 'like', $search)
-                        ->orWhere('email', 'like', $search)
-                        ->orWhere('tax_number', 'like', $search);
-                });
-            })
-            ->when($this->status !== '', function ($query): void {
-                if ($this->status === 'active') {
-                    $query->where('is_active', true);
-                } elseif ($this->status === 'inactive') {
-                    $query->where('is_active', false);
-                }
-            })
-            ->orderBy($this->sortBy, $this->sortDir)
-            ->paginate($this->perPage);
+        return view('livewire.pages.crm.customers.list-customers');
     }
 }

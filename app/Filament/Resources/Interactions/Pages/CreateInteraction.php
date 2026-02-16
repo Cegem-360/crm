@@ -97,7 +97,7 @@ final class CreateInteraction extends CreateRecord
         $recipientType = $this->data['recipient_type'] ?? 'contact';
 
         if ($interaction->customer_id) {
-            $customer = Customer::with('company')->find($interaction->customer_id);
+            $customer = Customer::query()->find($interaction->customer_id);
             $context['customer'] = $customer;
         }
 
@@ -114,12 +114,10 @@ final class CreateInteraction extends CreateRecord
             }
         }
 
-        if ($recipientType === 'company' && isset($customer) && $customer?->company?->email) {
-            $context['company'] = $customer->company;
-
+        if ($recipientType === 'company' && isset($customer) && $customer?->email) {
             return [
-                'email' => $customer->company->email,
-                'name' => $customer->company->name,
+                'email' => $customer->email,
+                'name' => $customer->name,
                 'context' => $context,
             ];
         }

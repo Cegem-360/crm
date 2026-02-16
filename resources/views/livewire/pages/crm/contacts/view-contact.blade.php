@@ -17,78 +17,9 @@
         </x-primary-button>
     </div>
 
-    {{-- Contact details --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Contact Information') }}</h2>
-        </div>
-        <div class="p-6">
-            <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Name') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $contact->name }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Customer') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                        @if($contact->customer)
-                            <a href="{{ route('dashboard.customers.view', ['team' => $currentTeam, 'customer' => $contact->customer]) }}" wire:navigate class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                                {{ $contact->customer->name }}
-                            </a>
-                        @else
-                            <span class="text-gray-400">-</span>
-                        @endif
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Email') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                        @if($contact->email)
-                            <a href="mailto:{{ $contact->email }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                                {{ $contact->email }}
-                            </a>
-                        @else
-                            <span class="text-gray-400">-</span>
-                        @endif
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Phone') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                        @if($contact->phone)
-                            <a href="tel:{{ $contact->phone }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                                {{ $contact->phone }}
-                            </a>
-                        @else
-                            <span class="text-gray-400">-</span>
-                        @endif
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Position') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $contact->position ?: '-' }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Primary Contact') }}</dt>
-                    <dd class="mt-1">
-                        @if($contact->is_primary)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-400">
-                                {{ __('Yes') }}
-                            </span>
-                        @else
-                            <span class="text-sm text-gray-400">{{ __('No') }}</span>
-                        @endif
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Created') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $contact->created_at->format('Y-m-d H:i') }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Updated') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $contact->updated_at->format('Y-m-d H:i') }}</dd>
-                </div>
-            </dl>
-        </div>
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        {{ $this->infolist }}
     </div>
+
+    <x-filament-actions::modals />
 </div>

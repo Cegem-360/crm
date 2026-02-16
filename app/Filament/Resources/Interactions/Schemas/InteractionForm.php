@@ -119,9 +119,7 @@ final class InteractionForm
                                 }
 
                                 if ($recipientType === 'company' && $customerId) {
-                                    $customer = Customer::with('company')->find($customerId);
-
-                                    return $customer?->company?->email;
+                                    return Customer::query()->find($customerId)?->email;
                                 }
 
                                 return null;

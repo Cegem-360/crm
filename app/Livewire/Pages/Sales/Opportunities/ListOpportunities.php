@@ -4,116 +4,84 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Sales\Opportunities;
 
-use App\Enums\OpportunityStage;
-use App\Filament\Exports\OpportunityExporter;
-use App\Filament\Imports\OpportunityImporter;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Opportunity;
+use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Actions\ExportAction;
-use Filament\Actions\Exports\Enums\ExportFormat;
-use Filament\Actions\ImportAction;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Url;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 #[Layout('components.layouts.dashboard')]
-final class ListOpportunities extends Component implements HasActions, HasSchemas
+final class ListOpportunities extends Component implements HasActions, HasSchemas, HasTable
 {
     use HasCurrentTeam;
     use InteractsWithActions;
     use InteractsWithSchemas;
-    use WithPagination;
+    use InteractsWithTable;
 
-    #[Url]
-    public string $search = '';
-
-    #[Url]
-    public string $sortBy = 'created_at';
-
-    #[Url]
-    public string $sortDir = 'desc';
-
-    #[Url]
-    public int $perPage = 10;
-
-    #[Url]
-    public string $stage = '';
-
-    public function sort(string $column): void
+    public function table(Table $table): Table
     {
-        if ($this->sortBy === $column) {
-            $this->sortDir = $this->sortDir === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortBy = $column;
-            $this->sortDir = 'asc';
-        }
-
-        $this->resetPage();
-    }
-
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedPerPage(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedStage(): void
-    {
-        $this->resetPage();
-    }
-
-    public function importAction(): ImportAction
-    {
-        return ImportAction::make('import')
-            ->importer(OpportunityImporter::class);
-    }
-
-    public function exportAction(): ExportAction
-    {
-        return ExportAction::make('export')
-            ->exporter(OpportunityExporter::class)
-            ->formats([
-                ExportFormat::Xlsx,
-                ExportFormat::Csv,
+        return $table
+            ->query(Opportunity::query())
+            ->modifyQueryUsing(fn (Builder $query): Builder => $query->with(['customer', 'assignedUser']))
+            ->columns([
+                TextColumn::make('title')
+                    ->label(__('Title'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('customer.name')
+                    ->label(__('Customer'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('value')
+                    ->label(__('Value'))
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('probability')
+                    ->label(__('Probability'))
+                    ->suffix('%')
+                    ->sortable(),
+                TextColumn::make('stage')
+                    ->label(__('Stage'))
+                    ->badge()
+                    ->sortable(),
+                TextColumn::make('expected_close_date')
+                    ->label(__('Expected Close'))
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('assignedUser.name')
+                    ->label(__('Assigned To'))
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->label(__('Created'))
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->recordUrl(fn (Opportunity $record): string => route('dashboard.opportunities.view', ['team' => $this->team, 'opportunity' => $record]))
+            ->recordActions([
+                Action::make('view')
+                    ->url(fn (Opportunity $record): string => route('dashboard.opportunities.view', ['team' => $this->team, 'opportunity' => $record]))
+                    ->icon(Heroicon::Eye),
+                Action::make('edit')
+                    ->url(fn (Opportunity $record): string => route('dashboard.opportunities.edit', ['team' => $this->team, 'opportunity' => $record]))
+                    ->icon(Heroicon::PencilSquare),
             ]);
     }
 
     public function render(): View
     {
-        return view('livewire.pages.sales.opportunities.list-opportunities', [
-            'opportunities' => $this->getOpportunities(),
-            'stages' => OpportunityStage::cases(),
-        ]);
-    }
-
-    private function getOpportunities(): LengthAwarePaginator
-    {
-        return Opportunity::query()
-            ->with(['customer', 'assignedUser'])
-            ->when($this->search !== '', function ($query): void {
-                $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search): void {
-                    $q->where('title', 'like', $search)
-                        ->orWhereHas('customer', function ($customerQuery) use ($search): void {
-                            $customerQuery->where('name', 'like', $search);
-                        });
-                });
-            })
-            ->when($this->stage !== '', function ($query): void {
-                $query->where('stage', $this->stage);
-            })
-            ->orderBy($this->sortBy, $this->sortDir)
-            ->paginate($this->perPage);
+        return view('livewire.pages.sales.opportunities.list-opportunities');
     }
 }

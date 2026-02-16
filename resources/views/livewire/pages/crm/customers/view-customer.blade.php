@@ -17,71 +17,8 @@
         </x-primary-button>
     </div>
 
-    {{-- Customer details --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Customer Information') }}</h2>
-        </div>
-        <div class="p-6">
-            <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Unique Identifier') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white font-mono">{{ $customer->unique_identifier }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Name') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $customer->name }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Type') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ __($customer->type->name) }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Company') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                        @if($customer->company)
-                            <a href="{{ route('dashboard.companies.view', ['team' => $currentTeam, 'company' => $customer->company]) }}" wire:navigate class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                                {{ $customer->company->name }}
-                            </a>
-                        @else
-                            <span class="text-gray-400">-</span>
-                        @endif
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Phone') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                        @if($customer->phone)
-                            <a href="tel:{{ $customer->phone }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                                {{ $customer->phone }}
-                            </a>
-                        @else
-                            <span class="text-gray-400">-</span>
-                        @endif
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Status') }}</dt>
-                    <dd class="mt-1">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $customer->is_active ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-400' }}">
-                            {{ $customer->is_active ? __('Active') : __('Inactive') }}
-                        </span>
-                    </dd>
-                </div>
-                <div class="sm:col-span-2">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Notes') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white whitespace-pre-wrap">{{ $customer->notes ?: '-' }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Created') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $customer->created_at->format('Y-m-d H:i') }}</dd>
-                </div>
-                <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Updated') }}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $customer->updated_at->format('Y-m-d H:i') }}</dd>
-                </div>
-            </dl>
-        </div>
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        {{ $this->infolist }}
     </div>
 
     {{-- Relation Managers --}}

@@ -13,7 +13,6 @@ return new class extends Migration
      */
     private array $tables = [
         'customers',
-        'companies',
         'products',
         'product_categories',
         'email_templates',

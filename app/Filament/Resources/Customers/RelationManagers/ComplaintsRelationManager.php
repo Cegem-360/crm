@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
+use App\Enums\ComplaintSeverity;
+use App\Enums\ComplaintStatus;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -32,23 +34,30 @@ final class ComplaintsRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('order_id')
-                    ->relationship('order', 'id'),
-                TextInput::make('reported_by')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('assigned_to')
-                    ->numeric(),
+                    ->relationship('order', 'order_number'),
+                Select::make('reported_by')
+                    ->label(__('Reported by'))
+                    ->relationship('reporter', 'name')
+                    ->nullable(),
+                Select::make('assigned_to')
+                    ->label(__('Assigned to'))
+                    ->relationship('assignedUser', 'name')
+                    ->nullable(),
                 TextInput::make('title')
                     ->required(),
                 Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
-                TextInput::make('severity')
+                Select::make('severity')
+                    ->options(ComplaintSeverity::class)
+                    ->enum(ComplaintSeverity::class)
                     ->required()
-                    ->default('medium'),
-                TextInput::make('status')
+                    ->default(ComplaintSeverity::Medium),
+                Select::make('status')
+                    ->options(ComplaintStatus::class)
+                    ->enum(ComplaintStatus::class)
                     ->required()
-                    ->default('open'),
+                    ->default(ComplaintStatus::Open),
                 Textarea::make('resolution')
                     ->columnSpanFull(),
                 DateTimePicker::make('reported_at')
@@ -62,19 +71,19 @@ final class ComplaintsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('title')
             ->columns([
-                TextColumn::make('order.id')
+                TextColumn::make('order.order_number')
                     ->searchable(),
-                TextColumn::make('reported_by')
-                    ->numeric()
+                TextColumn::make('reporter.name')
                     ->sortable(),
-                TextColumn::make('assigned_to')
-                    ->numeric()
+                TextColumn::make('assignedUser.name')
                     ->sortable(),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('severity')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('status')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('reported_at')
                     ->dateTime()

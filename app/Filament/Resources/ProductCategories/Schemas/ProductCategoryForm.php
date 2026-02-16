@@ -16,11 +16,13 @@ final class ProductCategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->placeholder(__('e.g., Electronics')),
                 Select::make('parent_id')
                     ->label(__('Parent category'))
                     ->relationship('parent', 'name'),
                 Textarea::make('description')
+                    ->placeholder(__('Description of the category...'))
                     ->columnSpanFull(),
             ]);
     }

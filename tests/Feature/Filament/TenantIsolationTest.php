@@ -8,7 +8,6 @@ use App\Filament\Resources\BugReports\Pages\ListBugReports;
 use App\Filament\Resources\Campaigns\Pages\ListCampaigns;
 use App\Filament\Resources\ChatMessages\Pages\ListChatMessages;
 use App\Filament\Resources\ChatSessions\Pages\ListChatSessions;
-use App\Filament\Resources\Companies\Pages\ListCompanies;
 use App\Filament\Resources\Complaints\Pages\ListComplaints;
 use App\Filament\Resources\Contacts\Pages\ListContacts;
 use App\Filament\Resources\Customers\Pages\ListCustomers;
@@ -31,7 +30,6 @@ use App\Models\BugReport;
 use App\Models\Campaign;
 use App\Models\ChatMessage;
 use App\Models\ChatSession;
-use App\Models\Company;
 use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\CustomerContact;
@@ -67,10 +65,6 @@ dataset('tenant-scoped-resources', [
     'customers' => [
         ListCustomers::class,
         fn (Team $team): Customer => Customer::factory()->for($team)->create(),
-    ],
-    'companies' => [
-        ListCompanies::class,
-        fn (Team $team): Company => Company::factory()->for($team)->create(),
     ],
     'products' => [
         ListProducts::class,

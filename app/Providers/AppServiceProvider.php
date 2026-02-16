@@ -6,7 +6,6 @@ namespace App\Providers;
 
 use App\Filament\Commands\FileGenerators\Resources\ResourceClassGenerator;
 use App\Models\BugReport;
-use App\Models\Company;
 use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\CustomerConsent;
@@ -24,7 +23,9 @@ use App\Models\Task;
 use App\Models\User;
 use Filament\Commands\FileGenerators\Resources\ResourceClassGenerator as BaseResourceClassGenerator;
 use Filament\Forms\Components\Field;
+use Filament\Infolists\Components\Entry;
 use Filament\Support\Facades\FilamentTimezone;
+use Filament\Tables\Columns\Column;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Override;
@@ -48,11 +49,12 @@ final class AppServiceProvider extends ServiceProvider
         FilamentTimezone::set('Europe/Budapest');
 
         Field::configureUsing(static fn (Field $field): Field => $field->translateLabel());
+        Column::configureUsing(static fn (Column $column): Column => $column->translateLabel());
+        Entry::configureUsing(static fn (Entry $entry): Entry => $entry->translateLabel());
 
         $this->app->bind(BaseResourceClassGenerator::class, ResourceClassGenerator::class);
         Relation::enforceMorphMap([
             'bug_report' => BugReport::class,
-            'company' => Company::class,
             'complaint' => Complaint::class,
             'customer' => Customer::class,
             'customer_consent' => CustomerConsent::class,

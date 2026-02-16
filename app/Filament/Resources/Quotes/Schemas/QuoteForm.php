@@ -189,6 +189,7 @@ final class QuoteForm
 
                 Textarea::make('notes')
                     ->label(__('Notes'))
+                    ->placeholder(__('Additional notes for the quote...'))
                     ->columnSpanFull(),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Quote),
             ]);

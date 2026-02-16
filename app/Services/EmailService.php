@@ -11,7 +11,6 @@ use App\Enums\InteractionDirection;
 use App\Enums\InteractionStatus;
 use App\Enums\InteractionType;
 use App\Mail\TemplateEmail;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use App\Models\EmailTemplate;
@@ -79,9 +78,9 @@ final class EmailService
             $variables['contact_email'] = $context['contact']->email ?? '';
         }
 
-        if (isset($context['company']) && $context['company'] instanceof Company) {
-            $variables['company_name'] = $context['company']->name;
-            $variables['company_email'] = $context['company']->email ?? '';
+        if (isset($context['customer']) && $context['customer'] instanceof Customer) {
+            $variables['company_name'] = $context['customer']->name;
+            $variables['company_email'] = $context['customer']->email ?? '';
         }
 
         return $variables;

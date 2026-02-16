@@ -1,133 +1,15 @@
 <div>
-    {{-- Page header --}}
     <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Interactions') }}</h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Track customer interactions and communications') }}</p>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your interactions') }}</p>
         </div>
-        <div class="flex items-center gap-2">
-            {{ $this->importAction }}
-            {{ $this->exportAction }}
-            <x-primary-button :href="route('dashboard.interactions.create', ['team' => $currentTeam])" icon="plus">
-                {{ __('New Interaction') }}
-            </x-primary-button>
-        </div>
+        <x-primary-button :href="route('dashboard.interactions.create', ['team' => $currentTeam])" icon="plus">
+            {{ __('New Interaction') }}
+        </x-primary-button>
     </div>
 
-    {{-- Filters --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
-        <div class="p-4 flex flex-col sm:flex-row gap-4">
-            {{-- Search --}}
-            <x-search-input :placeholder="__('Search interactions...')" :value="$search" />
-
-            <x-filter-select wire:model.live="type" width="sm:w-36">
-                <option value="">{{ __('All types') }}</option>
-                @foreach($types as $typeOption)
-                    <option value="{{ $typeOption->value }}">{{ $typeOption->getLabel() }}</option>
-                @endforeach
-            </x-filter-select>
-
-            <x-filter-select wire:model.live="status" width="sm:w-40">
-                <option value="">{{ __('All statuses') }}</option>
-                @foreach($statuses as $statusOption)
-                    <option value="{{ $statusOption->value }}">{{ $statusOption->getLabel() }}</option>
-                @endforeach
-            </x-filter-select>
-
-            <x-per-page-select />
-        </div>
-    </div>
-
-    {{-- Table --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50 dark:bg-gray-700/50">
-                    <tr>
-                        <x-sortable-header field="subject" :$sortBy :$sortDir>{{ __('Subject') }}</x-sortable-header>
-                        <x-table-header>{{ __('Customer') }}</x-table-header>
-                        <x-sortable-header field="type" :$sortBy :$sortDir>{{ __('Type') }}</x-sortable-header>
-                        <x-table-header>{{ __('User') }}</x-table-header>
-                        <x-sortable-header field="status" :$sortBy :$sortDir>{{ __('Status') }}</x-sortable-header>
-                        <x-sortable-header field="interaction_date" :$sortBy :$sortDir>{{ __('Date') }}</x-sortable-header>
-                        <x-table-header align="right">{{ __('Actions') }}</x-table-header>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                    @forelse($interactions as $interaction)
-                        <tr wire:key="interaction-{{ $interaction->id }}" class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                            <td class="px-6 py-4">
-                                <a href="{{ route('dashboard.interactions.view', ['team' => $currentTeam, 'interaction' => $interaction]) }}" wire:navigate class="text-sm font-medium text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">
-                                    {{ $interaction->subject ?? __('No subject') }}
-                                </a>
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($interaction->customer)
-                                    <a href="{{ route('dashboard.customers.view', ['team' => $currentTeam, 'customer' => $interaction->customer]) }}" wire:navigate class="text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
-                                        {{ $interaction->customer->name }}
-                                    </a>
-                                @else
-                                    <span class="text-sm text-gray-400 dark:text-gray-500">-</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4">
-                                <x-status-badge :color="$interaction->type->badgeColor()" :label="$interaction->type->getLabel()" />
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($interaction->user)
-                                    <span class="text-sm text-gray-600 dark:text-gray-300">{{ $interaction->user->name }}</span>
-                                @else
-                                    <span class="text-sm text-gray-400 dark:text-gray-500">-</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4">
-                                <x-status-badge :color="$interaction->status->badgeColor()" :label="$interaction->status->getLabel()" />
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($interaction->interaction_date)
-                                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ $interaction->interaction_date->format('Y-m-d H:i') }}</span>
-                                @else
-                                    <span class="text-sm text-gray-400 dark:text-gray-500">-</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <div class="flex items-center justify-end gap-2">
-                                    <x-action-button :href="route('dashboard.interactions.view', ['team' => $currentTeam, 'interaction' => $interaction])" icon="view" :title="__('View')" />
-                                    <x-action-button :href="route('dashboard.interactions.edit', ['team' => $currentTeam, 'interaction' => $interaction])" icon="edit" :title="__('Edit')" />
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="px-6 py-12 text-center">
-                                <div class="flex flex-col items-center">
-                                    <svg class="w-12 h-12 text-gray-300 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                                    </svg>
-                                    <p class="text-gray-500 dark:text-gray-400">{{ __('No interactions found') }}</p>
-                                    @if($search)
-                                        <button wire:click="$set('search', '')" class="mt-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
-                                            {{ __('Clear search') }}
-                                        </button>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        {{-- Pagination --}}
-        @if($interactions->hasPages())
-            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
-                {{ $interactions->links() }}
-            </div>
-        @endif
-    </div>
-
-    {{-- Results info --}}
-    <x-results-info :paginator="$interactions" />
+    {{ $this->table }}
 
     <x-filament-actions::modals />
 </div>

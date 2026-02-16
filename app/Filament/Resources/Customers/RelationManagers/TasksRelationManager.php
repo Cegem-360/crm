@@ -14,6 +14,7 @@ use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -31,21 +32,37 @@ final class TasksRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                TextInput::make('assigned_to')
+                Select::make('assigned_to')
+                    ->relationship('assignedUser', 'name')
                     ->required()
-                    ->numeric(),
-                TextInput::make('assigned_by')
+                    ->searchable()
+                    ->preload(),
+                Select::make('assigned_by')
+                    ->relationship('assigner', 'name')
                     ->required()
-                    ->numeric(),
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('title')
                     ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),
-                TextInput::make('priority')
+                Select::make('priority')
                     ->required()
+                    ->options([
+                        'low' => __('Low'),
+                        'medium' => __('Medium'),
+                        'high' => __('High'),
+                        'urgent' => __('Urgent'),
+                    ])
                     ->default('medium'),
-                TextInput::make('status')
+                Select::make('status')
                     ->required()
+                    ->options([
+                        'pending' => __('Pending'),
+                        'in_progress' => __('In Progress'),
+                        'completed' => __('Completed'),
+                        'cancelled' => __('Cancelled'),
+                    ])
                     ->default('pending'),
                 DatePicker::make('due_date'),
                 DateTimePicker::make('completed_at'),
@@ -57,17 +74,17 @@ final class TasksRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('title')
             ->columns([
-                TextColumn::make('assigned_to')
-                    ->numeric()
+                TextColumn::make('assignedUser.name')
                     ->sortable(),
-                TextColumn::make('assigned_by')
-                    ->numeric()
+                TextColumn::make('assigner.name')
                     ->sortable(),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('priority')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('status')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('due_date')
                     ->date()

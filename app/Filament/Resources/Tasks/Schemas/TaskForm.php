@@ -23,22 +23,44 @@ final class TaskForm
             ->components([
                 Select::make('customer_id')
                     ->label(__('Customer'))
-                    ->relationship('customer', 'name'),
-                TextInput::make('assigned_to')
+                    ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload(),
+                Select::make('assigned_to')
+                    ->label(__('Assigned to'))
+                    ->relationship('assignedUser', 'name')
                     ->required()
-                    ->numeric(),
-                TextInput::make('assigned_by')
+                    ->searchable()
+                    ->preload(),
+                Select::make('assigned_by')
+                    ->label(__('Assigned by'))
+                    ->relationship('assigner', 'name')
                     ->required()
-                    ->numeric(),
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('title')
-                    ->required(),
+                    ->required()
+                    ->placeholder(__('e.g., Follow up with client')),
                 Textarea::make('description')
+                    ->placeholder(__('Task details and instructions...'))
                     ->columnSpanFull(),
-                TextInput::make('priority')
+                Select::make('priority')
                     ->required()
+                    ->options([
+                        'low' => __('Low'),
+                        'medium' => __('Medium'),
+                        'high' => __('High'),
+                        'urgent' => __('Urgent'),
+                    ])
                     ->default('medium'),
-                TextInput::make('status')
+                Select::make('status')
                     ->required()
+                    ->options([
+                        'pending' => __('Pending'),
+                        'in_progress' => __('In Progress'),
+                        'completed' => __('Completed'),
+                        'cancelled' => __('Cancelled'),
+                    ])
                     ->default('pending'),
                 DatePicker::make('due_date'),
                 DateTimePicker::make('completed_at'),

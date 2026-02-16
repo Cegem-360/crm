@@ -6,8 +6,11 @@ namespace App\Livewire\Pages\Crm\Customers;
 
 use App\Filament\Resources\Customers\CustomerResource;
 use App\Filament\Resources\Customers\Pages\ViewCustomer as FilamentViewCustomer;
+use App\Filament\Resources\Customers\Schemas\CustomerInfolist;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Customer;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\RelationManagers\RelationManagerConfiguration;
@@ -24,9 +27,10 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 
 #[Layout('components.layouts.dashboard')]
-final class ViewCustomer extends Component implements HasSchemas
+final class ViewCustomer extends Component implements HasActions, HasSchemas
 {
     use HasCurrentTeam;
+    use InteractsWithActions;
     use InteractsWithSchemas;
 
     public Customer $customer;
@@ -37,6 +41,13 @@ final class ViewCustomer extends Component implements HasSchemas
     public function mount(Customer $customer): void
     {
         $this->customer = $customer->load(['contacts']);
+    }
+
+    public function infolist(Schema $schema): Schema
+    {
+        return CustomerInfolist::configure($schema)
+            ->record($this->customer)
+            ->columns(2);
     }
 
     public function rendering(): void

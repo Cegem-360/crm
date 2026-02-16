@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Enums\Role;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\CustomerAttribute;
@@ -61,18 +60,9 @@ final class DatabaseSeeder extends Seeder
             'category_id' => fn () => $categories->random()->id,
         ]);
 
-        // Create companies for the team
-        $companies = Company::factory(15)->create([
-            'team_id' => $team->id,
-        ]);
-
         // Create customers with related data for the team
-        // Some customers belong to companies, some are individuals
         Customer::factory(50)
             ->for($team)
-            ->state(fn (): array => [
-                'company_id' => fake()->boolean(60) ? $companies->random()->id : null,
-            ])
             ->has(
                 CustomerContact::factory(2)
                     ->state(['team_id' => $team->id]),

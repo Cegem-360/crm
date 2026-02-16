@@ -38,9 +38,11 @@ final class ComplaintForm
                     ->relationship('assignedUser', 'name')
                     ->nullable(),
                 TextInput::make('title')
-                    ->required(),
+                    ->required()
+                    ->placeholder(__('e.g., Damaged product received')),
                 Textarea::make('description')
                     ->required()
+                    ->placeholder(__('Describe the complaint in detail...'))
                     ->columnSpanFull(),
                 Select::make('severity')
                     ->options(ComplaintSeverity::class)
@@ -53,6 +55,7 @@ final class ComplaintForm
                     ->required()
                     ->default(ComplaintStatus::Open),
                 Textarea::make('resolution')
+                    ->placeholder(__('How was the complaint resolved...'))
                     ->columnSpanFull(),
                 DateTimePicker::make('reported_at')
                     ->required(),

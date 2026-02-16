@@ -108,7 +108,7 @@ final class CustomerContactImporter extends Importer
         return Customer::query()
             ->where('unique_identifier', $identifier)
             ->orWhere('name', $identifier)
-            ->orWhereHas('company', fn ($query) => $query->where('email', $identifier))
+            ->orWhere('email', $identifier)
             ->first();
     }
 

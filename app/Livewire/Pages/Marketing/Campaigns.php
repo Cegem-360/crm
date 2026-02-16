@@ -4,86 +4,39 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Marketing;
 
-use App\Enums\CampaignStatus;
+use App\Filament\Resources\Campaigns\Tables\CampaignsTable;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Campaign;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Url;
+use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Livewire\WithPagination;
 
-final class Campaigns extends Component
+#[Layout('components.layouts.dashboard')]
+final class Campaigns extends Component implements HasActions, HasSchemas, HasTable
 {
     use HasCurrentTeam;
-    use WithPagination;
+    use InteractsWithActions;
+    use InteractsWithSchemas;
+    use InteractsWithTable;
 
-    #[Url]
-    public string $search = '';
-
-    #[Url]
-    public string $sortBy = 'created_at';
-
-    #[Url]
-    public string $sortDir = 'desc';
-
-    #[Url]
-    public int $perPage = 10;
-
-    #[Url]
-    public string $status = '';
-
-    public function sort(string $column): void
+    public function table(Table $table): Table
     {
-        if ($this->sortBy === $column) {
-            $this->sortDir = $this->sortDir === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortBy = $column;
-            $this->sortDir = 'asc';
-        }
-
-        $this->resetPage();
-    }
-
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedPerPage(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedStatus(): void
-    {
-        $this->resetPage();
+        return CampaignsTable::configure($table)
+            ->query(Campaign::query())
+            ->modifyQueryUsing(fn (Builder $query): Builder => $query->with(['creator'])->withCount('responses'))
+            ->recordActions([]);
     }
 
     public function render(): View
     {
-        return view('livewire.pages.marketing.campaigns', [
-            'campaigns' => $this->getCampaigns(),
-            'statuses' => CampaignStatus::cases(),
-        ])->layout('components.layouts.dashboard');
-    }
-
-    private function getCampaigns(): LengthAwarePaginator
-    {
-        return Campaign::query()
-            ->with(['creator'])
-            ->withCount('responses')
-            ->when($this->search !== '', function ($query): void {
-                $search = '%'.$this->search.'%';
-                $query->where(function ($q) use ($search): void {
-                    $q->where('name', 'like', $search)
-                        ->orWhere('description', 'like', $search);
-                });
-            })
-            ->when($this->status !== '', function ($query): void {
-                $query->where('status', $this->status);
-            })
-            ->orderBy($this->sortBy, $this->sortDir)
-            ->paginate($this->perPage);
+        return view('livewire.pages.marketing.campaigns');
     }
 }

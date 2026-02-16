@@ -1,131 +1,15 @@
 <div>
-    {{-- Page header --}}
     <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white font-heading">{{ __('Invoices') }}</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Manage your invoices') }}</p>
         </div>
-        <div class="flex items-center gap-2">
-            {{ $this->importAction }}
-            {{ $this->exportAction }}
-            <x-primary-button :href="route('dashboard.invoices.create', ['team' => $currentTeam])" icon="plus">
-                {{ __('New Invoice') }}
-            </x-primary-button>
-        </div>
+        <x-primary-button :href="route('dashboard.invoices.create', ['team' => $currentTeam])" icon="plus">
+            {{ __('New Invoice') }}
+        </x-primary-button>
     </div>
 
-    {{-- Filters --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
-        <div class="p-4 flex flex-col sm:flex-row gap-4">
-            {{-- Search --}}
-            <x-search-input :placeholder="__('Search invoices...')" :value="$search" />
-
-            <x-filter-select wire:model.live="status">
-                <option value="">{{ __('All statuses') }}</option>
-                @foreach($statuses as $statusOption)
-                    <option value="{{ $statusOption->value }}">{{ $statusOption->getLabel() }}</option>
-                @endforeach
-            </x-filter-select>
-
-            <x-per-page-select />
-        </div>
-    </div>
-
-    {{-- Table --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50 dark:bg-gray-700/50">
-                    <tr>
-                        <x-sortable-header field="invoice_number" :$sortBy :$sortDir>{{ __('Invoice #') }}</x-sortable-header>
-                        <x-table-header>{{ __('Customer') }}</x-table-header>
-                        <x-sortable-header field="total" :$sortBy :$sortDir>{{ __('Total') }}</x-sortable-header>
-                        <x-sortable-header field="status" :$sortBy :$sortDir>{{ __('Status') }}</x-sortable-header>
-                        <x-sortable-header field="issue_date" :$sortBy :$sortDir>{{ __('Issue Date') }}</x-sortable-header>
-                        <x-sortable-header field="due_date" :$sortBy :$sortDir>{{ __('Due Date') }}</x-sortable-header>
-                        <x-table-header align="right">{{ __('Actions') }}</x-table-header>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                    @forelse($invoices as $invoice)
-                        <tr wire:key="invoice-{{ $invoice->id }}" class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                            <td class="px-6 py-4">
-                                <a href="{{ route('dashboard.invoices.view', ['team' => $currentTeam, 'invoice' => $invoice]) }}" wire:navigate class="text-sm font-medium text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">
-                                    {{ $invoice->invoice_number }}
-                                </a>
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($invoice->customer)
-                                    <a href="{{ route('dashboard.customers.view', ['team' => $currentTeam, 'customer' => $invoice->customer]) }}" wire:navigate class="text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
-                                        {{ $invoice->customer->name }}
-                                    </a>
-                                @else
-                                    <span class="text-sm text-gray-400 dark:text-gray-500">-</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ Number::currency($invoice->total, 'HUF', 'hu', 0) }}</span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <x-status-badge :color="$invoice->status->badgeColor()" :label="$invoice->status->getLabel()" />
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($invoice->issue_date)
-                                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ $invoice->issue_date->format('Y-m-d') }}</span>
-                                @else
-                                    <span class="text-sm text-gray-400 dark:text-gray-500">-</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($invoice->due_date)
-                                    @php
-                                        $isOverdue = $invoice->due_date->isPast() && $invoice->status->value !== 'paid';
-                                    @endphp
-                                    <span class="text-sm {{ $isOverdue ? 'text-red-500 dark:text-red-400 font-medium' : 'text-gray-500 dark:text-gray-400' }}">
-                                        {{ $invoice->due_date->format('Y-m-d') }}
-                                    </span>
-                                @else
-                                    <span class="text-sm text-gray-400 dark:text-gray-500">-</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <div class="flex items-center justify-end gap-2">
-                                    <x-action-button :href="route('dashboard.invoices.view', ['team' => $currentTeam, 'invoice' => $invoice])" icon="view" :title="__('View')" />
-                                    <x-action-button :href="route('dashboard.invoices.edit', ['team' => $currentTeam, 'invoice' => $invoice])" icon="edit" :title="__('Edit')" />
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="px-6 py-12 text-center">
-                                <div class="flex flex-col items-center">
-                                    <svg class="w-12 h-12 text-gray-300 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                    </svg>
-                                    <p class="text-gray-500 dark:text-gray-400">{{ __('No invoices found') }}</p>
-                                    @if($search)
-                                        <button wire:click="$set('search', '')" class="mt-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
-                                            {{ __('Clear search') }}
-                                        </button>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        {{-- Pagination --}}
-        @if($invoices->hasPages())
-            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
-                {{ $invoices->links() }}
-            </div>
-        @endif
-    </div>
-
-    {{-- Results info --}}
-    <x-results-info :paginator="$invoices" />
+    {{ $this->table }}
 
     <x-filament-actions::modals />
 </div>

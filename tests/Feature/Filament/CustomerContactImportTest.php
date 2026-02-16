@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Filament\Imports\CustomerContactImporter;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use App\Models\User;
@@ -117,21 +116,17 @@ it('can find customer by name', function (): void {
     expect($foundCustomer->id)->toBe($customer->id);
 });
 
-it('can find customer by company email', function (): void {
-    $company = Company::factory()->create([
-        'email' => 'company@example.com',
-    ]);
-
+it('can find customer by email', function (): void {
     $customer = Customer::factory()->create([
         'unique_identifier' => 'TEST-003',
         'name' => 'Email Customer',
-        'company_id' => $company->id,
+        'email' => 'company@example.com',
     ]);
 
     $foundCustomer = Customer::query()
         ->where('unique_identifier', 'company@example.com')
         ->orWhere('name', 'company@example.com')
-        ->orWhereHas('company', fn ($query) => $query->where('email', 'company@example.com'))
+        ->orWhere('email', 'company@example.com')
         ->first();
 
     expect($foundCustomer)->not()->toBeNull();

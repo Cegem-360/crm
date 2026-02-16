@@ -37,7 +37,6 @@
                 <thead class="bg-gray-50 dark:bg-gray-700/50">
                     <tr>
                         <x-sortable-header field="name" :$sortBy :$sortDir>{{ __('Name') }}</x-sortable-header>
-                        <x-table-header>{{ __('Company') }}</x-table-header>
                         <x-table-header>{{ __('Phone') }}</x-table-header>
                         <x-table-header>{{ __('Contacts') }}</x-table-header>
                         <x-sortable-header field="is_active" :$sortBy :$sortDir>{{ __('Status') }}</x-sortable-header>
@@ -62,15 +61,6 @@
                                         @endif
                                     </div>
                                 </a>
-                            </td>
-                            <td class="px-6 py-4">
-                                @if($customer->company)
-                                    <span class="text-sm text-gray-600 dark:text-gray-300">
-                                        {{ $customer->company->name }}
-                                    </span>
-                                @else
-                                    <span class="text-sm text-gray-400 dark:text-gray-500">-</span>
-                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 @if($customer->phone)
@@ -107,7 +97,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-6 py-12 text-center">
+                            <td colspan="6" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center">
                                     <svg class="w-12 h-12 text-gray-300 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>

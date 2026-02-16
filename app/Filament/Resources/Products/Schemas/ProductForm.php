@@ -21,23 +21,35 @@ final class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('Name'))
+                    ->placeholder(__('e.g., Premium Service Package'))
                     ->required(),
                 TextInput::make('sku')
                     ->label(__('SKU'))
+                    ->placeholder(__('e.g., PROD-001'))
                     ->required(),
                 Textarea::make('description')
+                    ->label(__('Description'))
+                    ->placeholder(__('Features, specifications, details...'))
                     ->columnSpanFull(),
                 Select::make('category_id')
                     ->label(__('Category'))
-                    ->relationship('category', 'name'),
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('unit_price')
+                    ->label(__('Unit Price'))
                     ->required()
                     ->numeric()
+                    ->prefix('Ft')
                     ->default(0),
                 TextInput::make('tax_rate')
+                    ->label(__('Tax Rate'))
+                    ->helperText(__('Standard rate: 27%'))
                     ->required()
                     ->numeric()
-                    ->default(0),
+                    ->suffix('%')
+                    ->default(27),
                 Toggle::make('is_active')
                     ->label(__('Active'))
                     ->required(),

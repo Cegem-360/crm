@@ -105,16 +105,15 @@ final class ListCustomers extends Component implements HasActions, HasSchemas
     private function getCustomers(): LengthAwarePaginator
     {
         return Customer::query()
-            ->with(['company', 'contacts'])
+            ->with(['contacts'])
             ->when($this->search !== '', function ($query): void {
                 $search = '%'.$this->search.'%';
                 $query->where(function ($q) use ($search): void {
                     $q->where('name', 'like', $search)
                         ->orWhere('unique_identifier', 'like', $search)
                         ->orWhere('phone', 'like', $search)
-                        ->orWhereHas('company', function ($companyQuery) use ($search): void {
-                            $companyQuery->where('name', 'like', $search);
-                        });
+                        ->orWhere('email', 'like', $search)
+                        ->orWhere('tax_number', 'like', $search);
                 });
             })
             ->when($this->status !== '', function ($query): void {

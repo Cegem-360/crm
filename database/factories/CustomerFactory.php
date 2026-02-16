@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\CustomerType;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,6 +27,9 @@ final class CustomerFactory extends Factory
             'name' => $type === CustomerType::Company ? fake()->company() : fake()->name(),
             'type' => $type,
             'phone' => fake()->phoneNumber(),
+            'email' => fake()->optional()->safeEmail(),
+            'tax_number' => $type === CustomerType::Company ? fake()->numerify('########-#-##') : null,
+            'registration_number' => $type === CustomerType::Company ? fake()->numerify('##-##-######') : null,
             'notes' => fake()->optional()->paragraph(),
             'is_active' => fake()->boolean(90),
         ];
@@ -38,6 +40,9 @@ final class CustomerFactory extends Factory
         return $this->state(fn (array $attributes): array => [
             'type' => CustomerType::Company,
             'name' => fake()->company(),
+            'tax_number' => fake()->numerify('########-#-##'),
+            'registration_number' => fake()->numerify('##-##-######'),
+            'email' => fake()->companyEmail(),
         ]);
     }
 
@@ -46,13 +51,8 @@ final class CustomerFactory extends Factory
         return $this->state(fn (array $attributes): array => [
             'type' => CustomerType::Individual,
             'name' => fake()->name(),
-        ]);
-    }
-
-    public function forCompany(?Company $company = null): static
-    {
-        return $this->state(fn (array $attributes): array => [
-            'company_id' => $company ?? Company::factory(),
+            'tax_number' => null,
+            'registration_number' => null,
         ]);
     }
 

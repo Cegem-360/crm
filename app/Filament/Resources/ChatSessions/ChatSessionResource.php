@@ -25,11 +25,11 @@ final class ChatSessionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
-    protected static ?string $navigationLabel = 'Chat Sessions';
+    protected static ?string $navigationLabel = 'Conversations';
 
-    protected static ?string $modelLabel = 'Chat Session';
+    protected static ?string $modelLabel = 'Conversation';
 
-    protected static ?string $pluralModelLabel = 'Chat Sessions';
+    protected static ?string $pluralModelLabel = 'Conversations';
 
     protected static ?int $navigationSort = 10;
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Campaign;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\EmailTemplate;
 use App\Models\Product;
@@ -36,7 +35,6 @@ final class AssignDataToDefaultTeam extends Command
 
         $models = [
             Customer::class,
-            Company::class,
             Product::class,
             ProductCategory::class,
             EmailTemplate::class,

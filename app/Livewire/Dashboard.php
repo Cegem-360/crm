@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Enums\CustomerType;
 use App\Livewire\Concerns\HasCurrentTeam;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use Illuminate\Contracts\View\View;
@@ -17,7 +17,7 @@ final class Dashboard extends Component
 
     public int $customersCount = 0;
 
-    public int $companiesCount = 0;
+    public int $companyCustomersCount = 0;
 
     public int $contactsCount = 0;
 
@@ -36,7 +36,7 @@ final class Dashboard extends Component
     private function loadStats(): void
     {
         $this->customersCount = Customer::query()->count();
-        $this->companiesCount = Company::query()->count();
+        $this->companyCustomersCount = Customer::query()->where('type', CustomerType::Company)->count();
         $this->contactsCount = CustomerContact::query()->count();
         $this->activeCustomersCount = Customer::query()->where('is_active', true)->count();
     }

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\InvoiceStatus;
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\GeneratesUniqueNumber;
 use App\Models\Concerns\HasCustomFields;
 use Database\Factories\InvoiceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,6 +20,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 final class Invoice extends Model
 {
     use BelongsToTeam;
+    use GeneratesUniqueNumber;
     use HasCustomFields;
 
     /** @use HasFactory<InvoiceFactory> */
@@ -43,6 +45,16 @@ final class Invoice extends Model
         'paid_at',
         'files',
     ];
+
+    public static function uniqueNumberPrefix(): string
+    {
+        return 'INV';
+    }
+
+    public function uniqueNumberField(): string
+    {
+        return 'invoice_number';
+    }
 
     public function customer(): BelongsTo
     {

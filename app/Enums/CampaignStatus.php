@@ -21,11 +21,11 @@ enum CampaignStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
-            self::Draft => 'Draft',
-            self::Active => 'Active',
-            self::Paused => 'Paused',
-            self::Completed => 'Completed',
-            self::Cancelled => 'Cancelled',
+            self::Draft => __('Draft'),
+            self::Active => __('Active'),
+            self::Paused => __('Paused'),
+            self::Completed => __('Completed'),
+            self::Cancelled => __('Cancelled'),
         };
     }
 

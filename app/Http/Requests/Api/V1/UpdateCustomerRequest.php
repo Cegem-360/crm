@@ -26,8 +26,10 @@ final class UpdateCustomerRequest extends FormRequest
             'unique_identifier' => ['sometimes', 'string', 'unique:customers,unique_identifier,'.$customer->id],
             'name' => ['sometimes', 'string', 'max:255'],
             'type' => ['sometimes', 'in:individual,company'],
-            'company_id' => ['nullable', 'exists:companies,id'],
             'phone' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'tax_number' => ['nullable', 'string', 'max:255'],
+            'registration_number' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string'],
             'is_active' => ['boolean'],
         ];

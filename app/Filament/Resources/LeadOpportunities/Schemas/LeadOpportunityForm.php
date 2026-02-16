@@ -31,18 +31,25 @@ final class LeadOpportunityForm
                     ->preload()
                     ->required(),
                 TextInput::make('title')
+                    ->label(__('Title'))
                     ->string()
                     ->required()
+                    ->placeholder(__('e.g., Website redesign project'))
                     ->columnSpanFull(),
                 Textarea::make('description')
+                    ->label(__('Description'))
+                    ->placeholder(__('Describe the opportunity, scope and customer needs...'))
                     ->columnSpanFull()
                     ->rows(3),
                 TextInput::make('value')
+                    ->label(__('Value'))
                     ->visible(false)
                     ->numeric()
-                    ->prefix('HUF')
+                    ->prefix('Ft')
                     ->required(),
                 Slider::make('probability')
+                    ->label(__('Probability'))
+                    ->helperText(__('Estimate the likelihood of closing this deal (0-100%)'))
                     ->required()
                     ->minValue(0)
                     ->maxValue(100)
@@ -53,10 +60,13 @@ final class LeadOpportunityForm
                     ->fillTrack()
                     ->pips(PipsMode::Steps, 5),
                 Select::make('stage')
+                    ->label(__('Stage'))
                     ->options(OpportunityStage::class)
                     ->default(OpportunityStage::Lead)
                     ->required(),
                 DatePicker::make('expected_close_date')
+                    ->label(__('Expected Close Date'))
+                    ->helperText(__('When do you expect a decision?'))
                     ->native(false)
                     ->required(),
                 Select::make('assigned_to')

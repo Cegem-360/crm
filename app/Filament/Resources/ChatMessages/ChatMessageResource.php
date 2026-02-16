@@ -25,6 +25,8 @@ final class ChatMessageResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     #[Override]
     public static function form(Schema $schema): Schema
     {

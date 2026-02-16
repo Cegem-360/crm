@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use App\Enums\CustomerType;
 use App\Enums\NavigationGroup;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use App\Models\EmailTemplate;
@@ -32,7 +32,7 @@ final class SendEmail extends Page implements HasSchemas
 
     protected string $view = 'filament.pages.send-email';
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Interactions;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
     protected static ?int $navigationSort = 3;
 
@@ -121,10 +121,11 @@ final class SendEmail extends Page implements HasSchemas
                         }
                     }),
 
-                Select::make('company_id')
+                Select::make('company_customer_id')
                     ->label(__('Company'))
                     ->options(
-                        Company::query()
+                        Customer::query()
+                            ->where('type', CustomerType::Company)
                             ->whereNotNull('email')
                             ->pluck('name', 'id')
                     )
@@ -135,9 +136,9 @@ final class SendEmail extends Page implements HasSchemas
                     ->visible(fn (Get $get): bool => $get('recipient_type') === 'company')
                     ->afterStateUpdated(function (?string $state, Set $set): void {
                         if ($state) {
-                            $company = Company::query()->find($state);
-                            if ($company?->email) {
-                                $set('recipient_email', $company->email);
+                            $customer = Customer::query()->find($state);
+                            if ($customer?->email) {
+                                $set('recipient_email', $customer->email);
                             }
                         }
                     }),
@@ -209,25 +210,24 @@ final class SendEmail extends Page implements HasSchemas
     private function resolveRecipient(array $data): array
     {
         if ($data['recipient_type'] === 'contact' && isset($data['contact_id'])) {
-            $contact = CustomerContact::with('customer.company')->find($data['contact_id']);
+            $contact = CustomerContact::with('customer')->find($data['contact_id']);
             if ($contact) {
                 return [
                     'name' => $contact->name,
                     'context' => [
                         'contact' => $contact,
                         'customer' => $contact->customer,
-                        'company' => $contact->customer?->company,
                     ],
                 ];
             }
         }
 
-        if ($data['recipient_type'] === 'company' && isset($data['company_id'])) {
-            $company = Company::query()->find($data['company_id']);
-            if ($company) {
+        if ($data['recipient_type'] === 'company' && isset($data['company_customer_id'])) {
+            $customer = Customer::query()->find($data['company_customer_id']);
+            if ($customer) {
                 return [
-                    'name' => $company->name,
-                    'context' => ['company' => $company],
+                    'name' => $customer->name,
+                    'context' => ['customer' => $customer],
                 ];
             }
         }

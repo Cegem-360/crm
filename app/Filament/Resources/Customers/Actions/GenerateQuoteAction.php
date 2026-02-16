@@ -25,19 +25,6 @@ final class GenerateQuoteAction
             ->modalDescription(__('This will create a new quote based on this opportunity data.'))
             ->modalSubmitActionLabel(__('Generate Quote'))
             ->action(function (Opportunity $record): void {
-                $lastQuote = Quote::query()
-                    ->whereYear('created_at', now()->year)
-                    ->orderBy('id', 'desc')
-                    ->first();
-
-                $nextNumber = $lastQuote ? ((int) mb_substr((string) $lastQuote->quote_number, -4)) + 1 : 1;
-                $quoteNumber = 'QUO-'.now()->year.'-'.mb_str_pad(
-                    (string) $nextNumber,
-                    4,
-                    '0',
-                    STR_PAD_LEFT
-                );
-
                 $subtotal = $record->value ?? 0;
                 $taxAmount = $subtotal * 0.27;
                 $total = $subtotal + $taxAmount;
@@ -45,7 +32,6 @@ final class GenerateQuoteAction
                 $quote = Quote::query()->create([
                     'customer_id' => $record->customer_id,
                     'opportunity_id' => $record->id,
-                    'quote_number' => $quoteNumber,
                     'issue_date' => now(),
                     'valid_until' => now()->addDays(30),
                     'status' => QuoteStatus::Draft,

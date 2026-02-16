@@ -6,11 +6,12 @@ namespace App\Models;
 
 use App\Enums\CustomerType;
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\GeneratesUniqueNumber;
 use App\Models\Concerns\HasCustomFields;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Override;
 use Spatie\Activitylog\LogOptions;
@@ -19,6 +20,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 final class Customer extends Model
 {
     use BelongsToTeam;
+    use GeneratesUniqueNumber;
     use HasCustomFields;
     use HasFactory;
     use LogsActivity;
@@ -26,18 +28,25 @@ final class Customer extends Model
 
     protected $fillable = [
         'team_id',
-        'company_id',
         'unique_identifier',
         'name',
         'type',
         'phone',
+        'tax_number',
+        'registration_number',
+        'email',
         'notes',
         'is_active',
     ];
 
-    public function company(): BelongsTo
+    public static function uniqueNumberPrefix(): string
     {
-        return $this->belongsTo(Company::class);
+        return 'CUST';
+    }
+
+    public function uniqueNumberField(): string
+    {
+        return 'unique_identifier';
     }
 
     public function contacts(): HasMany
@@ -110,6 +119,16 @@ final class Customer extends Model
         return $this->hasMany(ChatSession::class);
     }
 
+    public function consents(): HasMany
+    {
+        return $this->hasMany(CustomerConsent::class);
+    }
+
+    public function leadScore(): HasOne
+    {
+        return $this->hasOne(LeadScore::class);
+    }
+
     public function getPriceForProduct(int $productId): float
     {
         $product = Product::query()->find($productId);
@@ -130,7 +149,7 @@ final class Customer extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'type', 'company_id', 'phone', 'is_active'])
+            ->logOnly(['name', 'type', 'phone', 'email', 'tax_number', 'is_active'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

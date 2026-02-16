@@ -21,7 +21,7 @@ final class InteractionResource extends Resource
 {
     protected static ?string $model = Interaction::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Interactions;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
     protected static ?int $navigationSort = 1;
 

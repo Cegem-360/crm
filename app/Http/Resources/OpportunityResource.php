@@ -18,6 +18,18 @@ final class OpportunityResource extends JsonResource
     #[Override]
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'customer_id' => $this->customer_id,
+            'assigned_to' => $this->assigned_to,
+            'title' => $this->title,
+            'description' => $this->description,
+            'value' => $this->value,
+            'probability' => $this->probability,
+            'stage' => $this->stage,
+            'expected_close_date' => $this->expected_close_date?->toIso8601String(),
+            'created_at' => $this->created_at?->toIso8601String(),
+            'updated_at' => $this->updated_at?->toIso8601String(),
+        ];
     }
 }

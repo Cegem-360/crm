@@ -23,6 +23,8 @@ final class CompanyResource extends Resource
 {
     protected static ?string $model = Company::class;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Customers;
 
     protected static ?int $navigationSort = 0;

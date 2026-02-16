@@ -21,7 +21,7 @@ final class TaskResource extends Resource
 {
     protected static ?string $model = Task::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
     #[Override]
     public static function form(Schema $schema): Schema

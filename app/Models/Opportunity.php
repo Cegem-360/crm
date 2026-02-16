@@ -7,7 +7,9 @@ namespace App\Models;
 use App\Enums\OpportunityStage;
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
+use App\Observers\OpportunityObserver;
 use Database\Factories\OpportunityFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +19,7 @@ use Override;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+#[ObservedBy(OpportunityObserver::class)]
 final class Opportunity extends Model
 {
     use BelongsToTeam;

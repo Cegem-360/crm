@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Enums\CustomerType;
 use App\Livewire\Pages\Crm\Customers\EditCustomer;
-use App\Models\Company;
 use App\Models\Customer;
 use App\Models\User;
 use Livewire\Livewire;
@@ -45,15 +44,11 @@ it('can render edit page with existing customer', function (): void {
 });
 
 it('can create a customer', function (): void {
-    $company = Company::factory()->for($this->team)->create();
-
     Livewire::test(EditCustomer::class)
         ->set('team', $this->team)
         ->fillForm([
-            'unique_identifier' => 'CUST-TEST1234',
             'name' => 'Test Customer',
             'type' => CustomerType::Company,
-            'company_id' => $company->id,
             'phone' => '+1234567890',
             'is_active' => true,
         ])
@@ -66,24 +61,26 @@ it('can create a customer', function (): void {
 it('validates required fields on create', function (): void {
     Livewire::test(EditCustomer::class)
         ->fillForm([
-            'unique_identifier' => '',
             'name' => '',
         ])
         ->call('save')
-        ->assertHasFormErrors(['unique_identifier' => 'required', 'name' => 'required']);
+        ->assertHasFormErrors(['name' => 'required']);
 });
 
-it('validates unique identifier uniqueness', function (): void {
-    Customer::factory()->for($this->team)->create(['unique_identifier' => 'CUST-EXISTING']);
-
+it('auto-generates unique identifier on create', function (): void {
     Livewire::test(EditCustomer::class)
+        ->set('team', $this->team)
         ->fillForm([
-            'unique_identifier' => 'CUST-EXISTING',
-            'name' => 'Test Customer',
+            'name' => 'Auto ID Customer',
             'type' => CustomerType::Individual,
+            'is_active' => true,
         ])
         ->call('save')
-        ->assertHasFormErrors(['unique_identifier']);
+        ->assertHasNoFormErrors();
+
+    $customer = Customer::query()->where('name', 'Auto ID Customer')->first();
+    expect($customer)->not->toBeNull()
+        ->and($customer->unique_identifier)->toStartWith('CUST-');
 });
 
 it('can update a customer', function (): void {
@@ -141,4 +138,69 @@ it('does not display relation managers for new customers', function (): void {
         ->assertSuccessful()
         ->assertDontSee('Contacts')
         ->assertDontSee('Addresses');
+});
+
+it('shows duplicate warning when name matches existing customer', function (): void {
+    Customer::factory()->for($this->team)->create([
+        'name' => 'Acme Corporation',
+        'unique_identifier' => 'CUST-0001',
+    ]);
+
+    Livewire::test(EditCustomer::class)
+        ->fillForm([
+            'name' => 'Acme Corporation',
+        ])
+        ->assertSee('CUST-0001');
+});
+
+it('shows duplicate warning when email matches existing customer', function (): void {
+    Customer::factory()->for($this->team)->create([
+        'name' => 'Existing Customer',
+        'email' => 'duplicate@example.com',
+        'unique_identifier' => 'CUST-0002',
+    ]);
+
+    Livewire::test(EditCustomer::class)
+        ->fillForm([
+            'name' => 'New Customer',
+            'email' => 'duplicate@example.com',
+        ])
+        ->assertSee('CUST-0002');
+});
+
+it('shows duplicate warning when phone matches existing customer', function (): void {
+    Customer::factory()->for($this->team)->create([
+        'name' => 'Phone Customer',
+        'phone' => '+36301234567',
+        'unique_identifier' => 'CUST-0003',
+    ]);
+
+    Livewire::test(EditCustomer::class)
+        ->fillForm([
+            'name' => 'Different Name',
+            'phone' => '+36301234567',
+        ])
+        ->assertSee('CUST-0003');
+});
+
+it('does not show duplicate warning for the customer being edited', function (): void {
+    $customer = Customer::factory()->for($this->team)->create([
+        'name' => 'Self Customer',
+        'email' => 'self@example.com',
+        'unique_identifier' => 'CUST-0004',
+    ]);
+
+    Livewire::test(EditCustomer::class, ['customer' => $customer])
+        ->assertDontSee('Potential duplicates found')
+        ->assertDontSee('Lehetséges duplikátumok');
+});
+
+it('does not show duplicate warning when no matches exist', function (): void {
+    Livewire::test(EditCustomer::class)
+        ->fillForm([
+            'name' => 'Completely Unique Name',
+            'email' => 'unique@example.com',
+        ])
+        ->assertDontSee('Potential duplicates found')
+        ->assertDontSee('Lehetséges duplikátumok');
 });

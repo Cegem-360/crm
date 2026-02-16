@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
+use App\Observers\TaskCalendarObserver;
 use Database\Factories\TaskFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,6 +16,7 @@ use Override;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+#[ObservedBy(TaskCalendarObserver::class)]
 final class Task extends Model
 {
     use BelongsToTeam;
@@ -35,6 +38,7 @@ final class Task extends Model
         'status',
         'due_date',
         'completed_at',
+        'calendar_event_id',
     ];
 
     public function customer(): BelongsTo

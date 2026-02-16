@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\Schemas;
 
+use App\Enums\CustomerType;
 use App\Models\Customer;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -18,11 +19,19 @@ final class CustomerInfolist
                 TextEntry::make('unique_identifier'),
                 TextEntry::make('name'),
                 TextEntry::make('type'),
-                TextEntry::make('company.name')
-                    ->label(__('Company'))
-                    ->placeholder(__('-')),
                 TextEntry::make('phone')
                     ->placeholder(__('-')),
+                TextEntry::make('email')
+                    ->label(__('E-mail'))
+                    ->placeholder(__('-')),
+                TextEntry::make('tax_number')
+                    ->label(__('Tax number'))
+                    ->placeholder(__('-'))
+                    ->visible(fn (Customer $record): bool => $record->type === CustomerType::Company),
+                TextEntry::make('registration_number')
+                    ->label(__('Registration number'))
+                    ->placeholder(__('-'))
+                    ->visible(fn (Customer $record): bool => $record->type === CustomerType::Company),
                 TextEntry::make('notes')
                     ->placeholder(__('-'))
                     ->columnSpanFull(),

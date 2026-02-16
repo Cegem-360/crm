@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Quotes\Schemas;
 
+use App\Filament\Schemas\Components\DocumentChain;
 use App\Models\Quote;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
@@ -14,6 +15,8 @@ final class QuoteInfolist
     {
         return $schema
             ->components([
+                DocumentChain::make()
+                    ->columnSpanFull(),
                 TextEntry::make('customer.name')
                     ->label(__('Customer')),
                 TextEntry::make('opportunity.title')

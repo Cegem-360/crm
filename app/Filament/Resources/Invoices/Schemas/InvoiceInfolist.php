@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Schemas;
 
+use App\Filament\Schemas\Components\DocumentChain;
 use App\Models\Invoice;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
@@ -14,6 +15,8 @@ final class InvoiceInfolist
     {
         return $schema
             ->components([
+                DocumentChain::make()
+                    ->columnSpanFull(),
                 TextEntry::make('customer.name')
                     ->label(__('Customer')),
                 TextEntry::make('order.id')

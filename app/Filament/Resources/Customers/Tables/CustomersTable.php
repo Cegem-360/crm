@@ -31,12 +31,17 @@ final class CustomersTable
                     ->searchable(),
                 TextColumn::make('type')
                     ->searchable(),
-                TextColumn::make('company.name')
-                    ->label(__('Company'))
+                TextColumn::make('email')
+                    ->label(__('E-mail'))
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('phone')
                     ->searchable(),
+                TextColumn::make('tax_number')
+                    ->label(__('Tax number'))
+                    ->searchable()
+                    ->placeholder('-')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')

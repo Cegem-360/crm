@@ -9,9 +9,13 @@ use App\Models\BugReport;
 use App\Models\Company;
 use App\Models\Complaint;
 use App\Models\Customer;
+use App\Models\CustomerConsent;
 use App\Models\CustomerContact;
+use App\Models\EmailTemplate;
+use App\Models\GoogleCalendarToken;
 use App\Models\Interaction;
 use App\Models\Invoice;
+use App\Models\LeadScore;
 use App\Models\Opportunity;
 use App\Models\Order;
 use App\Models\Product;
@@ -51,9 +55,13 @@ final class AppServiceProvider extends ServiceProvider
             'company' => Company::class,
             'complaint' => Complaint::class,
             'customer' => Customer::class,
+            'customer_consent' => CustomerConsent::class,
             'customer_contact' => CustomerContact::class,
+            'email_template' => EmailTemplate::class,
+            'google_calendar_token' => GoogleCalendarToken::class,
             'interaction' => Interaction::class,
             'invoice' => Invoice::class,
+            'lead_score' => LeadScore::class,
             'opportunity' => Opportunity::class,
             'order' => Order::class,
             'product' => Product::class,

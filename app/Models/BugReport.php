@@ -33,6 +33,9 @@ final class BugReport extends Model
         'severity',
         'status',
         'source',
+        'screenshots',
+        'browser_info',
+        'url',
         'assigned_to',
         'resolved_at',
     ];
@@ -67,6 +70,7 @@ final class BugReport extends Model
             'resolved_at' => 'datetime',
             'severity' => ComplaintSeverity::class,
             'status' => BugReportStatus::class,
+            'screenshots' => 'array',
         ];
     }
 }

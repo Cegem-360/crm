@@ -87,6 +87,11 @@ final class User extends Authenticatable implements FilamentUser, HasTenants
         return $this->hasMany(WorkflowConfig::class);
     }
 
+    public function googleCalendarTokens(): HasMany
+    {
+        return $this->hasMany(GoogleCalendarToken::class);
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return true;

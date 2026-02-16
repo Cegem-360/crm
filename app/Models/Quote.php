@@ -6,8 +6,11 @@ namespace App\Models;
 
 use App\Enums\QuoteStatus;
 use App\Models\Concerns\BelongsToTeam;
+use App\Models\Concerns\GeneratesUniqueNumber;
 use App\Models\Concerns\HasCustomFields;
+use App\Observers\QuoteObserver;
 use Database\Factories\QuoteFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,9 +20,11 @@ use Override;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+#[ObservedBy(QuoteObserver::class)]
 final class Quote extends Model
 {
     use BelongsToTeam;
+    use GeneratesUniqueNumber;
     use HasCustomFields;
 
     /** @use HasFactory<QuoteFactory> */
@@ -42,6 +47,16 @@ final class Quote extends Model
         'total',
         'notes',
     ];
+
+    public static function uniqueNumberPrefix(): string
+    {
+        return 'QUO';
+    }
+
+    public function uniqueNumberField(): string
+    {
+        return 'quote_number';
+    }
 
     public function customer(): BelongsTo
     {

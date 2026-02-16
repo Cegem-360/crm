@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Invoices\Schemas;
 use App\Enums\CustomFieldModel;
 use App\Enums\InvoiceStatus;
 use App\Filament\Concerns\HasCustomFieldsSchema;
+use App\Filament\Schemas\Components\DocumentChain;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
@@ -23,45 +24,71 @@ final class InvoiceForm
     {
         return $schema
             ->components([
+                DocumentChain::make()
+                    ->columnSpanFull(),
                 Select::make('customer_id')
                     ->label(__('Customer'))
                     ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload()
                     ->required(),
                 Select::make('order_id')
                     ->label(__('Order'))
-                    ->relationship('order', 'order_number'),
+                    ->relationship('order', 'order_number')
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('invoice_number')
-                    ->unique(ignoreRecord: true)
-                    ->required(),
+                    ->label(__('Invoice Number'))
+                    ->disabled()
+                    ->dehydrated()
+                    ->placeholder(__('Auto-generated')),
                 DatePicker::make('issue_date')
+                    ->label(__('Issue Date'))
                     ->required(),
                 DatePicker::make('due_date')
+                    ->label(__('Due Date'))
+                    ->helperText(__('Payment deadline for this invoice'))
                     ->required(),
                 Select::make('status')
+                    ->label(__('Status'))
                     ->required()
                     ->enum(InvoiceStatus::class)
                     ->options(InvoiceStatus::class)
                     ->default(InvoiceStatus::Draft),
                 TextInput::make('subtotal')
+                    ->label(__('Subtotal'))
                     ->required()
                     ->numeric()
+                    ->prefix('Ft')
                     ->default(0),
                 TextInput::make('discount_amount')
+                    ->label(__('Total Discount'))
                     ->required()
                     ->numeric()
+                    ->prefix('Ft')
                     ->default(0),
                 TextInput::make('tax_amount')
+                    ->label(__('Tax Amount'))
                     ->required()
                     ->numeric()
+                    ->prefix('Ft')
                     ->default(0),
                 TextInput::make('total')
+                    ->label(__('Grand Total'))
                     ->required()
                     ->numeric()
+                    ->prefix('Ft')
                     ->default(0),
                 Textarea::make('notes')
+                    ->label(__('Notes'))
+                    ->placeholder(__('Payment terms, special instructions...'))
                     ->columnSpanFull(),
-                DateTimePicker::make('paid_at'),
+                DateTimePicker::make('paid_at')
+                    ->label(__('Paid At'))
+                    ->helperText(__('Leave empty if unpaid. Set when payment is received.')),
                 FileUpload::make('files')
+                    ->label(__('Attachments'))
+                    ->helperText(__('Attach receipts, supporting documents, etc.'))
                     ->directory('invoices')
                     ->panelLayout('grid')
                     ->multiple()

@@ -32,14 +32,14 @@
             </p>
         </a>
 
-        {{-- Companies --}}
-        <a href="{{ route('dashboard.companies', ['team' => $currentTeam]) }}"
+        {{-- Company Customers --}}
+        <a href="{{ route('dashboard.customers', ['team' => $currentTeam]) }}"
             class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Companies') }}</p>
                     <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
-                        {{ Number::format($companiesCount) }}</p>
+                        {{ Number::format($companyCustomersCount) }}</p>
                 </div>
                 <div
                     class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-900/50 transition">
@@ -90,9 +90,9 @@
                     class="block w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition">
                     {{ __('New Customer') }}
                 </a>
-                <a href="{{ route('dashboard.companies.create', ['team' => $currentTeam]) }}"
+                <a href="{{ route('dashboard.contacts', ['team' => $currentTeam]) }}"
                     class="block w-full px-4 py-2 text-sm text-center text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition">
-                    {{ __('New Company') }}
+                    {{ __('Contacts') }}
                 </a>
             </div>
         </div>
@@ -142,37 +142,37 @@
             </div>
         </div>
 
-        {{-- Recent Companies --}}
+        {{-- Recent Contacts --}}
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
             <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Recent Companies') }}</h2>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Recent Contacts') }}</h2>
             </div>
             <div class="p-6">
                 @php
-                    $recentCompanies = \App\Models\Company::latest()->take(5)->get();
+                    $recentContacts = \App\Models\CustomerContact::with('customer')->latest()->take(5)->get();
                 @endphp
-                @if ($recentCompanies->count() > 0)
+                @if ($recentContacts->count() > 0)
                     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @foreach ($recentCompanies as $company)
+                        @foreach ($recentContacts as $contact)
                             <li class="py-3 first:pt-0 last:pb-0">
-                                <a href="{{ route('dashboard.companies.view', ['team' => $currentTeam, 'company' => $company]) }}"
+                                <a href="{{ route('dashboard.contacts.view', ['team' => $currentTeam, 'contact' => $contact]) }}"
                                     class="flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 -mx-3 px-3 py-2 rounded-lg transition">
                                     <div
-                                        class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-semibold text-sm">
-                                        {{ strtoupper(substr($company->name, 0, 2)) }}
+                                        class="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 font-semibold text-sm">
+                                        {{ strtoupper(substr($contact->name, 0, 2)) }}
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
-                                            {{ $company->name }}</p>
+                                            {{ $contact->name }}</p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ $company->created_at->diffForHumans() }}</p>
+                                            {{ $contact->customer?->name }} &middot; {{ $contact->created_at->diffForHumans() }}</p>
                                     </div>
                                 </a>
                             </li>
                         @endforeach
                     </ul>
                 @else
-                    <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-8">{{ __('No companies yet') }}
+                    <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-8">{{ __('No contacts found') }}
                     </p>
                 @endif
             </div>

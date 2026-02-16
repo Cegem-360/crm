@@ -21,7 +21,7 @@ final class EmailTemplateResource extends Resource
 {
     protected static ?string $model = EmailTemplate::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Interactions;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
     protected static ?string $navigationLabel = 'Email Templates';
 

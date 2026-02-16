@@ -25,23 +25,9 @@ final class GenerateOrderAction
             ->modalDescription(__('This will create a new order based on this quote data.'))
             ->modalSubmitActionLabel(__('Generate Order'))
             ->action(function (Quote $record): void {
-                $lastOrder = Order::query()
-                    ->whereYear('created_at', now()->year)
-                    ->orderBy('id', 'desc')
-                    ->first();
-
-                $nextNumber = $lastOrder ? ((int) mb_substr((string) $lastOrder->order_number, -4)) + 1 : 1;
-                $orderNumber = 'ORD-'.now()->year.'-'.mb_str_pad(
-                    (string) $nextNumber,
-                    4,
-                    '0',
-                    STR_PAD_LEFT
-                );
-
                 $order = Order::query()->create([
                     'customer_id' => $record->customer_id,
                     'quote_id' => $record->id,
-                    'order_number' => $orderNumber,
                     'order_date' => now(),
                     'status' => OrderStatus::Pending,
                     'subtotal' => $record->subtotal,

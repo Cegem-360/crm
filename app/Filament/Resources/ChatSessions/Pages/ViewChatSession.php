@@ -32,7 +32,7 @@ final class ViewChatSession extends ViewRecord
         return [
             EditAction::make(),
             Action::make('assign')
-                ->label('Assign to Me')
+                ->label(__('Assign to Me'))
                 ->icon('heroicon-o-user-plus')
                 ->color(Color::Blue)
                 ->visible(fn (): bool => $this->record->user_id === null)
@@ -42,20 +42,20 @@ final class ViewChatSession extends ViewRecord
                     $chatService->assignSession($this->record, Auth::user());
 
                     Notification::make()
-                        ->title('Session Assigned')
+                        ->title(__('Session Assigned'))
                         ->success()
                         ->send();
 
                     $this->refreshFormData(['user_id']);
                 }),
             Action::make('transfer')
-                ->label('Transfer')
+                ->label(__('Transfer'))
                 ->icon('heroicon-o-arrow-path')
                 ->color(Color::Orange)
                 ->visible(fn (): bool => $this->record->user_id !== null && $this->record->status->value === 'active')
                 ->form([
                     Select::make('new_user_id')
-                        ->label('Transfer to Agent')
+                        ->label(__('Transfer to Agent'))
                         ->options(User::query()->pluck('name', 'id'))
                         ->searchable()
                         ->required(),
@@ -66,25 +66,25 @@ final class ViewChatSession extends ViewRecord
                     $chatService->transferSession($this->record, $newUser);
 
                     Notification::make()
-                        ->title('Session Transferred')
+                        ->title(__('Session Transferred'))
                         ->success()
                         ->send();
 
                     $this->refreshFormData(['user_id']);
                 }),
             Action::make('close')
-                ->label('Close Session')
+                ->label(__('Close Session'))
                 ->icon('heroicon-o-x-circle')
                 ->color(Color::Red)
                 ->visible(fn (): bool => $this->record->status->value === 'active')
                 ->requiresConfirmation()
-                ->modalDescription('Are you sure you want to close this chat session?')
+                ->modalDescription(__('Are you sure you want to close this chat session?'))
                 ->action(function (): void {
                     $chatService = resolve(ChatService::class);
                     $chatService->closeSession($this->record);
 
                     Notification::make()
-                        ->title('Session Closed')
+                        ->title(__('Session Closed'))
                         ->success()
                         ->send();
 

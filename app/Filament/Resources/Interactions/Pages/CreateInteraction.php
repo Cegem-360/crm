@@ -37,8 +37,8 @@ final class CreateInteraction extends CreateRecord
         if (! $recipient['email']) {
             Notification::make()
                 ->warning()
-                ->title('Email not sent')
-                ->body('No valid email address found for the selected recipient.')
+                ->title(__('Email not sent'))
+                ->body(__('No valid email address found for the selected recipient.'))
                 ->send();
 
             return;
@@ -59,14 +59,14 @@ final class CreateInteraction extends CreateRecord
 
             Notification::make()
                 ->success()
-                ->title('Email sent')
-                ->body('Email sent successfully to '.$recipient['email'])
+                ->title(__('Email sent'))
+                ->body(__('Email sent successfully to :email', ['email' => $recipient['email']]))
                 ->send();
         } catch (Exception $exception) {
             Notification::make()
                 ->danger()
-                ->title('Email failed')
-                ->body('Failed to send email: '.$exception->getMessage())
+                ->title(__('Email failed'))
+                ->body(__('Failed to send email: :error', ['error' => $exception->getMessage()]))
                 ->send();
         }
     }

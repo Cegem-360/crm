@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Quotes\Pages;
 
 use App\Filament\Concerns\ManagesCustomFields;
+use App\Filament\Resources\Customers\Actions\GenerateOrderAction;
 use App\Filament\Resources\Quotes\QuoteResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -22,6 +23,7 @@ final class EditQuote extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            GenerateOrderAction::make(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
             RestoreAction::make(),

@@ -48,11 +48,6 @@ final class Team extends Model
         return $this->hasMany(ChatSession::class);
     }
 
-    public function companies(): HasMany
-    {
-        return $this->hasMany(Company::class);
-    }
-
     public function complaints(): HasMany
     {
         return $this->hasMany(Complaint::class);

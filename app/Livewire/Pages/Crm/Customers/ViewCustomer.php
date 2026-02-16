@@ -36,7 +36,7 @@ final class ViewCustomer extends Component implements HasSchemas
 
     public function mount(Customer $customer): void
     {
-        $this->customer = $customer->load(['company', 'contacts']);
+        $this->customer = $customer->load(['contacts']);
     }
 
     public function rendering(): void

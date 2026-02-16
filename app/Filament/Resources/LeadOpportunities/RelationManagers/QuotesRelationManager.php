@@ -36,9 +36,10 @@ final class QuotesRelationManager extends RelationManager
                     ->default($this->ownerRecord->customer_id)
                     ->required(),
                 TextInput::make('quote_number')
-                    ->required()
-                    ->unique(ignoreRecord: true)
-                    ->default(fn (): string => 'QUO-'.now()->year.'-'.mb_str_pad((string) random_int(1, 9999), 4, '0', STR_PAD_LEFT)),
+                    ->label(__('Quote Number'))
+                    ->disabled()
+                    ->dehydrated()
+                    ->placeholder(__('Auto-generated')),
                 DatePicker::make('issue_date')
                     ->required()
                     ->default(now())

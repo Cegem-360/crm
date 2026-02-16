@@ -10,7 +10,9 @@ use App\Enums\InteractionDirection;
 use App\Enums\InteractionStatus;
 use App\Enums\InteractionType;
 use App\Models\Concerns\BelongsToTeam;
+use App\Observers\InteractionCalendarObserver;
 use Database\Factories\InteractionFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +21,7 @@ use Override;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+#[ObservedBy(InteractionCalendarObserver::class)]
 final class Interaction extends Model
 {
     use BelongsToTeam;
@@ -48,6 +51,7 @@ final class Interaction extends Model
         'next_action_date',
         'email_sent_at',
         'email_recipient',
+        'calendar_event_id',
     ];
 
     public function customer(): BelongsTo

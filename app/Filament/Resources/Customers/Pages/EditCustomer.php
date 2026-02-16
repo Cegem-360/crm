@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Customers\Pages;
 
 use App\Filament\Concerns\ManagesCustomFields;
+use App\Filament\Resources\Customers\Actions\AnonymizeCustomerAction;
+use App\Filament\Resources\Customers\Actions\ExportCustomerDataAction;
 use App\Filament\Resources\Customers\CustomerResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -22,6 +24,8 @@ final class EditCustomer extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            ExportCustomerDataAction::make(),
+            AnonymizeCustomerAction::make(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
             RestoreAction::make(),

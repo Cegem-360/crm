@@ -3,12 +3,11 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\ChatDemoController;
+use App\Http\Controllers\GoogleCalendarController;
 use App\Http\Middleware\SetFrontendTenant;
+use App\Livewire\BugReportSubmission;
 use App\Livewire\ComplaintSubmission;
 use App\Livewire\Dashboard;
-use App\Livewire\Pages\Crm\Companies\EditCompany;
-use App\Livewire\Pages\Crm\Companies\ListCompanies;
-use App\Livewire\Pages\Crm\Companies\ViewCompany;
 use App\Livewire\Pages\Crm\Contacts\EditContact;
 use App\Livewire\Pages\Crm\Contacts\ListContacts;
 use App\Livewire\Pages\Crm\Contacts\ViewContact;
@@ -71,6 +70,9 @@ Route::middleware(['guest'])->group(function (): void {
 // Complaint submission route (public - for customers to submit complaints)
 Route::get('/complaints/submit', ComplaintSubmission::class)->name('complaints.submit');
 
+// Bug report submission route (public - for users to submit bug reports)
+Route::get('/bug-reports/submit', BugReportSubmission::class)->name('bug-reports.submit');
+
 // Language switch route
 Route::get('/language/{locale}', function (string $locale) {
     abort_unless(in_array($locale, ['en', 'hu'], true), 400);
@@ -100,12 +102,6 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::prefix('dashboard/{team:slug}')->name('dashboard.')->middleware(SetFrontendTenant::class)
         ->group(function (): void {
             Route::get('/', Dashboard::class)->name('dashboard');
-
-            // Companies
-            Route::get('/companies', ListCompanies::class)->name('companies');
-            Route::get('/companies/create', EditCompany::class)->name('companies.create');
-            Route::get('/companies/{company}', ViewCompany::class)->name('companies.view');
-            Route::get('/companies/{company}/edit', EditCompany::class)->name('companies.edit');
 
             // Customers
             Route::get('/customers', ListCustomers::class)->name('customers');
@@ -197,4 +193,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // Chat demo route
     Route::get('/chat-demo', [ChatDemoController::class, 'index'])->name('chat.demo');
+
+    // Google Calendar OAuth
+    Route::get('/google/redirect', [GoogleCalendarController::class, 'redirect'])->name('google.redirect');
+    Route::get('/google/callback', [GoogleCalendarController::class, 'callback'])->name('google.callback');
 });

@@ -15,7 +15,7 @@ enum NavigationGroup: string implements HasIcon, HasLabel
     case Sales = 'Sales';
     case Support = 'Support';
     case Products = 'Products';
-    case Interactions = 'Interactions';
+    case Activities = 'Activities';
     case Marketing = 'Marketing';
     case Reports = 'Reports';
     case Settings = 'Settings';
@@ -28,7 +28,7 @@ enum NavigationGroup: string implements HasIcon, HasLabel
             self::Sales => __('Sales'),
             self::Support => __('Support'),
             self::Products => __('Products'),
-            self::Interactions => __('Interactions'),
+            self::Activities => __('Activities'),
             self::Marketing => __('Marketing'),
             self::Reports => __('Reports'),
             self::Settings => __('Settings'),
@@ -43,7 +43,7 @@ enum NavigationGroup: string implements HasIcon, HasLabel
             self::Sales => 'heroicon-o-currency-dollar',
             self::Support => 'heroicon-o-lifebuoy',
             self::Products => 'heroicon-o-cube',
-            self::Interactions => 'heroicon-o-chat-bubble-left-ellipsis',
+            self::Activities => 'heroicon-o-clipboard-document-list',
             self::Marketing => 'heroicon-o-megaphone',
             self::Reports => 'heroicon-o-chart-bar',
             self::Settings => 'heroicon-o-cog-6-tooth',
@@ -56,10 +56,10 @@ enum NavigationGroup: string implements HasIcon, HasLabel
         return match ($this) {
             self::Customers => 10,
             self::Sales => 20,
-            self::Support => 30,
-            self::Products => 40,
-            self::Interactions => 50,
-            self::Marketing => 60,
+            self::Products => 30,
+            self::Marketing => 40,
+            self::Activities => 50,
+            self::Support => 60,
             self::Reports => 70,
             self::Settings => 80,
             self::System => 90,

@@ -24,6 +24,7 @@ final class CustomerTypeChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Customers by Type');

@@ -46,7 +46,7 @@ final class OpportunityKanbanBoard extends Page
 
     public function moveOpportunity(int $opportunityId, string $newStage): void
     {
-        $opportunity = Opportunity::findOrFail($opportunityId);
+        $opportunity = Opportunity::query()->findOrFail($opportunityId);
 
         $this->authorize('update', $opportunity);
 
@@ -105,7 +105,7 @@ final class OpportunityKanbanBoard extends Page
     {
         $opportunities = Opportunity::query()
             ->with(['customer', 'assignedUser'])
-            ->orderByDesc('updated_at')
+            ->latest('updated_at')
             ->get();
 
         $this->stages = [];

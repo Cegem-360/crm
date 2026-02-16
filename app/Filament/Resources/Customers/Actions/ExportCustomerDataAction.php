@@ -61,14 +61,14 @@ final class ExportCustomerDataAction
                 'is_active' => $record->is_active,
                 'created_at' => $record->created_at?->toIso8601String(),
             ],
-            'contacts' => $record->contacts->map(fn ($contact) => [
+            'contacts' => $record->contacts->map(fn ($contact): array => [
                 'name' => $contact->name,
                 'email' => $contact->email,
                 'phone' => $contact->phone,
                 'position' => $contact->position,
                 'is_primary' => $contact->is_primary,
             ])->toArray(),
-            'addresses' => $record->addresses->map(fn ($address) => [
+            'addresses' => $record->addresses->map(fn ($address): array => [
                 'type' => $address->type,
                 'street' => $address->street,
                 'city' => $address->city,
@@ -76,13 +76,13 @@ final class ExportCustomerDataAction
                 'postal_code' => $address->postal_code,
                 'country' => $address->country,
             ])->toArray(),
-            'consents' => $record->consents->map(fn ($consent) => [
+            'consents' => $record->consents->map(fn ($consent): array => [
                 'type' => $consent->type?->value,
                 'is_granted' => $consent->is_granted,
                 'granted_at' => $consent->granted_at?->toIso8601String(),
                 'revoked_at' => $consent->revoked_at?->toIso8601String(),
             ])->toArray(),
-            'interactions' => $record->interactions->map(fn ($interaction) => [
+            'interactions' => $record->interactions->map(fn ($interaction): array => [
                 'type' => $interaction->type?->value,
                 'channel' => $interaction->channel?->value,
                 'subject' => $interaction->subject,

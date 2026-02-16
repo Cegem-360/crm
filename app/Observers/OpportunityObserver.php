@@ -19,7 +19,7 @@ final class OpportunityObserver
     public function updated(Opportunity $opportunity): void
     {
         if ($opportunity->wasChanged('stage')) {
-            OpportunityStageMoved::dispatch($opportunity, (string) $opportunity->getOriginal('stage'));
+            event(new OpportunityStageMoved($opportunity, (string) $opportunity->getOriginal('stage')));
         }
 
         $this->dispatchWebhooks($opportunity, 'opportunity.updated');

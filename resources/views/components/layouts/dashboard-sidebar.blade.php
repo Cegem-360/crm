@@ -62,16 +62,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.companies', ['team' => $currentTeam]) }}"
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
-                            {{ request()->routeIs('dashboard.companies') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
-                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                        </svg>
-                        {{ __('Companies') }}
-                    </a>
-                </li>
-                <li>
                     <a href="{{ route('dashboard.contacts', ['team' => $currentTeam]) }}"
                         class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition
                             {{ request()->routeIs('dashboard.contacts') ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
@@ -334,11 +324,11 @@
             <a href="/admin/profile"
                 class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition">
                 <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
-                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="truncate font-medium">{{ auth()->user()->name }}</p>
-                    <p class="truncate text-xs text-gray-400">{{ auth()->user()->email }}</p>
+                    <p class="truncate font-medium">{{ Auth::user()->name }}</p>
+                    <p class="truncate text-xs text-gray-400">{{ Auth::user()->email }}</p>
                 </div>
             </a>
         </div>

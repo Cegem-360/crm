@@ -45,7 +45,9 @@ final class GenerateInvoiceAction
                     'tax_amount' => $record->tax_amount,
                     'total' => $record->total,
                     'notes' => $record->notes
-                        ? __('Generated from Order #:number', ['number' => $record->order_number])."\n\n{$record->notes}"
+                        ? __('Generated from Order #:number', ['number' => $record->order_number]).('
+
+'.$record->notes)
                         : __('Generated from Order #:number', ['number' => $record->order_number]),
                 ]);
 

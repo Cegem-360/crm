@@ -8,6 +8,7 @@ use App\Models\LeadScore;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Override;
 
 final class TopLeadsWidget extends BaseWidget
 {
@@ -20,6 +21,7 @@ final class TopLeadsWidget extends BaseWidget
         return __('Top Scoring Leads');
     }
 
+    #[Override]
     public function table(Table $table): Table
     {
         return $table

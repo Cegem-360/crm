@@ -16,6 +16,7 @@ final class OrderCountChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Orders Count (Last 12 Months)');

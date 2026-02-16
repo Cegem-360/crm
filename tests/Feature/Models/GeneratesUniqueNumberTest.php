@@ -66,8 +66,8 @@ it('generates sequential numbers', function (): void {
 
     $year = now()->year;
 
-    expect($customer1->unique_identifier)->toBe("CUST-{$year}-0001")
-        ->and($customer2->unique_identifier)->toBe("CUST-{$year}-0002");
+    expect($customer1->unique_identifier)->toBe(sprintf('CUST-%d-0001', $year))
+        ->and($customer2->unique_identifier)->toBe(sprintf('CUST-%d-0002', $year));
 });
 
 it('does not overwrite pre-set identifiers', function (): void {

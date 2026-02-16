@@ -22,7 +22,7 @@ final class CalculateLeadScores implements ShouldQueue
             $updated = $service->calculateForTeam($team);
             $assigned = $service->assignLeadsRoundRobin($team);
 
-            Log::info("Lead scores calculated for team {$team->name}: {$updated} customers scored, {$assigned} leads assigned.");
+            Log::info(sprintf('Lead scores calculated for team %s: %d customers scored, %d leads assigned.', $team->name, $updated, $assigned));
         }
     }
 }

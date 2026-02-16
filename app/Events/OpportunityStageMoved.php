@@ -8,13 +8,13 @@ use App\Models\Opportunity;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-final class OpportunityStageMoved
+final readonly class OpportunityStageMoved
 {
     use Dispatchable;
     use SerializesModels;
 
     public function __construct(
-        public readonly Opportunity $opportunity,
-        public readonly string $previousStage,
+        public Opportunity $opportunity,
+        public string $previousStage,
     ) {}
 }

@@ -8,10 +8,10 @@ use App\Models\Invoice;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-final class InvoiceGenerated
+final readonly class InvoiceGenerated
 {
     use Dispatchable;
     use SerializesModels;
 
-    public function __construct(public readonly Invoice $invoice) {}
+    public function __construct(public Invoice $invoice) {}
 }

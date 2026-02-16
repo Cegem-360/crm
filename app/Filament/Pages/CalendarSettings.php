@@ -15,6 +15,7 @@ use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Auth;
+use Override;
 use UnitEnum;
 
 final class CalendarSettings extends Page
@@ -33,16 +34,19 @@ final class CalendarSettings extends Page
 
     protected string $view = 'filament.pages.calendar-settings';
 
+    #[Override]
     public static function getNavigationLabel(): string
     {
         return __('Calendar Settings');
     }
 
+    #[Override]
     public function getTitle(): string
     {
         return __('Google Calendar Integration');
     }
 
+    #[Override]
     public function getSubheading(): ?string
     {
         return __('Connect your Google Calendar to sync tasks and interactions.');
@@ -52,7 +56,7 @@ final class CalendarSettings extends Page
     {
         $token = $this->getCalendarToken();
 
-        $this->isConnected = $token !== null;
+        $this->isConnected = $token instanceof GoogleCalendarToken;
         $this->syncEnabled = $token?->sync_enabled ?? false;
         $this->calendarId = $token?->calendar_id ?? 'primary';
     }
@@ -61,7 +65,7 @@ final class CalendarSettings extends Page
     {
         $token = $this->getCalendarToken();
 
-        if (! $token) {
+        if (! $token instanceof GoogleCalendarToken) {
             return;
         }
 
@@ -74,6 +78,7 @@ final class CalendarSettings extends Page
             ->send();
     }
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [
@@ -105,7 +110,7 @@ final class CalendarSettings extends Page
         /** @var Team $team */
         $team = Filament::getTenant();
 
-        app(GoogleCalendarService::class)->disconnect($user, $team);
+        resolve(GoogleCalendarService::class)->disconnect($user, $team);
 
         $this->isConnected = false;
         $this->syncEnabled = false;

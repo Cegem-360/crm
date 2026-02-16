@@ -10,22 +10,22 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
+        Schema::table('tasks', function (Blueprint $table): void {
             $table->string('calendar_event_id')->nullable()->after('completed_at');
         });
 
-        Schema::table('interactions', function (Blueprint $table) {
+        Schema::table('interactions', function (Blueprint $table): void {
             $table->string('calendar_event_id')->nullable()->after('email_recipient');
         });
     }
 
     public function down(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
+        Schema::table('tasks', function (Blueprint $table): void {
             $table->dropColumn('calendar_event_id');
         });
 
-        Schema::table('interactions', function (Blueprint $table) {
+        Schema::table('interactions', function (Blueprint $table): void {
             $table->dropColumn('calendar_event_id');
         });
     }

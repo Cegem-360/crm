@@ -8,13 +8,13 @@ use App\Models\Order;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-final class OrderStatusChanged
+final readonly class OrderStatusChanged
 {
     use Dispatchable;
     use SerializesModels;
 
     public function __construct(
-        public readonly Order $order,
-        public readonly string $previousStatus,
+        public Order $order,
+        public string $previousStatus,
     ) {}
 }

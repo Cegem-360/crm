@@ -1,34 +1,32 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Required by all components */
-@import '../../vendor/filament/support/resources/css/index.css';
+@import "../../vendor/filament/support/resources/css/index.css";
 
 /* Required by actions and tables */
-@import '../../vendor/filament/actions/resources/css/index.css';
+@import "../../vendor/filament/actions/resources/css/index.css";
 
 /* Required by actions, forms and tables */
-@import '../../vendor/filament/forms/resources/css/index.css';
+@import "../../vendor/filament/forms/resources/css/index.css";
 
 /* Required by actions and infolists */
-@import '../../vendor/filament/infolists/resources/css/index.css';
+@import "../../vendor/filament/infolists/resources/css/index.css";
 
 /* Required by notifications */
-@import '../../vendor/filament/notifications/resources/css/index.css';
+@import "../../vendor/filament/notifications/resources/css/index.css";
 
 /* Required by actions, infolists, forms, schemas and tables */
-@import '../../vendor/filament/schemas/resources/css/index.css';
+@import "../../vendor/filament/schemas/resources/css/index.css";
 
 /* Required by tables */
-@import '../../vendor/filament/tables/resources/css/index.css';
+@import "../../vendor/filament/tables/resources/css/index.css";
 
 /* Required by widgets */
-@import '../../vendor/filament/widgets/resources/css/index.css';
+@import "../../vendor/filament/widgets/resources/css/index.css";
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
-
-
 
 @variant dark (&:where(.dark, .dark *));
 
@@ -41,8 +39,14 @@
     /* ===================
        FONTS
        =================== */
-    --font-sans: 'Figtree', 'Roboto', 'Noto Sans Hebrew', 'Noto Kufi Arabic', 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-heading: 'Poppins', 'Roboto', 'Noto Sans Hebrew', 'Noto Kufi Arabic', 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
+    --font-sans:
+        "Figtree", "Roboto", "Noto Sans Hebrew", "Noto Kufi Arabic",
+        "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-heading:
+        "Poppins", "Roboto", "Noto Sans Hebrew", "Noto Kufi Arabic",
+        "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
 
     /* ===================
        PRIMARY COLORS
@@ -216,10 +220,14 @@
        SHADOWS
        =================== */
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-sm:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl:
+        0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
     /* ===================
        TRANSITIONS / MOTION
@@ -493,8 +501,9 @@
         background-color: var(--color-surface-primary);
         border: 1px solid var(--color-border-default);
         border-radius: var(--radius-md);
-        transition: border-color var(--duration-normal) var(--ease-transition),
-                    box-shadow var(--duration-normal) var(--ease-transition);
+        transition:
+            border-color var(--duration-normal) var(--ease-transition),
+            box-shadow var(--duration-normal) var(--ease-transition);
     }
 
     .input::placeholder {

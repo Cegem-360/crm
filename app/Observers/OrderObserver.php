@@ -14,14 +14,14 @@ final class OrderObserver
 {
     public function created(Order $order): void
     {
-        OrderCreated::dispatch($order);
+        event(new OrderCreated($order));
         $this->dispatchWebhooks($order, 'order.created');
     }
 
     public function updated(Order $order): void
     {
         if ($order->wasChanged('status')) {
-            OrderStatusChanged::dispatch($order, (string) $order->getOriginal('status'));
+            event(new OrderStatusChanged($order, (string) $order->getOriginal('status')));
         }
 
         $this->dispatchWebhooks($order, 'order.updated');

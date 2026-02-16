@@ -9,7 +9,8 @@ use App\Models\LeadScore;
 use App\Models\Team;
 use App\Models\User;
 use App\Notifications\LeadAssignedNotification;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Date;
 
 final class LeadScoringService
 {
@@ -134,7 +135,7 @@ final class LeadScoringService
             return 0;
         }
 
-        $daysSinceLastInteraction = Carbon::parse($lastInteraction)->diffInDays(now());
+        $daysSinceLastInteraction = Date::parse($lastInteraction)->diffInDays(now());
 
         // More recent = higher score. 25 points if today, decreasing by 1 per day
         return max(0, min(self::MAX_RECENCY_SCORE, self::MAX_RECENCY_SCORE - (int) $daysSinceLastInteraction));
@@ -181,7 +182,7 @@ final class LeadScoringService
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Collection<int, User>  $users
+     * @param  Collection<int, User>  $users
      * @param  \Illuminate\Support\Collection<int, int>  $assignmentCounts
      */
     private function getNextUserForAssignment($users, $assignmentCounts): ?User

@@ -16,6 +16,7 @@ final class NewCustomersChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('New Customers (Last 12 Months)');

@@ -16,7 +16,8 @@ final class SalesFunnelChart extends ApexChartWidget
 
     protected static ?string $heading = null;
 
-    public function getHeading(): string
+    #[Override]
+    protected function getHeading(): string
     {
         return __('Sales Funnel');
     }

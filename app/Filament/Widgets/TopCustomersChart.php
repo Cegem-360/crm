@@ -16,6 +16,7 @@ final class TopCustomersChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Top 10 Customers by Revenue');

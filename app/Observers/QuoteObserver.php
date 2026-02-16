@@ -19,7 +19,7 @@ final class QuoteObserver
     public function updated(Quote $quote): void
     {
         if ($quote->wasChanged('status')) {
-            QuoteStatusChanged::dispatch($quote, (string) $quote->getOriginal('status'));
+            event(new QuoteStatusChanged($quote, (string) $quote->getOriginal('status')));
         }
 
         $this->dispatchWebhooks($quote, 'quote.updated');

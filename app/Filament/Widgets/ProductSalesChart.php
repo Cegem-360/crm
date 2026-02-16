@@ -16,6 +16,7 @@ final class ProductSalesChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Product Sales Trend (Last 12 Months)');

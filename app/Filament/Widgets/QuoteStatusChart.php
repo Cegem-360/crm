@@ -27,6 +27,7 @@ final class QuoteStatusChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Quotes by Status');

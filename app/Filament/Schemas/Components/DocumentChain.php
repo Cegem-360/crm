@@ -18,7 +18,7 @@ final class DocumentChain extends Component
 
     public static function make(): static
     {
-        return app(self::class);
+        return resolve(self::class);
     }
 
     /**
@@ -32,15 +32,13 @@ final class DocumentChain extends Component
             return [];
         }
 
-        $chain = self::buildChain($record);
-
-        return $chain;
+        return $this->buildChain($record);
     }
 
     /**
      * @return array<int, array{type: string, label: string, number: string|null, url: string|null, current: bool}>
      */
-    private static function buildChain(Model $record): array
+    private function buildChain(Model $record): array
     {
         $opportunity = null;
         $quote = null;

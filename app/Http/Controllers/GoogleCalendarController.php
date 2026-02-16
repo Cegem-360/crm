@@ -26,7 +26,7 @@ final class GoogleCalendarController extends Controller
         $code = $request->query('code');
 
         if (! $code) {
-            return redirect()->route('filament.admin.pages.calendar-settings')
+            return to_route('filament.admin.pages.calendar-settings')
                 ->with('error', __('Google Calendar authorization failed.'));
         }
 
@@ -46,7 +46,7 @@ final class GoogleCalendarController extends Controller
             : $user->teams()->first();
 
         if (! $team) {
-            return redirect()->route('filament.admin.pages.calendar-settings')
+            return to_route('filament.admin.pages.calendar-settings')
                 ->with('error', __('Team not found.'));
         }
 

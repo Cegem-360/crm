@@ -28,6 +28,7 @@ final class OpportunityValueChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Pipeline Value by Stage');

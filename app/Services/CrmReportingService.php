@@ -13,7 +13,7 @@ use App\Models\Invoice;
 use App\Models\Opportunity;
 use App\Models\Order;
 use App\Models\Quote;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 
 final class CrmReportingService
 {
@@ -87,7 +87,7 @@ final class CrmReportingService
     public function getRevenueForecast(int $months = 6): array
     {
         $forecast = [];
-        $now = Carbon::now();
+        $now = Date::now();
 
         for ($i = 0; $i < $months; $i++) {
             $month = $now->copy()->addMonths($i);
@@ -126,7 +126,7 @@ final class CrmReportingService
     public function getMonthlySalesTrend(int $months = 12): array
     {
         $trend = [];
-        $now = Carbon::now();
+        $now = Date::now();
 
         for ($i = $months - 1; $i >= 0; $i--) {
             $month = $now->copy()->subMonths($i);

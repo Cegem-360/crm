@@ -30,7 +30,7 @@ final class CustomerConsentFactory extends Factory
             'type' => fake()->randomElement(ConsentType::class),
             'is_granted' => $isGranted,
             'granted_at' => $isGranted ? fake()->dateTimeBetween('-1 year') : null,
-            'revoked_at' => ! $isGranted ? fake()->dateTimeBetween('-6 months') : null,
+            'revoked_at' => $isGranted ? null : fake()->dateTimeBetween('-6 months'),
             'ip_address' => fake()->optional()->ipv4(),
             'notes' => fake()->optional()->sentence(),
         ];

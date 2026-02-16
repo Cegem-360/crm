@@ -16,6 +16,7 @@ final class OrderRevenueChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Revenue Trend (Last 12 Months)');

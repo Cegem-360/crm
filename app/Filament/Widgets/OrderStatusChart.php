@@ -28,6 +28,7 @@ final class OrderStatusChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Orders by Status');

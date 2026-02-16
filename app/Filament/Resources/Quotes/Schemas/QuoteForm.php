@@ -78,7 +78,7 @@ final class QuoteForm
                                             return;
                                         }
 
-                                        $product = Product::find($state);
+                                        $product = Product::query()->find($state);
 
                                         if (! $product) {
                                             return;
@@ -211,10 +211,10 @@ final class QuoteForm
 
         // Recalculate quote-level totals from all items
         $allItems = $get('../../items') ?? [];
-        self::updateQuoteTotalsFromItems($allItems, $get, $set);
+        self::updateQuoteTotalsFromItems($allItems, $set);
     }
 
-    private static function updateQuoteTotalsFromItems(array $items, Get $get, Set $set): void
+    private static function updateQuoteTotalsFromItems(array $items, Set $set): void
     {
         $subtotal = 0;
         $totalDiscount = 0;

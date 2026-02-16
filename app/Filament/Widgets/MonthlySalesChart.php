@@ -17,6 +17,7 @@ final class MonthlySalesChart extends ChartWidget
 
     protected ?string $maxHeight = '300px';
 
+    #[Override]
     public function getHeading(): string
     {
         return __('Monthly Sales Trend');

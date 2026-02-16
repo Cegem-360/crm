@@ -26,6 +26,7 @@ final class GdprInformation extends Page
         return __('GDPR Information');
     }
 
+    #[Override]
     public function getTitle(): string
     {
         return __('GDPR Data Processing Information');

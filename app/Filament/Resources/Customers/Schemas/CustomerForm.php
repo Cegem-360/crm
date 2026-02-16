@@ -35,16 +35,14 @@ final class CustomerForm
                         }
 
                         return $duplicates
-                            ->map(static fn (Customer $customer): string => "• {$customer->name} ({$customer->unique_identifier})"
-                                .(filled($customer->email) ? " — {$customer->email}" : '')
-                                .(filled($customer->phone) ? " — {$customer->phone}" : ''))
+                            ->map(static fn (Customer $customer): string => sprintf('• %s (%s)', $customer->name, $customer->unique_identifier)
+                                .(filled($customer->email) ? ' — '.$customer->email : '')
+                                .(filled($customer->phone) ? ' — '.$customer->phone : ''))
                             ->implode("\n");
                     })
                     ->warning()
                     ->icon('heroicon-o-exclamation-triangle')
-                    ->visible(static function (Get $get, ?Customer $record): bool {
-                        return self::findDuplicates($get, $record)->isNotEmpty();
-                    })
+                    ->visible(static fn (Get $get, ?Customer $record): bool => self::findDuplicates($get, $record)->isNotEmpty())
                     ->columnSpanFull(),
                 TextInput::make('unique_identifier')
                     ->label(__('Unique Identifier'))
@@ -112,15 +110,18 @@ final class CustomerForm
         return Customer::query()
             ->when($record?->exists, static fn ($query) => $query->where('id', '!=', $record->id))
             ->where(static function ($query) use ($name, $email, $phone, $taxNumber): void {
-                if (filled($name) && mb_strlen($name) >= 3) {
-                    $query->orWhere('name', 'like', "%{$name}%");
+                if (filled($name) && mb_strlen((string) $name) >= 3) {
+                    $query->orWhere('name', 'like', sprintf('%%%s%%', $name));
                 }
+
                 if (filled($email)) {
                     $query->orWhere('email', $email);
                 }
+
                 if (filled($phone)) {
                     $query->orWhere('phone', $phone);
                 }
+
                 if (filled($taxNumber)) {
                     $query->orWhere('tax_number', $taxNumber);
                 }

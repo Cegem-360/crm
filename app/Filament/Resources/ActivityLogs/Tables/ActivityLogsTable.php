@@ -62,7 +62,6 @@ final class ActivityLogsTable
                         ->toArray()
                     ),
                 SelectFilter::make('event')
-                    ->label(__('Event'))
                     ->options([
                         'created' => __('Created'),
                         'updated' => __('Updated'),

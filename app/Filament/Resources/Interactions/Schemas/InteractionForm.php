@@ -106,7 +106,6 @@ final class InteractionForm
                             ->live()
                             ->visible(fn (Get $get): bool => (bool) $get('send_email')),
                         TextInput::make('recipient_email')
-                            ->label(__('Recipient email'))
                             ->disabled()
                             ->dehydrated(false)
                             ->default(function (Get $get): ?string {
@@ -137,8 +136,7 @@ final class InteractionForm
                 TextInput::make('duration')
                     ->label(__('Duration (minutes)'))
                     ->numeric(),
-                TextInput::make('next_action')
-                    ->label(__('Next action')),
+                TextInput::make('next_action'),
                 DatePicker::make('next_action_date'),
             ]);
     }

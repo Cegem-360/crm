@@ -28,28 +28,23 @@ final class BugReportForm
                     ->label(__('Reported By'))
                     ->relationship('user', 'name'),
                 TextInput::make('title')
-                    ->label(__('Title'))
                     ->placeholder(__('Brief summary of the bug'))
                     ->required(),
                 Textarea::make('description')
-                    ->label(__('Description'))
                     ->placeholder(__('Steps to reproduce, expected vs actual behavior...'))
                     ->required()
                     ->columnSpanFull(),
                 Select::make('severity')
-                    ->label(__('Severity'))
                     ->options(ComplaintSeverity::class)
                     ->enum(ComplaintSeverity::class)
                     ->required()
                     ->default(ComplaintSeverity::Medium),
                 Select::make('status')
-                    ->label(__('Status'))
                     ->options(BugReportStatus::class)
                     ->enum(BugReportStatus::class)
                     ->required()
                     ->default(BugReportStatus::Open),
                 TextInput::make('source')
-                    ->label(__('Source'))
                     ->placeholder(__('e.g., CRM, Website, Mobile App')),
                 TextInput::make('url')
                     ->label(__('URL'))
@@ -66,7 +61,6 @@ final class BugReportForm
                 DateTimePicker::make('resolved_at')
                     ->label(__('Resolved At')),
                 FileUpload::make('screenshots')
-                    ->label(__('Screenshots'))
                     ->helperText(__('Attach screenshots to help illustrate the bug'))
                     ->directory('bug-reports')
                     ->image()

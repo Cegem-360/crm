@@ -24,7 +24,6 @@ final class ActivityLogInfolist
                                     ->label(__('Log Name'))
                                     ->badge(),
                                 TextEntry::make('event')
-                                    ->label(__('Event'))
                                     ->badge()
                                     ->colors([
                                         'success' => 'created',
@@ -32,7 +31,6 @@ final class ActivityLogInfolist
                                         'danger' => 'deleted',
                                     ]),
                                 TextEntry::make('description')
-                                    ->label(__('Description'))
                                     ->columnSpanFull(),
                             ]),
                     ]),

@@ -45,23 +45,19 @@ final class CustomerForm
                     ->visible(static fn (Get $get, ?Customer $record): bool => self::findDuplicates($get, $record)->isNotEmpty())
                     ->columnSpanFull(),
                 TextInput::make('unique_identifier')
-                    ->label(__('Unique Identifier'))
                     ->disabled()
                     ->dehydrated()
                     ->placeholder(__('Auto-generated')),
                 TextInput::make('name')
-                    ->label(__('Name'))
                     ->placeholder(__('e.g., John Doe or Company Name'))
                     ->required()
                     ->live(onBlur: true),
                 Select::make('type')
-                    ->label(__('Type'))
                     ->required()
                     ->options(CustomerType::class)
                     ->default(CustomerType::Individual)
                     ->live(),
                 TextInput::make('phone')
-                    ->label(__('Phone'))
                     ->tel()
                     ->placeholder(__('+36 XX XXX XXXX'))
                     ->live(onBlur: true),
@@ -71,27 +67,16 @@ final class CustomerForm
                     ->placeholder(__('email@example.com'))
                     ->live(onBlur: true),
                 Section::make(__('Company information'))
-                    ->visible(function (Get $get): bool {
-                        $type = $get('type');
-
-                        if ($type instanceof CustomerType) {
-                            return $type === CustomerType::Company;
-                        }
-
-                        return $type === CustomerType::Company->value;
-                    })
+                    ->visible(fn (Get $get): bool => $get('type') === CustomerType::Company)
                     ->schema([
                         TextInput::make('tax_number')
-                            ->label(__('Tax number'))
                             ->placeholder(__('e.g., 12345678-1-23'))
                             ->live(onBlur: true),
                         TextInput::make('registration_number')
-                            ->label(__('Registration number'))
                             ->placeholder(__('e.g., 01-09-123456')),
                     ])
                     ->columns(2),
                 Textarea::make('notes')
-                    ->label(__('Notes'))
                     ->placeholder(__('Additional information about the customer...'))
                     ->columnSpanFull(),
                 Toggle::make('is_active')

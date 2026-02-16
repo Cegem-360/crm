@@ -41,7 +41,6 @@ final class MessagesRelationManager extends RelationManager
                     ->required()
                     ->disabled(),
                 Textarea::make('message')
-                    ->label(__('Message'))
                     ->required()
                     ->rows(4)
                     ->maxLength(1000)
@@ -75,7 +74,6 @@ final class MessagesRelationManager extends RelationManager
                     ->searchable()
                     ->getStateUsing(fn ($record) => $record->sender?->name ?? 'Unknown'),
                 TextColumn::make('message')
-                    ->label(__('Message'))
                     ->searchable()
                     ->limit(50)
                     ->wrap()

@@ -34,7 +34,6 @@ final class LeadOpportunitiesTable
                     ->sortable(),
 
                 TextColumn::make('probability')
-                    ->label(__('Probability'))
                     ->suffix('%')
                     ->sortable(),
                 TextColumn::make('expected_close_date')

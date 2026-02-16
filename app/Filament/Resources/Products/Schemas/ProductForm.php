@@ -21,7 +21,6 @@ final class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label(__('Name'))
                     ->placeholder(__('e.g., Premium Service Package'))
                     ->required(),
                 TextInput::make('sku')
@@ -29,7 +28,6 @@ final class ProductForm
                     ->placeholder(__('e.g., PROD-001'))
                     ->required(),
                 Textarea::make('description')
-                    ->label(__('Description'))
                     ->placeholder(__('Features, specifications, details...'))
                     ->columnSpanFull(),
                 Select::make('category_id')

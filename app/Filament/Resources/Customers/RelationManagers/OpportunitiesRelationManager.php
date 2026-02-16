@@ -30,6 +30,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Override;
@@ -37,6 +38,12 @@ use Override;
 final class OpportunitiesRelationManager extends RelationManager
 {
     protected static string $relationship = 'opportunities';
+
+    #[Override]
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Opportunities');
+    }
 
     #[Override]
     public function form(Schema $schema): Schema

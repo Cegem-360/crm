@@ -33,11 +33,9 @@ final class ProposalOpportunitiesTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('value')
-                    ->label(__('Value'))
                     ->money('HUF')
                     ->sortable(),
                 TextColumn::make('probability')
-                    ->label(__('Probability'))
                     ->suffix('%')
                     ->sortable(),
                 TextColumn::make('expected_close_date')

@@ -50,13 +50,11 @@ final class InvoiceForm
                     ->helperText(__('Payment deadline for this invoice'))
                     ->required(),
                 Select::make('status')
-                    ->label(__('Status'))
                     ->required()
                     ->enum(InvoiceStatus::class)
                     ->options(InvoiceStatus::class)
                     ->default(InvoiceStatus::Draft),
                 TextInput::make('subtotal')
-                    ->label(__('Subtotal'))
                     ->required()
                     ->numeric()
                     ->prefix('Ft')
@@ -80,7 +78,6 @@ final class InvoiceForm
                     ->prefix('Ft')
                     ->default(0),
                 Textarea::make('notes')
-                    ->label(__('Notes'))
                     ->placeholder(__('Payment terms, special instructions...'))
                     ->columnSpanFull(),
                 DateTimePicker::make('paid_at')

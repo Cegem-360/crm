@@ -38,7 +38,6 @@ final class CustomersTable
                 TextColumn::make('phone')
                     ->searchable(),
                 TextColumn::make('tax_number')
-                    ->label(__('Tax number'))
                     ->searchable()
                     ->placeholder('-')
                     ->toggleable(isToggledHiddenByDefault: true),

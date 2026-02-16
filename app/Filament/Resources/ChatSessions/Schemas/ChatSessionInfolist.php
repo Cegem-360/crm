@@ -41,11 +41,9 @@ final class ChatSessionInfolist
                     ->numeric()
                     ->placeholder('0'),
                 TextEntry::make('rating')
-                    ->label(__('Rating'))
                     ->formatStateUsing(fn ($state): string => $state ? $state.'/5' : '-')
                     ->placeholder(__('-')),
                 TextEntry::make('notes')
-                    ->label(__('Notes'))
                     ->placeholder(__('-'))
                     ->columnSpanFull(),
                 TextEntry::make('created_at')

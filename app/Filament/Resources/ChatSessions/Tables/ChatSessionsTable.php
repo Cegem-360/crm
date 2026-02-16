@@ -32,7 +32,6 @@ final class ChatSessionsTable
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('customer.name')
-                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable()
                     ->description(fn ($record) => $record->customer?->email),
@@ -62,7 +61,6 @@ final class ChatSessionsTable
                     ->badge()
                     ->color(fn ($state): array => $state > 0 ? Color::Red : Color::Gray),
                 TextColumn::make('rating')
-                    ->label(__('Rating'))
                     ->numeric()
                     ->sortable()
                     ->formatStateUsing(fn ($state): string => $state ? $state.'/5 ⭐' : '-')
@@ -117,7 +115,6 @@ final class ChatSessionsTable
                     ->preload()
                     ->multiple(),
                 SelectFilter::make('assignment')
-                    ->label(__('Assignment'))
                     ->options([
                         'assigned' => __('Assigned'),
                         'unassigned' => __('Unassigned'),

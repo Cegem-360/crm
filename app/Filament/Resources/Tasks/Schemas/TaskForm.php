@@ -27,13 +27,11 @@ final class TaskForm
                     ->searchable()
                     ->preload(),
                 Select::make('assigned_to')
-                    ->label(__('Assigned to'))
                     ->relationship('assignedUser', 'name')
                     ->required()
                     ->searchable()
                     ->preload(),
                 Select::make('assigned_by')
-                    ->label(__('Assigned by'))
                     ->relationship('assigner', 'name')
                     ->required()
                     ->searchable()

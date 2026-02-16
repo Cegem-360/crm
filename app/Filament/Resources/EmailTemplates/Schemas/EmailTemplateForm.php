@@ -22,7 +22,6 @@ final class EmailTemplateForm
                     ->required()
                     ->placeholder(__('e.g. Welcome email')),
                 Select::make('category')
-                    ->label(__('Category'))
                     ->options(EmailTemplateCategory::class)
                     ->default(EmailTemplateCategory::Sales)
                     ->required(),

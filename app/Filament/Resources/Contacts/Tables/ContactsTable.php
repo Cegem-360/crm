@@ -24,21 +24,16 @@ final class ContactsTable
         return $table
             ->columns([
                 TextColumn::make('customer.name')
-                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('name')
-                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
-                    ->label(__('Email'))
                     ->searchable(),
                 TextColumn::make('phone')
-                    ->label(__('Phone'))
                     ->searchable(),
-                TextColumn::make('position')
-                    ->label(__('Position')),
+                TextColumn::make('position'),
                 IconColumn::make('is_primary')
                     ->label(__('Primary'))
                     ->boolean(),

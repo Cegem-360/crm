@@ -68,7 +68,6 @@ final class Login extends BasePage
     protected function getPasswordFormComponent(): TextInput
     {
         return TextInput::make('password')
-            ->label(__('Password'))
             ->password()
             ->revealable()
             ->autocomplete('current-password')

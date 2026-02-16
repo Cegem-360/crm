@@ -25,11 +25,9 @@ final class CustomerInfolist
                     ->label(__('E-mail'))
                     ->placeholder(__('-')),
                 TextEntry::make('tax_number')
-                    ->label(__('Tax number'))
                     ->placeholder(__('-'))
                     ->visible(fn (Customer $record): bool => $record->type === CustomerType::Company),
                 TextEntry::make('registration_number')
-                    ->label(__('Registration number'))
                     ->placeholder(__('-'))
                     ->visible(fn (Customer $record): bool => $record->type === CustomerType::Company),
                 TextEntry::make('notes')

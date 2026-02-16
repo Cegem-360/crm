@@ -28,33 +28,25 @@ final class InteractionsTable
         return $table
             ->columns([
                 TextColumn::make('customer.name')
-                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable()
                     ->placeholder('-'),
                 TextColumn::make('contact.name')
-                    ->label(__('Contact'))
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('user.name')
-                    ->label(__('User'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('type')
-                    ->label(__('Type'))
                     ->badge(),
                 TextColumn::make('category')
-                    ->label(__('Category'))
                     ->badge(),
                 TextColumn::make('channel')
-                    ->label(__('Channel'))
                     ->badge()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('status')
-                    ->label(__('Status'))
                     ->badge(),
                 TextColumn::make('subject')
-                    ->label(__('Subject'))
                     ->searchable()
                     ->limit(30),
                 TextColumn::make('interaction_date')
@@ -62,7 +54,6 @@ final class InteractionsTable
                     ->dateTime('Y-m-d H:i')
                     ->sortable(),
                 TextColumn::make('duration')
-                    ->label(__('Duration'))
                     ->suffix(__(' min'))
                     ->numeric()
                     ->sortable()

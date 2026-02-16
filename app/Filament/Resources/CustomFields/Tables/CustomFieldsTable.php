@@ -21,11 +21,9 @@ final class CustomFieldsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('slug')
-                    ->label(__('Slug'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('model_type')
@@ -33,7 +31,6 @@ final class CustomFieldsTable
                     ->badge()
                     ->sortable(),
                 TextColumn::make('type')
-                    ->label(__('Type'))
                     ->badge()
                     ->sortable(),
                 TextColumn::make('sort_order')
@@ -64,7 +61,6 @@ final class CustomFieldsTable
                     ->label(__('Model'))
                     ->options(CustomFieldModel::class),
                 SelectFilter::make('type')
-                    ->label(__('Type'))
                     ->options(CustomFieldType::class),
             ])
             ->recordActions([

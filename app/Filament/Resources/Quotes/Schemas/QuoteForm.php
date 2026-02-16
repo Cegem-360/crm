@@ -54,7 +54,6 @@ final class QuoteForm
                             ->label(__('Valid Until'))
                             ->required(),
                         Select::make('status')
-                            ->label(__('Status'))
                             ->required()
                             ->default(QuoteStatus::Draft)
                             ->options(QuoteStatus::class),
@@ -91,12 +90,10 @@ final class QuoteForm
                                     })
                                     ->columnSpan(3),
                                 TextInput::make('description')
-                                    ->label(__('Description'))
                                     ->required()
                                     ->maxLength(255)
                                     ->columnSpan(3),
                                 TextInput::make('quantity')
-                                    ->label(__('Quantity'))
                                     ->required()
                                     ->numeric()
                                     ->default(1)
@@ -138,7 +135,6 @@ final class QuoteForm
                                     ->maxValue(100)
                                     ->afterStateUpdated(fn (Get $get, Set $set) => self::calculateItemTotals($get, $set)),
                                 TextInput::make('total')
-                                    ->label(__('Total'))
                                     ->readOnly()
                                     ->numeric()
                                     ->prefix('Ft')
@@ -161,7 +157,6 @@ final class QuoteForm
                 Section::make(__('Totals'))
                     ->schema([
                         TextInput::make('subtotal')
-                            ->label(__('Subtotal'))
                             ->readOnly()
                             ->numeric()
                             ->prefix('Ft')
@@ -188,7 +183,6 @@ final class QuoteForm
                     ->columns(4),
 
                 Textarea::make('notes')
-                    ->label(__('Notes'))
                     ->placeholder(__('Additional notes for the quote...'))
                     ->columnSpanFull(),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Quote),

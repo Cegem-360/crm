@@ -39,10 +39,8 @@ final class PersonalAccessTokensRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('abilities')
-                    ->label(__('Abilities'))
                     ->badge()
                     ->formatStateUsing(function (mixed $state): string {
                         $abilities = is_string($state) ? json_decode($state, true) : $state;
@@ -70,7 +68,6 @@ final class PersonalAccessTokensRelationManager extends RelationManager
                             ->required()
                             ->placeholder(__('e.g. Workflow Integration')),
                         CheckboxList::make('abilities')
-                            ->label(__('Abilities'))
                             ->options([
                                 'products:read' => __('Read products'),
                                 'products:write' => __('Write products'),

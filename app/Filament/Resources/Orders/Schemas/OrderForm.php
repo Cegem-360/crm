@@ -44,12 +44,10 @@ final class OrderForm
                     ->label(__('Order Date'))
                     ->required(),
                 Select::make('status')
-                    ->label(__('Status'))
                     ->required()
                     ->default(OrderStatus::Pending)
                     ->options(OrderStatus::class),
                 TextInput::make('subtotal')
-                    ->label(__('Subtotal'))
                     ->required()
                     ->numeric()
                     ->prefix('Ft')
@@ -73,7 +71,6 @@ final class OrderForm
                     ->prefix('Ft')
                     ->default(0),
                 Textarea::make('notes')
-                    ->label(__('Notes'))
                     ->placeholder(__('Payment terms, delivery notes, special instructions...'))
                     ->columnSpanFull(),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Order),

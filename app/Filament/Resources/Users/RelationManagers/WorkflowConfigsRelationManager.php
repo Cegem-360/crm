@@ -52,7 +52,6 @@ final class WorkflowConfigsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('api_token')
                     ->label(__('API Token'))

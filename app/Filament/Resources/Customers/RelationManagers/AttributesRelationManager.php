@@ -18,11 +18,18 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Override;
 
 final class AttributesRelationManager extends RelationManager
 {
     protected static string $relationship = 'attributes';
+
+    #[Override]
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Attributes');
+    }
 
     #[Override]
     public function form(Schema $schema): Schema

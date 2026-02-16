@@ -20,15 +20,12 @@ final class EmailTemplatesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('subject')
-                    ->label(__('Subject'))
                     ->searchable()
                     ->limit(40),
                 TextColumn::make('category')
-                    ->label(__('Category'))
                     ->badge(),
                 IconColumn::make('is_active')
                     ->label(__('Active'))

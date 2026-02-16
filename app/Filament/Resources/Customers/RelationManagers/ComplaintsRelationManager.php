@@ -22,11 +22,18 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Override;
 
 final class ComplaintsRelationManager extends RelationManager
 {
     protected static string $relationship = 'complaints';
+
+    #[Override]
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Complaints');
+    }
 
     #[Override]
     public function form(Schema $schema): Schema
@@ -36,11 +43,9 @@ final class ComplaintsRelationManager extends RelationManager
                 Select::make('order_id')
                     ->relationship('order', 'order_number'),
                 Select::make('reported_by')
-                    ->label(__('Reported by'))
                     ->relationship('reporter', 'name')
                     ->nullable(),
                 Select::make('assigned_to')
-                    ->label(__('Assigned to'))
                     ->relationship('assignedUser', 'name')
                     ->nullable(),
                 TextInput::make('title')

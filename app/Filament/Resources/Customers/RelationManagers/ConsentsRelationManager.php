@@ -21,12 +21,19 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Override;
 
 final class ConsentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'consents';
+
+    #[Override]
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Consents');
+    }
 
     #[Override]
     public function form(Schema $schema): Schema
@@ -54,7 +61,6 @@ final class ConsentsRelationManager extends RelationManager
                 DateTimePicker::make('revoked_at')
                     ->label(__('Revoked At')),
                 Textarea::make('notes')
-                    ->label(__('Notes'))
                     ->placeholder(__('Reason for consent change, source of consent...'))
                     ->columnSpanFull(),
             ]);

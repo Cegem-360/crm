@@ -57,7 +57,6 @@ final class Register extends BaseRegister
     protected function getPasswordFormComponent(): TextInput
     {
         return TextInput::make('password')
-            ->label(__('Password'))
             ->password()
             ->revealable()
             ->required()

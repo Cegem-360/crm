@@ -25,11 +25,9 @@ final class CustomFieldForm
                 Section::make(__('Field Definition'))
                     ->schema([
                         TextInput::make('name')
-                            ->label(__('Name'))
                             ->required()
                             ->maxLength(255),
                         TextInput::make('slug')
-                            ->label(__('Slug'))
                             ->unique(ignoreRecord: true)
                             ->helperText(__('Leave empty to auto-generate from name'))
                             ->maxLength(255),

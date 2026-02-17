@@ -21,8 +21,8 @@ final class ProductStatsOverview extends BaseWidget
     {
         $totalProducts = Product::query()->count();
         $activeProducts = Product::query()->where('is_active', true)->count();
-        $averagePrice = Product::query()->where('is_active', true)->avg('unit_price') ?? 0;
-        $totalSold = OrderItem::query()->sum('quantity');
+        $averagePrice = (float) (Product::query()->where('is_active', true)->avg('unit_price') ?? 0);
+        $totalSold = (float) OrderItem::query()->sum('quantity');
 
         return [
             Stat::make(__('Total Products'), Number::format($totalProducts))

@@ -47,7 +47,7 @@ final class GenerateQuoteAction
                     ->body(sprintf(
                         __('Quote #%s has been created with a value of %s.'),
                         $quote->quote_number,
-                        Number::currency($total, 'HUF', 'hu', 0),
+                        Number::currency((float) $total, 'HUF', 'hu', 0),
                     ))
                     ->send();
             })

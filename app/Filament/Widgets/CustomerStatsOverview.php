@@ -24,7 +24,7 @@ final class CustomerStatsOverview extends BaseWidget
         $activeCustomers = Customer::query()->where('is_active', true)->count();
         $customersWithOrders = Order::query()->distinct('customer_id')->count('customer_id');
 
-        $avgCustomerValue = DB::query()
+        $avgCustomerValue = (float) (DB::query()
             ->select(DB::raw('AVG(customer_total) as avg_value'))
             ->fromSub(
                 Order::query()
@@ -32,7 +32,7 @@ final class CustomerStatsOverview extends BaseWidget
                     ->groupBy('customer_id'),
                 'customer_totals'
             )
-            ->value('avg_value') ?? 0;
+            ->value('avg_value') ?? 0);
 
         return [
             Stat::make(__('Total Customers'), Number::format($totalCustomers))

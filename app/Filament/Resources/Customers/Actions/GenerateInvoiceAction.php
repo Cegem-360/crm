@@ -57,7 +57,7 @@ final class GenerateInvoiceAction
                     ->body(sprintf(
                         __('Invoice #%s has been created with a total value of %s.'),
                         $invoice->invoice_number,
-                        Number::currency($record->total, 'HUF', 'hu', 0),
+                        Number::currency((float) $record->total, 'HUF', 'hu', 0),
                     ))
                     ->send();
             })

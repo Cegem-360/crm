@@ -27,11 +27,11 @@ final class SalesStatsOverview extends BaseWidget
             ->whereIn('stage', OpportunityStage::getActiveStages())
             ->count();
 
-        $pipelineValue = Opportunity::query()
+        $pipelineValue = (float) Opportunity::query()
             ->whereIn('stage', OpportunityStage::getActiveStages())
             ->sum('value');
 
-        $wonDealsValue = Order::query()->sum('total');
+        $wonDealsValue = (float) Order::query()->sum('total');
 
         $totalQuotes = Quote::query()->count();
         $acceptedQuotes = Quote::query()

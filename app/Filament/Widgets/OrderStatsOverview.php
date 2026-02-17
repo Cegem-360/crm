@@ -19,9 +19,9 @@ final class OrderStatsOverview extends BaseWidget
     protected function getStats(): array
     {
         $totalOrders = Order::query()->count();
-        $totalRevenue = Order::query()->sum('total');
-        $averageOrderValue = Order::query()->avg('total') ?? 0;
-        $totalDiscount = Order::query()->sum('discount_amount');
+        $totalRevenue = (float) Order::query()->sum('total');
+        $averageOrderValue = (float) (Order::query()->avg('total') ?? 0);
+        $totalDiscount = (float) Order::query()->sum('discount_amount');
 
         return [
             Stat::make(__('Total Orders'), Number::format($totalOrders))

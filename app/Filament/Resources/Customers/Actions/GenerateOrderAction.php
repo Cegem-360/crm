@@ -59,7 +59,7 @@ final class GenerateOrderAction
                         $order->order_number,
                         $itemCount,
                         str('item')->plural($itemCount),
-                        Number::currency($order->total, 'HUF', 'hu', 0),
+                        Number::currency((float) $order->total, 'HUF', 'hu', 0),
                     ))
                     ->send();
             })

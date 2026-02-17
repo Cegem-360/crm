@@ -12,6 +12,7 @@ use App\Models\Team;
 use Filament\Facades\Filament;
 use Filament\Schemas\Components\Component;
 use Illuminate\Database\Eloquent\Model;
+use Throwable;
 
 final class DocumentChain extends Component
 {
@@ -110,33 +111,43 @@ final class DocumentChain extends Component
 
     private function generateUrl(string $type, Model $record, ?Team $tenant, ?Team $team): ?string
     {
-        if ($tenant) {
-            $routeMap = [
-                'opportunity' => 'filament.admin.resources.lead-opportunities.edit',
-                'quote' => 'filament.admin.resources.quotes.edit',
-                'order' => 'filament.admin.resources.orders.edit',
-                'invoice' => 'filament.admin.resources.invoices.view',
-            ];
+        $dashboardRouteMap = [
+            'opportunity' => ['name' => 'dashboard.opportunities.edit', 'param' => 'opportunity'],
+            'quote' => ['name' => 'dashboard.quotes.edit', 'param' => 'quote'],
+            'order' => ['name' => 'dashboard.orders.edit', 'param' => 'order'],
+            'invoice' => ['name' => 'dashboard.invoices.view', 'param' => 'invoice'],
+        ];
 
-            return route($routeMap[$type], ['record' => $record, 'tenant' => $tenant]);
+        $filamentRouteMap = [
+            'opportunity' => 'filament.admin.resources.lead-opportunities.edit',
+            'quote' => 'filament.admin.resources.quotes.edit',
+            'order' => 'filament.admin.resources.orders.edit',
+            'invoice' => 'filament.admin.resources.invoices.view',
+        ];
+
+        $resolvedTeam = $team ?? $tenant;
+
+        if (! $resolvedTeam) {
+            return null;
         }
 
-        if ($team) {
-            $routeMap = [
-                'opportunity' => 'dashboard.opportunities.edit',
-                'quote' => 'dashboard.quotes.edit',
-                'order' => 'dashboard.orders.edit',
-                'invoice' => 'dashboard.invoices.view',
-            ];
+        // Prefer frontend dashboard routes when outside the Filament admin panel
+        if (! $tenant || app()->bound('current_team')) {
+            try {
+                $dashboard = $dashboardRouteMap[$type];
 
-            $paramKey = match ($type) {
-                'opportunity' => 'opportunity',
-                'quote' => 'quote',
-                'order' => 'order',
-                'invoice' => 'invoice',
-            };
+                return route($dashboard['name'], ['team' => $resolvedTeam, $dashboard['param'] => $record]);
+            } catch (Throwable) {
+                // Fall through to Filament routes
+            }
+        }
 
-            return route($routeMap[$type], ['team' => $team, $paramKey => $record]);
+        if ($tenant) {
+            try {
+                return route($filamentRouteMap[$type], ['record' => $record, 'tenant' => $tenant->slug]);
+            } catch (Throwable) {
+                return null;
+            }
         }
 
         return null;

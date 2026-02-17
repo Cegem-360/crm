@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
 use App\Observers\TaskCalendarObserver;
+use App\Observers\TaskNotificationObserver;
 use Database\Factories\TaskFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +17,7 @@ use Override;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-#[ObservedBy(TaskCalendarObserver::class)]
+#[ObservedBy([TaskCalendarObserver::class, TaskNotificationObserver::class])]
 final class Task extends Model
 {
     use BelongsToTeam;

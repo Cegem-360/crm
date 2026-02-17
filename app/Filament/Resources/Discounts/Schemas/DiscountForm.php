@@ -49,10 +49,14 @@ final class DiscountForm
                 DatePicker::make('valid_until'),
                 Select::make('customer_id')
                     ->label(__('Customer'))
-                    ->relationship('customer', 'name'),
+                    ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload(),
                 Select::make('product_id')
                     ->label(__('Product'))
-                    ->relationship('product', 'name'),
+                    ->relationship('product', 'name')
+                    ->searchable()
+                    ->preload(),
                 Toggle::make('is_active')
                     ->label(__('Active'))
                     ->required(),

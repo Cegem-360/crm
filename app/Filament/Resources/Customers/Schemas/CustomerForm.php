@@ -8,6 +8,7 @@ use App\Enums\CustomerType;
 use App\Enums\CustomFieldModel;
 use App\Filament\Concerns\HasCustomFieldsSchema;
 use App\Models\Customer;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -82,6 +83,72 @@ final class CustomerForm
                 Toggle::make('is_active')
                     ->label(__('Active'))
                     ->required(),
+
+                Section::make(__('Contacts'))
+                    ->schema([
+                        Repeater::make('contacts')
+                            ->label('')
+                            ->relationship()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->required(),
+                                TextInput::make('email')
+                                    ->label(__('Email address'))
+                                    ->email(),
+                                TextInput::make('phone')
+                                    ->tel(),
+                                TextInput::make('position'),
+                                Toggle::make('is_primary')
+                                    ->default(false),
+                            ])
+                            ->columns(5)
+                            ->defaultItems(0)
+                            ->addActionLabel(__('Add Contact'))
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                            ->collapsible()
+                            ->columnSpanFull(),
+                    ]),
+
+                Section::make(__('Addresses'))
+                    ->schema([
+                        Repeater::make('addresses')
+                            ->label('')
+                            ->relationship()
+                            ->schema([
+                                Select::make('type')
+                                    ->required()
+                                    ->default('billing')
+                                    ->options([
+                                        'billing' => __('Billing'),
+                                        'shipping' => __('Shipping'),
+                                    ]),
+                                TextInput::make('country')
+                                    ->required(),
+                                TextInput::make('postal_code')
+                                    ->required(),
+                                TextInput::make('city')
+                                    ->required(),
+                                TextInput::make('street')
+                                    ->required(),
+                                TextInput::make('building_number'),
+                                TextInput::make('floor'),
+                                TextInput::make('door'),
+                                Toggle::make('is_default')
+                                    ->default(false),
+                            ])
+                            ->columns(4)
+                            ->defaultItems(0)
+                            ->addActionLabel(__('Add Address'))
+                            ->itemLabel(fn (array $state): ?string => implode(' ', array_filter([
+                                $state['postal_code'] ?? null,
+                                $state['city'] ?? null,
+                                $state['street'] ?? null,
+                                $state['building_number'] ?? null,
+                            ])) ?: null)
+                            ->collapsible()
+                            ->columnSpanFull(),
+                    ]),
+
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Customer),
             ]);
     }

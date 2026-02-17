@@ -7,7 +7,6 @@ namespace App\Filament\Resources\Interactions\Tables;
 use App\Enums\InteractionCategory;
 use App\Enums\InteractionChannel;
 use App\Enums\InteractionStatus;
-use App\Enums\InteractionType;
 use App\Filament\Exports\InteractionExporter;
 use App\Filament\Imports\InteractionImporter;
 use Filament\Actions\BulkActionGroup;
@@ -37,8 +36,6 @@ final class InteractionsTable
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('type')
-                    ->badge(),
                 TextColumn::make('category')
                     ->badge(),
                 TextColumn::make('channel')
@@ -74,8 +71,6 @@ final class InteractionsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('type')
-                    ->options(InteractionType::class),
                 SelectFilter::make('category')
                     ->options(InteractionCategory::class),
                 SelectFilter::make('channel')

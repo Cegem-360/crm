@@ -8,6 +8,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 final class TasksTable
@@ -18,24 +19,29 @@ final class TasksTable
             ->columns([
                 TextColumn::make('customer.name')
                     ->searchable(),
-                TextColumn::make('assigned_to')
-                    ->numeric()
+                TextColumn::make('assignedUser.name')
+                    ->label(__('Assigned To'))
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('assigned_by')
-                    ->numeric()
+                TextColumn::make('assigner.name')
+                    ->label(__('Assigned By'))
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('priority')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('status')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('due_date')
                     ->date()
                     ->sortable(),
                 TextColumn::make('completed_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -46,7 +52,25 @@ final class TasksTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('assigned_to')
+                    ->label(__('Assigned To'))
+                    ->relationship('assignedUser', 'name')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('status')
+                    ->options([
+                        'pending' => __('Pending'),
+                        'in_progress' => __('In Progress'),
+                        'completed' => __('Completed'),
+                        'cancelled' => __('Cancelled'),
+                    ]),
+                SelectFilter::make('priority')
+                    ->options([
+                        'low' => __('Low'),
+                        'medium' => __('Medium'),
+                        'high' => __('High'),
+                        'urgent' => __('Urgent'),
+                    ]),
             ])
             ->recordActions([
                 EditAction::make(),

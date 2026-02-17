@@ -17,7 +17,6 @@ final class InteractionInfolist
                     ->label(__('Customer')),
                 TextEntry::make('user.name')
                     ->label(__('User')),
-                TextEntry::make('type'),
                 TextEntry::make('subject'),
                 TextEntry::make('description')
                     ->placeholder(__('-'))

@@ -43,6 +43,8 @@ final class EditInteraction extends Component implements HasSchemas
     {
         $data = $this->form->getState();
 
+        unset($data['send_email'], $data['recipient_type'], $data['recipient_email']);
+
         if ($this->interaction?->exists) {
             $this->interaction->update($data);
             $message = __('Interaction updated successfully.');

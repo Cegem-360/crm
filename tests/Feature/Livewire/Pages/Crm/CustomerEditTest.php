@@ -136,8 +136,8 @@ it('displays relation managers for existing customers', function (): void {
 it('does not display relation managers for new customers', function (): void {
     Livewire::test(EditCustomer::class)
         ->assertSuccessful()
-        ->assertDontSee('Contacts')
-        ->assertDontSee('Addresses');
+        ->assertDontSee('Opportunities')
+        ->assertDontSee('Invoices');
 });
 
 it('shows duplicate warning when name matches existing customer', function (): void {

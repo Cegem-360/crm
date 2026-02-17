@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\Actions;
 
-use App\Enums\OpportunityStage;
 use App\Enums\QuoteStatus;
 use App\Models\Opportunity;
 use App\Models\Quote;
@@ -52,6 +51,6 @@ final class GenerateQuoteAction
                     ))
                     ->send();
             })
-            ->visible(fn (Opportunity $record): bool => $record->stage === OpportunityStage::Lead);
+            ->visible(fn (Opportunity $record): bool => ! $record->quotes()->exists());
     }
 }

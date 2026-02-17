@@ -8,7 +8,6 @@ use App\Enums\InteractionCategory;
 use App\Enums\InteractionChannel;
 use App\Enums\InteractionDirection;
 use App\Enums\InteractionStatus;
-use App\Enums\InteractionType;
 use App\Models\Customer;
 use App\Models\CustomerContact;
 use App\Models\EmailTemplate;
@@ -55,10 +54,6 @@ final class InteractionForm
                     ->searchable()
                     ->preload()
                     ->required(),
-                Select::make('type')
-                    ->options(InteractionType::class)
-                    ->required()
-                    ->default(InteractionType::Note),
                 Select::make('category')
                     ->options(InteractionCategory::class)
                     ->required()
@@ -95,6 +90,7 @@ final class InteractionForm
                         Toggle::make('send_email')
                             ->label(__('Send email on save'))
                             ->live()
+                            ->dehydrated(false)
                             ->default(false),
                         Select::make('recipient_type')
                             ->label(__('Send to'))
@@ -104,6 +100,7 @@ final class InteractionForm
                             ])
                             ->default('contact')
                             ->live()
+                            ->dehydrated(false)
                             ->visible(fn (Get $get): bool => (bool) $get('send_email')),
                         TextInput::make('recipient_email')
                             ->disabled()

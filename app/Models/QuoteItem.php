@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Scopes\TeamThroughScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -53,6 +54,11 @@ final class QuoteItem extends Model
 
         $this->total = $discountedSubtotal + $taxAmount;
         $this->save();
+    }
+
+    protected static function booted(): void
+    {
+        self::addGlobalScope(new TeamThroughScope('quote'));
     }
 
     #[Override]

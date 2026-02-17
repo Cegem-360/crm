@@ -158,24 +158,28 @@ final class QuoteForm
                     ->schema([
                         TextInput::make('subtotal')
                             ->readOnly()
+                            ->dehydrated()
                             ->numeric()
                             ->prefix('Ft')
                             ->default(0),
                         TextInput::make('discount_amount')
                             ->label(__('Total Discount'))
                             ->readOnly()
+                            ->dehydrated()
                             ->numeric()
                             ->prefix('Ft')
                             ->default(0),
                         TextInput::make('tax_amount')
                             ->label(__('Tax Amount'))
                             ->readOnly()
+                            ->dehydrated()
                             ->numeric()
                             ->prefix('Ft')
                             ->default(0),
                         TextInput::make('total')
                             ->label(__('Grand Total'))
                             ->readOnly()
+                            ->dehydrated()
                             ->numeric()
                             ->prefix('Ft')
                             ->default(0),

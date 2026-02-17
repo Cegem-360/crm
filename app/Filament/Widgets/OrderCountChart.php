@@ -25,9 +25,13 @@ final class OrderCountChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $monthExpression = DB::connection()->getDriverName() === 'sqlite'
+            ? "strftime('%Y-%m', order_date)"
+            : "DATE_FORMAT(order_date, '%Y-%m')";
+
         $data = Order::query()
             ->select(
-                DB::raw("strftime('%Y-%m', order_date) as month"),
+                DB::raw($monthExpression.' as month'),
                 DB::raw('COUNT(*) as count')
             )
             ->where('order_date', '>=', now()->subMonths(12))

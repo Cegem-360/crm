@@ -25,9 +25,13 @@ final class ProductSalesChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $monthExpression = DB::connection()->getDriverName() === 'sqlite'
+            ? "strftime('%Y-%m', orders.order_date)"
+            : "DATE_FORMAT(orders.order_date, '%Y-%m')";
+
         $data = OrderItem::query()
             ->select(
-                DB::raw("strftime('%Y-%m', orders.order_date) as month"),
+                DB::raw($monthExpression.' as month'),
                 DB::raw('SUM(order_items.total) as revenue'),
                 DB::raw('SUM(order_items.quantity) as quantity')
             )

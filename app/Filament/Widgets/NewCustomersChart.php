@@ -25,9 +25,13 @@ final class NewCustomersChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $monthExpression = DB::connection()->getDriverName() === 'sqlite'
+            ? "strftime('%Y-%m', created_at)"
+            : "DATE_FORMAT(created_at, '%Y-%m')";
+
         $data = Customer::query()
             ->select(
-                DB::raw("strftime('%Y-%m', created_at) as month"),
+                DB::raw($monthExpression.' as month'),
                 DB::raw('COUNT(*) as count')
             )
             ->where('created_at', '>=', now()->subMonths(12))

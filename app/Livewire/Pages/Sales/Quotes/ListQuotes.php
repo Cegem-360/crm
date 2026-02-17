@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Sales\Quotes;
 
+use App\Filament\Resources\Customers\Actions\GenerateOrderAction;
 use App\Filament\Resources\Quotes\Tables\QuotesTable;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Quote;
@@ -36,6 +37,7 @@ final class ListQuotes extends Component implements HasActions, HasSchemas, HasT
             ->modifyQueryUsing(fn (Builder $query): Builder => $query->with(['customer', 'opportunity']))
             ->recordUrl(fn (Quote $record): string => route('dashboard.quotes.view', ['team' => $this->team, 'quote' => $record]))
             ->recordActions([
+                GenerateOrderAction::make(),
                 Action::make('view')
                     ->url(fn (Quote $record): string => route('dashboard.quotes.view', ['team' => $this->team, 'quote' => $record]))
                     ->icon(Heroicon::Eye),

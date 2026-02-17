@@ -12,9 +12,12 @@
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('Order details') }}</p>
             </div>
         </div>
-        <x-primary-button :href="route('dashboard.orders.edit', ['team' => $currentTeam, 'order' => $order])" icon="edit">
-            {{ __('Edit') }}
-        </x-primary-button>
+        <div class="flex items-center gap-2">
+            {{ $this->generateInvoiceAction }}
+            <x-primary-button :href="route('dashboard.orders.edit', ['team' => $currentTeam, 'order' => $order])" icon="edit">
+                {{ __('Edit') }}
+            </x-primary-button>
+        </div>
     </div>
 
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">

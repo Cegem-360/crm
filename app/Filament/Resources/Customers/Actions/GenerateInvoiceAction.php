@@ -15,7 +15,7 @@ final class GenerateInvoiceAction
 {
     public static function make(): Action
     {
-        return Action::make('generate_invoice')
+        return Action::make('generateInvoice')
             ->label(__('Generate Invoice'))
             ->icon('heroicon-o-document-text')
             ->color('success')
@@ -35,6 +35,7 @@ final class GenerateInvoiceAction
                 }
 
                 $invoice = Invoice::query()->create([
+                    'team_id' => $record->team_id,
                     'customer_id' => $record->customer_id,
                     'order_id' => $record->id,
                     'issue_date' => now(),

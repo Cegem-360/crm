@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Sales\Opportunities;
 
+use App\Filament\Resources\Customers\Actions\GenerateQuoteAction;
 use App\Filament\Resources\LeadOpportunities\Schemas\OpportunityInfolist;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Opportunity;
+use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -35,6 +37,12 @@ final class ViewOpportunity extends Component implements HasActions, HasSchemas
         return OpportunityInfolist::configure($schema)
             ->record($this->opportunity)
             ->columns(2);
+    }
+
+    public function generateQuoteAction(): Action
+    {
+        return GenerateQuoteAction::make()
+            ->record($this->opportunity);
     }
 
     public function render(): View

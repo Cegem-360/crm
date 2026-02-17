@@ -16,7 +16,7 @@ final class GenerateOrderAction
 {
     public static function make(): Action
     {
-        return Action::make('generate_order')
+        return Action::make('generateOrder')
             ->label(__('Generate Order'))
             ->icon('heroicon-o-shopping-cart')
             ->color('success')
@@ -26,6 +26,7 @@ final class GenerateOrderAction
             ->modalSubmitActionLabel(__('Generate Order'))
             ->action(function (Quote $record): void {
                 $order = Order::query()->create([
+                    'team_id' => $record->team_id,
                     'customer_id' => $record->customer_id,
                     'quote_id' => $record->id,
                     'order_date' => now(),

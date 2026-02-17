@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Sales\Opportunities;
 
+use App\Filament\Resources\Customers\Actions\GenerateQuoteAction;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Opportunity;
 use Filament\Actions\Action;
@@ -71,6 +72,7 @@ final class ListOpportunities extends Component implements HasActions, HasSchema
             ])
             ->recordUrl(fn (Opportunity $record): string => route('dashboard.opportunities.view', ['team' => $this->team, 'opportunity' => $record]))
             ->recordActions([
+                GenerateQuoteAction::make(),
                 Action::make('view')
                     ->url(fn (Opportunity $record): string => route('dashboard.opportunities.view', ['team' => $this->team, 'opportunity' => $record]))
                     ->icon(Heroicon::Eye),

@@ -15,7 +15,7 @@ final class GenerateQuoteAction
 {
     public static function make(): Action
     {
-        return Action::make('generate_quote')
+        return Action::make('generateQuote')
             ->label(__('Generate Quote'))
             ->icon('heroicon-o-document-text')
             ->color('success')
@@ -29,6 +29,7 @@ final class GenerateQuoteAction
                 $total = $subtotal + $taxAmount;
 
                 $quote = Quote::query()->create([
+                    'team_id' => $record->team_id,
                     'customer_id' => $record->customer_id,
                     'opportunity_id' => $record->id,
                     'issue_date' => now(),

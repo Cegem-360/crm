@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Sales\Orders;
 
+use App\Filament\Resources\Customers\Actions\GenerateInvoiceAction;
 use App\Filament\Resources\Orders\Schemas\OrderInfolist;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Order;
+use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
@@ -35,6 +37,12 @@ final class ViewOrder extends Component implements HasActions, HasSchemas
         return OrderInfolist::configure($schema)
             ->record($this->order)
             ->columns(2);
+    }
+
+    public function generateInvoiceAction(): Action
+    {
+        return GenerateInvoiceAction::make()
+            ->record($this->order);
     }
 
     public function render(): View

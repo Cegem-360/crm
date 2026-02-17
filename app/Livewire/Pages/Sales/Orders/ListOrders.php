@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Pages\Sales\Orders;
 
+use App\Filament\Resources\Customers\Actions\GenerateInvoiceAction;
 use App\Filament\Resources\Orders\Tables\OrdersTable;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Order;
@@ -36,6 +37,7 @@ final class ListOrders extends Component implements HasActions, HasSchemas, HasT
             ->modifyQueryUsing(fn (Builder $query): Builder => $query->with(['customer', 'quote']))
             ->recordUrl(fn (Order $record): string => route('dashboard.orders.view', ['team' => $this->team, 'order' => $record]))
             ->recordActions([
+                GenerateInvoiceAction::make(),
                 Action::make('view')
                     ->url(fn (Order $record): string => route('dashboard.orders.view', ['team' => $this->team, 'order' => $record]))
                     ->icon(Heroicon::Eye),

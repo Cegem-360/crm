@@ -45,7 +45,6 @@
     "Navigation": "Navigáció",
     "Home": "Főoldal",
     "Sales": "Értékesítés",
-    "Opportunities": "Lehetőségek",
     "Quotes": "Árajánlatok",
     "Orders": "Rendelések",
     "Invoices": "Számlák",
@@ -55,9 +54,7 @@
     "Support": "Támogatás",
     "Tasks": "Feladatok",
     "Complaints": "Panaszok",
-    "Interactions": "Interakciók",
     "Chat Sessions": "Beszélgetések",
-    "Marketing": "Marketing",
     "Campaigns": "Kampányok",
     "Administration": "Adminisztráció",
     "Admin Panel": "Admin felület",
@@ -120,14 +117,11 @@
     "New Order": "Új rendelés",
     "Search orders...": "Rendelések keresése...",
     "Order #": "Rendelés #",
-    "Order Date": "Rendelés dátuma",
     "No orders found": "Nincsenek rendelések",
     "Manage your invoices": "Számlák kezelése",
     "New Invoice": "Új számla",
     "Search invoices...": "Számlák keresése...",
     "Invoice #": "Számla #",
-    "Issue Date": "Kiállítás dátuma",
-    "Due Date": "Esedékesség",
     "No invoices found": "Nincsenek számlák",
     "Manage your product catalog": "Termékkatalógus kezelése",
     "New Product": "Új termék",
@@ -137,7 +131,6 @@
     "SKU": "Cikkszám",
     "Category": "Kategória",
     "Price": "Ár",
-    "Tax Rate": "ÁFA kulcs",
     "No products found": "Nincsenek termékek",
     "Product Categories": "Termékkategóriák",
     "Organize your products into categories": "Rendszerezze termékeit kategóriákba",
@@ -172,9 +165,7 @@
     "Medium": "Közepes",
     "High": "Magas",
     "Urgent": "Sürgős",
-    "Assigned To": "Felelős",
     "Priority": "Prioritás",
-    "Unassigned": "Nincs hozzárendelve",
     "No tasks found": "Nincsenek feladatok",
     "Track and resolve customer complaints": "Ügyfélpanaszok nyomon követése és megoldása",
     "New Complaint": "Új panasz",
@@ -236,7 +227,6 @@
     "Sales pipeline": "Értékesítési csatorna",
     "Contact": "Kapcsolat",
     "Quote": "Árajánlat",
-    "Negotiation": "Tárgyalás",
     "Closed": "Lezárva",
     "Deal closed!": "Üzlet lezárva!",
     "Reminder": "Emlékeztető",
@@ -244,7 +234,6 @@
     "New lead": "Új lead",
     "Save": "Mentés",
     "Cancel": "Mégse",
-
     "Complaint Submitted Successfully!": "Panasz sikeresen beküldve!",
     "Thank you for bringing this to our attention. Our team will review your complaint and get back to you as soon as possible.": "Köszönjük, hogy jelezte felénk. Csapatunk áttekinti panaszát és mielőbb visszajelzést ad.",
     "You will receive a confirmation email shortly.": "Hamarosan kap egy visszaigazoló e-mailt.",
@@ -268,7 +257,6 @@
     "Our team will review your complaint within 24 hours": "Csapatunk 24 órán belül áttekinti panaszát",
     "An agent will be assigned to your case": "Egy ügyintéző lesz kijelölve az Ön ügyéhez",
     "You'll be contacted with an update or resolution": "Felvesszük Önnel a kapcsolatot a fejleményekről vagy megoldásról",
-
     "Chat Support": "Chat támogatás",
     "Open chat": "Chat megnyitása",
     "Minimize chat": "Chat minimalizálása",
@@ -286,12 +274,10 @@
     "Mark all as read": "Összes olvasottnak jelölése",
     "Press Enter to send, Shift+Enter for new line": "Enter a küldéshez, Shift+Enter új sorhoz",
     "messages": "üzenet",
-
     "Customer relationship management and sales pipeline": "Ügyfélkapcsolat-kezelés és értékesítési pipeline",
     "Track your customers from first contact to closing the deal. CRM system for businesses: lead management, pipeline, automatic reminders. Try it free for 14 days!": "Kövesse nyomon ügyfeleit az első megkeresésétől a szerződéskötésig. CRM rendszer cégeknek: lead-kezelés, pipeline, automatikus emlékeztetők. Próbálja ki 14 napig ingyen!",
     "Customer relationship management": "Ügyfélkapcsolat-kezelés",
     "Sales pipeline, lead management, automation – all in one place. +40% more closed deals.": "Értékesítési pipeline, lead-kezelés, automatizálás – egy helyen. +40% több lezárt üzlet.",
-
     "Customer relationship management from first contact to closed deal.": "Ügyfélkapcsolat-kezelés az első kapcsolattól a lezárt üzletig.",
     "Contact management": "Kapcsolatkezelés",
     "Lead management": "Lead-kezelés",
@@ -307,24 +293,20 @@
     "Cookie Policy": "Cookie Szabályzat",
     "All rights reserved.": "Minden jog fenntartva.",
     "Cegem360 Modules": "Cégem360 Modulok",
-
     "Light": "Világos",
     "Dark": "Sötét",
     "Auto (System)": "Automatikus (Rendszer)",
-
     "e.g. Welcome email": "pl. Üdvözlő email",
     "e.g. Welcome to our company!": "pl. Üdvözöljük a cégünknél!",
     "Available variables: {customer_name}, {contact_name}, {user_name}": "Használható változók: {customer_name}, {contact_name}, {user_name}",
     "Webhook secret key": "Webhook titkos kulcs",
     "Secret key used for HMAC signing": "HMAC aláíráshoz használt titkos kulcs",
-
     "Workflow Configurations": "Workflow konfigurációk",
     "Workflow name": "Workflow neve",
     "e.g. Warehouse management system": "pl. Raktárkezelő rendszer",
     "This token identifies the workflow in webhooks": "Ez a token azonosítja a workflow-t a webhook-okban",
     "Webhook URL (optional)": "Webhook URL (opcionális)",
     "New workflow": "Új workflow",
-
     "API Tokens": "API tokenek",
     "Token name": "Token neve",
     "Abilities": "Jogosultságok",
@@ -344,7 +326,6 @@
     "Copy the token, it will not be visible again: ": "Másolja ki a tokent, mert többé nem lesz látható: ",
     "Revoke": "Visszavonás",
     "Revoke selected": "Kijelöltek visszavonása",
-
     "Unique identifier": "Egyedi azonosító",
     "Tax number": "Adószám",
     "Registration number": "Cégjegyzékszám",
@@ -401,7 +382,6 @@
     "Next action": "Következő teendő",
     "Next action date": "Következő teendő dátuma",
     "Is active": "Aktív",
-
     "Total Customers": "Összes ügyfél",
     "Active Customers": "Aktív ügyfelek",
     "Customers with Orders": "Megrendeléssel rendelkező ügyfelek",
@@ -410,7 +390,6 @@
     "Currently active": "Jelenleg aktív",
     "Have placed orders": "Rendeléssel rendelkeznek",
     "Average lifetime value": "Átlagos életciklus érték",
-
     "Total Orders": "Összes rendelés",
     "Total Revenue": "Összes bevétel",
     "Average Order Value": "Átlagos rendelési érték",
@@ -419,7 +398,6 @@
     "Gross revenue": "Bruttó bevétel",
     "Per order average": "Rendelésenkénti átlag",
     "Discounts given": "Adott kedvezmények",
-
     "Active Opportunities": "Aktív lehetőségek",
     "Pipeline Value": "Pipeline érték",
     "Won Deals Value": "Megnyert üzletek értéke",
@@ -428,7 +406,6 @@
     "Total order value": "Összes rendelési érték",
     "%d of %d quotes accepted": "%d / %d ajánlat elfogadva",
     "total opportunities": "összes lehetőség",
-
     "Total Products": "Összes termék",
     "Active Products": "Aktív termékek",
     "Average Price": "Átlagár",
@@ -437,7 +414,6 @@
     "Available for sale": "Eladásra elérhető",
     "Active product average": "Aktív termékek átlaga",
     "Total items sold": "Összes eladott tétel",
-
     "Customers by Type": "Ügyfelek típus szerint",
     "Customer Type": "Ügyfél típusa",
     "New Customers (Last 12 Months)": "Új ügyfelek (utolsó 12 hónap)",
@@ -445,7 +421,6 @@
     "Top 10 Customers by Revenue": "Top 10 ügyfél bevétel szerint",
     "Customer Name": "Ügyfél neve",
     "Customer Reports": "Ügyfél riportok",
-
     "Monthly Sales Trend": "Havi értékesítési trend",
     "Revenue (HUF)": "Bevétel (HUF)",
     "Quantity": "Mennyiség",
@@ -453,22 +428,18 @@
     "Sales Funnel": "Értékesítési tölcsér",
     "Sales Reports": "Értékesítési riportok",
     "Pipeline Value by Stage": "Pipeline érték szakaszonként",
-
     "Orders Count (Last 12 Months)": "Rendelések száma (utolsó 12 hónap)",
     "Orders by Status": "Rendelések státusz szerint",
     "Discounts (HUF)": "Kedvezmények (HUF)",
     "Order Reports": "Rendelés riportok",
     "Order Number": "Rendelésszám",
-
     "Product Sales Trend (Last 12 Months)": "Termékértékesítési trend (utolsó 12 hónap)",
     "Products by Category": "Termékek kategória szerint",
     "Quantity Sold": "Eladott mennyiség",
     "Top 10 Products by Quantity": "Top 10 termék eladott mennyiség szerint",
     "Product Name": "Termék neve",
     "Product Reports": "Termék riportok",
-
     "Quotes by Status": "Ajánlatok státusz szerint",
-
     "ID": "ID",
     "Customer Identifier": "Ügyfél-azonosító",
     "Customer Email": "Ügyfél e-mail",
@@ -480,8 +451,6 @@
     "Parent Category Name": "Szülő kategória neve",
     "Opportunity Title": "Lehetőség címe",
     "Quote Number": "Ajánlat száma",
-    "Order Number": "Rendelésszám",
-    "Expected Close Date": "Várható zárás dátuma",
     "Reported By": "Bejelentő",
     "Assigned By": "Kiosztotta",
     "Assigned Email": "Hozzárendelt e-mail",
@@ -490,12 +459,10 @@
     "User Name": "Felhasználó neve",
     "User Email": "Felhasználó e-mail",
     "Recipient Email": "Címzett e-mail",
-
     "Export Contacts": "Kapcsolattartók exportálása",
     "Export Customers": "Ügyfelek exportálása",
     "Export Interactions": "Interakciók exportálása",
     "Export Products": "Termékek exportálása",
-
     "Import Contacts": "Kapcsolattartók importálása",
     "Import Customers": "Ügyfelek importálása",
     "Import Interactions": "Interakciók importálása",
@@ -503,7 +470,6 @@
     "Update existing records": "Meglévő rekordok frissítése",
     "Match existing contacts by customer + email or customer + name": "Meglévő kapcsolattartók egyeztetése ügyfél + e-mail vagy ügyfél + név alapján",
     "Match existing interactions by customer + subject + interaction_date": "Meglévő interakciók egyeztetése ügyfél + tárgy + dátum alapján",
-
     "Send Email": "E-mail küldése",
     "Email Template": "E-mail sablon",
     "Email Subject": "E-mail tárgy",
@@ -521,13 +487,11 @@
     "No recipient email address.": "Nincs címzett e-mail cím.",
     "Enter your work email": "Adja meg munkahelyi e-mail címét",
     "Remember me": "Emlékezz rám",
-
     "Team Name": "Csapat neve",
     "Team Profile": "Csapatprofil",
     "Team Slug": "Csapat slug",
     "Register Team": "Csapat regisztrálása",
     "This will be used in the URL: /admin/{slug}/...": "Ez lesz használva az URL-ben: /admin/{slug}/...",
-
     "Generate Quote": "Ajánlat generálása",
     "Generate Quote from Opportunity": "Ajánlat generálása lehetőségből",
     "This will create a new quote based on this opportunity data.": "Ez egy új ajánlatot hoz létre a lehetőség adatai alapján.",
@@ -536,13 +500,11 @@
     "Accept Quote": "Ajánlat elfogadása",
     "Quote Accepted": "Ajánlat elfogadva",
     "Quote #%s has been accepted.": "A #%s ajánlat elfogadva.",
-
     "Generate Order": "Rendelés generálása",
     "Generate Order from Quote": "Rendelés generálása ajánlatból",
     "This will create a new order based on this quote data.": "Ez egy új rendelést hoz létre az ajánlat adatai alapján.",
     "Order Generated Successfully": "Rendelés sikeresen generálva",
     "Order #%s has been created with %s %s and a total value of %s.": "A #%s rendelés létrehozva %s %s tétellel, összértéke: %s.",
-
     "Assign to Me": "Hozzárendelés magamhoz",
     "Transfer": "Átirányítás",
     "Transfer to Agent": "Átirányítás ügynökhöz",
@@ -556,7 +518,6 @@
     "Session Transferred": "Munkamenet átirányítva",
     "Mark All as Read": "Összes olvasottnak jelölése",
     "Mark Read": "Olvasottnak jelölés",
-
     "Custom Fields": "Egyéni mezők",
     "Custom Field": "Egyéni mező",
     "Field Type": "Mező típusa",
@@ -574,12 +535,10 @@
     "Lower numbers appear first": "Az alacsonyabb számok előrébb jelennek meg",
     "Leave empty to auto-generate from name": "Hagyja üresen az automatikus generáláshoz",
     "Slug": "Slug",
-
     "Company information": "Céginformáció",
     "Billing": "Számlázás",
     "Shipping": "Szállítás",
     "Applies To": "Vonatkozik",
-
     "Activity Details": "Tevékenység részletei",
     "Log Name": "Napló neve",
     "Event": "Esemény",
@@ -595,7 +554,6 @@
     "New Values": "Új értékek",
     "Batch UUID": "Köteg UUID",
     "Metadata": "Metaadatok",
-
     "Chat session": "Chat munkamenet",
     "Started": "Elindítva",
     "Ended": "Befejezve",
@@ -611,7 +569,6 @@
     "No messages": "Nincsenek üzenetek",
     "Updated": "Frissítve",
     "Deleted": "Törölve",
-
     "Next Action": "Következő teendő",
     "Next Action Date": "Következő teendő dátuma",
     "Form": "Űrlap",
@@ -624,7 +581,6 @@
     "N/A": "N/A",
     "Uncategorized": "Kategorizálatlan",
     "-": "-",
-
     "API Token": "API token",
     "Webhook URL": "Webhook URL",
     "e.g. Workflow Integration": "pl. Workflow integráció",
@@ -634,7 +590,6 @@
     "min": "perc",
     "password": "jelszó",
     "Copy the token, it will not be visible again:": "Másolja ki a tokent, mert többé nem lesz látható:",
-
     "Draft": "Piszkozat",
     "Paused": "Szüneteltetve",
     "Interested": "Érdeklődő",
@@ -667,35 +622,26 @@
     "Email sent successfully to :email": "E-mail sikeresen elküldve: :email",
     "Failed to send email: :error": "E-mail küldése sikertelen: :error",
     "Import Responses": "Válaszok importálása",
-
     "Quote Details": "Ajánlat részletei",
     "Line Items": "Tételsorok",
     "Add Item": "Tétel hozzáadása",
-    "Unit Price": "Egységár",
     "Discount %": "Kedvezmény %",
     "Discount": "Kedvezmény",
     "Tax %": "ÁFA %",
     "Totals": "Összesítés",
-    "Total Discount": "Összes kedvezmény",
-    "Tax Amount": "Adó összege",
-    "Grand Total": "Végösszeg",
     "Invoice #%s has been created with a total value of %s.": "A #%s számla létrehozva, összértéke: %s.",
     "Recent Contacts": "Legutóbbi kapcsolattartók",
-    "No contacts found": "Nincsenek kapcsolattartók",
     "Individual": "Magánszemély",
     "E-mail": "E-mail",
-
     "Lead": "Érdeklődő",
     "Qualified": "Minősített",
     "Proposal": "Ajánlat adva",
     "Negotiation": "Tárgyalás",
     "Sent Quotation": "Megnyerve",
     "Lost Quotation": "Elveszítve",
-
     "Confirmed": "Visszaigazolva",
     "Processing": "Feldolgozás alatt",
     "Shipped": "Kiszállítva",
-    "Delivered": "Kézbesítve",
     "Overdue": "Lejárt",
     "Paid": "Fizetve",
     "Accepted": "Elfogadva",
@@ -706,9 +652,6 @@
     "No opportunities": "Nincsenek lehetőségek",
     ":title moved to :stage": ":title áthelyezve: :stage",
     "Auto-generated": "Automatikusan generált",
-    "Unique Identifier": "Egyedi azonosító",
-    "Quote Number": "Árajánlat szám",
-    "Order Number": "Rendelés szám",
     "Invoice Number": "Számla szám",
     "Document Chain": "Dokumentum lánc",
     "e.g., John Doe or Company Name": "pl. Kiss János vagy Cégnév",
@@ -741,7 +684,6 @@
     "Grand Total": "Végösszeg",
     "Total Discount": "Összes kedvezmény",
     "Tax Amount": "Adó összege",
-
     "Data Processing": "Adatkezelés",
     "Marketing": "Marketing",
     "Newsletter": "Hírlevél",
@@ -754,7 +696,6 @@
     "Last Updated": "Utolsó frissítés",
     "Revoked": "Visszavont",
     "Reason for consent change, source of consent...": "A hozzájárulás változtatásának oka, hozzájárulás forrása...",
-
     "GDPR Information": "GDPR Információ",
     "GDPR Data Processing Information": "GDPR Adatkezelési Tájékoztató",
     "Data Processing Notice": "Adatkezelési Tájékoztató",
@@ -793,7 +734,6 @@
     "8 years from the date of the transaction (Hungarian accounting regulations)": "A tranzakció dátumától számított 8 év (magyar számviteli szabályozás)",
     "Marketing Consent": "Marketing hozzájárulás",
     "Until consent is withdrawn": "A hozzájárulás visszavonásáig",
-    "Communication Records": "Kommunikációs nyilvántartás",
     "5 years from the date of the interaction": "Az interakció dátumától számított 5 év",
     "Data Subject Rights": "Érintetti jogok",
     "Under GDPR, data subjects have the following rights:": "A GDPR értelmében az érintettek a következő jogokkal rendelkeznek:",
@@ -818,12 +758,10 @@
     "For data deletion: Click \"Forget Me (GDPR)\" in the header actions": "Adat törléshez: Kattintson az \"Elfelejt (GDPR)\" gombra a fejléc műveletekben",
     "For consent management: Open the \"Consents\" tab on the customer profile": "Hozzájárulások kezeléséhez: Nyissa meg a \"Hozzájárulások\" fület az ügyfélprofilon",
     "All actions are logged in the activity log for accountability": "Minden művelet rögzítésre kerül a tevékenységnaplóban az elszámoltathatóság érdekében",
-
     "Export Data (GDPR)": "Adat exportálás (GDPR)",
     "Export Customer Data": "Ügyfél adatok exportálása",
     "This will export all personal data stored for this customer in JSON format, in accordance with GDPR data portability rights.": "Ez az ügyfélhez tárolt összes személyes adatot JSON formátumban exportálja, a GDPR adathordozhatósági jogoknak megfelelően.",
     "Export": "Exportálás",
-
     "Forget Me (GDPR)": "Elfelejt (GDPR)",
     "Anonymize Customer Data": "Ügyfél adatok anonimizálása",
     "This action will irreversibly anonymize all personal data for this customer. The customer record will be kept for accounting purposes, but all identifying information will be removed. This cannot be undone.": "Ez a művelet visszafordíthatatlanul anonimizálja az ügyfél összes személyes adatát. Az ügyfélrekord számviteli célokból megmarad, de minden azonosító információ eltávolításra kerül. Ez nem vonható vissza.",
@@ -835,7 +773,6 @@
     "Anonymized Customer": "Anonimizált ügyfél",
     "Data anonymized on :date. Reason: :reason": "Adatok anonimizálva: :date. Ok: :reason",
     "Revoked due to data anonymization": "Visszavonva adatanonimizálás miatt",
-
     "Report a Bug": "Hiba bejelentése",
     "Bug Report Submitted Successfully!": "Hibabejelentés sikeresen elküldve!",
     "Thank you for reporting this issue. Our team will investigate and fix it as soon as possible.": "Köszönjük, hogy jelezte a hibát. Csapatunk mielőbb kivizsgálja és javítja.",
@@ -873,14 +810,11 @@
     "Bug Reports": "Hibabejelentések",
     "Open": "Nyitott",
     "Resolved": "Megoldva",
-    "Rejected": "Elutasítva",
-
     "Activities": "Tevékenységek",
     "Log calls, meetings, and emails": "Hívások, meetingek és emailek naplózása",
     "Real-time customer conversations": "Valós idejű ügyfélbeszélgetések",
     "Conversations": "Beszélgetések",
     "Conversation": "Beszélgetés",
-
     "Calendar Settings": "Naptár beállítások",
     "Google Calendar Integration": "Google Naptár integráció",
     "Connect your Google Calendar to sync tasks and interactions.": "Csatlakoztassa Google Naptárát a feladatok és interakciók szinkronizálásához.",
@@ -907,7 +841,6 @@
     "Get Started": "Kezdje el",
     "Connect your Google Calendar to automatically sync your CRM tasks and interactions. Click the \"Connect Google Calendar\" button above to get started.": "Csatlakoztassa Google Naptárát a CRM feladatok és interakciók automatikus szinkronizálásához. Kattintson a fenti \"Google Naptár csatlakoztatása\" gombra a kezdéshez.",
     "Team not found.": "Csapat nem található.",
-
     "e.g., John Smith": "pl. Kiss János",
     "e.g., Sales Manager": "pl. Értékesítési vezető",
     "e.g., Electronics": "pl. Elektronika",
@@ -926,14 +859,9 @@
     "e.g., Follow up with client": "pl. Ügyfél megkeresése",
     "Task details and instructions...": "Feladat részletei és utasítások...",
     "Additional notes for the quote...": "További megjegyzések az árajánlathoz...",
-    "In Progress": "Folyamatban",
-    "Cancelled": "Törölve",
-    "Urgent": "Sürgős",
-
     "Addresses": "Címek",
     "Attributes": "Attribútumok",
     "Consents": "Hozzájárulások",
-
     "Country": "Ország",
     "Postal code": "Irányítószám",
     "City": "Város",
@@ -942,18 +870,15 @@
     "Floor": "Emelet",
     "Door": "Ajtó",
     "Is default": "Alapértelmezett",
-
     "Attribute key": "Attribútum kulcs",
     "Attribute value": "Attribútum érték",
     "Is primary": "Elsődleges",
-
     "Created at": "Létrehozva",
     "Updated at": "Frissítve",
     "Deleted at": "Törölve",
-    "Paid at": "Fizetve",
-
     "Assigned user": "Felelős",
     "Reporter": "Bejelentő",
     "Assigner": "Kiosztó",
-    "Order order number": "Rendelés szám"
+    "Order order number": "Rendelés szám",
+    "Interaction updated successfully.": "Interakció sikeresen frissítve."
 }

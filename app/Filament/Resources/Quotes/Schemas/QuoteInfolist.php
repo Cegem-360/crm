@@ -76,7 +76,8 @@ final class QuoteInfolist
                                     ->suffix(' Ft'),
                             ])
                             ->columnSpanFull(),
-                    ]),
+                    ])
+                    ->columnSpanFull(),
 
                 Section::make(__('Totals'))
                     ->schema([
@@ -96,7 +97,8 @@ final class QuoteInfolist
                             ->numeric()
                             ->suffix(' Ft'),
                     ])
-                    ->columns(4),
+                    ->columns(4)
+                    ->columnSpanFull(),
 
                 TextEntry::make('notes')
                     ->placeholder(__('-'))

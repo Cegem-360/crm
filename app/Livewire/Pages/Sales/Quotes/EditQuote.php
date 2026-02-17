@@ -47,6 +47,8 @@ final class EditQuote extends Component implements HasActions, HasSchemas
     {
         $data = $this->form->getState();
 
+        $data = $this->calculateTotalsFromItems($data);
+
         if ($this->quote?->exists) {
             $this->quote->update($data);
             $message = __('Quote updated successfully.');
@@ -67,5 +69,40 @@ final class EditQuote extends Component implements HasActions, HasSchemas
     public function render(): View
     {
         return view('livewire.pages.sales.quotes.edit-quote');
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    private function calculateTotalsFromItems(array $data): array
+    {
+        $subtotal = 0.0;
+        $totalDiscount = 0.0;
+        $totalTax = 0.0;
+
+        $items = $this->data['items'] ?? [];
+
+        foreach ($items as $item) {
+            $quantity = (float) ($item['quantity'] ?? 0);
+            $unitPrice = (float) ($item['unit_price'] ?? 0);
+            $discountPercent = (float) ($item['discount_percent'] ?? 0);
+            $taxRate = (float) ($item['tax_rate'] ?? 0);
+
+            $lineTotal = $quantity * $unitPrice;
+            $discountAmount = $lineTotal * ($discountPercent / 100);
+            $taxableAmount = $lineTotal - $discountAmount;
+
+            $subtotal += $lineTotal;
+            $totalDiscount += $discountAmount;
+            $totalTax += $taxableAmount * ($taxRate / 100);
+        }
+
+        $data['subtotal'] = $subtotal;
+        $data['discount_amount'] = $totalDiscount;
+        $data['tax_amount'] = $totalTax;
+        $data['total'] = $subtotal - $totalDiscount + $totalTax;
+
+        return $data;
     }
 }

@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\Scopes\TeamThroughScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Override;
 
+#[ScopedBy(TeamThroughScope::class)]
 final class OrderItem extends Model
 {
     use HasFactory;
+
+    public string $teamRelationship = 'order';
 
     protected $fillable = [
         'order_id',
@@ -53,11 +57,6 @@ final class OrderItem extends Model
             'subtotal' => $this->unit_price * $this->quantity,
             'total' => $this->total,
         ];
-    }
-
-    protected static function booted(): void
-    {
-        self::addGlobalScope(new TeamThroughScope('order'));
     }
 
     #[Override]

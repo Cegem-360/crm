@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\Scopes\TeamThroughScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Override;
 
+#[ScopedBy(TeamThroughScope::class)]
 final class QuoteItem extends Model
 {
     use HasFactory;
+
+    public string $teamRelationship = 'quote';
 
     /** @var array<string, mixed> */
     protected $attributes = [
@@ -54,11 +58,6 @@ final class QuoteItem extends Model
 
         $this->total = $discountedSubtotal + $taxAmount;
         $this->save();
-    }
-
-    protected static function booted(): void
-    {
-        self::addGlobalScope(new TeamThroughScope('quote'));
     }
 
     #[Override]

@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Scope;
 
 final class TeamThroughScope implements Scope
 {
-    public function __construct(private readonly string $relationship) {}
-
     /** @param Builder<Model> $builder */
     public function apply(Builder $builder, Model $model): void
     {
@@ -20,8 +18,8 @@ final class TeamThroughScope implements Scope
             ? resolve('current_team')
             : null;
 
-        if ($team instanceof Team) {
-            $builder->whereHas($this->relationship);
+        if ($team instanceof Team && property_exists($model, 'teamRelationship')) {
+            $builder->whereHas($model->teamRelationship);
         }
     }
 }

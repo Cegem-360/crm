@@ -12,17 +12,14 @@ use Spatie\Permission\Models\Permission;
 use function Pest\Livewire\livewire;
 
 beforeEach(function (): void {
-    // Create an admin user with all permissions
     $this->user = User::factory()->create();
 
-    // Create necessary permissions
     Permission::query()->firstOrCreate(['name' => 'view_any_customer']);
     Permission::query()->firstOrCreate(['name' => 'view_customer']);
     Permission::query()->firstOrCreate(['name' => 'create_customer']);
     Permission::query()->firstOrCreate(['name' => 'update_customer']);
     Permission::query()->firstOrCreate(['name' => 'delete_customer']);
 
-    // Give user all permissions
     $this->user->givePermissionTo([
         'view_any_customer',
         'view_customer',
@@ -33,7 +30,6 @@ beforeEach(function (): void {
 
     $this->actingAs($this->user);
 
-    // Set up multi-tenant context
     $this->team = setUpFilamentTenant($this->user);
 });
 
@@ -109,6 +105,13 @@ it('cannot access create page without permission', function (): void {
 
     livewire(CreateCustomer::class)
         ->assertForbidden();
+});
+
+it('can see create opportunity action on edit page', function (): void {
+    $customer = Customer::factory()->for($this->team)->create();
+
+    livewire(EditCustomer::class, ['record' => $customer->id])
+        ->assertActionVisible('create_opportunity');
 });
 
 it('cannot access edit page without permission', function (): void {

@@ -9,7 +9,6 @@ use App\Models\GoogleCalendarToken;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\GoogleCalendarService;
-use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
@@ -25,8 +24,6 @@ final class CalendarSettings extends Page
     public bool $syncEnabled = false;
 
     public ?string $calendarId = null;
-
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Settings;
 
@@ -97,9 +94,7 @@ final class CalendarSettings extends Page
                 ->requiresConfirmation()
                 ->modalHeading(__('Disconnect Google Calendar'))
                 ->modalDescription(__('Are you sure you want to disconnect your Google Calendar? Existing calendar events will not be removed.'))
-                ->action(function (): void {
-                    $this->disconnect();
-                }),
+                ->action($this->disconnect(...)),
         ];
     }
 

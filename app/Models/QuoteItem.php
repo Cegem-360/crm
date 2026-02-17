@@ -13,6 +13,16 @@ final class QuoteItem extends Model
 {
     use HasFactory;
 
+    /** @var array<string, mixed> */
+    protected $attributes = [
+        'quantity' => 1,
+        'unit_price' => 0,
+        'discount_percent' => 0,
+        'discount_amount' => 0,
+        'tax_rate' => 0,
+        'total' => 0,
+    ];
+
     protected $fillable = [
         'quote_id',
         'product_id',
@@ -37,10 +47,12 @@ final class QuoteItem extends Model
 
     public function updateTotal(): void
     {
+        $subtotal = $this->quantity * $this->unit_price;
+        $discountedSubtotal = $subtotal * (1 - (float) $this->discount_percent / 100);
+        $taxAmount = $subtotal * $this->tax_rate / 100;
 
-        $this->total = ($this->quantity * $this->unit_price) * (1 - (float) $this->discount_percent / 100) + ($this->quantity * $this->unit_price * $this->tax_rate / 100);
+        $this->total = $discountedSubtotal + $taxAmount;
         $this->save();
-
     }
 
     #[Override]

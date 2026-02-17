@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Customers\Pages;
 
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Customers\Actions\AnonymizeCustomerAction;
+use App\Filament\Resources\Customers\Actions\CreateOpportunityAction;
 use App\Filament\Resources\Customers\Actions\ExportCustomerDataAction;
 use App\Filament\Resources\Customers\CustomerResource;
 use Filament\Actions\DeleteAction;
@@ -24,6 +25,7 @@ final class EditCustomer extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            CreateOpportunityAction::make(),
             ExportCustomerDataAction::make(),
             AnonymizeCustomerAction::make(),
             DeleteAction::make(),

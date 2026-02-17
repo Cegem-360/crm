@@ -33,6 +33,14 @@ final class Quote extends Model
     use LogsActivity;
     use SoftDeletes;
 
+    /** @var array<string, mixed> */
+    protected $attributes = [
+        'subtotal' => 0,
+        'discount_amount' => 0,
+        'tax_amount' => 0,
+        'total' => 0,
+    ];
+
     protected $fillable = [
         'team_id',
         'customer_id',

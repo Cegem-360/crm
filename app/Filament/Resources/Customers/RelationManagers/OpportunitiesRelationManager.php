@@ -59,8 +59,6 @@ final class OpportunitiesRelationManager extends RelationManager
                     ->numeric(),
                 Slider::make('probability')
                     ->required()
-                    ->minValue(0)
-                    ->maxValue(100)
                     ->range(minValue: 0, maxValue: 100)
                     ->tooltips()
                     ->step(5)
@@ -121,7 +119,8 @@ final class OpportunitiesRelationManager extends RelationManager
                 TrashedFilter::make(),
             ])
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                    ->label(__('New Opportunity')),
                 AssociateAction::make(),
             ])
             ->recordActions([

@@ -7,7 +7,6 @@ namespace App\Filament\Pages;
 use App\Enums\NavigationGroup;
 use App\Enums\OpportunityStage;
 use App\Models\Opportunity;
-use BackedEnum;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Override;
@@ -23,8 +22,6 @@ final class OpportunityKanbanBoard extends Page
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
     protected static ?int $navigationSort = 15;
-
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-view-columns';
 
     #[Override]
     public static function getNavigationLabel(): string
@@ -52,11 +49,7 @@ final class OpportunityKanbanBoard extends Page
 
         $stage = OpportunityStage::tryFrom($newStage);
 
-        if (! $stage) {
-            return;
-        }
-
-        if ($opportunity->stage === $stage) {
+        if (! $stage || $opportunity->stage === $stage) {
             return;
         }
 

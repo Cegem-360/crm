@@ -7,6 +7,8 @@ namespace App\Livewire\Pages\Sales\Quotes;
 use App\Filament\Resources\Quotes\Schemas\QuoteForm;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Quote;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
@@ -16,9 +18,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.dashboard')]
-final class EditQuote extends Component implements HasSchemas
+final class EditQuote extends Component implements HasActions, HasSchemas
 {
     use HasCurrentTeam;
+    use InteractsWithActions;
     use InteractsWithSchemas;
 
     public ?Quote $quote = null;

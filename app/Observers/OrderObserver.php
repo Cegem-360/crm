@@ -21,7 +21,7 @@ final class OrderObserver
     public function updated(Order $order): void
     {
         if ($order->wasChanged('status')) {
-            event(new OrderStatusChanged($order, (string) $order->getOriginal('status')));
+            event(new OrderStatusChanged($order, $order->getOriginal('status')->value));
         }
 
         $this->dispatchWebhooks($order, 'order.updated');

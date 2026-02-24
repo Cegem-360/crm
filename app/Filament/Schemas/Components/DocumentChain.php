@@ -75,7 +75,7 @@ final class DocumentChain extends Component
         }
 
         $tenant = Filament::getTenant();
-        $team = $tenant ?? (app()->bound('current_team') ? app('current_team') : null);
+        $team = $tenant ?? (app()->bound('current_team') ? resolve('current_team') : null);
 
         return [
             [
@@ -127,7 +127,7 @@ final class DocumentChain extends Component
 
         $resolvedTeam = $team ?? $tenant;
 
-        if (! $resolvedTeam) {
+        if (! $resolvedTeam instanceof Team) {
             return null;
         }
 
@@ -142,7 +142,7 @@ final class DocumentChain extends Component
             }
         }
 
-        if ($tenant) {
+        if ($tenant instanceof Team) {
             try {
                 return route($filamentRouteMap[$type], ['record' => $record, 'tenant' => $tenant->slug]);
             } catch (Throwable) {

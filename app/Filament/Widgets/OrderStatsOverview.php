@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Models\Order;
+use Filament\Facades\Filament;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Number;
@@ -18,10 +19,12 @@ final class OrderStatsOverview extends BaseWidget
     #[Override]
     protected function getStats(): array
     {
-        $totalOrders = Order::query()->count();
-        $totalRevenue = (float) Order::query()->sum('total');
-        $averageOrderValue = (float) (Order::query()->avg('total') ?? 0);
-        $totalDiscount = (float) Order::query()->sum('discount_amount');
+        $teamId = Filament::getTenant()?->getKey();
+
+        $totalOrders = Order::query()->where('team_id', $teamId)->count();
+        $totalRevenue = (float) Order::query()->where('team_id', $teamId)->sum('total');
+        $averageOrderValue = (float) (Order::query()->where('team_id', $teamId)->avg('total') ?? 0);
+        $totalDiscount = (float) Order::query()->where('team_id', $teamId)->sum('discount_amount');
 
         return [
             Stat::make(__('Total Orders'), Number::format($totalOrders))

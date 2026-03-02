@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Enums\OpportunityStage;
 use App\Models\Opportunity;
+use Filament\Facades\Filament;
 use Filament\Support\RawJs;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 use Override;
@@ -28,7 +29,10 @@ final class SalesFunnelChart extends ApexChartWidget
     #[Override]
     protected function getOptions(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $stageCounts = Opportunity::query()
+            ->where('team_id', $teamId)
             ->selectRaw('stage, COUNT(*) as count')
             ->groupBy('stage')
             ->pluck('count', 'stage');

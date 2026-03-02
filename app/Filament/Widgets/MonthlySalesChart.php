@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Order;
 use App\Models\Quote;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,8 @@ final class MonthlySalesChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $months = collect();
         for ($i = 11; $i >= 0; $i--) {
             $months->push(Date::now()->subMonths($i));
@@ -46,6 +49,7 @@ final class MonthlySalesChart extends ChartWidget
             : 'MONTH(issue_date)';
 
         $orderData = Order::query()
+            ->where('team_id', $teamId)
             ->select(
                 DB::raw($orderYearExpression.' as year'),
                 DB::raw($orderMonthExpression.' as month'),
@@ -57,6 +61,7 @@ final class MonthlySalesChart extends ChartWidget
             ->keyBy(fn ($item): string => $item->year.'-'.$item->month);
 
         $quoteData = Quote::query()
+            ->where('team_id', $teamId)
             ->select(
                 DB::raw($quoteYearExpression.' as year'),
                 DB::raw($quoteMonthExpression.' as month'),

@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\OrderItem;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -25,6 +26,8 @@ final class ProductSalesChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $monthExpression = DB::connection()->getDriverName() === 'sqlite'
             ? "strftime('%Y-%m', orders.order_date)"
             : "DATE_FORMAT(orders.order_date, '%Y-%m')";
@@ -36,6 +39,7 @@ final class ProductSalesChart extends ChartWidget
                 DB::raw('SUM(order_items.quantity) as quantity')
             )
             ->join('orders', 'order_items.order_id', '=', 'orders.id')
+            ->where('orders.team_id', $teamId)
             ->where('orders.order_date', '>=', now()->subMonths(12))
             ->groupBy('month')
             ->orderBy('month')

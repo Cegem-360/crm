@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\OrderItem;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -25,9 +26,13 @@ final class TopProductsChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $data = OrderItem::query()
             ->select('products.name', DB::raw('SUM(order_items.quantity) as total_quantity'))
+            ->join('orders', 'order_items.order_id', '=', 'orders.id')
             ->join('products', 'order_items.product_id', '=', 'products.id')
+            ->where('orders.team_id', $teamId)
             ->groupBy('products.id', 'products.name')
             ->orderByDesc('total_quantity')
             ->limit(10)

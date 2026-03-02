@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Enums\OrderStatus;
 use App\Models\Order;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -37,7 +38,10 @@ final class OrderStatusChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $data = Order::query()
+            ->where('team_id', $teamId)
             ->select('status', DB::raw('COUNT(*) as count'))
             ->groupBy('status')
             ->get()

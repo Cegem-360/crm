@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\Product;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -25,7 +26,10 @@ final class ProductCategoryChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $data = Product::query()
+            ->where('products.team_id', $teamId)
             ->select('product_categories.name', DB::raw('COUNT(products.id) as count'))
             ->leftJoin('product_categories', 'products.category_id', '=', 'product_categories.id')
             ->groupBy('product_categories.id', 'product_categories.name')

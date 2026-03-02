@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Customer;
 use App\Models\Order;
+use Filament\Facades\Filament;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\DB;
@@ -20,14 +21,17 @@ final class CustomerStatsOverview extends BaseWidget
     #[Override]
     protected function getStats(): array
     {
-        $totalCustomers = Customer::query()->count();
-        $activeCustomers = Customer::query()->where('is_active', true)->count();
-        $customersWithOrders = Order::query()->distinct('customer_id')->count('customer_id');
+        $teamId = Filament::getTenant()?->getKey();
+
+        $totalCustomers = Customer::query()->where('team_id', $teamId)->count();
+        $activeCustomers = Customer::query()->where('team_id', $teamId)->where('is_active', true)->count();
+        $customersWithOrders = Order::query()->where('team_id', $teamId)->distinct('customer_id')->count('customer_id');
 
         $avgCustomerValue = (float) (DB::query()
             ->select(DB::raw('AVG(customer_total) as avg_value'))
             ->fromSub(
                 Order::query()
+                    ->where('team_id', $teamId)
                     ->select('customer_id', DB::raw('SUM(total) as customer_total'))
                     ->groupBy('customer_id'),
                 'customer_totals'

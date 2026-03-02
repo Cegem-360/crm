@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Models\LeadScore;
+use Filament\Facades\Filament;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -27,6 +28,7 @@ final class TopLeadsWidget extends BaseWidget
         return $table
             ->query(
                 LeadScore::query()
+                    ->where('team_id', Filament::getTenant()?->getKey())
                     ->with(['customer', 'assignedUser'])
                     ->orderByDesc('score')
                     ->limit(10),

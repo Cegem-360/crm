@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Enums\OpportunityStage;
 use App\Models\Opportunity;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -37,7 +38,10 @@ final class OpportunityValueChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $data = Opportunity::query()
+            ->where('team_id', $teamId)
             ->select('stage', DB::raw('SUM(value) as total_value'))
             ->groupBy('stage')
             ->get()

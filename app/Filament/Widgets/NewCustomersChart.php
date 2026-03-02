@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\Customer;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -25,11 +26,14 @@ final class NewCustomersChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $monthExpression = DB::connection()->getDriverName() === 'sqlite'
             ? "strftime('%Y-%m', created_at)"
             : "DATE_FORMAT(created_at, '%Y-%m')";
 
         $data = Customer::query()
+            ->where('team_id', $teamId)
             ->select(
                 DB::raw($monthExpression.' as month'),
                 DB::raw('COUNT(*) as count')

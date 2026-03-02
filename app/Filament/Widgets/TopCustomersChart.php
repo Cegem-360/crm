@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\Order;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -25,7 +26,10 @@ final class TopCustomersChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $data = Order::query()
+            ->where('orders.team_id', $teamId)
             ->select('customers.name', DB::raw('SUM(orders.total) as revenue'))
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->groupBy('customers.id', 'customers.name')

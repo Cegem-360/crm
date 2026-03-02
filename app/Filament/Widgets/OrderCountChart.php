@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Concerns\ChartColors;
 use App\Models\Order;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -25,11 +26,14 @@ final class OrderCountChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $monthExpression = DB::connection()->getDriverName() === 'sqlite'
             ? "strftime('%Y-%m', order_date)"
             : "DATE_FORMAT(order_date, '%Y-%m')";
 
         $data = Order::query()
+            ->where('team_id', $teamId)
             ->select(
                 DB::raw($monthExpression.' as month'),
                 DB::raw('COUNT(*) as count')

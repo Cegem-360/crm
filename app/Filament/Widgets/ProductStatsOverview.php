@@ -6,8 +6,10 @@ namespace App\Filament\Widgets;
 
 use App\Models\OrderItem;
 use App\Models\Product;
+use Filament\Facades\Filament;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Number;
 use Override;
 
@@ -19,10 +21,14 @@ final class ProductStatsOverview extends BaseWidget
     #[Override]
     protected function getStats(): array
     {
-        $totalProducts = Product::query()->count();
-        $activeProducts = Product::query()->where('is_active', true)->count();
-        $averagePrice = (float) (Product::query()->where('is_active', true)->avg('unit_price') ?? 0);
-        $totalSold = (float) OrderItem::query()->sum('quantity');
+        $teamId = Filament::getTenant()?->getKey();
+
+        $totalProducts = Product::query()->where('team_id', $teamId)->count();
+        $activeProducts = Product::query()->where('team_id', $teamId)->where('is_active', true)->count();
+        $averagePrice = (float) (Product::query()->where('team_id', $teamId)->where('is_active', true)->avg('unit_price') ?? 0);
+        $totalSold = (float) OrderItem::query()
+            ->whereHas('order', static fn (Builder $query): Builder => $query->where('team_id', $teamId))
+            ->sum('quantity');
 
         return [
             Stat::make(__('Total Products'), Number::format($totalProducts))

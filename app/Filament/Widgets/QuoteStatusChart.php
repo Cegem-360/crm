@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Enums\QuoteStatus;
 use App\Models\Quote;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -36,7 +37,10 @@ final class QuoteStatusChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $data = Quote::query()
+            ->where('team_id', $teamId)
             ->select('status', DB::raw('COUNT(*) as count'), DB::raw('SUM(total) as total_value'))
             ->groupBy('status')
             ->get()

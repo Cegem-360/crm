@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Enums\CustomerType;
 use App\Models\Customer;
+use Filament\Facades\Filament;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 use Override;
@@ -33,7 +34,10 @@ final class CustomerTypeChart extends ChartWidget
     #[Override]
     protected function getData(): array
     {
+        $teamId = Filament::getTenant()?->getKey();
+
         $data = Customer::query()
+            ->where('team_id', $teamId)
             ->select('type', DB::raw('COUNT(*) as count'))
             ->groupBy('type')
             ->get()

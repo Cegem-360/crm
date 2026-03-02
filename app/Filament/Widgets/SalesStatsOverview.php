@@ -9,6 +9,7 @@ use App\Enums\QuoteStatus;
 use App\Models\Opportunity;
 use App\Models\Order;
 use App\Models\Quote;
+use Filament\Facades\Filament;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Number;
@@ -22,19 +23,24 @@ final class SalesStatsOverview extends BaseWidget
     #[Override]
     protected function getStats(): array
     {
-        $totalOpportunities = Opportunity::query()->count();
+        $teamId = Filament::getTenant()?->getKey();
+
+        $totalOpportunities = Opportunity::query()->where('team_id', $teamId)->count();
         $activeOpportunities = Opportunity::query()
+            ->where('team_id', $teamId)
             ->whereIn('stage', OpportunityStage::getActiveStages())
             ->count();
 
         $pipelineValue = (float) Opportunity::query()
+            ->where('team_id', $teamId)
             ->whereIn('stage', OpportunityStage::getActiveStages())
             ->sum('value');
 
-        $wonDealsValue = (float) Order::query()->sum('total');
+        $wonDealsValue = (float) Order::query()->where('team_id', $teamId)->sum('total');
 
-        $totalQuotes = Quote::query()->count();
+        $totalQuotes = Quote::query()->where('team_id', $teamId)->count();
         $acceptedQuotes = Quote::query()
+            ->where('team_id', $teamId)
             ->where('status', QuoteStatus::Accepted)
             ->count();
 

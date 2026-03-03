@@ -20,28 +20,33 @@ final class CampaignResponseImporter extends Importer
     {
         return [
             ImportColumn::make('campaign')
+                ->label(__('Campaign'))
                 ->requiredMapping()
                 ->relationship()
                 ->rules(['required']),
             ImportColumn::make('customer')
+                ->label(__('Customer'))
                 ->requiredMapping()
                 ->relationship()
                 ->rules(['required']),
             ImportColumn::make('response_type')
+                ->label(__('Response Type'))
                 ->requiredMapping()
                 ->rules(['required']),
-            ImportColumn::make('notes'),
+            ImportColumn::make('notes')
+                ->label(__('Notes')),
             ImportColumn::make('responded_at')
+                ->label(__('Responded At'))
                 ->rules(['datetime']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your campaign response import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count campaign response imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

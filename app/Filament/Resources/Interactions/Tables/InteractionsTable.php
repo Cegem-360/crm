@@ -87,9 +87,11 @@ final class InteractionsTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ImportAction::make(__('Import Interactions'))
+                ImportAction::make('importInteractions')
+                    ->label(__('Import Interactions'))
                     ->importer(InteractionImporter::class),
-                ExportAction::make(__('Export Interactions'))
+                ExportAction::make('exportInteractions')
+                    ->label(__('Export Interactions'))
                     ->exporter(InteractionExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

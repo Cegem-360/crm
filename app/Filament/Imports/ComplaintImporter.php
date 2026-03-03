@@ -25,6 +25,7 @@ final class ComplaintImporter extends Importer
     {
         return [
             ImportColumn::make('title')
+                ->label(__('Title'))
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
@@ -35,27 +36,31 @@ final class ComplaintImporter extends Importer
                 ->label(__('Order Number'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('severity')
+                ->label(__('Severity'))
                 ->requiredMapping()
                 ->examples(ComplaintSeverity::cases())
                 ->rules(['required']),
             ImportColumn::make('status')
+                ->label(__('Status'))
                 ->requiredMapping()
                 ->examples(ComplaintStatus::cases())
                 ->rules(['required']),
             ImportColumn::make('description')
+                ->label(__('Description'))
                 ->requiredMapping()
                 ->rules(['required', 'string']),
             ImportColumn::make('reported_at')
+                ->label(__('Reported At'))
                 ->rules(['nullable', 'date']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your complaint import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count complaint imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

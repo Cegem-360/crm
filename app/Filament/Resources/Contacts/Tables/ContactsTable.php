@@ -53,9 +53,11 @@ final class ContactsTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ImportAction::make(__('Import Contacts'))
+                ImportAction::make('importContacts')
+                    ->label(__('Import Contacts'))
                     ->importer(CustomerContactImporter::class),
-                ExportAction::make(__('Export Contacts'))
+                ExportAction::make('exportContacts')
+                    ->label(__('Export Contacts'))
                     ->exporter(CustomerContactExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

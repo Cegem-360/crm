@@ -77,7 +77,9 @@ final class ResponsesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                ImportAction::make('Import Responses')->label(__('Import Responses'))->importer(CampaignResponseImporter::class),
+                ImportAction::make('importResponses')
+                    ->label(__('Import Responses'))
+                    ->importer(CampaignResponseImporter::class),
                 CreateAction::make(),
             ])
             ->recordActions([

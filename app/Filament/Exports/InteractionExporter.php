@@ -31,28 +31,41 @@ final class InteractionExporter extends Exporter
                 ->label(__('User Name')),
             ExportColumn::make('user.email')
                 ->label(__('User Email')),
-            ExportColumn::make('type'),
-            ExportColumn::make('category'),
-            ExportColumn::make('channel'),
-            ExportColumn::make('direction'),
-            ExportColumn::make('status'),
-            ExportColumn::make('subject'),
-            ExportColumn::make('description'),
-            ExportColumn::make('interaction_date'),
-            ExportColumn::make('duration'),
-            ExportColumn::make('next_action'),
-            ExportColumn::make('next_action_date'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('type')
+                ->label(__('Type')),
+            ExportColumn::make('category')
+                ->label(__('Category')),
+            ExportColumn::make('channel')
+                ->label(__('Channel')),
+            ExportColumn::make('direction')
+                ->label(__('Direction')),
+            ExportColumn::make('status')
+                ->label(__('Status')),
+            ExportColumn::make('subject')
+                ->label(__('Subject')),
+            ExportColumn::make('description')
+                ->label(__('Description')),
+            ExportColumn::make('interaction_date')
+                ->label(__('Interaction Date')),
+            ExportColumn::make('duration')
+                ->label(__('Duration')),
+            ExportColumn::make('next_action')
+                ->label(__('Next Action')),
+            ExportColumn::make('next_action_date')
+                ->label(__('Next Action Date')),
+            ExportColumn::make('created_at')
+                ->label(__('Created At')),
+            ExportColumn::make('updated_at')
+                ->label(__('Updated At')),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your interaction export has completed and '.Number::format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
+        $body = __(':count interaction exported successfully.', ['count' => Number::format($export->successful_rows)]);
 
         if (($failedRowsCount = $export->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
+            $body .= __(' :count failed to export.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

@@ -29,6 +29,24 @@ final class CampaignResource extends Resource
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Marketing;
 
     #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Campaigns');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Campaign');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Campaigns');
+    }
+
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return CampaignForm::configure($schema);

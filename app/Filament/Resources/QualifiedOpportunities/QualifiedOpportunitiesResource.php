@@ -19,13 +19,25 @@ final class QualifiedOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?string $navigationLabel = 'Qualified';
-
-    protected static ?string $modelLabel = 'Qualified Opportunity';
-
-    protected static ?string $pluralModelLabel = 'Qualified Opportunities';
-
     protected static ?int $navigationSort = 11;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Qualified');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Qualified Opportunity');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Qualified Opportunities');
+    }
 
     #[Override]
     public static function table(Table $table): Table

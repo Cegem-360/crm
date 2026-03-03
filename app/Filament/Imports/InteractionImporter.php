@@ -48,46 +48,57 @@ final class InteractionImporter extends Importer
                 ->label(__('User Email'))
                 ->rules(['required', 'email']),
             ImportColumn::make('type')
+                ->label(__('Type'))
                 ->requiredMapping()
                 ->rules(['required'])
                 ->examples(array_map(fn (InteractionType $case) => $case->value, InteractionType::cases())),
             ImportColumn::make('category')
+                ->label(__('Category'))
                 ->rules(['nullable'])
                 ->examples(array_map(fn (InteractionCategory $case) => $case->value, InteractionCategory::cases())),
             ImportColumn::make('channel')
+                ->label(__('Channel'))
                 ->rules(['nullable'])
                 ->examples(array_map(fn (InteractionChannel $case) => $case->value, InteractionChannel::cases())),
             ImportColumn::make('direction')
+                ->label(__('Direction'))
                 ->rules(['nullable'])
                 ->examples(array_map(fn (InteractionDirection $case) => $case->value, InteractionDirection::cases())),
             ImportColumn::make('status')
+                ->label(__('Status'))
                 ->requiredMapping()
                 ->rules(['required'])
                 ->examples(array_map(fn (InteractionStatus $case) => $case->value, InteractionStatus::cases())),
             ImportColumn::make('subject')
+                ->label(__('Subject'))
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),
             ImportColumn::make('description')
+                ->label(__('Description'))
                 ->rules(['nullable']),
             ImportColumn::make('interaction_date')
+                ->label(__('Interaction Date'))
                 ->requiredMapping()
                 ->rules(['required', 'date']),
             ImportColumn::make('duration')
+                ->label(__('Duration'))
                 ->numeric()
                 ->rules(['nullable', 'integer', 'min:0']),
             ImportColumn::make('next_action')
+                ->label(__('Next Action'))
                 ->rules(['nullable', 'max:255']),
             ImportColumn::make('next_action_date')
+                ->label(__('Next Action Date'))
                 ->rules(['nullable', 'date']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your interaction import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count interaction imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

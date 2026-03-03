@@ -24,6 +24,24 @@ final class BugReportResource extends Resource
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
     #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Bug Reports');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Bug Report');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Bug Reports');
+    }
+
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return BugReportForm::configure($schema);

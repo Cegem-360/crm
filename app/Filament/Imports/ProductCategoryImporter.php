@@ -20,22 +20,24 @@ final class ProductCategoryImporter extends Importer
     {
         return [
             ImportColumn::make('name')
+                ->label(__('Name'))
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('parent_name')
                 ->label(__('Parent Category Name'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('description')
+                ->label(__('Description'))
                 ->rules(['nullable', 'string']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your product category import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count product category imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

@@ -37,6 +37,24 @@ final class CustomerResource extends Resource
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Customers;
 
     #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Customers');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Customer');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Customers');
+    }
+
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return CustomerForm::configure($schema);

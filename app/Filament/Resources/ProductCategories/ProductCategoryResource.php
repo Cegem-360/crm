@@ -26,6 +26,24 @@ final class ProductCategoryResource extends Resource
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Products;
 
     #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Product Categories');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Product Category');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Product Categories');
+    }
+
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ProductCategoryForm::configure($schema);

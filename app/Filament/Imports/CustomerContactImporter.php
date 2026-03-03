@@ -30,15 +30,20 @@ final class CustomerContactImporter extends Importer
                 ->exampleHeader('customer_identifier')
                 ->examples(['CUST-001', 'ABC Company']),
             ImportColumn::make('name')
+                ->label(__('Name'))
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),
             ImportColumn::make('email')
+                ->label(__('Email'))
                 ->rules(['nullable', 'email', 'max:255']),
             ImportColumn::make('phone')
+                ->label(__('Phone'))
                 ->rules(['nullable', 'max:50']),
             ImportColumn::make('position')
+                ->label(__('Position'))
                 ->rules(['nullable', 'max:255']),
             ImportColumn::make('is_primary')
+                ->label(__('Is Primary'))
                 ->boolean()
                 ->rules(['nullable', 'boolean']),
         ];
@@ -46,10 +51,10 @@ final class CustomerContactImporter extends Importer
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your contact import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count contact imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

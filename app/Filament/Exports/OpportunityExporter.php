@@ -20,29 +20,40 @@ final class OpportunityExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('customer.unique_identifier'),
-            ExportColumn::make('customer.name'),
-            ExportColumn::make('title'),
-            ExportColumn::make('description'),
-            ExportColumn::make('value'),
-            ExportColumn::make('probability'),
-            ExportColumn::make('stage')->formatStateUsing(fn (OpportunityStage $state): string => $state->value),
-            ExportColumn::make('expected_close_date'),
+            ExportColumn::make('customer.unique_identifier')
+                ->label(__('Customer Identifier')),
+            ExportColumn::make('customer.name')
+                ->label(__('Customer Name')),
+            ExportColumn::make('title')
+                ->label(__('Title')),
+            ExportColumn::make('description')
+                ->label(__('Description')),
+            ExportColumn::make('value')
+                ->label(__('Value')),
+            ExportColumn::make('probability')
+                ->label(__('Probability')),
+            ExportColumn::make('stage')
+                ->label(__('Stage'))
+                ->formatStateUsing(fn (OpportunityStage $state): string => $state->value),
+            ExportColumn::make('expected_close_date')
+                ->label(__('Expected Close Date')),
             ExportColumn::make('assignedUser.name')
                 ->label(__('Assigned To')),
             ExportColumn::make('assignedUser.email')
                 ->label(__('Assigned Email')),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('created_at')
+                ->label(__('Created At')),
+            ExportColumn::make('updated_at')
+                ->label(__('Updated At')),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your opportunity export has completed and '.Number::format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
+        $body = __(':count opportunity exported successfully.', ['count' => Number::format($export->successful_rows)]);
 
         if (($failedRowsCount = $export->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
+            $body .= __(' :count failed to export.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

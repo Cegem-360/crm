@@ -19,13 +19,25 @@ final class LostQuotationOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?string $navigationLabel = 'Lost Quotation';
-
-    protected static ?string $modelLabel = 'Lost Quotation Opportunity';
-
-    protected static ?string $pluralModelLabel = 'Lost Quotation Opportunities';
-
     protected static ?int $navigationSort = 15;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Lost Quotation');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Lost Quotation Opportunity');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Lost Quotation Opportunities');
+    }
 
     #[Override]
     public static function table(Table $table): Table

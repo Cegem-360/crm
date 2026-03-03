@@ -24,29 +24,37 @@ final class DiscountImporter extends Importer
     {
         return [
             ImportColumn::make('name')
+                ->label(__('Name'))
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('type')
+                ->label(__('Type'))
                 ->requiredMapping()
                 ->examples(DiscountType::cases())
                 ->rules(['required']),
             ImportColumn::make('value_type')
+                ->label(__('Value Type'))
                 ->requiredMapping()
                 ->examples(DiscountValueType::cases())
                 ->rules(['required']),
             ImportColumn::make('value')
+                ->label(__('Value'))
                 ->requiredMapping()
                 ->numeric()
                 ->rules(['required', 'numeric', 'min:0']),
             ImportColumn::make('min_quantity')
+                ->label(__('Min Quantity'))
                 ->numeric()
                 ->rules(['nullable', 'numeric', 'min:0']),
             ImportColumn::make('min_value')
+                ->label(__('Min Value'))
                 ->numeric()
                 ->rules(['nullable', 'numeric', 'min:0']),
             ImportColumn::make('valid_from')
+                ->label(__('Valid From'))
                 ->rules(['nullable', 'date']),
             ImportColumn::make('valid_until')
+                ->label(__('Valid Until'))
                 ->rules(['nullable', 'date']),
             ImportColumn::make('customer_identifier')
                 ->label(__('Customer Identifier'))
@@ -55,19 +63,21 @@ final class DiscountImporter extends Importer
                 ->label(__('Product Name'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('is_active')
+                ->label(__('Is Active'))
                 ->boolean()
                 ->rules(['nullable', 'boolean']),
             ImportColumn::make('description')
+                ->label(__('Description'))
                 ->rules(['nullable', 'string']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your discount import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count discount imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

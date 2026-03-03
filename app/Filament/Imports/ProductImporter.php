@@ -19,24 +19,30 @@ final class ProductImporter extends Importer
     {
         return [
             ImportColumn::make('name')
+                ->label(__('Name'))
                 ->requiredMapping()
                 ->rules(['required']),
             ImportColumn::make('sku')
                 ->label(__('SKU'))
                 ->requiredMapping()
                 ->rules(['required']),
-            ImportColumn::make('description'),
+            ImportColumn::make('description')
+                ->label(__('Description')),
             ImportColumn::make('category')
+                ->label(__('Category'))
                 ->relationship(),
             ImportColumn::make('unit_price')
+                ->label(__('Unit Price'))
                 ->requiredMapping()
                 ->numeric()
                 ->rules(['required', 'integer']),
             ImportColumn::make('tax_rate')
+                ->label(__('Tax Rate'))
                 ->requiredMapping()
                 ->numeric()
                 ->rules(['required', 'integer']),
             ImportColumn::make('is_active')
+                ->label(__('Is Active'))
                 ->requiredMapping()
                 ->boolean()
                 ->rules(['required', 'boolean']),
@@ -45,10 +51,10 @@ final class ProductImporter extends Importer
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your product import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count product imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

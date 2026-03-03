@@ -59,8 +59,12 @@ final class ProductsTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ExportAction::make(__('Export Products'))->exporter(ProductExporter::class),
-                ImportAction::make(__('Import Products'))->importer(ProductImporter::class),
+                ExportAction::make('exportProducts')
+                    ->label(__('Export Products'))
+                    ->exporter(ProductExporter::class),
+                ImportAction::make('importProducts')
+                    ->label(__('Import Products'))
+                    ->importer(ProductImporter::class),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

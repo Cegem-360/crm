@@ -23,13 +23,25 @@ final class EmailTemplateResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
-    protected static ?string $navigationLabel = 'Email Templates';
-
-    protected static ?string $modelLabel = 'Email Template';
-
-    protected static ?string $pluralModelLabel = 'Email Templates';
-
     protected static ?int $navigationSort = 2;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Email Templates');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Email Template');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Email Templates');
+    }
 
     #[Override]
     public static function form(Schema $schema): Schema

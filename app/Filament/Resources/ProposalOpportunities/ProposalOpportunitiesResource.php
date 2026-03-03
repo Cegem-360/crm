@@ -19,13 +19,25 @@ final class ProposalOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?string $navigationLabel = 'Proposals';
-
-    protected static ?string $modelLabel = 'Proposal Opportunity';
-
-    protected static ?string $pluralModelLabel = 'Proposal Opportunities';
-
     protected static ?int $navigationSort = 12;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Proposals');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Proposal Opportunity');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Proposal Opportunities');
+    }
 
     #[Override]
     public static function table(Table $table): Table

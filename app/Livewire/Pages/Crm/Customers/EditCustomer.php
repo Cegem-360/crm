@@ -9,6 +9,8 @@ use App\Filament\Resources\Customers\Pages\EditCustomer as FilamentEditCustomer;
 use App\Filament\Resources\Customers\Schemas\CustomerForm;
 use App\Livewire\Concerns\HasCurrentTeam;
 use App\Models\Customer;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -26,9 +28,10 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 
 #[Layout('components.layouts.dashboard')]
-final class EditCustomer extends Component implements HasSchemas
+final class EditCustomer extends Component implements HasActions, HasSchemas
 {
     use HasCurrentTeam;
+    use InteractsWithActions;
     use InteractsWithSchemas;
 
     public ?Customer $customer = null;

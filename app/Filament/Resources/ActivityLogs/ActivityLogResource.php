@@ -24,13 +24,25 @@ final class ActivityLogResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::System;
 
-    protected static ?string $navigationLabel = 'Activity Log';
-
-    protected static ?string $modelLabel = 'Activity';
-
-    protected static ?string $pluralModelLabel = 'Activities';
-
     protected static ?int $navigationSort = 100;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Activity Log');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Activity');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Activities');
+    }
 
     #[Override]
     public static function infolist(Schema $schema): Schema

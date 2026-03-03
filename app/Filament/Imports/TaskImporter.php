@@ -22,6 +22,7 @@ final class TaskImporter extends Importer
     {
         return [
             ImportColumn::make('title')
+                ->label(__('Title'))
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
@@ -32,24 +33,28 @@ final class TaskImporter extends Importer
                 ->requiredMapping()
                 ->rules(['required', 'email']),
             ImportColumn::make('priority')
+                ->label(__('Priority'))
                 ->requiredMapping()
                 ->rules(['required', 'in:low,medium,high,urgent']),
             ImportColumn::make('status')
+                ->label(__('Status'))
                 ->requiredMapping()
                 ->rules(['required', 'in:pending,in_progress,completed,cancelled']),
             ImportColumn::make('description')
+                ->label(__('Description'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('due_date')
+                ->label(__('Due Date'))
                 ->rules(['nullable', 'date']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your task import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count task imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

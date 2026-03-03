@@ -19,13 +19,25 @@ final class QuotationSendedOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?string $navigationLabel = 'Quotation Sended';
-
-    protected static ?string $modelLabel = 'Quotation Sended Opportunity';
-
-    protected static ?string $pluralModelLabel = 'Quotation Sended Opportunities';
-
     protected static ?int $navigationSort = 14;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Quotation Sent');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Quotation Sent Opportunity');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Quotation Sent Opportunities');
+    }
 
     #[Override]
     public static function table(Table $table): Table

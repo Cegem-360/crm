@@ -24,6 +24,7 @@ final class OrderImporter extends Importer
     {
         return [
             ImportColumn::make('order_number')
+                ->label(__('Order Number'))
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
@@ -34,35 +35,42 @@ final class OrderImporter extends Importer
                 ->label(__('Quote Number'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('order_date')
+                ->label(__('Order Date'))
                 ->requiredMapping()
                 ->rules(['required', 'date']),
             ImportColumn::make('status')
+                ->label(__('Status'))
                 ->requiredMapping()
                 ->examples(OrderStatus::cases())
                 ->rules(['required']),
             ImportColumn::make('subtotal')
+                ->label(__('Subtotal'))
                 ->numeric()
                 ->rules(['required', 'numeric', 'min:0']),
             ImportColumn::make('discount_amount')
+                ->label(__('Discount Amount'))
                 ->numeric()
                 ->rules(['nullable', 'numeric', 'min:0']),
             ImportColumn::make('tax_amount')
+                ->label(__('Tax Amount'))
                 ->numeric()
                 ->rules(['required', 'numeric', 'min:0']),
             ImportColumn::make('total')
+                ->label(__('Total'))
                 ->numeric()
                 ->rules(['required', 'numeric', 'min:0']),
             ImportColumn::make('notes')
+                ->label(__('Notes'))
                 ->rules(['nullable', 'string']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your order import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count order imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

@@ -28,6 +28,18 @@ final class ChatMessageResource extends Resource
     protected static bool $shouldRegisterNavigation = false;
 
     #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Chat Message');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Chat Messages');
+    }
+
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return ChatMessageForm::configure($schema);

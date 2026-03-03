@@ -25,13 +25,25 @@ final class ChatSessionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
-    protected static ?string $navigationLabel = 'Conversations';
-
-    protected static ?string $modelLabel = 'Conversation';
-
-    protected static ?string $pluralModelLabel = 'Conversations';
-
     protected static ?int $navigationSort = 10;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Conversations');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Conversation');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Conversations');
+    }
 
     #[Override]
     public static function form(Schema $schema): Schema

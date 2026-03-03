@@ -24,6 +24,24 @@ final class TaskResource extends Resource
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
     #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Tasks');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Task');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Tasks');
+    }
+
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return TaskForm::configure($schema);

@@ -20,7 +20,8 @@ final class ListLeadOpportunities extends ListRecords
     {
         return [
             CreateAction::make(),
-            ImportAction::make()
+            ImportAction::make('importOpportunities')
+                ->label(__('Import Opportunities'))
                 ->importer(OpportunityImporter::class),
         ];
     }

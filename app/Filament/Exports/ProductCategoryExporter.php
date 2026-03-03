@@ -19,20 +19,23 @@ final class ProductCategoryExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('name'),
+            ExportColumn::make('name')
+                ->label(__('Name')),
             ExportColumn::make('parent.name')
                 ->label(__('Parent Category')),
-            ExportColumn::make('description'),
-            ExportColumn::make('created_at'),
+            ExportColumn::make('description')
+                ->label(__('Description')),
+            ExportColumn::make('created_at')
+                ->label(__('Created At')),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your product category export has completed and '.Number::format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
+        $body = __(':count product category exported successfully.', ['count' => Number::format($export->successful_rows)]);
 
         if (($failedRowsCount = $export->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
+            $body .= __(' :count failed to export.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

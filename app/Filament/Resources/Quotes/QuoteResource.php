@@ -31,6 +31,24 @@ final class QuoteResource extends Resource
     protected static ?int $navigationSort = 1;
 
     #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Quotes');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Quote');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Quotes');
+    }
+
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return QuoteForm::configure($schema);

@@ -19,13 +19,25 @@ final class NegotiationOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?string $navigationLabel = 'Negotiations';
-
-    protected static ?string $modelLabel = 'Negotiation Opportunity';
-
-    protected static ?string $pluralModelLabel = 'Negotiation Opportunities';
-
     protected static ?int $navigationSort = 13;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Negotiations');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Negotiation Opportunity');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Negotiation Opportunities');
+    }
 
     #[Override]
     public static function table(Table $table): Table

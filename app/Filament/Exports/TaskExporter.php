@@ -19,7 +19,8 @@ final class TaskExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('title'),
+            ExportColumn::make('title')
+                ->label(__('Title')),
             ExportColumn::make('customer.name')
                 ->label(__('Customer')),
             ExportColumn::make('assignedUser.name')
@@ -28,21 +29,27 @@ final class TaskExporter extends Exporter
                 ->label(__('Assigned Email')),
             ExportColumn::make('assigner.name')
                 ->label(__('Assigned By')),
-            ExportColumn::make('priority'),
-            ExportColumn::make('status'),
-            ExportColumn::make('description'),
-            ExportColumn::make('due_date'),
-            ExportColumn::make('completed_at'),
-            ExportColumn::make('created_at'),
+            ExportColumn::make('priority')
+                ->label(__('Priority')),
+            ExportColumn::make('status')
+                ->label(__('Status')),
+            ExportColumn::make('description')
+                ->label(__('Description')),
+            ExportColumn::make('due_date')
+                ->label(__('Due Date')),
+            ExportColumn::make('completed_at')
+                ->label(__('Completed At')),
+            ExportColumn::make('created_at')
+                ->label(__('Created At')),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your task export has completed and '.Number::format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
+        $body = __(':count task exported successfully.', ['count' => Number::format($export->successful_rows)]);
 
         if (($failedRowsCount = $export->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
+            $body .= __(' :count failed to export.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

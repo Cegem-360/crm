@@ -20,27 +20,40 @@ final class CustomerExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('unique_identifier'),
-            ExportColumn::make('name'),
-            ExportColumn::make('type')->formatStateUsing(fn (CustomerType $state): string => $state->value),
-            ExportColumn::make('tax_number'),
-            ExportColumn::make('registration_number'),
-            ExportColumn::make('email'),
-            ExportColumn::make('phone'),
-            ExportColumn::make('notes'),
-            ExportColumn::make('is_active'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
-            ExportColumn::make('deleted_at'),
+            ExportColumn::make('unique_identifier')
+                ->label(__('Unique Identifier')),
+            ExportColumn::make('name')
+                ->label(__('Name')),
+            ExportColumn::make('type')
+                ->label(__('Type'))
+                ->formatStateUsing(fn (CustomerType $state): string => $state->value),
+            ExportColumn::make('tax_number')
+                ->label(__('Tax Number')),
+            ExportColumn::make('registration_number')
+                ->label(__('Registration Number')),
+            ExportColumn::make('email')
+                ->label(__('Email')),
+            ExportColumn::make('phone')
+                ->label(__('Phone')),
+            ExportColumn::make('notes')
+                ->label(__('Notes')),
+            ExportColumn::make('is_active')
+                ->label(__('Is Active')),
+            ExportColumn::make('created_at')
+                ->label(__('Created At')),
+            ExportColumn::make('updated_at')
+                ->label(__('Updated At')),
+            ExportColumn::make('deleted_at')
+                ->label(__('Deleted At')),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your customer export has completed and '.Number::format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
+        $body = __(':count customer exported successfully.', ['count' => Number::format($export->successful_rows)]);
 
         if (($failedRowsCount = $export->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
+            $body .= __(' :count failed to export.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

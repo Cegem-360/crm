@@ -24,13 +24,25 @@ final class LeadOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?string $navigationLabel = 'Leads';
-
-    protected static ?string $modelLabel = 'Lead Opportunity';
-
-    protected static ?string $pluralModelLabel = 'Lead Opportunities';
-
     protected static ?int $navigationSort = 10;
+
+    #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __('Leads');
+    }
+
+    #[Override]
+    public static function getModelLabel(): string
+    {
+        return __('Lead Opportunity');
+    }
+
+    #[Override]
+    public static function getPluralModelLabel(): string
+    {
+        return __('Lead Opportunities');
+    }
 
     #[Override]
     public static function form(Schema $schema): Schema

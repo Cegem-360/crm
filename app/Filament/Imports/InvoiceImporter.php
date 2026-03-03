@@ -24,6 +24,7 @@ final class InvoiceImporter extends Importer
     {
         return [
             ImportColumn::make('invoice_number')
+                ->label(__('Invoice Number'))
                 ->requiredMapping()
                 ->rules(['required', 'string', 'max:255']),
             ImportColumn::make('customer_identifier')
@@ -34,38 +35,46 @@ final class InvoiceImporter extends Importer
                 ->label(__('Order Number'))
                 ->rules(['nullable', 'string']),
             ImportColumn::make('issue_date')
+                ->label(__('Issue Date'))
                 ->requiredMapping()
                 ->rules(['required', 'date']),
             ImportColumn::make('due_date')
+                ->label(__('Due Date'))
                 ->requiredMapping()
                 ->rules(['required', 'date']),
             ImportColumn::make('status')
+                ->label(__('Status'))
                 ->requiredMapping()
                 ->examples(InvoiceStatus::cases())
                 ->rules(['required']),
             ImportColumn::make('subtotal')
+                ->label(__('Subtotal'))
                 ->numeric()
                 ->rules(['required', 'numeric', 'min:0']),
             ImportColumn::make('discount_amount')
+                ->label(__('Discount Amount'))
                 ->numeric()
                 ->rules(['nullable', 'numeric', 'min:0']),
             ImportColumn::make('tax_amount')
+                ->label(__('Tax Amount'))
                 ->numeric()
                 ->rules(['required', 'numeric', 'min:0']),
             ImportColumn::make('total')
+                ->label(__('Total'))
                 ->numeric()
                 ->rules(['required', 'numeric', 'min:0']),
             ImportColumn::make('notes')
+                ->label(__('Notes'))
                 ->rules(['nullable', 'string']),
         ];
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your invoice import has completed and '.Number::format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
+        $body = __(':count invoice imported successfully.', ['count' => Number::format($import->successful_rows)]);
 
         if (($failedRowsCount = $import->getFailedRowsCount()) !== 0) {
-            $body .= ' '.Number::format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
+            $body .= __(' :count failed to import.', ['count' => Number::format($failedRowsCount)]);
         }
 
         return $body;

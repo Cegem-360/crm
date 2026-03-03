@@ -63,8 +63,11 @@ final class CustomersTable
                 EditAction::make(),
             ])
             ->headerActions([
-                ImportAction::make(__('Import Customers'))->importer(CustomerImporter::class),
-                ExportAction::make(__('Export Customers'))
+                ImportAction::make('importCustomers')
+                    ->label(__('Import Customers'))
+                    ->importer(CustomerImporter::class),
+                ExportAction::make('exportCustomers')
+                    ->label(__('Export Customers'))
                     ->exporter(CustomerExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

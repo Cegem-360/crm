@@ -79,6 +79,7 @@ final class ResponsesRelationManager extends RelationManager
             ->headerActions([
                 ImportAction::make('importResponses')
                     ->label(__('Import Responses'))
+                    ->pluralModelLabel(__('Responses'))
                     ->importer(CampaignResponseImporter::class),
                 CreateAction::make(),
             ])

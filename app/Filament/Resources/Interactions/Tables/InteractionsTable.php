@@ -89,9 +89,11 @@ final class InteractionsTable
             ->headerActions([
                 ImportAction::make('importInteractions')
                     ->label(__('Import Interactions'))
+                    ->pluralModelLabel(__('Interactions'))
                     ->importer(InteractionImporter::class),
                 ExportAction::make('exportInteractions')
                     ->label(__('Export Interactions'))
+                    ->pluralModelLabel(__('Interactions'))
                     ->exporter(InteractionExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

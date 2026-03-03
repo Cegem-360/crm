@@ -22,6 +22,7 @@ final class ListLeadOpportunities extends ListRecords
             CreateAction::make(),
             ImportAction::make('importOpportunities')
                 ->label(__('Import Opportunities'))
+                ->pluralModelLabel(__('Opportunities'))
                 ->importer(OpportunityImporter::class),
         ];
     }

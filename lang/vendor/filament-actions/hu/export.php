@@ -14,6 +14,18 @@ return [
 
                 'label' => 'Oszlopok',
 
+                'actions' => [
+
+                    'select_all' => [
+                        'label' => 'Összes kijelölése',
+                    ],
+
+                    'deselect_all' => [
+                        'label' => 'Kijelölés megszüntetése',
+                    ],
+
+                ],
+
                 'form' => [
 
                     'is_enabled' => [
@@ -63,6 +75,11 @@ return [
         'max_rows' => [
             'title' => 'Túl sok exportálandó sor',
             'body' => 'Nem exportálhatsz több mint 1 sort egyszerre.|Nem exportálhatsz több mint :count sor egyszerre.',
+        ],
+
+        'no_columns' => [
+            'title' => 'Nincs kiválasztott oszlop',
+            'body' => 'Kérjük, válassz ki legalább egy exportálandó oszlopot.',
         ],
 
         'started' => [

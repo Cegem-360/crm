@@ -55,9 +55,11 @@ final class ContactsTable
             ->headerActions([
                 ImportAction::make('importContacts')
                     ->label(__('Import Contacts'))
+                    ->pluralModelLabel(__('Contacts'))
                     ->importer(CustomerContactImporter::class),
                 ExportAction::make('exportContacts')
                     ->label(__('Export Contacts'))
+                    ->pluralModelLabel(__('Contacts'))
                     ->exporter(CustomerContactExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

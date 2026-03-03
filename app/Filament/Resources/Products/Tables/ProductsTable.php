@@ -61,9 +61,11 @@ final class ProductsTable
             ->headerActions([
                 ExportAction::make('exportProducts')
                     ->label(__('Export Products'))
+                    ->pluralModelLabel(__('Products'))
                     ->exporter(ProductExporter::class),
                 ImportAction::make('importProducts')
                     ->label(__('Import Products'))
+                    ->pluralModelLabel(__('Products'))
                     ->importer(ProductImporter::class),
             ])
             ->toolbarActions([

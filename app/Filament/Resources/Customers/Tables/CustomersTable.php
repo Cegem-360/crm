@@ -65,9 +65,11 @@ final class CustomersTable
             ->headerActions([
                 ImportAction::make('importCustomers')
                     ->label(__('Import Customers'))
+                    ->pluralModelLabel(__('Customers'))
                     ->importer(CustomerImporter::class),
                 ExportAction::make('exportCustomers')
                     ->label(__('Export Customers'))
+                    ->pluralModelLabel(__('Customers'))
                     ->exporter(CustomerExporter::class)
                     ->formats([
                         ExportFormat::Xlsx,

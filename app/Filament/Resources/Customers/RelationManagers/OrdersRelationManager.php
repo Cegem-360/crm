@@ -46,6 +46,7 @@ final class OrdersRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('quote_id')
+                    ->label(__('Quote'))
                     ->relationship('quote', 'id'),
                 TextInput::make('order_number')
                     ->required(),

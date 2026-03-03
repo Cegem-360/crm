@@ -20,7 +20,9 @@ use App\Livewire\Pages\Interactions\ChatSessions\ViewChatSession;
 use App\Livewire\Pages\Interactions\Interactions\EditInteraction;
 use App\Livewire\Pages\Interactions\Interactions\ListInteractions;
 use App\Livewire\Pages\Interactions\Interactions\ViewInteraction;
-use App\Livewire\Pages\Marketing\Campaigns;
+use App\Livewire\Pages\Marketing\Campaigns\EditCampaign;
+use App\Livewire\Pages\Marketing\Campaigns\ListCampaigns;
+use App\Livewire\Pages\Marketing\Campaigns\ViewCampaign;
 use App\Livewire\Pages\Products\Discounts\EditDiscount;
 use App\Livewire\Pages\Products\Discounts\ListDiscounts;
 use App\Livewire\Pages\Products\Discounts\ViewDiscount;
@@ -182,7 +184,10 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::get('/chat-sessions/{chatSession}/edit', EditChatSession::class)->name('chat-sessions.edit');
 
             // Marketing
-            Route::get('/campaigns', Campaigns::class)->name('campaigns');
+            Route::get('/campaigns', ListCampaigns::class)->name('campaigns');
+            Route::get('/campaigns/create', EditCampaign::class)->name('campaigns.create');
+            Route::get('/campaigns/{campaign}', ViewCampaign::class)->name('campaigns.view');
+            Route::get('/campaigns/{campaign}/edit', EditCampaign::class)->name('campaigns.edit');
 
             // Reports
             Route::get('/reports/sales', SalesReports::class)->name('reports.sales');

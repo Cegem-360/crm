@@ -49,6 +49,7 @@ final class InvoicesRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('order_id')
+                    ->label(__('Order'))
                     ->relationship('order', 'id'),
                 TextInput::make('invoice_number')
                     ->required(),

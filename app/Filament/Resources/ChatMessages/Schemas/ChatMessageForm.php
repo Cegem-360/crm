@@ -16,6 +16,7 @@ final class ChatMessageForm
         return $schema
             ->components([
                 Select::make('chat_session_id')
+                    ->label(__('Chat Session'))
                     ->relationship('chatSession', 'id')
                     ->required(),
                 TextInput::make('sender_type')

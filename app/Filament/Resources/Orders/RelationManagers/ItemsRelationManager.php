@@ -32,6 +32,7 @@ final class ItemsRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('product_id')
+                    ->label(__('Product'))
                     ->live()
                     ->relationship('product', 'name'),
                 RichEditor::make('description'),

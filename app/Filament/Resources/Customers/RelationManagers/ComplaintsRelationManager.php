@@ -41,6 +41,7 @@ final class ComplaintsRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('order_id')
+                    ->label(__('Order'))
                     ->relationship('order', 'order_number'),
                 Select::make('reported_by')
                     ->relationship('reporter', 'name')

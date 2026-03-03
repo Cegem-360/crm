@@ -1063,5 +1063,25 @@
     "Number": "Szám",
     "Note": "Megjegyzés",
     "URL": "URL",
-    "e.g., Q1 2024 Marketing Initiative": "pl. 2024 Q1 Marketing Kezdeményezés"
+    "e.g., Q1 2024 Marketing Initiative": "pl. 2024 Q1 Marketing Kezdeményezés",
+
+    "Start date": "Kezdés dátuma",
+    "End date": "Befejezés dátuma",
+    "Created by": "Létrehozta",
+    "Read at": "Olvasva",
+    "Responded at": "Válaszolva",
+    "Response type": "Válasz típusa",
+    "Sender type": "Küldő típusa",
+
+    "Email verified at": "E-mail megerősítve",
+    "Guard name": "Guard neve",
+    "Is read": "Olvasott",
+    "Discount percent": "Kedvezmény %",
+    "Target audience criteria": "Célközönség feltételek",
+
+    "Edit Campaign": "Kampány szerkesztése",
+    "Create a new campaign": "Új kampány létrehozása",
+    "Campaign details": "Kampány részletei",
+    "Campaign created successfully.": "Kampány sikeresen létrehozva.",
+    "Campaign updated successfully.": "Kampány sikeresen frissítve."
 }

@@ -40,6 +40,7 @@ final class InteractionsRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('user_id')
+                    ->label(__('User'))
                     ->relationship('user', 'name')
                     ->required(),
                 TextInput::make('type')

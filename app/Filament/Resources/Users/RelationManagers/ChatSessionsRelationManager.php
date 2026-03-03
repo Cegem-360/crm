@@ -31,6 +31,7 @@ final class ChatSessionsRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('customer_id')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name'),
                 DateTimePicker::make('started_at')
                     ->required(),

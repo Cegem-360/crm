@@ -49,6 +49,7 @@ final class QuotesRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('opportunity_id')
+                    ->label(__('Opportunity'))
                     ->relationship('opportunity', 'title',
                         fn (Builder $query) => $query->whereBelongsTo($this->ownerRecord)),
                 TextInput::make('quote_number')

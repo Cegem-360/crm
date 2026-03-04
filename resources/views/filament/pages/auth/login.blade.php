@@ -23,7 +23,7 @@
     <div class="mt-10 text-center space-y-3">
         <p class="text-sm text-gray-500">
             {{ __("Don't have an account?") }}
-            <a href="{{ route('filament.admin.auth.register') }}" class="text-indigo-600 hover:text-indigo-700 font-medium" style="color: #4f46e5 !important;">
+            <a href="{{ Route::has('filament.admin.auth.register') ? route('filament.admin.auth.register') : '#' }}" class="text-indigo-600 hover:text-indigo-700 font-medium" style="color: #4f46e5 !important;">
                 {{ __('Register') }}
             </a>
         </p>

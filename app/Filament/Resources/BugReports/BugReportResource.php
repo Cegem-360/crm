@@ -11,6 +11,7 @@ use App\Filament\Resources\BugReports\Pages\ListBugReports;
 use App\Filament\Resources\BugReports\Schemas\BugReportForm;
 use App\Filament\Resources\BugReports\Tables\BugReportsTable;
 use App\Models\BugReport;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -22,6 +23,10 @@ final class BugReportResource extends Resource
     protected static ?string $model = BugReport::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-bug-ant';
+
+    protected static ?int $navigationSort = 1;
 
     #[Override]
     public static function getNavigationLabel(): string

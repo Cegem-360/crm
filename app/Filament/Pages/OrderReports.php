@@ -9,6 +9,7 @@ use App\Filament\Widgets\OrderCountChart;
 use App\Filament\Widgets\OrderRevenueChart;
 use App\Filament\Widgets\OrderStatsOverview;
 use App\Filament\Widgets\OrderStatusChart;
+use BackedEnum;
 use Filament\Pages\Page;
 use Override;
 use UnitEnum;
@@ -18,6 +19,8 @@ final class OrderReports extends Page
     protected string $view = 'filament.pages.reports';
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Reports;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shopping-bag';
 
     protected static ?int $navigationSort = 2;
 

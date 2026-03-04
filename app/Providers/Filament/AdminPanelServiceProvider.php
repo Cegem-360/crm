@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Enums\NavigationGroup;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\EditTeamProfile;
 use App\Filament\Pages\RegisterTeam;
@@ -13,11 +14,14 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup as FilamentNavigationGroup;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -35,6 +39,40 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->font('Figtree')
+            ->sidebarFullyCollapsibleOnDesktop()
+            ->sidebarWidth('15rem')
+            ->collapsibleNavigationGroups(false)
+            ->navigationGroups([
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Customers->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-customers']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Sales->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-sales']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Products->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-products']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Marketing->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-marketing']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Activities->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-activities']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Support->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-support']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Reports->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-reports']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::Settings->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-settings']),
+                FilamentNavigationGroup::make()
+                    ->label(fn (): string => NavigationGroup::System->getLabel())
+                    ->extraSidebarAttributes(['class' => 'fi-nav-group-system']),
+            ])
             ->login(Login::class)
             ->profile()
             ->tenant(Team::class, slugAttribute: 'slug')
@@ -49,6 +87,10 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Indigo,
             ])
+            ->renderHook(
+                PanelsRenderHook::GLOBAL_SEARCH_BEFORE,
+                fn (): View => view('filament.topbar-items'),
+            )
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -75,6 +117,7 @@ final class AdminPanelServiceProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentApexChartsPlugin::make(),
-            ]);
+            ])
+            ->spa();
     }
 }

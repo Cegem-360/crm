@@ -8,6 +8,7 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\QuotationSendedOpportunities\Pages\ManageQuotationSendedOpportunities;
 use App\Filament\Resources\QuotationSendedOpportunities\Tables\QuotationSendedOpportunitiesTable;
 use App\Models\Opportunity;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Override;
@@ -19,7 +20,9 @@ final class QuotationSendedOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 14;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-paper-airplane';
+
+    protected static ?int $navigationSort = 5;
 
     #[Override]
     public static function getNavigationLabel(): string

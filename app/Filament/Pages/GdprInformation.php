@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Pages;
 
 use App\Enums\NavigationGroup;
+use BackedEnum;
 use Filament\Pages\Page;
 use Override;
 use UnitEnum;
@@ -15,7 +16,9 @@ final class GdprInformation extends Page
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Settings;
 
-    protected static ?int $navigationSort = 50;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shield-check';
+
+    protected static ?int $navigationSort = 2;
 
     #[Override]
     public static function getNavigationLabel(): string

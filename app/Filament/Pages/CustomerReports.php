@@ -9,6 +9,7 @@ use App\Filament\Widgets\CustomerStatsOverview;
 use App\Filament\Widgets\CustomerTypeChart;
 use App\Filament\Widgets\NewCustomersChart;
 use App\Filament\Widgets\TopCustomersChart;
+use BackedEnum;
 use Filament\Pages\Page;
 use Override;
 use UnitEnum;
@@ -19,7 +20,9 @@ final class CustomerReports extends Page
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Reports;
 
-    protected static ?int $navigationSort = 3;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $title = 'Customer Reports';
 

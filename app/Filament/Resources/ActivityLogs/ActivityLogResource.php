@@ -9,6 +9,7 @@ use App\Filament\Resources\ActivityLogs\Pages\ListActivityLogs;
 use App\Filament\Resources\ActivityLogs\Pages\ViewActivityLog;
 use App\Filament\Resources\ActivityLogs\Schemas\ActivityLogInfolist;
 use App\Filament\Resources\ActivityLogs\Tables\ActivityLogsTable;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -24,7 +25,9 @@ final class ActivityLogResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::System;
 
-    protected static ?int $navigationSort = 100;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clock';
+
+    protected static ?int $navigationSort = 3;
 
     #[Override]
     public static function getNavigationLabel(): string

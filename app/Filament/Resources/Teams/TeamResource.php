@@ -12,6 +12,7 @@ use App\Filament\Resources\Teams\RelationManagers\UsersRelationManager;
 use App\Filament\Resources\Teams\Schemas\TeamForm;
 use App\Filament\Resources\Teams\Tables\TeamsTable;
 use App\Models\Team;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -25,6 +26,10 @@ final class TeamResource extends Resource
     protected static bool $isScopedToTenant = false;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::System;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-office';
+
+    protected static ?int $navigationSort = 1;
 
     #[Override]
     public static function getNavigationLabel(): string

@@ -13,6 +13,7 @@ use App\Filament\Resources\ChatMessages\Schemas\ChatMessageForm;
 use App\Filament\Resources\ChatMessages\Schemas\ChatMessageInfolist;
 use App\Filament\Resources\ChatMessages\Tables\ChatMessagesTable;
 use App\Models\ChatMessage;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -24,6 +25,10 @@ final class ChatMessageResource extends Resource
     protected static ?string $model = ChatMessage::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-oval-left';
+
+    protected static ?int $navigationSort = 4;
 
     protected static bool $shouldRegisterNavigation = false;
 

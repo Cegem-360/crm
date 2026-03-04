@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\CustomerContact;
 use App\Models\EmailTemplate;
 use App\Services\EmailService;
+use BackedEnum;
 use Exception;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,7 +35,9 @@ final class SendEmail extends Page implements HasSchemas
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
-    protected static ?int $navigationSort = 3;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-paper-airplane';
+
+    protected static ?int $navigationSort = 4;
 
     #[Override]
     public static function getNavigationLabel(): string

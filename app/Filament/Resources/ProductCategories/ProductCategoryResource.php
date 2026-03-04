@@ -13,6 +13,7 @@ use App\Filament\Resources\ProductCategories\RelationManagers\ProductsRelationMa
 use App\Filament\Resources\ProductCategories\Schemas\ProductCategoryForm;
 use App\Filament\Resources\ProductCategories\Tables\ProductCategoriesTable;
 use App\Models\ProductCategory;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -24,6 +25,10 @@ final class ProductCategoryResource extends Resource
     protected static ?string $model = ProductCategory::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Products;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-archive-box';
+
+    protected static ?int $navigationSort = 2;
 
     #[Override]
     public static function getNavigationLabel(): string

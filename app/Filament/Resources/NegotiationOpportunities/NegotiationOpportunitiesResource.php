@@ -8,6 +8,7 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\NegotiationOpportunities\Pages\ManageNegotiationOpportunities;
 use App\Filament\Resources\NegotiationOpportunities\Tables\NegotiationOpportunitiesTable;
 use App\Models\Opportunity;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Override;
@@ -19,7 +20,9 @@ final class NegotiationOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 13;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-scale';
+
+    protected static ?int $navigationSort = 4;
 
     #[Override]
     public static function getNavigationLabel(): string

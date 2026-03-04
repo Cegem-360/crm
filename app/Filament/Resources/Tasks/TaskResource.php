@@ -11,6 +11,7 @@ use App\Filament\Resources\Tasks\Pages\ListTasks;
 use App\Filament\Resources\Tasks\Schemas\TaskForm;
 use App\Filament\Resources\Tasks\Tables\TasksTable;
 use App\Models\Task;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -22,6 +23,10 @@ final class TaskResource extends Resource
     protected static ?string $model = Task::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clipboard-document-check';
+
+    protected static ?int $navigationSort = 1;
 
     #[Override]
     public static function getNavigationLabel(): string

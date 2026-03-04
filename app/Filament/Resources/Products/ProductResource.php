@@ -11,6 +11,7 @@ use App\Filament\Resources\Products\Pages\ListProducts;
 use App\Filament\Resources\Products\Schemas\ProductForm;
 use App\Filament\Resources\Products\Tables\ProductsTable;
 use App\Models\Product;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -24,6 +25,8 @@ final class ProductResource extends Resource
     protected static ?string $model = Product::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Products;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cube';
 
     protected static ?int $navigationSort = 1;
 

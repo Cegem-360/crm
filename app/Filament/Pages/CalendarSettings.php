@@ -9,6 +9,7 @@ use App\Models\GoogleCalendarToken;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\GoogleCalendarService;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
@@ -27,7 +28,9 @@ final class CalendarSettings extends Page
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Settings;
 
-    protected static ?int $navigationSort = 5;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar';
+
+    protected static ?int $navigationSort = 1;
 
     protected string $view = 'filament.pages.calendar-settings';
 

@@ -11,6 +11,7 @@ use App\Filament\Resources\Discounts\Pages\ListDiscounts;
 use App\Filament\Resources\Discounts\Schemas\DiscountForm;
 use App\Filament\Resources\Discounts\Tables\DiscountsTable;
 use App\Models\Discount;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -24,6 +25,10 @@ final class DiscountResource extends Resource
     protected static ?string $model = Discount::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Products;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-tag';
+
+    protected static ?int $navigationSort = 3;
 
     #[Override]
     public static function getNavigationLabel(): string

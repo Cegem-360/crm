@@ -13,6 +13,7 @@ use App\Filament\Resources\ChatSessions\RelationManagers\MessagesRelationManager
 use App\Filament\Resources\ChatSessions\Schemas\ChatSessionForm;
 use App\Filament\Resources\ChatSessions\Tables\ChatSessionsTable;
 use App\Models\ChatSession;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -25,7 +26,9 @@ final class ChatSessionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
 
-    protected static ?int $navigationSort = 10;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
+
+    protected static ?int $navigationSort = 3;
 
     #[Override]
     public static function getNavigationLabel(): string

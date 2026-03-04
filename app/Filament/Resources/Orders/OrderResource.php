@@ -12,6 +12,7 @@ use App\Filament\Resources\Orders\RelationManagers\ItemsRelationManager;
 use App\Filament\Resources\Orders\Schemas\OrderForm;
 use App\Filament\Resources\Orders\Tables\OrdersTable;
 use App\Models\Order;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -26,7 +27,9 @@ final class OrderResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 2;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shopping-bag';
+
+    protected static ?int $navigationSort = 11;
 
     #[Override]
     public static function getNavigationLabel(): string

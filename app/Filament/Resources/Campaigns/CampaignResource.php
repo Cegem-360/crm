@@ -14,6 +14,7 @@ use App\Filament\Resources\Campaigns\Schemas\CampaignForm;
 use App\Filament\Resources\Campaigns\Schemas\CampaignInfolist;
 use App\Filament\Resources\Campaigns\Tables\CampaignsTable;
 use App\Models\Campaign;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -27,6 +28,10 @@ final class CampaignResource extends Resource
     protected static ?string $model = Campaign::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Marketing;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-megaphone';
+
+    protected static ?int $navigationSort = 1;
 
     #[Override]
     public static function getNavigationLabel(): string

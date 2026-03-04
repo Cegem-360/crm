@@ -11,6 +11,7 @@ use App\Filament\Resources\Complaints\Pages\ListComplaints;
 use App\Filament\Resources\Complaints\Schemas\ComplaintForm;
 use App\Filament\Resources\Complaints\Tables\ComplaintsTable;
 use App\Models\Complaint;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -22,6 +23,10 @@ final class ComplaintResource extends Resource
     protected static ?string $model = Complaint::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-exclamation-triangle';
+
+    protected static ?int $navigationSort = 2;
 
     #[Override]
     public static function getNavigationLabel(): string

@@ -12,6 +12,7 @@ use App\Filament\Resources\LeadOpportunities\RelationManagers\QuotesRelationMana
 use App\Filament\Resources\LeadOpportunities\Schemas\LeadOpportunityForm;
 use App\Filament\Resources\LeadOpportunities\Tables\LeadOpportunitiesTable;
 use App\Models\Opportunity;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -24,7 +25,9 @@ final class LeadOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 10;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-funnel';
+
+    protected static ?int $navigationSort = 1;
 
     #[Override]
     public static function getNavigationLabel(): string

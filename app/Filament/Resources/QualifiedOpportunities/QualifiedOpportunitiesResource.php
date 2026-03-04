@@ -8,6 +8,7 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\QualifiedOpportunities\Pages\ManageQualifiedOpportunities;
 use App\Filament\Resources\QualifiedOpportunities\Tables\QualifiedOpportunitiesTable;
 use App\Models\Opportunity;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Override;
@@ -19,7 +20,9 @@ final class QualifiedOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 11;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-check-badge';
+
+    protected static ?int $navigationSort = 2;
 
     #[Override]
     public static function getNavigationLabel(): string

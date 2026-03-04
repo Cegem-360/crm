@@ -1,11 +1,20 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-B6HXkBir.css",
+    "file": "assets/app-DFUxvpl_.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
     "names": [
       "app.css"
+    ]
+  },
+  "resources/css/filament/admin/theme.css": {
+    "file": "assets/theme-B9zFF8kC.css",
+    "src": "resources/css/filament/admin/theme.css",
+    "isEntry": true,
+    "name": "theme",
+    "names": [
+      "theme.css"
     ]
   },
   "resources/images/integrations/billingo.svg": {
@@ -41,12 +50,12 @@
     "src": "resources/images/logo.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-D5KLDI9e.js",
+    "file": "assets/app-DWTlr96S.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-B6HXkBir.css"
+      "assets/app-DFUxvpl_.css"
     ]
   }
 }

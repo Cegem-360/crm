@@ -10,6 +10,7 @@ use App\Filament\Widgets\OpportunityValueChart;
 use App\Filament\Widgets\QuoteStatusChart;
 use App\Filament\Widgets\SalesFunnelChart;
 use App\Filament\Widgets\SalesStatsOverview;
+use BackedEnum;
 use Filament\Pages\Page;
 use Override;
 use UnitEnum;
@@ -19,6 +20,8 @@ final class SalesReports extends Page
     protected string $view = 'filament.pages.reports';
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Reports;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chart-bar';
 
     protected static ?int $navigationSort = 1;
 

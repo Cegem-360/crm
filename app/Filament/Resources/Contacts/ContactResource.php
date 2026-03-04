@@ -11,6 +11,7 @@ use App\Filament\Resources\Contacts\Pages\ListContacts;
 use App\Filament\Resources\Contacts\Schemas\ContactForm;
 use App\Filament\Resources\Contacts\Tables\ContactsTable;
 use App\Models\CustomerContact;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -22,6 +23,8 @@ final class ContactResource extends Resource
     protected static ?string $model = CustomerContact::class;
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Customers;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user';
 
     protected static ?int $navigationSort = 2;
 

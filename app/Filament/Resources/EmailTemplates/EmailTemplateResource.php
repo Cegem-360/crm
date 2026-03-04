@@ -11,6 +11,7 @@ use App\Filament\Resources\EmailTemplates\Pages\ListEmailTemplates;
 use App\Filament\Resources\EmailTemplates\Schemas\EmailTemplateForm;
 use App\Filament\Resources\EmailTemplates\Tables\EmailTemplatesTable;
 use App\Models\EmailTemplate;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -23,7 +24,9 @@ final class EmailTemplateResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
-    protected static ?int $navigationSort = 2;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-envelope';
+
+    protected static ?int $navigationSort = 3;
 
     #[Override]
     public static function getNavigationLabel(): string

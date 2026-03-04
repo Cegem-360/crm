@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use BackedEnum;
-use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Contracts\Support\Htmlable;
 
-enum NavigationGroup: string implements HasIcon, HasLabel
+enum NavigationGroup: string implements HasLabel
 {
     case Customers = 'Customers';
     case Sales = 'Sales';
-    case Support = 'Support';
     case Products = 'Products';
-    case Activities = 'Activities';
     case Marketing = 'Marketing';
+    case Activities = 'Activities';
+    case Support = 'Support';
     case Reports = 'Reports';
     case Settings = 'Settings';
     case System = 'System';
@@ -33,21 +31,6 @@ enum NavigationGroup: string implements HasIcon, HasLabel
             self::Reports => __('Reports'),
             self::Settings => __('Settings'),
             self::System => __('System'),
-        };
-    }
-
-    public function getIcon(): string|BackedEnum|null
-    {
-        return match ($this) {
-            self::Customers => 'heroicon-o-user-group',
-            self::Sales => 'heroicon-o-currency-dollar',
-            self::Support => 'heroicon-o-lifebuoy',
-            self::Products => 'heroicon-o-cube',
-            self::Activities => 'heroicon-o-clipboard-document-list',
-            self::Marketing => 'heroicon-o-megaphone',
-            self::Reports => 'heroicon-o-chart-bar',
-            self::Settings => 'heroicon-o-cog-6-tooth',
-            self::System => 'heroicon-o-server',
         };
     }
 

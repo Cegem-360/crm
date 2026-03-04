@@ -8,6 +8,7 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\ProposalOpportunities\Pages\ManageProposalOpportunities;
 use App\Filament\Resources\ProposalOpportunities\Tables\ProposalOpportunitiesTable;
 use App\Models\Opportunity;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Override;
@@ -19,7 +20,9 @@ final class ProposalOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 12;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-duplicate';
+
+    protected static ?int $navigationSort = 3;
 
     #[Override]
     public static function getNavigationLabel(): string

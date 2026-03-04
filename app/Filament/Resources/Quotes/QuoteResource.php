@@ -14,6 +14,7 @@ use App\Filament\Resources\Quotes\Schemas\QuoteForm;
 use App\Filament\Resources\Quotes\Schemas\QuoteInfolist;
 use App\Filament\Resources\Quotes\Tables\QuotesTable;
 use App\Models\Quote;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -28,7 +29,9 @@ final class QuoteResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 1;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
+
+    protected static ?int $navigationSort = 10;
 
     #[Override]
     public static function getNavigationLabel(): string

@@ -9,6 +9,7 @@ use App\Filament\Widgets\ProductCategoryChart;
 use App\Filament\Widgets\ProductSalesChart;
 use App\Filament\Widgets\ProductStatsOverview;
 use App\Filament\Widgets\TopProductsChart;
+use BackedEnum;
 use Filament\Pages\Page;
 use Override;
 use UnitEnum;
@@ -19,7 +20,9 @@ final class ProductReports extends Page
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Reports;
 
-    protected static ?int $navigationSort = 1;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cube';
+
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $title = 'Product Reports';
 

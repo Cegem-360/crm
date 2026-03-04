@@ -13,6 +13,7 @@ use App\Filament\Resources\Invoices\Schemas\InvoiceForm;
 use App\Filament\Resources\Invoices\Schemas\InvoiceInfolist;
 use App\Filament\Resources\Invoices\Tables\InvoicesTable;
 use App\Models\Invoice;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -27,7 +28,9 @@ final class InvoiceResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static ?int $navigationSort = 3;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-receipt-percent';
+
+    protected static ?int $navigationSort = 12;
 
     #[Override]
     public static function getNavigationLabel(): string

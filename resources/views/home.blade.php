@@ -8,30 +8,30 @@
                 {{-- Badge --}}
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium mb-6">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    Új: Automatikus lead-scoring AI-val
+                    {{ __('New: Automatic lead scoring with AI') }}
                 </div>
 
                 {{-- H1 --}}
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6 font-heading leading-tight">
-                    Kezelje ügyfeleit az első kapcsolattól a lezárt üzletig
+                    {{ __('Manage your customers from first contact to closed deal') }}
                 </h1>
 
                 {{-- Subtitle --}}
                 <p class="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                    Minden ügyfél, ajánlat és kommunikáció egy helyen. Automatikus emlékeztetők, értékesítési pipeline és részletes előzmények – hogy csapata a lezárásra koncentrálhasson, ne az adminisztrációra.
+                    {{ __('All customers, quotes, and communications in one place. Automatic reminders, sales pipeline, and detailed history – so your team can focus on closing, not administration.') }}
                 </p>
 
                 {{-- CTA Buttons --}}
                 <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                     <a href="https://cegem360.eu/register" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl">
-                        Vágjunk bele
+                        {{ __('Get started') }}
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                     <a href="https://cegem360.eu/kapcsolat" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-indigo-700 bg-white border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
-                        Demót kérek
+                        {{ __('Request a demo') }}
                     </a>
                     <a href="/login" class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-600 transition-colors hover:text-indigo-800">
-                        Bejelentkezés a programba →
+                        {{ __('Log in to the app') }} →
                     </a>
                 </div>
             </div>
@@ -43,37 +43,37 @@
                     <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 min-h-[300px] lg:min-h-[400px]">
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                             <div class="bg-white rounded-lg p-4 shadow-sm">
-                                <div class="text-sm text-gray-500 mb-1">Aktív leadek</div>
+                                <div class="text-sm text-gray-500 mb-1">{{ __('Active leads') }}</div>
                                 <div class="text-2xl font-bold text-gray-900">147</div>
-                                <div class="text-xs text-green-600">+12% vs. előző hónap</div>
+                                <div class="text-xs text-green-600">{{ __(':percent vs. last month', ['percent' => '+12%']) }}</div>
                             </div>
                             <div class="bg-white rounded-lg p-4 shadow-sm">
-                                <div class="text-sm text-gray-500 mb-1">Nyitott ajánlatok</div>
+                                <div class="text-sm text-gray-500 mb-1">{{ __('Open quotes') }}</div>
                                 <div class="text-2xl font-bold text-gray-900">23</div>
-                                <div class="text-xs text-green-600">+8% vs. előző hónap</div>
+                                <div class="text-xs text-green-600">{{ __(':percent vs. last month', ['percent' => '+8%']) }}</div>
                             </div>
                             <div class="bg-white rounded-lg p-4 shadow-sm">
-                                <div class="text-sm text-gray-500 mb-1">Havi bevétel</div>
+                                <div class="text-sm text-gray-500 mb-1">{{ __('Monthly revenue') }}</div>
                                 <div class="text-2xl font-bold text-gray-900">24M Ft</div>
-                                <div class="text-xs text-green-600">+18% vs. előző hónap</div>
+                                <div class="text-xs text-green-600">{{ __(':percent vs. last month', ['percent' => '+18%']) }}</div>
                             </div>
                             <div class="bg-white rounded-lg p-4 shadow-sm">
-                                <div class="text-sm text-gray-500 mb-1">Konverziós ráta</div>
+                                <div class="text-sm text-gray-500 mb-1">{{ __('Conversion rate') }}</div>
                                 <div class="text-2xl font-bold text-gray-900">32%</div>
-                                <div class="text-xs text-green-600">+5% vs. előző hónap</div>
+                                <div class="text-xs text-green-600">{{ __(':percent vs. last month', ['percent' => '+5%']) }}</div>
                             </div>
                         </div>
                         <div class="bg-white rounded-lg p-4 shadow-sm">
                             <div class="flex items-center justify-between mb-4">
-                                <span class="font-medium text-gray-900">Értékesítési pipeline</span>
-                                <span class="text-sm text-gray-500">Összesen: 89,4M Ft</span>
+                                <span class="font-medium text-gray-900">{{ __('Sales pipeline') }}</span>
+                                <span class="text-sm text-gray-500">{{ __('Total: 89.4M HUF') }}</span>
                             </div>
                             <div class="flex gap-2 h-8">
-                                <div class="bg-indigo-200 rounded flex-1 flex items-center justify-center text-xs font-medium text-indigo-800">Lead</div>
-                                <div class="bg-indigo-300 rounded flex-1 flex items-center justify-center text-xs font-medium text-indigo-800">Kapcsolat</div>
-                                <div class="bg-indigo-400 rounded flex-1 flex items-center justify-center text-xs font-medium text-white">Ajánlat</div>
-                                <div class="bg-indigo-500 rounded flex-1 flex items-center justify-center text-xs font-medium text-white">Tárgyalás</div>
-                                <div class="bg-indigo-600 rounded flex-1 flex items-center justify-center text-xs font-medium text-white">Lezárva</div>
+                                <div class="bg-indigo-200 rounded flex-1 flex items-center justify-center text-xs font-medium text-indigo-800">{{ __('Lead') }}</div>
+                                <div class="bg-indigo-300 rounded flex-1 flex items-center justify-center text-xs font-medium text-indigo-800">{{ __('Contact') }}</div>
+                                <div class="bg-indigo-400 rounded flex-1 flex items-center justify-center text-xs font-medium text-white">{{ __('Quote') }}</div>
+                                <div class="bg-indigo-500 rounded flex-1 flex items-center justify-center text-xs font-medium text-white">{{ __('Negotiation') }}</div>
+                                <div class="bg-indigo-600 rounded flex-1 flex items-center justify-center text-xs font-medium text-white">{{ __('Closed') }}</div>
                             </div>
                         </div>
                     </div>
@@ -86,8 +86,8 @@
                             <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div>
-                            <div class="text-sm font-medium text-gray-900">Üzlet lezárva!</div>
-                            <div class="text-xs text-gray-500">+2.4M Ft bevétel</div>
+                            <div class="text-sm font-medium text-gray-900">{{ __('Deal closed!') }}</div>
+                            <div class="text-xs text-gray-500">{{ __(':amount revenue', ['amount' => '+2.4M Ft']) }}</div>
                         </div>
                     </div>
                 </div>
@@ -98,8 +98,8 @@
                             <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                         </div>
                         <div>
-                            <div class="text-sm font-medium text-gray-900">Emlékeztető</div>
-                            <div class="text-xs text-gray-500">Hívja vissza Kovács Pétert</div>
+                            <div class="text-sm font-medium text-gray-900">{{ __('Reminder') }}</div>
+                            <div class="text-xs text-gray-500">{{ __('Call back Kovács Péter') }}</div>
                         </div>
                     </div>
                 </div>
@@ -114,9 +114,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4 font-heading">
-                    Ismeri ezeket a problémákat?
+                    {{ __('Do you recognize these problems?') }}
                 </h2>
-                <p class="text-lg text-gray-600">Az értékesítés nem kell, hogy káosz legyen</p>
+                <p class="text-lg text-gray-600">{{ __('Sales doesn\'t have to be chaos') }}</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 mb-16">
@@ -125,9 +125,9 @@
                     <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-4">
                         <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Elveszett ügyféladatok</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Lost customer data') }}</h3>
                     <p class="text-gray-600">
-                        Az információk Excel-táblákban, e-mailekben és jegyzetfüzetekben szétszórva. Senki sem tudja, mikor beszéltek utoljára az ügyféllel.
+                        {{ __('Information scattered across Excel sheets, emails, and notebooks. Nobody knows when they last spoke with the customer.') }}
                     </p>
                 </div>
 
@@ -136,9 +136,9 @@
                     <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-4">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Lemaradt követések</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Missed follow-ups') }}</h3>
                     <p class="text-gray-600">
-                        Elfelejtett visszahívások, elmaradt ajánlatküldések. Az érdeklődők közben a versenytársakhoz fordulnak.
+                        {{ __('Forgotten callbacks, missed quote submissions. Meanwhile, prospects turn to competitors.') }}
                     </p>
                 </div>
 
@@ -147,9 +147,9 @@
                     <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-4">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Nincs átláthatóság</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('No visibility') }}</h3>
                     <p class="text-gray-600">
-                        A vezetőség nem látja, hol tartanak az értékesítők. A havi meetingeken találgatás van, nem adatok alapján döntenek.
+                        {{ __('Management can\'t see where salespeople stand. Monthly meetings involve guesswork, not data-driven decisions.') }}
                     </p>
                 </div>
             </div>
@@ -159,22 +159,22 @@
                 <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
-                <h3 class="text-2xl font-semibold text-gray-900 mb-4">A Cégem360 CRM mindezt megoldja</h3>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">{{ __('Cégem360 CRM solves all of this') }}</h3>
                 <p class="text-lg text-gray-600 mb-6">
-                    Egyetlen felületen látja az összes ügyfelet, ajánlatot és kommunikációt. Automatikus emlékeztetők gondoskodnak róla, hogy senki ne maradjon ki. Valós idejű riportok mutatják, merre tart az értékesítés.
+                    {{ __('See all customers, quotes, and communications on a single interface. Automatic reminders ensure nobody is left behind. Real-time reports show where sales are headed.') }}
                 </p>
                 <div class="flex flex-wrap justify-center gap-4 text-sm">
                     <span class="flex items-center gap-2 text-gray-700">
                         <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Központi ügyféladatbázis
+                        {{ __('Central customer database') }}
                     </span>
                     <span class="flex items-center gap-2 text-gray-700">
                         <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Automatikus emlékeztetők
+                        {{ __('Automatic reminders') }}
                     </span>
                     <span class="flex items-center gap-2 text-gray-700">
                         <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Vezetői dashboard
+                        {{ __('Management dashboard') }}
                     </span>
                 </div>
             </div>
@@ -188,10 +188,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4 font-heading">
-                    Minden, amire szüksége van az ügyfélkezeléshez
+                    {{ __('Everything you need for customer management') }}
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Átfogó funkciók az értékesítési folyamatok optimalizálásához és az ügyfélkapcsolatok kezeléséhez.
+                    {{ __('Comprehensive features for optimizing sales processes and managing customer relationships.') }}
                 </p>
             </div>
 
@@ -201,22 +201,22 @@
                     <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Kapcsolatkezelés</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Contact management') }}</h3>
                     <p class="text-gray-600 mb-4">
-                        Teljes körű ügyfél- és kapcsolattartó nyilvántartás. Minden adat egy helyen, könnyen kereshető formában.
+                        {{ __('Complete customer and contact registry. All data in one place, easily searchable.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Cég és kontakt adatbázis
+                            {{ __('Company and contact database') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Kapcsolati térkép
+                            {{ __('Relationship map') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Ügyfélosztályozás és címkézés
+                            {{ __('Customer classification and tagging') }}
                         </li>
                     </ul>
                 </div>
@@ -226,22 +226,22 @@
                     <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Lead-kezelés és scoring</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Lead management and scoring') }}</h3>
                     <p class="text-gray-600 mb-4">
-                        Automatikus lead-minősítés és prioritás meghatározás. Tudja, melyik érdeklődőre érdemes időt fordítani.
+                        {{ __('Automatic lead qualification and priority assignment. Know which prospects are worth your time.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Automatikus lead-scoring
+                            {{ __('Automatic lead scoring') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Lead-forrás követés
+                            {{ __('Lead source tracking') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Konverziós elemzés
+                            {{ __('Conversion analysis') }}
                         </li>
                     </ul>
                 </div>
@@ -251,22 +251,22 @@
                     <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Értékesítési pipeline</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Sales pipeline') }}</h3>
                     <p class="text-gray-600 mb-4">
-                        Vizuális pipeline az üzletek státuszával. Drag-and-drop kezelés, előrejelzés és szűk keresztmetszetek azonosítása.
+                        {{ __('Visual pipeline with deal statuses. Drag-and-drop management, forecasting, and bottleneck identification.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Kanban nézet
+                            {{ __('Kanban view') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Bevétel előrejelzés
+                            {{ __('Revenue forecasting') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Testreszabható szakaszok
+                            {{ __('Customizable stages') }}
                         </li>
                     </ul>
                 </div>
@@ -276,22 +276,22 @@
                     <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Kommunikációs előzmények</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Communication history') }}</h3>
                     <p class="text-gray-600 mb-4">
-                        Minden e-mail, hívás és jegyzet automatikusan az ügyfélhez rendelve. Teljes előzmény egy kattintásra.
+                        {{ __('Every email, call, and note automatically linked to the customer. Full history in one click.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            E-mail integráció
+                            {{ __('Email integration') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Hívásnapló
+                            {{ __('Call log') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Jegyzetek és fájlok
+                            {{ __('Notes and files') }}
                         </li>
                     </ul>
                 </div>
@@ -301,22 +301,22 @@
                     <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Automatikus emlékeztetők</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Automatic reminders') }}</h3>
                     <p class="text-gray-600 mb-4">
-                        Soha többé elfelejtett visszahívás. A rendszer automatikusan emlékeztet a feladatokra és határidőkre.
+                        {{ __('Never again a forgotten callback. The system automatically reminds you of tasks and deadlines.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Feladat emlékeztetők
+                            {{ __('Task reminders') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Follow-up automatizálás
+                            {{ __('Follow-up automation') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            E-mail és push értesítések
+                            {{ __('Email and push notifications') }}
                         </li>
                     </ul>
                 </div>
@@ -326,22 +326,22 @@
                     <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Riportok és elemzések</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Reports and analytics') }}</h3>
                     <p class="text-gray-600 mb-4">
-                        Valós idejű dashboard-ok és részletes riportok. Lássa, mi működik és mi nem – adatok alapján döntsön.
+                        {{ __('Real-time dashboards and detailed reports. See what works and what doesn\'t – make data-driven decisions.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Értékesítői teljesítmény
+                            {{ __('Sales rep performance') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Konverziós tölcsér
+                            {{ __('Conversion funnel') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Exportálható riportok
+                            {{ __('Exportable reports') }}
                         </li>
                     </ul>
                 </div>
@@ -356,10 +356,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4 font-heading">
-                    Összekapcsolható a meglévő eszközeivel
+                    {{ __('Connects with your existing tools') }}
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    A Cégem360 CRM zökkenőmentesen együttműködik a már használt e-mail, naptár és marketing rendszereivel. Nem kell váltania – csak összekötni.
+                    {{ __('Cégem360 CRM works seamlessly with your existing email, calendar, and marketing systems. No need to switch – just connect.') }}
                 </p>
             </div>
 
@@ -391,7 +391,7 @@
                     </div>
                 </div>
                 <p class="text-center text-sm text-gray-500 mt-8">
-                    E-mail, naptár, számlázás és marketing rendszerek – egy helyen összekötve
+                    {{ __('Email, calendar, invoicing, and marketing systems – connected in one place') }}
                 </p>
             </div>
         </div>
@@ -404,33 +404,33 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4 font-heading">
-                    Amit ügyfeleink elértek a Cégem360 CRM-mel
+                    {{ __('What our customers achieved with Cégem360 CRM') }}
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Átlagos javulás 6 hónap használat után, ipari és B2B ügyfeleink körében.
+                    {{ __('Average improvement after 6 months of use, among our industrial and B2B customers.') }}
                 </p>
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
                 <div class="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                     <div class="text-3xl lg:text-4xl font-bold text-indigo-600 mb-2">+40%</div>
-                    <div class="text-sm text-gray-600">Lezárt üzletek száma</div>
+                    <div class="text-sm text-gray-600">{{ __('Number of closed deals') }}</div>
                 </div>
                 <div class="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                     <div class="text-3xl lg:text-4xl font-bold text-indigo-600 mb-2">-30%</div>
-                    <div class="text-sm text-gray-600">Értékesítési ciklus hossza</div>
+                    <div class="text-sm text-gray-600">{{ __('Sales cycle length') }}</div>
                 </div>
                 <div class="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                     <div class="text-3xl lg:text-4xl font-bold text-indigo-600 mb-2">+25%</div>
-                    <div class="text-sm text-gray-600">Lead-konverzió</div>
+                    <div class="text-sm text-gray-600">{{ __('Lead conversion') }}</div>
                 </div>
                 <div class="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                     <div class="text-3xl lg:text-4xl font-bold text-indigo-600 mb-2">+35%</div>
-                    <div class="text-sm text-gray-600">Ügyfél-visszatérés</div>
+                    <div class="text-sm text-gray-600">{{ __('Customer retention') }}</div>
                 </div>
                 <div class="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100 col-span-2 lg:col-span-1">
                     <div class="text-3xl lg:text-4xl font-bold text-indigo-600 mb-2">-50%</div>
-                    <div class="text-sm text-gray-600">Admin-idő csökkenése</div>
+                    <div class="text-sm text-gray-600">{{ __('Admin time reduction') }}</div>
                 </div>
             </div>
         </div>
@@ -523,10 +523,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4 font-heading">
-                    Válassza ki az Önhöz illő csomagot
+                    {{ __('Choose the plan that fits you') }}
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Átlátható árazás, rejtett költségek nélkül. Bármikor lemondható.
+                    {{ __('Transparent pricing, no hidden costs. Cancel anytime.') }}
                 </p>
             </div>
 
@@ -536,35 +536,35 @@
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Starter</h3>
                     <div class="mb-4">
                         <span class="text-4xl font-bold text-gray-900">4 900 Ft</span>
-                        <span class="text-gray-500">/felhasználó/hó</span>
+                        <span class="text-gray-500">{{ __('/user/month') }}</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-6">Kisebb csapatoknak és induló vállalkozásoknak.</p>
+                    <p class="text-sm text-gray-500 mb-6">{{ __('For small teams and startups.') }}</p>
 
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            1 000 kontakt
+                            {{ __('1,000 contacts') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Alap pipeline
+                            {{ __('Basic pipeline') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            E-mail integráció
+                            {{ __('Email integration') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Alap riportok
+                            {{ __('Basic reports') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            E-mail támogatás
+                            {{ __('Email support') }}
                         </li>
                     </ul>
 
                     <a href="https://cegem360.eu/register" class="block w-full py-3 text-center text-sm font-medium text-indigo-600 border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
-                        Vágjunk bele
+                        {{ __('Get started') }}
                     </a>
                 </div>
 
@@ -572,41 +572,41 @@
                 <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-indigo-500 relative">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2">
                         <span class="inline-block px-4 py-1 bg-indigo-500 text-white text-xs font-semibold rounded-full">
-                            Legnépszerűbb
+                            {{ __('Most popular') }}
                         </span>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Professional</h3>
                     <div class="mb-4">
                         <span class="text-4xl font-bold text-gray-900">9 900 Ft</span>
-                        <span class="text-gray-500">/felhasználó/hó</span>
+                        <span class="text-gray-500">{{ __('/user/month') }}</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-6">Növekvő csapatoknak fejlett funkciókkal.</p>
+                    <p class="text-sm text-gray-500 mb-6">{{ __('For growing teams with advanced features.') }}</p>
 
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            <strong>Korlátlan kontakt</strong>
+                            <strong>{{ __('Unlimited contacts') }}</strong>
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            <strong>Automatizálás</strong>
+                            <strong>{{ __('Automation') }}</strong>
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            <strong>Lead-scoring</strong>
+                            <strong>{{ __('Lead scoring') }}</strong>
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Részletes riportok
+                            {{ __('Detailed reports') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Telefonos támogatás
+                            {{ __('Phone support') }}
                         </li>
                     </ul>
 
                     <a href="https://cegem360.eu/register" class="block w-full py-3 text-center text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
-                        Vágjunk bele
+                        {{ __('Get started') }}
                     </a>
                 </div>
 
@@ -614,35 +614,35 @@
                 <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Enterprise</h3>
                     <div class="mb-4">
-                        <span class="text-2xl font-bold text-gray-900">Egyedi árazás</span>
+                        <span class="text-2xl font-bold text-gray-900">{{ __('Custom pricing') }}</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-6">Nagyvállalatoknak dedikált támogatással.</p>
+                    <p class="text-sm text-gray-500 mb-6">{{ __('For enterprises with dedicated support.') }}</p>
 
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Minden Professional funkció
+                            {{ __('All Professional features') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Dedikált support
+                            {{ __('Dedicated support') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            Custom integrációk
+                            {{ __('Custom integrations') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            SLA garancia
+                            {{ __('SLA guarantee') }}
                         </li>
                         <li class="flex items-center gap-2 text-sm text-gray-600">
                             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                            On-premise lehetőség
+                            {{ __('On-premise option') }}
                         </li>
                     </ul>
 
                     <a href="https://cegem360.eu/kapcsolat" class="block w-full py-3 text-center text-sm font-medium text-indigo-600 border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
-                        Ajánlat kérése
+                        {{ __('Request a quote') }}
                     </a>
                 </div>
             </div>
@@ -652,11 +652,11 @@
                 <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-500">
                     <span class="flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Bármikor lemondható
+                        {{ __('Cancel anytime') }}
                     </span>
                     <span class="flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Magyar nyelvű számlázás
+                        {{ __('Hungarian language invoicing') }}
                     </span>
                 </div>
             </div>
@@ -670,7 +670,7 @@
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4 font-heading">
-                    Gyakran ismételt kérdések
+                    {{ __('Frequently asked questions') }}
                 </h2>
             </div>
 
@@ -681,12 +681,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 1 ? null : 1"
                     >
-                        <span class="font-medium text-gray-900">Mennyi idő alatt üzemelhető be a rendszer?</span>
+                        <span class="font-medium text-gray-900">{{ __('How quickly can the system be set up?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 1 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 1" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            A Cégem360 CRM 5 perc alatt üzembe helyezhető. Regisztráció után azonnal használhatja az alapfunkciókat. Az e-mail integráció és az adatok importálása további 15-30 percet vesz igénybe.
+                            {{ __('Cégem360 CRM can be set up in 5 minutes. After registration, you can immediately use the basic features. Email integration and data import take an additional 15-30 minutes.') }}
                         </div>
                     </div>
                 </div>
@@ -697,12 +697,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 2 ? null : 2"
                     >
-                        <span class="font-medium text-gray-900">Importálhatom a meglévő ügyfél adataimat?</span>
+                        <span class="font-medium text-gray-900">{{ __('Can I import my existing customer data?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 2 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 2" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            Igen, Excel és CSV fájlokból egyszerűen importálhat. A rendszer automatikusan felismeri az oszlopokat és segít a megfeleltetésben.
+                            {{ __('Yes, you can easily import from Excel and CSV files. The system automatically recognizes columns and helps with mapping.') }}
                         </div>
                     </div>
                 </div>
@@ -713,12 +713,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 3 ? null : 3"
                     >
-                        <span class="font-medium text-gray-900">Működik mobilon is?</span>
+                        <span class="font-medium text-gray-900">{{ __('Does it work on mobile?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 3 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 3" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            Igen, a Cégem360 CRM teljes mértékben reszponzív, így telefonról és tabletről is kényelmesen használható.
+                            {{ __('Yes, Cégem360 CRM is fully responsive, so it can be comfortably used from phones and tablets.') }}
                         </div>
                     </div>
                 </div>
@@ -729,12 +729,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 4 ? null : 4"
                     >
-                        <span class="font-medium text-gray-900">Biztonságban vannak az adataim?</span>
+                        <span class="font-medium text-gray-900">{{ __('Is my data safe?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 4 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 4" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            Igen, az adatok EU-n belüli szervereken tárolódnak, GDPR-kompatibilis módon. SSL titkosítás és rendszeres biztonsági mentések.
+                            {{ __('Yes, data is stored on EU servers in a GDPR-compliant manner. SSL encryption and regular backups.') }}
                         </div>
                     </div>
                 </div>
@@ -745,12 +745,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 5 ? null : 5"
                     >
-                        <span class="font-medium text-gray-900">Összeköthető a meglévő rendszereimmel?</span>
+                        <span class="font-medium text-gray-900">{{ __('Can it connect with my existing systems?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 5 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 5" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            Igen, Gmail, Outlook, Google Calendar, Mailchimp, Billingo és Számlázz.hu integrációk elérhetők. Enterprise csomagban egyedi API integrációk is.
+                            {{ __('Yes, Gmail, Outlook, Google Calendar, Mailchimp, Billingo, and Számlázz.hu integrations are available. Enterprise plan also includes custom API integrations.') }}
                         </div>
                     </div>
                 </div>
@@ -761,12 +761,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 6 ? null : 6"
                     >
-                        <span class="font-medium text-gray-900">Mi történik, ha felmondok?</span>
+                        <span class="font-medium text-gray-900">{{ __('What happens if I cancel?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 6 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 6" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            Bármikor, indoklás nélkül lemondhatja. 30 napig még elérheti az adatait, teljes export lehetőséggel.
+                            {{ __('You can cancel anytime without explanation. Your data remains accessible for 30 days with full export capability.') }}
                         </div>
                     </div>
                 </div>
@@ -777,12 +777,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 7 ? null : 7"
                     >
-                        <span class="font-medium text-gray-900">Kapok segítséget a bevezetéshez?</span>
+                        <span class="font-medium text-gray-900">{{ __('Do I get help with implementation?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 7 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 7" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            Igen, magyar nyelvű támogatás minden csomaghoz. Professional és Enterprise: személyes onboarding konzultáció.
+                            {{ __('Yes, Hungarian language support for all plans. Professional and Enterprise: personal onboarding consultation.') }}
                         </div>
                     </div>
                 </div>
@@ -793,12 +793,12 @@
                         class="w-full px-6 py-4 text-left flex items-center justify-between"
                         @click="openFaq = openFaq === 8 ? null : 8"
                     >
-                        <span class="font-medium text-gray-900">Használhatom a többi Cégem360 modullal együtt?</span>
+                        <span class="font-medium text-gray-900">{{ __('Can I use it together with other Cégem360 modules?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform" :class="{ 'rotate-180': openFaq === 8 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openFaq === 8" x-collapse>
                         <div class="px-6 pb-4 text-gray-600">
-                            Igen, zökkenőmentes integráció a Kontrolling, Beszerzés, Értékesítés, Gyártásirányítás és Automatizálás modulokkal.
+                            {{ __('Yes, seamless integration with the Controlling, Procurement, Sales, Manufacturing, and Automation modules.') }}
                         </div>
                     </div>
                 </div>
@@ -812,22 +812,22 @@
     <section class="py-16 lg:py-24 bg-indigo-600">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl sm:text-4xl font-semibold text-white mb-4 font-heading">
-                Készen áll az ügyfélkezelés új szintjére?
+                {{ __('Ready for the next level of customer management?') }}
             </h2>
             <p class="text-lg text-indigo-100 mb-8">
-                Fedezze fel, hogyan segíti a Cégem360 a cége növekedését. Nincs hosszú távú elkötelezettség.
+                {{ __('Discover how Cégem360 helps your business grow. No long-term commitment.') }}
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="https://cegem360.eu/register" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-indigo-600 bg-white rounded-full hover:bg-indigo-50 transition-colors shadow-lg">
-                    Vágjunk bele
+                    {{ __('Get started') }}
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
                 <a href="https://cegem360.eu/kapcsolat" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white border-2 border-white/30 rounded-full hover:bg-white/10 transition-colors">
-                    Időpontot foglalok
+                    {{ __('Book an appointment') }}
                 </a>
                 <a href="/login" class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-100 transition-colors hover:text-white">
-                    Bejelentkezés a programba →
+                    {{ __('Log in to the app') }} →
                 </a>
             </div>
         </div>

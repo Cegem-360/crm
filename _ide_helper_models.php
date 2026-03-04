@@ -26,6 +26,9 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int|null $customer_id
  * @property int|null $team_id
+ * @property array<array-key, mixed>|null $screenshots
+ * @property string|null $browser_info
+ * @property string|null $url
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\User|null $assignedUser
@@ -37,17 +40,20 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereAssignedTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereBrowserInfo($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereResolvedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereScreenshots($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereSeverity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BugReport whereUserId($value)
  */
 	final class BugReport extends \Eloquent {}
@@ -213,42 +219,6 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
- * @property string $name
- * @property string|null $tax_number
- * @property string|null $registration_number
- * @property string|null $email
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property int $team_id
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
- * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Customer> $customers
- * @property-read int|null $customers_count
- * @property-read \App\Models\Team $team
- * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereRegistrationNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereTaxNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereTeamId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company withTrashed(bool $withTrashed = true)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company withoutTrashed()
- */
-	final class Company extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * @property int $id
  * @property int $customer_id
  * @property int|null $order_id
  * @property int|null $reported_by
@@ -398,13 +368,15 @@ namespace App\Models{
  * @property string $unique_identifier
  * @property string $name
  * @property \App\Enums\CustomerType $type
+ * @property string|null $tax_number
+ * @property string|null $registration_number
+ * @property string|null $email
  * @property string|null $phone
  * @property string|null $notes
  * @property bool $is_active
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property int|null $company_id
  * @property int|null $team_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
@@ -418,9 +390,10 @@ namespace App\Models{
  * @property-read int|null $campaigns_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChatSession> $chatSessions
  * @property-read int|null $chat_sessions_count
- * @property-read \App\Models\Company|null $company
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Complaint> $complaints
  * @property-read int|null $complaints_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomerConsent> $consents
+ * @property-read int|null $consents_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomerContact> $contacts
  * @property-read int|null $contacts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomFieldValue> $customFieldValues
@@ -431,6 +404,7 @@ namespace App\Models{
  * @property-read int|null $interactions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
  * @property-read int|null $invoices_count
+ * @property-read \App\Models\LeadScore|null $leadScore
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Opportunity> $opportunities
  * @property-read int|null $opportunities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
@@ -445,14 +419,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereRegistrationNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereTaxNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Customer whereUniqueIdentifier($value)
@@ -521,6 +497,45 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerAttribute whereUpdatedAt($value)
  */
 	final class CustomerAttribute extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $team_id
+ * @property int $customer_id
+ * @property int|null $granted_by
+ * @property \App\Enums\ConsentType $type
+ * @property bool $is_granted
+ * @property \Carbon\CarbonImmutable|null $granted_at
+ * @property \Carbon\CarbonImmutable|null $revoked_at
+ * @property string|null $ip_address
+ * @property string|null $notes
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\Customer $customer
+ * @property-read \App\Models\User|null $grantedByUser
+ * @property-read \App\Models\Team $team
+ * @method static \Database\Factories\CustomerConsentFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereGrantedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereGrantedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereIpAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereIsGranted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereRevokedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomerConsent whereUpdatedAt($value)
+ */
+	final class CustomerConsent extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -622,10 +637,13 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int $team_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
  * @property-read \App\Models\User|null $createdBy
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Interaction> $interactions
  * @property-read int|null $interactions_count
  * @property-read \App\Models\Team $team
+ * @method static \Database\Factories\EmailTemplateFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate query()
@@ -642,6 +660,38 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EmailTemplate whereVariables($value)
  */
 	final class EmailTemplate extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $team_id
+ * @property string $access_token
+ * @property string|null $refresh_token
+ * @property \Carbon\CarbonImmutable|null $expires_at
+ * @property string $calendar_id
+ * @property bool $sync_enabled
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \App\Models\Team $team
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\GoogleCalendarTokenFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereAccessToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereCalendarId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereExpiresAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereRefreshToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereSyncEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GoogleCalendarToken whereUserId($value)
+ */
+	final class GoogleCalendarToken extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -668,6 +718,7 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $email_sent_at
  * @property string|null $email_recipient
  * @property int|null $team_id
+ * @property string|null $calendar_event_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\CustomerContact|null $contact
@@ -680,6 +731,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereCalendarEventId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereCategory($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereChannel($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Interaction whereCreatedAt($value)
@@ -762,6 +814,45 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice withoutTrashed()
  */
 	final class Invoice extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $team_id
+ * @property int $customer_id
+ * @property int $score
+ * @property int $interaction_score
+ * @property int $recency_score
+ * @property int $opportunity_score
+ * @property int $engagement_score
+ * @property int|null $assigned_to
+ * @property \Carbon\CarbonImmutable|null $assigned_at
+ * @property \Carbon\CarbonImmutable|null $last_calculated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \App\Models\User|null $assignedUser
+ * @property-read \App\Models\Customer $customer
+ * @property-read \App\Models\Team $team
+ * @method static \Database\Factories\LeadScoreFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereAssignedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereAssignedTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereEngagementScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereInteractionScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereLastCalculatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereOpportunityScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereRecencyScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LeadScore whereUpdatedAt($value)
+ */
+	final class LeadScore extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -1071,13 +1162,14 @@ namespace App\Models{
  * @property int $assigned_by
  * @property string $title
  * @property string|null $description
- * @property string $priority
- * @property string $status
+ * @property \App\Enums\TaskPriority $priority
+ * @property \App\Enums\TaskStatus $status
  * @property \Carbon\CarbonImmutable|null $due_date
  * @property \Carbon\CarbonImmutable|null $completed_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int|null $team_id
+ * @property string|null $calendar_event_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\User $assignedUser
@@ -1092,6 +1184,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereAssignedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereAssignedTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCalendarEventId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCompletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCustomerId($value)
@@ -1114,18 +1207,40 @@ namespace App\Models{
  * @property string $slug
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BugReport> $bugReports
+ * @property-read int|null $bug_reports_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Campaign> $campaigns
  * @property-read int|null $campaigns_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
- * @property-read int|null $companies_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChatMessage> $chatMessages
+ * @property-read int|null $chat_messages_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChatSession> $chatSessions
+ * @property-read int|null $chat_sessions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Complaint> $complaints
+ * @property-read int|null $complaints_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CustomerContact> $customerContacts
+ * @property-read int|null $customer_contacts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Customer> $customers
  * @property-read int|null $customers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Discount> $discounts
+ * @property-read int|null $discounts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EmailTemplate> $emailTemplates
  * @property-read int|null $email_templates_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Interaction> $interactions
+ * @property-read int|null $interactions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
+ * @property-read int|null $invoices_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Opportunity> $opportunities
+ * @property-read int|null $opportunities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductCategory> $productCategories
  * @property-read int|null $product_categories_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Quote> $quotes
+ * @property-read int|null $quotes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
+ * @property-read int|null $tasks_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\WorkflowConfig> $workflowConfigs
@@ -1158,10 +1273,13 @@ namespace App\Models{
  * @property string|null $webhook_url
  * @property string|null $webhook_secret
  * @property string|null $workflow_api_token
+ * @property int $is_active
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BugReport> $bugReports
  * @property-read int|null $bug_reports_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ChatSession> $chatSessions
  * @property-read int|null $chat_sessions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\GoogleCalendarToken> $googleCalendarTokens
+ * @property-read int|null $google_calendar_tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Interaction> $interactions
  * @property-read int|null $interactions_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -1186,6 +1304,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsOnline($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereLastSeenAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)

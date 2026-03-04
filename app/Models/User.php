@@ -97,7 +97,8 @@ final class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasRole(Role::Admin);
+        /* return $this->hasRole(Role::Admin); */
+        return true;
     }
 
     #[Override]

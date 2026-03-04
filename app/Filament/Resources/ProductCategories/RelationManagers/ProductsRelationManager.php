@@ -41,8 +41,7 @@ final class ProductsRelationManager extends RelationManager
                     ->maxLength(255),
                 TextInput::make('sku')
                     ->label(__('SKU'))
-                    ->required()
-                    ->unique(ignoreRecord: true)
+                    ->scopedUnique(ignoreRecord: true)
                     ->maxLength(255),
                 Textarea::make('description')
                     ->rows(3)

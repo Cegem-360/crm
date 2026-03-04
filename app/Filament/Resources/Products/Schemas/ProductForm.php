@@ -28,7 +28,7 @@ final class ProductForm
                 TextInput::make('sku')
                     ->label(__('SKU'))
                     ->placeholder(__('e.g., PROD-001'))
-                    ->required(),
+                    ->scopedUnique(ignoreRecord: true),
                 Textarea::make('description')
                     ->placeholder(__('Features, specifications, details...'))
                     ->columnSpanFull(),

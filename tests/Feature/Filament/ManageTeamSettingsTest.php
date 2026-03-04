@@ -23,7 +23,7 @@ it('can render the settings page', function (): void {
 it('shows default currency when no setting exists', function (): void {
     livewire(ManageTeamSettings::class)
         ->assertSchemaStateSet([
-            'currency' => null,
+            'currency' => Currency::HUF,
         ]);
 });
 
@@ -35,7 +35,7 @@ it('loads existing team setting', function (): void {
 
     livewire(ManageTeamSettings::class)
         ->assertSchemaStateSet([
-            'currency' => Currency::EUR->value,
+            'currency' => Currency::EUR,
         ]);
 });
 

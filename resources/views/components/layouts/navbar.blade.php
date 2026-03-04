@@ -50,14 +50,14 @@
 
                 @guest
                     {{-- Log in --}}
-                    <a href="/admin" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    <a href="/login" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
                         {{ __('Log in') }}
                     </a>
 
                     {{-- Get Started (filled) --}}
-                    <a href="/admin"
+                    <a href="https://cegem360.eu/register"
                         class="inline-flex items-center gap-1 px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
-                        {{ __('Free trial') }}
+                        {{ __('Get started') }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -141,10 +141,10 @@
             <hr class="border-gray-200">
 
             @guest
-                <a href="/admin" class="block py-2 text-sm font-medium text-gray-700">{{ __('Log in') }}</a>
-                <a href="/admin"
+                <a href="/login" class="block py-2 text-sm font-medium text-gray-700">{{ __('Log in') }}</a>
+                <a href="https://cegem360.eu/register"
                     class="block w-full text-center py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-full">
-                    {{ __('Free trial') }}
+                    {{ __('Get started') }}
                 </a>
             @endguest
 

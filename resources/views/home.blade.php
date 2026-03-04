@@ -23,29 +23,16 @@
 
                 {{-- CTA Buttons --}}
                 <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                    <a href="/admin" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl">
-                        Próbálja ki 14 napig ingyen
+                    <a href="https://cegem360.eu/register" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl">
+                        Vágjunk bele
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
-                    <a href="#" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-indigo-700 bg-white border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
-                        Demó kérése
+                    <a href="https://cegem360.eu/kapcsolat" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-indigo-700 bg-white border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
+                        Demót kérek
                     </a>
-                </div>
-
-                {{-- Trust badges --}}
-                <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-500">
-                    <span class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Bankkártya nélkül indíthat
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        5 perc alatt beüzemelhető
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Magyar nyelvű támogatás
-                    </span>
+                    <a href="/login" class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-600 transition-colors hover:text-indigo-800">
+                        Bejelentkezés a programba →
+                    </a>
                 </div>
             </div>
 
@@ -450,8 +437,9 @@
     </section>
 
     {{-- ==================== --}}
-    {{-- 6. TESTIMONIALS SECTION --}}
+    {{-- 6. TESTIMONIALS SECTION (hidden) --}}
     {{-- ==================== --}}
+    @if(false)
     <section class="py-16 lg:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -526,6 +514,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- ==================== --}}
     {{-- 7. PRICING SECTION --}}
@@ -537,7 +526,7 @@
                     Válassza ki az Önhöz illő csomagot
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Minden csomag 14 napos ingyenes próbaidőszakkal indul. Bankkártya nélkül.
+                    Átlátható árazás, rejtett költségek nélkül. Bármikor lemondható.
                 </p>
             </div>
 
@@ -574,8 +563,8 @@
                         </li>
                     </ul>
 
-                    <a href="/admin" class="block w-full py-3 text-center text-sm font-medium text-indigo-600 border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
-                        Ingyenes próba
+                    <a href="https://cegem360.eu/register" class="block w-full py-3 text-center text-sm font-medium text-indigo-600 border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
+                        Vágjunk bele
                     </a>
                 </div>
 
@@ -616,8 +605,8 @@
                         </li>
                     </ul>
 
-                    <a href="/admin" class="block w-full py-3 text-center text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
-                        Ingyenes próba
+                    <a href="https://cegem360.eu/register" class="block w-full py-3 text-center text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
+                        Vágjunk bele
                     </a>
                 </div>
 
@@ -652,7 +641,7 @@
                         </li>
                     </ul>
 
-                    <a href="#" class="block w-full py-3 text-center text-sm font-medium text-indigo-600 border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
+                    <a href="https://cegem360.eu/kapcsolat" class="block w-full py-3 text-center text-sm font-medium text-indigo-600 border-2 border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors">
                         Ajánlat kérése
                     </a>
                 </div>
@@ -661,10 +650,6 @@
             {{-- Trust badges --}}
             <div class="mt-12 text-center">
                 <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-500">
-                    <span class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        14 napos ingyenes próbaidőszak
-                    </span>
                     <span class="flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                         Bármikor lemondható
@@ -830,32 +815,20 @@
                 Készen áll az ügyfélkezelés új szintjére?
             </h2>
             <p class="text-lg text-indigo-100 mb-8">
-                Indítsa el 14 napos ingyenes próbaidőszakát most, és fedezze fel, hogyan növelheti az értékesítési hatékonyságot a Cégem360 CRM-mel.
+                Fedezze fel, hogyan segíti a Cégem360 a cége növekedését. Nincs hosszú távú elkötelezettség.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <a href="/admin" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-indigo-600 bg-white rounded-full hover:bg-indigo-50 transition-colors shadow-lg">
-                    Ingyenes próba indítása
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://cegem360.eu/register" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-indigo-600 bg-white rounded-full hover:bg-indigo-50 transition-colors shadow-lg">
+                    Vágjunk bele
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
-                <a href="#" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white border-2 border-white/30 rounded-full hover:bg-white/10 transition-colors">
-                    Demó időpontot kérek
+                <a href="https://cegem360.eu/kapcsolat" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white border-2 border-white/30 rounded-full hover:bg-white/10 transition-colors">
+                    Időpontot foglalok
                 </a>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-indigo-100">
-                <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                    5 perc alatt beüzemelhető
-                </span>
-                <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                    Bankkártya nélkül indíthat
-                </span>
-                <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                    Magyar nyelvű támogatás
-                </span>
+                <a href="/login" class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-100 transition-colors hover:text-white">
+                    Bejelentkezés a programba →
+                </a>
             </div>
         </div>
     </section>

@@ -9,6 +9,7 @@ use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\EditTeamProfile;
 use App\Filament\Pages\RegisterTeam;
 use App\Http\Middleware\ApplyTenantScopes;
+use App\Http\Middleware\SetLocale;
 use App\Models\Team;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -111,6 +112,7 @@ final class AdminPanelServiceProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                SetLocale::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

@@ -31,7 +31,7 @@ final class ActivityLogResource extends Resource
     protected static ?int $navigationSort = 3;
 
     #[Override]
-    public static function shouldRegisterNavigation(): bool
+    public static function canAccess(): bool
     {
         return Auth::check() && Auth::user()->isAdmin();
     }

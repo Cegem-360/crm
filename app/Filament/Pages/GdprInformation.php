@@ -22,7 +22,7 @@ final class GdprInformation extends Page
     protected static ?int $navigationSort = 2;
 
     #[Override]
-    public static function shouldRegisterNavigation(): bool
+    public static function canAccess(): bool
     {
         return Auth::check() && Auth::user()->isAdmin();
     }

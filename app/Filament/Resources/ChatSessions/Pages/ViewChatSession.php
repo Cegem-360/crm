@@ -56,7 +56,7 @@ final class ViewChatSession extends ViewRecord
                 ->form([
                     Select::make('new_user_id')
                         ->label(__('Transfer to Agent'))
-                        ->options(User::query()->pluck('name', 'id'))
+                        ->options(fn (): array => User::query()->pluck('name', 'id')->all())
                         ->searchable()
                         ->required(),
                 ])

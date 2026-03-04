@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Tasks\Schemas;
 
 use App\Enums\CustomFieldModel;
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Filament\Concerns\HasCustomFieldsSchema;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
@@ -44,22 +46,12 @@ final class TaskForm
                     ->columnSpanFull(),
                 Select::make('priority')
                     ->required()
-                    ->options([
-                        'low' => __('Low'),
-                        'medium' => __('Medium'),
-                        'high' => __('High'),
-                        'urgent' => __('Urgent'),
-                    ])
-                    ->default('medium'),
+                    ->options(TaskPriority::class)
+                    ->default(TaskPriority::Medium),
                 Select::make('status')
                     ->required()
-                    ->options([
-                        'pending' => __('Pending'),
-                        'in_progress' => __('In Progress'),
-                        'completed' => __('Completed'),
-                        'cancelled' => __('Cancelled'),
-                    ])
-                    ->default('pending'),
+                    ->options(TaskStatus::class)
+                    ->default(TaskStatus::Pending),
                 DatePicker::make('due_date'),
                 DateTimePicker::make('completed_at'),
                 ...self::getCustomFieldsFormSection(CustomFieldModel::Task),

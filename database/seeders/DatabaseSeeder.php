@@ -87,6 +87,57 @@ final class DatabaseSeeder extends Seeder
             )
             ->create();
 
+        // Create second team for testing tenant isolation
+        $team2 = Team::factory()->create([
+            'name' => 'Teszt Kft.',
+            'slug' => 'teszt-kft',
+        ]);
+
+        // Attach admin to second team too (for testing via team switcher)
+        $admin->teams()->attach($team2);
+
+        // Create users exclusively for the second team
+        $team2Users = User::factory(3)->create();
+        $team2->users()->attach($team2Users);
+
+        // Create product categories for the second team
+        $team2Categories = ProductCategory::factory(3)->create([
+            'team_id' => $team2->id,
+        ]);
+
+        // Create products for the second team
+        Product::factory(10)->create([
+            'team_id' => $team2->id,
+            'category_id' => fn () => $team2Categories->random()->id,
+        ]);
+
+        // Create customers with related data for the second team
+        Customer::factory(15)
+            ->for($team2)
+            ->has(
+                CustomerContact::factory(2)
+                    ->state(['team_id' => $team2->id]),
+                'contacts'
+            )
+            ->has(
+                CustomerAddress::factory()->billing()->default(),
+                'addresses'
+            )
+            ->has(
+                CustomerAddress::factory()->shipping(),
+                'addresses'
+            )
+            ->has(CustomerAttribute::factory(3), 'attributes')
+            ->has(
+                Opportunity::factory(2)
+                    ->state([
+                        'team_id' => $team2->id,
+                        'assigned_to' => fn () => $team2Users->random()->id,
+                    ]),
+                'opportunities'
+            )
+            ->create();
+
         $this->call([
             OrderSeeder::class,
         ]);

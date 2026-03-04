@@ -45,9 +45,13 @@ final class ComplaintsRelationManager extends RelationManager
                     ->relationship('order', 'order_number'),
                 Select::make('reported_by')
                     ->relationship('reporter', 'name')
+                    ->searchable()
+                    ->preload()
                     ->nullable(),
                 Select::make('assigned_to')
                     ->relationship('assignedUser', 'name')
+                    ->searchable()
+                    ->preload()
                     ->nullable(),
                 TextInput::make('title')
                     ->required(),

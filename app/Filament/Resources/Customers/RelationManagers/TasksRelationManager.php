@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Customers\RelationManagers;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -55,22 +57,12 @@ final class TasksRelationManager extends RelationManager
                     ->columnSpanFull(),
                 Select::make('priority')
                     ->required()
-                    ->options([
-                        'low' => __('Low'),
-                        'medium' => __('Medium'),
-                        'high' => __('High'),
-                        'urgent' => __('Urgent'),
-                    ])
-                    ->default('medium'),
+                    ->options(TaskPriority::class)
+                    ->default(TaskPriority::Medium),
                 Select::make('status')
                     ->required()
-                    ->options([
-                        'pending' => __('Pending'),
-                        'in_progress' => __('In Progress'),
-                        'completed' => __('Completed'),
-                        'cancelled' => __('Cancelled'),
-                    ])
-                    ->default('pending'),
+                    ->options(TaskStatus::class)
+                    ->default(TaskStatus::Pending),
                 DatePicker::make('due_date'),
                 DateTimePicker::make('completed_at'),
             ]);

@@ -29,7 +29,7 @@ final class TaskAssignedNotification extends Notification
             ->subject(__('New Task Assigned: :title', ['title' => $this->task->title]))
             ->line(__('A new task has been assigned to you.'))
             ->line('**'.__('Task').':** '.$this->task->title)
-            ->line('**'.__('Priority').':** '.ucfirst($this->task->priority))
+            ->line('**'.__('Priority').':** '.$this->task->priority->getLabel())
             ->when($this->task->due_date, fn (MailMessage $message) => $message->line('**'.__('Due Date').':** '.$this->task->due_date->format('Y-m-d')))
             ->when($assigner, fn (MailMessage $message) => $message->line('**'.__('Assigned By').':** '.$assigner->name))
             ->when($this->task->description, fn (MailMessage $message) => $message->line('**'.__('Description').':** '.$this->task->description))

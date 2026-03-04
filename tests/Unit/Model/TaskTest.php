@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Customer;
 use App\Models\Task;
 use App\Models\User;
@@ -38,8 +40,8 @@ it('has fillable attributes', function (): void {
         ->and($task->assigned_by)->toBe($assigner->id)
         ->and($task->title)->toBe('Test Task')
         ->and($task->description)->toBe('Test Description')
-        ->and($task->priority)->toBe('high')
-        ->and($task->status)->toBe('pending')
+        ->and($task->priority)->toBe(TaskPriority::High)
+        ->and($task->status)->toBe(TaskStatus::Pending)
         ->and($task->completed_at)->toBeNull();
 });
 

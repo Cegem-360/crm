@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Concerns\BelongsToTeam;
 use App\Models\Concerns\HasCustomFields;
 use App\Observers\TaskCalendarObserver;
@@ -69,6 +71,8 @@ final class Task extends Model
     protected function casts(): array
     {
         return [
+            'priority' => TaskPriority::class,
+            'status' => TaskStatus::class,
             'due_date' => 'date',
             'completed_at' => 'datetime',
         ];

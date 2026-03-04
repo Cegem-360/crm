@@ -7,6 +7,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -95,6 +96,22 @@ final class User extends Authenticatable implements FilamentUser, HasTenants
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    protected static function booted(): void
+    {
+        self::addGlobalScope('tenant', static function (Builder $query): void {
+            $team = app()->bound('current_team')
+                ? resolve('current_team')
+                : null;
+
+            if ($team instanceof Team) {
+                $query->whereHas(
+                    'teams',
+                    static fn (Builder $query): Builder => $query->where('teams.id', $team->getKey()),
+                );
+            }
+        });
     }
 
     #[Override]

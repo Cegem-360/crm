@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tasks\Tables;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -58,19 +60,9 @@ final class TasksTable
                     ->searchable()
                     ->preload(),
                 SelectFilter::make('status')
-                    ->options([
-                        'pending' => __('Pending'),
-                        'in_progress' => __('In Progress'),
-                        'completed' => __('Completed'),
-                        'cancelled' => __('Cancelled'),
-                    ]),
+                    ->options(TaskStatus::class),
                 SelectFilter::make('priority')
-                    ->options([
-                        'low' => __('Low'),
-                        'medium' => __('Medium'),
-                        'high' => __('High'),
-                        'urgent' => __('Urgent'),
-                    ]),
+                    ->options(TaskPriority::class),
             ])
             ->recordActions([
                 EditAction::make(),

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Customer;
 use App\Models\Task;
 use App\Models\Team;
@@ -29,8 +31,8 @@ final class TaskFactory extends Factory
             'assigned_by' => User::factory(),
             'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
-            'priority' => fake()->randomElement(['low', 'medium', 'high', 'urgent']),
-            'status' => fake()->randomElement(['pending', 'in_progress', 'completed', 'cancelled']),
+            'priority' => fake()->randomElement(TaskPriority::cases()),
+            'status' => fake()->randomElement(TaskStatus::cases()),
             'due_date' => fake()->dateTimeBetween('now', '+30 days'),
             'completed_at' => null,
         ];
@@ -39,7 +41,7 @@ final class TaskFactory extends Factory
     public function pending(): static
     {
         return $this->state(fn (array $attributes): array => [
-            'status' => 'pending',
+            'status' => TaskStatus::Pending,
             'completed_at' => null,
         ]);
     }
@@ -47,7 +49,7 @@ final class TaskFactory extends Factory
     public function inProgress(): static
     {
         return $this->state(fn (array $attributes): array => [
-            'status' => 'in_progress',
+            'status' => TaskStatus::InProgress,
             'completed_at' => null,
         ]);
     }
@@ -55,7 +57,7 @@ final class TaskFactory extends Factory
     public function completed(): static
     {
         return $this->state(fn (array $attributes): array => [
-            'status' => 'completed',
+            'status' => TaskStatus::Completed,
             'completed_at' => now(),
         ]);
     }
@@ -63,7 +65,7 @@ final class TaskFactory extends Factory
     public function urgent(): static
     {
         return $this->state(fn (array $attributes): array => [
-            'priority' => 'urgent',
+            'priority' => TaskPriority::Urgent,
         ]);
     }
 
@@ -71,7 +73,7 @@ final class TaskFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => [
             'due_date' => fake()->dateTimeBetween('-1 month', '-1 day'),
-            'status' => 'pending',
+            'status' => TaskStatus::Pending,
             'completed_at' => null,
         ]);
     }

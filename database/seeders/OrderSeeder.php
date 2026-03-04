@@ -17,27 +17,23 @@ final class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        $team = Team::query()->first();
+        foreach (Team::all() as $team) {
+            $customers = Customer::query()->where('team_id', $team->id)->get();
+            $products = Product::query()->where('team_id', $team->id)->get();
 
-        if (! $team) {
-            return;
-        }
+            if ($customers->isEmpty() || $products->isEmpty()) {
+                continue;
+            }
 
-        $customers = Customer::query()->where('team_id', $team->id)->get();
-        $products = Product::query()->where('team_id', $team->id)->get();
-
-        if ($customers->isEmpty() || $products->isEmpty()) {
-            return;
-        }
-
-        foreach ($customers->take(10) as $customer) {
-            Order::factory()
-                ->for($team)
-                ->for($customer)
-                ->hasOrderItems(3, [
-                    'product_id' => fn () => $products->random()->id,
-                ])
-                ->create();
+            foreach ($customers->take(10) as $customer) {
+                Order::factory()
+                    ->for($team)
+                    ->for($customer)
+                    ->hasOrderItems(3, [
+                        'product_id' => fn () => $products->random()->id,
+                    ])
+                    ->create();
+            }
         }
     }
 }

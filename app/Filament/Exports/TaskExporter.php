@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Exports;
 
+use App\Enums\TaskPriority;
+use App\Enums\TaskStatus;
 use App\Models\Task;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
@@ -30,9 +32,11 @@ final class TaskExporter extends Exporter
             ExportColumn::make('assigner.name')
                 ->label(__('Assigned By')),
             ExportColumn::make('priority')
-                ->label(__('Priority')),
+                ->label(__('Priority'))
+                ->formatStateUsing(fn (TaskPriority $state): string => $state->value),
             ExportColumn::make('status')
-                ->label(__('Status')),
+                ->label(__('Status'))
+                ->formatStateUsing(fn (TaskStatus $state): string => $state->value),
             ExportColumn::make('description')
                 ->label(__('Description')),
             ExportColumn::make('due_date')

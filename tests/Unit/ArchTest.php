@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Console\Commands\AssignDataToDefaultTeam;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CrmReportingController;
+use App\Http\Controllers\GoogleCalendarController;
 use App\Providers\Filament\AdminPanelServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +13,8 @@ arch()->preset()->php();
 // arch()->preset()->strict();
 arch()->preset()->laravel()
     ->ignoring(AuthController::class)
+    ->ignoring(CrmReportingController::class)
+    ->ignoring(GoogleCalendarController::class)
     ->ignoring(AdminPanelServiceProvider::class)
     ->ignoring(AssignDataToDefaultTeam::class);
 arch()->preset()->security();

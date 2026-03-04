@@ -16,6 +16,10 @@ use Spatie\Permission\PermissionRegistrar;
 
 beforeEach(function (): void {
     app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
+
+    $this->user = User::factory()->create();
+    $this->team = setUpFrontendTenant($this->user);
+    $this->actingAs($this->user);
 });
 
 it('can render the bug report submission form', function (): void {
@@ -27,9 +31,6 @@ it('can render the bug report submission form', function (): void {
 
 it('can submit a bug report', function (): void {
     Notification::fake();
-
-    $user = User::factory()->create();
-    $this->actingAs($user);
 
     Livewire::test(BugReportSubmission::class)
         ->set('title', 'Button not working')
@@ -49,7 +50,8 @@ it('can submit a bug report', function (): void {
         ->and($bugReport->source)->toBe('web_form')
         ->and($bugReport->browser_info)->toBe('Mozilla/5.0 Chrome/120')
         ->and($bugReport->url)->toBe('https://crm.test/admin/customers/1/edit')
-        ->and($bugReport->user_id)->toBe($user->id);
+        ->and($bugReport->user_id)->toBe($this->user->id)
+        ->and($bugReport->team_id)->toBe($this->team->id);
 });
 
 it('validates required fields', function (): void {
@@ -88,12 +90,15 @@ it('notifies admins and managers when bug report is submitted', function (): voi
 
     $admin = User::factory()->create();
     $admin->assignRole(Role::Admin);
+    $admin->teams()->attach($this->team);
 
     $manager = User::factory()->create();
     $manager->assignRole(Role::Manager);
+    $manager->teams()->attach($this->team);
 
     $salesRep = User::factory()->create();
     $salesRep->assignRole(Role::SalesRepresentative);
+    $salesRep->teams()->attach($this->team);
 
     Livewire::test(BugReportSubmission::class)
         ->set('title', 'Critical Bug')
@@ -133,7 +138,7 @@ it('shows success message after submission', function (): void {
 });
 
 it('is accessible via the bug reports submit route', function (): void {
-    $response = $this->get(route('bug-reports.submit'));
+    $response = $this->get(route('dashboard.bug-reports.submit', ['team' => $this->team]));
 
     $response->assertSuccessful();
     $response->assertSeeLivewire(BugReportSubmission::class);

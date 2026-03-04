@@ -7,20 +7,22 @@ namespace App\Livewire;
 use App\Enums\ComplaintSeverity;
 use App\Enums\ComplaintStatus;
 use App\Enums\CustomerType;
-use App\Enums\Role;
+use App\Livewire\Concerns\HasCurrentTeam;
+use App\Livewire\Concerns\NotifiesAdmins;
 use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\CustomerContact;
-use App\Models\User;
 use App\Notifications\NewComplaintNotification;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 final class ComplaintSubmission extends Component
 {
+    use HasCurrentTeam;
+    use NotifiesAdmins;
+
     #[Validate('required|string|max:255')]
     public string $name = '';
 
@@ -53,6 +55,7 @@ final class ComplaintSubmission extends Component
             $customer = $existingContact->customer;
         } else {
             $customer = Customer::query()->create([
+                'team_id' => $this->team->id,
                 'unique_identifier' => 'GUEST-'.now()->format('YmdHis'),
                 'name' => $this->name,
                 'phone' => $this->phone,
@@ -61,6 +64,7 @@ final class ComplaintSubmission extends Component
             ]);
 
             $customer->contacts()->create([
+                'team_id' => $this->team->id,
                 'name' => $this->name,
                 'email' => $this->email,
                 'phone' => $this->phone,
@@ -69,6 +73,7 @@ final class ComplaintSubmission extends Component
         }
 
         $complaint = Complaint::query()->create([
+            'team_id' => $this->team->id,
             'customer_id' => $customer->id,
             'title' => $this->title,
             'description' => $this->description,
@@ -77,7 +82,7 @@ final class ComplaintSubmission extends Component
             'reported_at' => now(),
         ]);
 
-        $this->notifyAdmins($complaint);
+        $this->notifyAdmins(new NewComplaintNotification($complaint));
 
         $this->submitted = true;
 
@@ -87,18 +92,5 @@ final class ComplaintSubmission extends Component
     public function render(): Factory|View
     {
         return view('livewire.complaint-submission');
-    }
-
-    private function notifyAdmins(Complaint $complaint): void
-    {
-        $roleNames = [Role::Admin->value, Role::Manager->value];
-
-        $adminsAndManagers = User::query()
-            ->whereHas('roles', fn ($query) => $query->whereIn('name', $roleNames))
-            ->get();
-
-        if ($adminsAndManagers->isNotEmpty()) {
-            Notification::send($adminsAndManagers, new NewComplaintNotification($complaint));
-        }
     }
 }

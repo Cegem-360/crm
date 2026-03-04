@@ -53,16 +53,17 @@ expect()->extend('toBeOne', fn () => $this->toBe(1));
 |
 */
 
+use App\Enums\Role;
 use App\Models\Team;
 use App\Models\User;
 use Filament\Facades\Filament;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\View;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
  * Set up a Filament tenant for testing multi-tenant panels.
- * Creates a team, attaches it to the user, and sets it as the current tenant.
- * Also applies global scopes that the `ApplyTenantScopes` middleware would apply in production.
+ * Creates a team, attaches it to the user, assigns the Admin role
+ * (required for `canAccessPanel()`), and sets the current tenant.
  */
 function setUpFilamentTenant(?User $user = null): Team
 {
@@ -70,18 +71,12 @@ function setUpFilamentTenant(?User $user = null): Team
 
     if ($user instanceof User) {
         $user->teams()->attach($team);
+
+        SpatieRole::firstOrCreate(['name' => Role::Admin->value]);
+        $user->assignRole(Role::Admin);
     }
 
-    app()->instance('current_team', $team);
-
-    User::addGlobalScope(
-        'tenant',
-        static fn (Builder $query): Builder => $query->whereHas(
-            'teams',
-            static fn (Builder $query): Builder => $query->where('teams.id', $team->getKey()),
-        ),
-    );
-
+    app()->instance(Team::CONTAINER_BINDING, $team);
     Filament::setTenant($team);
     Filament::bootCurrentPanel();
 
@@ -101,8 +96,8 @@ function setUpFrontendTenant(?User $user = null): Team
     }
 
     View::share('currentTeam', $team);
-    request()->attributes->set('current_team', $team);
-    app()->instance('current_team', $team);
+    request()->attributes->set(Team::CONTAINER_BINDING, $team);
+    app()->instance(Team::CONTAINER_BINDING, $team);
 
     return $team;
 }

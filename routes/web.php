@@ -69,12 +69,6 @@ Route::middleware(['guest'])->group(function (): void {
     Route::get('/login', fn (): Redirector|RedirectResponse => to_route('filament.admin.auth.login'))->name('login');
 });
 
-// Complaint submission route (public - for customers to submit complaints)
-Route::get('/complaints/submit', ComplaintSubmission::class)->name('complaints.submit');
-
-// Bug report submission route (public - for users to submit bug reports)
-Route::get('/bug-reports/submit', BugReportSubmission::class)->name('bug-reports.submit');
-
 // Language switch route
 Route::get('/language/{locale}', function (string $locale) {
     abort_unless(in_array($locale, ['en', 'hu'], true), 400);
@@ -166,6 +160,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::get('/tasks/{task}/edit', EditTask::class)->name('tasks.edit');
 
             // Complaints
+            Route::get('/complaints/submit', ComplaintSubmission::class)->name('complaints.submit');
             Route::get('/complaints', ListComplaints::class)->name('complaints');
             Route::get('/complaints/create', EditComplaint::class)->name('complaints.create');
             Route::get('/complaints/{complaint}', ViewComplaint::class)->name('complaints.view');
@@ -194,6 +189,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::get('/reports/orders', OrderReports::class)->name('reports.orders');
             Route::get('/reports/products', ProductReports::class)->name('reports.products');
             Route::get('/reports/customers', CustomerReports::class)->name('reports.customers');
+
+            // Bug Reports
+            Route::get('/bug-reports/submit', BugReportSubmission::class)->name('bug-reports.submit');
         });
 
     // Chat demo route

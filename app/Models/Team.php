@@ -15,6 +15,8 @@ final class Team extends Model
     /** @use HasFactory<TeamFactory> */
     use HasFactory;
 
+    public const string CONTAINER_BINDING = 'current_team';
+
     /**
      * @var list<string>
      */

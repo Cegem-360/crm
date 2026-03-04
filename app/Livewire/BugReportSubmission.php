@@ -6,14 +6,13 @@ namespace App\Livewire;
 
 use App\Enums\BugReportStatus;
 use App\Enums\ComplaintSeverity;
-use App\Enums\Role;
+use App\Livewire\Concerns\HasCurrentTeam;
+use App\Livewire\Concerns\NotifiesAdmins;
 use App\Models\BugReport;
-use App\Models\User;
 use App\Notifications\NewBugReportNotification;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -21,6 +20,8 @@ use Livewire\WithFileUploads;
 
 final class BugReportSubmission extends Component
 {
+    use HasCurrentTeam;
+    use NotifiesAdmins;
     use WithFileUploads;
 
     #[Validate('required|string|max:255')]
@@ -58,6 +59,7 @@ final class BugReportSubmission extends Component
         }
 
         $bugReport = BugReport::query()->create([
+            'team_id' => $this->team->id,
             'user_id' => Auth::id(),
             'title' => $this->title,
             'description' => $this->description,
@@ -69,7 +71,7 @@ final class BugReportSubmission extends Component
             'url' => $this->url ?: null,
         ]);
 
-        $this->notifyAdmins($bugReport);
+        $this->notifyAdmins(new NewBugReportNotification($bugReport));
 
         $this->submitted = true;
 
@@ -79,18 +81,5 @@ final class BugReportSubmission extends Component
     public function render(): Factory|View
     {
         return view('livewire.bug-report-submission');
-    }
-
-    private function notifyAdmins(BugReport $bugReport): void
-    {
-        $roleNames = [Role::Admin->value, Role::Manager->value];
-
-        $adminsAndManagers = User::query()
-            ->whereHas('roles', fn ($query) => $query->whereIn('name', $roleNames))
-            ->get();
-
-        if ($adminsAndManagers->isNotEmpty()) {
-            Notification::send($adminsAndManagers, new NewBugReportNotification($bugReport));
-        }
     }
 }

@@ -75,7 +75,7 @@ final class DocumentChain extends Component
         }
 
         $tenant = Filament::getTenant();
-        $team = $tenant ?? (app()->bound('current_team') ? resolve('current_team') : null);
+        $team = $tenant ?? (app()->bound(Team::CONTAINER_BINDING) ? resolve(Team::CONTAINER_BINDING) : null);
 
         return [
             [
@@ -132,7 +132,7 @@ final class DocumentChain extends Component
         }
 
         // Prefer frontend dashboard routes when outside the Filament admin panel
-        if (! $tenant || app()->bound('current_team')) {
+        if (! $tenant || app()->bound(Team::CONTAINER_BINDING)) {
             try {
                 $dashboard = $dashboardRouteMap[$type];
 

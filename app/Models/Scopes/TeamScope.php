@@ -14,8 +14,8 @@ final class TeamScope implements Scope
     /** @param Builder<Model> $builder */
     public function apply(Builder $builder, Model $model): void
     {
-        $team = app()->bound('current_team')
-            ? resolve('current_team')
+        $team = app()->bound(Team::CONTAINER_BINDING)
+            ? resolve(Team::CONTAINER_BINDING)
             : null;
 
         if ($team instanceof Team) {

@@ -10,7 +10,7 @@ use App\Models\Team;
 
 beforeEach(function (): void {
     $this->team = Team::factory()->create();
-    app()->instance('current_team', $this->team);
+    app()->instance(Team::CONTAINER_BINDING, $this->team);
 });
 
 it('auto-generates a unique identifier for customers', function (): void {

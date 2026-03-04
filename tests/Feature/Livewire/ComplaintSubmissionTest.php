@@ -19,6 +19,10 @@ use Spatie\Permission\PermissionRegistrar;
 
 beforeEach(function (): void {
     app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
+
+    $this->user = User::factory()->create();
+    $this->team = setUpFrontendTenant($this->user);
+    $this->actingAs($this->user);
 });
 
 it('can render the complaint submission form', function (): void {
@@ -53,6 +57,7 @@ it('can submit a complaint and create a new customer with contact', function ():
     expect($customer->type)->toBe(CustomerType::Company);
     expect($customer->is_active)->toBeTrue();
     expect($customer->unique_identifier)->toStartWith('GUEST-');
+    expect($customer->team_id)->toBe($this->team->id);
 
     expect(Complaint::query()->where('customer_id', $customer->id)->exists())->toBeTrue();
 
@@ -61,6 +66,7 @@ it('can submit a complaint and create a new customer with contact', function ():
     expect($complaint->description)->toBe('The product arrived damaged and does not work properly.');
     expect($complaint->severity)->toBe(ComplaintSeverity::Medium);
     expect($complaint->status)->toBe(ComplaintStatus::Open);
+    expect($complaint->team_id)->toBe($this->team->id);
 });
 
 it('reuses existing customer when contact email already exists', function (): void {
@@ -68,9 +74,11 @@ it('reuses existing customer when contact email already exists', function (): vo
 
     $existingCustomer = Customer::factory()->create([
         'name' => 'Existing Customer',
+        'team_id' => $this->team->id,
     ]);
 
     $existingCustomer->contacts()->create([
+        'team_id' => $this->team->id,
         'name' => 'Existing Contact',
         'email' => 'existing@example.com',
         'is_primary' => true,
@@ -100,12 +108,15 @@ it('notifies admins and managers when complaint is submitted', function (): void
 
     $admin = User::factory()->create();
     $admin->assignRole(Role::Admin);
+    $admin->teams()->attach($this->team);
 
     $manager = User::factory()->create();
     $manager->assignRole(Role::Manager);
+    $manager->teams()->attach($this->team);
 
     $salesRep = User::factory()->create();
     $salesRep->assignRole(Role::SalesRepresentative);
+    $salesRep->teams()->attach($this->team);
 
     Livewire::test(ComplaintSubmission::class)
         ->set('name', 'Test User')
@@ -198,7 +209,7 @@ it('can submit another complaint after success', function (): void {
 });
 
 it('is accessible via the complaints submit route', function (): void {
-    $response = $this->get(route('complaints.submit'));
+    $response = $this->get(route('dashboard.complaints.submit', ['team' => $this->team]));
 
     $response->assertSuccessful();
     $response->assertSeeLivewire(ComplaintSubmission::class);

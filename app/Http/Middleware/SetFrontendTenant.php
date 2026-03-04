@@ -6,6 +6,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Team;
 use Closure;
+use Filament\Facades\Filament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -30,8 +31,9 @@ final class SetFrontendTenant
         $user = Auth::user();
         abort_if(! $user || ! $user->teams()->whereKey($team->id)->exists(), 403);
 
-        $request->attributes->set('current_team', $team);
-        app()->instance('current_team', $team);
+        $request->attributes->set(Team::CONTAINER_BINDING, $team);
+        app()->instance(Team::CONTAINER_BINDING, $team);
+        Filament::setTenant($team);
 
         View::share('currentTeam', $team);
 

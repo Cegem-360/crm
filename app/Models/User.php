@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Role;
+use Filament\Facades\Filament;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
@@ -95,15 +97,15 @@ final class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->hasRole(Role::Admin);
     }
 
+    #[Override]
     protected static function booted(): void
     {
         self::addGlobalScope('tenant', static function (Builder $query): void {
-            $team = app()->bound('current_team')
-                ? resolve('current_team')
-                : null;
+            $team = Filament::getTenant()
+                ?? (app()->bound(Team::CONTAINER_BINDING) ? resolve(Team::CONTAINER_BINDING) : null);
 
             if ($team instanceof Team) {
                 $query->whereHas(

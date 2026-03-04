@@ -20,8 +20,11 @@ final class OrderSeeder extends Seeder
         foreach (Team::all() as $team) {
             $customers = Customer::query()->where('team_id', $team->id)->get();
             $products = Product::query()->where('team_id', $team->id)->get();
+            if ($customers->isEmpty()) {
+                continue;
+            }
 
-            if ($customers->isEmpty() || $products->isEmpty()) {
+            if ($products->isEmpty()) {
                 continue;
             }
 

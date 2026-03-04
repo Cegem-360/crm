@@ -13,6 +13,16 @@ trait BelongsToTeam
     public static function bootBelongsToTeam(): void
     {
         static::addGlobalScope(new TeamScope);
+
+        static::creating(static function ($model): void {
+            if (empty($model->team_id) && app()->bound(Team::CONTAINER_BINDING)) {
+                $team = resolve(Team::CONTAINER_BINDING);
+
+                if ($team instanceof Team) {
+                    $model->team_id = $team->getKey();
+                }
+            }
+        });
     }
 
     public function team(): BelongsTo

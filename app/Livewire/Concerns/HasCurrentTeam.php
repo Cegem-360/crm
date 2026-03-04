@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Concerns;
 
 use App\Models\Team;
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\View;
 
 trait HasCurrentTeam
@@ -15,15 +16,16 @@ trait HasCurrentTeam
     {
         // Only set from request if not already hydrated (prevents overwriting on Livewire updates)
         if ($this->team === null) {
-            $this->team = request()->attributes->get('current_team')
-                ?? (app()->bound('current_team') ? resolve('current_team') : null);
+            $this->team = request()->attributes->get(Team::CONTAINER_BINDING)
+                ?? (app()->bound(Team::CONTAINER_BINDING) ? resolve(Team::CONTAINER_BINDING) : null);
         }
 
-        // Ensure the container binding is set on every Livewire lifecycle,
+        // Ensure the container binding and Filament tenant are set on every Livewire lifecycle,
         // including subsequent AJAX requests where the route middleware doesn't run.
-        // This is required for the TeamScope global scope to filter correctly.
+        // This is required for the TeamScope and User global scopes to filter correctly.
         if ($this->team instanceof Team) {
-            app()->instance('current_team', $this->team);
+            app()->instance(Team::CONTAINER_BINDING, $this->team);
+            Filament::setTenant($this->team);
         }
 
         View::share('currentTeam', $this->team);

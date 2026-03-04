@@ -13,7 +13,8 @@
                 {{ __('Sign in') }}
                 <x-slot name="iconAfter">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </x-slot>
             </x-filament::button>
@@ -23,7 +24,8 @@
     <div class="mt-10 text-center space-y-3">
         <p class="text-sm text-gray-500">
             {{ __("Don't have an account?") }}
-            <a href="{{ Route::has('filament.admin.auth.register') ? route('filament.admin.auth.register') : '#' }}" class="text-indigo-600 hover:text-indigo-700 font-medium" style="color: #4f46e5 !important;">
+            <a href="https://cegem360.eu/admin/register" class="text-indigo-600 hover:text-indigo-700 font-medium"
+                style="color: #4f46e5 !important;">
                 {{ __('Register') }}
             </a>
         </p>

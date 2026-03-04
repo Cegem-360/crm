@@ -8,7 +8,9 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\Interactions\Pages\CreateInteraction;
 use App\Filament\Resources\Interactions\Pages\EditInteraction;
 use App\Filament\Resources\Interactions\Pages\ListInteractions;
+use App\Filament\Resources\Interactions\Pages\ViewInteraction;
 use App\Filament\Resources\Interactions\Schemas\InteractionForm;
+use App\Filament\Resources\Interactions\Schemas\InteractionInfolist;
 use App\Filament\Resources\Interactions\Tables\InteractionsTable;
 use App\Models\Interaction;
 use BackedEnum;
@@ -53,6 +55,12 @@ final class InteractionResource extends Resource
     }
 
     #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return InteractionInfolist::configure($schema);
+    }
+
+    #[Override]
     public static function table(Table $table): Table
     {
         return InteractionsTable::configure($table);
@@ -72,6 +80,7 @@ final class InteractionResource extends Resource
         return [
             'index' => ListInteractions::route('/'),
             'create' => CreateInteraction::route('/create'),
+            'view' => ViewInteraction::route('/{record}'),
             'edit' => EditInteraction::route('/{record}/edit'),
         ];
     }

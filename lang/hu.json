@@ -927,7 +927,6 @@
     "Is Primary": "Elsődleges",
     "Is Active": "Aktív",
     "Valid From": "Érvényes ettől",
-
     "Chat session created successfully.": "Chat munkamenet sikeresen létrehozva.",
     "Chat session updated successfully.": "Chat munkamenet sikeresen frissítve.",
     "Complaint created successfully.": "Panasz sikeresen létrehozva.",
@@ -953,7 +952,6 @@
     "Quote updated successfully.": "Árajánlat sikeresen frissítve.",
     "Task created successfully.": "Feladat sikeresen létrehozva.",
     "Task updated successfully.": "Feladat sikeresen frissítve.",
-
     "Chat session details": "Chat munkamenet részletei",
     "Complaint details": "Panasz részletei",
     "Contact details": "Kapcsolattartó részletei",
@@ -967,7 +965,6 @@
     "Product details": "Termék részletei",
     "Quote details": "Árajánlat részletei",
     "Task details": "Feladat részletei",
-
     "Edit Category": "Kategória szerkesztése",
     "Edit Chat Session": "Chat munkamenet szerkesztése",
     "Edit Complaint": "Panasz szerkesztése",
@@ -981,7 +978,6 @@
     "Edit Product": "Termék szerkesztése",
     "Edit Quote": "Árajánlat szerkesztése",
     "Edit Task": "Feladat szerkesztése",
-
     "Create a new chat session": "Új chat munkamenet létrehozása",
     "Create a new complaint": "Új panasz létrehozása",
     "Create a new contact": "Új kapcsolattartó létrehozása",
@@ -995,14 +991,12 @@
     "Create a new product category": "Új termékkategória létrehozása",
     "Create a new quote": "Új árajánlat létrehozása",
     "Create a new task": "Új feladat létrehozása",
-
     "Manage customer complaints": "Ügyfélpanaszok kezelése",
     "Manage your chat sessions": "Chat munkamenetek kezelése",
     "Manage your interactions": "Interakciók kezelése",
     "Manage your product categories": "Termékkategóriák kezelése",
     "Manage your products": "Termékek kezelése",
     "Manage your tasks": "Feladatok kezelése",
-
     ":count campaign response imported successfully.": ":count kampányválasz sikeresen importálva.",
     ":count complaint exported successfully.": ":count panasz sikeresen exportálva.",
     ":count complaint imported successfully.": ":count panasz sikeresen importálva.",
@@ -1030,18 +1024,15 @@
     ":count task imported successfully.": ":count feladat sikeresen importálva.",
     ":count failed to export.": ":count exportálása sikertelen.",
     ":count failed to import.": ":count importálása sikertelen.",
-
     ":title moved to :stage": ":title áthelyezve: :stage",
     "New Task Assigned: :title": "Új feladat kiosztva: :title",
     "A new task has been assigned to you.": "Egy új feladat lett hozzád rendelve.",
     "Please review and complete this task.": "Kérjük, tekintsd át és végezd el a feladatot.",
     "Failed to send email: :message": "E-mail küldése sikertelen: :message",
-
     "Customer analytics, top customers, and growth trends": "Ügyfélanalitika, top ügyfelek és növekedési trendek",
     "Order statistics, status distribution, and revenue analysis": "Rendelési statisztikák, állapot eloszlás és bevételelemzés",
     "Overview of sales performance, opportunities, and pipeline": "Értékesítési teljesítmény, lehetőségek és pipeline áttekintése",
     "Product performance, categories, and sales analysis": "Termékteljesítmény, kategóriák és értékesítési elemzés",
-
     "Chat Session": "Chat munkamenet",
     "New Chat Session": "Új chat munkamenet",
     "Add Address": "Cím hozzáadása",
@@ -1064,7 +1055,6 @@
     "Note": "Megjegyzés",
     "URL": "URL",
     "e.g., Q1 2024 Marketing Initiative": "pl. 2024 Q1 Marketing Kezdeményezés",
-
     "Start date": "Kezdés dátuma",
     "End date": "Befejezés dátuma",
     "Created by": "Létrehozta",
@@ -1072,13 +1062,11 @@
     "Responded at": "Válaszolva",
     "Response type": "Válasz típusa",
     "Sender type": "Küldő típusa",
-
     "Email verified at": "E-mail megerősítve",
     "Guard name": "Guard neve",
     "Is read": "Olvasott",
     "Discount percent": "Kedvezmény %",
     "Target audience criteria": "Célközönség feltételek",
-
     "Edit Campaign": "Kampány szerkesztése",
     "Create a new campaign": "Új kampány létrehozása",
     "Campaign details": "Kampány részletei",

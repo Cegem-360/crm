@@ -8,6 +8,7 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\Customers\Pages\CreateCustomer;
 use App\Filament\Resources\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Customers\Pages\ListCustomers;
+use App\Filament\Resources\Customers\Pages\ViewCustomer;
 use App\Filament\Resources\Customers\RelationManagers\AddressesRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\AttributesRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\ComplaintsRelationManager;
@@ -20,6 +21,7 @@ use App\Filament\Resources\Customers\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\QuotesRelationManager;
 use App\Filament\Resources\Customers\RelationManagers\TasksRelationManager;
 use App\Filament\Resources\Customers\Schemas\CustomerForm;
+use App\Filament\Resources\Customers\Schemas\CustomerInfolist;
 use App\Filament\Resources\Customers\Tables\CustomersTable;
 use App\Models\Customer;
 use BackedEnum;
@@ -66,6 +68,12 @@ final class CustomerResource extends Resource
     }
 
     #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return CustomerInfolist::configure($schema);
+    }
+
+    #[Override]
     public static function table(Table $table): Table
     {
         return CustomersTable::configure($table);
@@ -95,6 +103,7 @@ final class CustomerResource extends Resource
         return [
             'index' => ListCustomers::route('/'),
             'create' => CreateCustomer::route('/create'),
+            'view' => ViewCustomer::route('/{record}'),
             'edit' => EditCustomer::route('/{record}/edit'),
         ];
     }

@@ -11,6 +11,7 @@ use App\Filament\Resources\ChatSessions\Pages\ListChatSessions;
 use App\Filament\Resources\ChatSessions\Pages\ViewChatSession;
 use App\Filament\Resources\ChatSessions\RelationManagers\MessagesRelationManager;
 use App\Filament\Resources\ChatSessions\Schemas\ChatSessionForm;
+use App\Filament\Resources\ChatSessions\Schemas\ChatSessionInfolist;
 use App\Filament\Resources\ChatSessions\Tables\ChatSessionsTable;
 use App\Models\ChatSession;
 use BackedEnum;
@@ -52,6 +53,12 @@ final class ChatSessionResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return ChatSessionForm::configure($schema);
+    }
+
+    #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return ChatSessionInfolist::configure($schema);
     }
 
     #[Override]

@@ -8,7 +8,9 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\Contacts\Pages\CreateContact;
 use App\Filament\Resources\Contacts\Pages\EditContact;
 use App\Filament\Resources\Contacts\Pages\ListContacts;
+use App\Filament\Resources\Contacts\Pages\ViewContact;
 use App\Filament\Resources\Contacts\Schemas\ContactForm;
+use App\Filament\Resources\Contacts\Schemas\ContactInfolist;
 use App\Filament\Resources\Contacts\Tables\ContactsTable;
 use App\Models\CustomerContact;
 use BackedEnum;
@@ -53,6 +55,12 @@ final class ContactResource extends Resource
     }
 
     #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return ContactInfolist::configure($schema);
+    }
+
+    #[Override]
     public static function table(Table $table): Table
     {
         return ContactsTable::configure($table);
@@ -72,6 +80,7 @@ final class ContactResource extends Resource
         return [
             'index' => ListContacts::route('/'),
             'create' => CreateContact::route('/create'),
+            'view' => ViewContact::route('/{record}'),
             'edit' => EditContact::route('/{record}/edit'),
         ];
     }

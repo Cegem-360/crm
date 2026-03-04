@@ -8,9 +8,11 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\ProductCategories\Pages\CreateProductCategory;
 use App\Filament\Resources\ProductCategories\Pages\EditProductCategory;
 use App\Filament\Resources\ProductCategories\Pages\ListProductCategories;
+use App\Filament\Resources\ProductCategories\Pages\ViewProductCategory;
 use App\Filament\Resources\ProductCategories\RelationManagers\ChildrenRelationManager;
 use App\Filament\Resources\ProductCategories\RelationManagers\ProductsRelationManager;
 use App\Filament\Resources\ProductCategories\Schemas\ProductCategoryForm;
+use App\Filament\Resources\ProductCategories\Schemas\ProductCategoryInfolist;
 use App\Filament\Resources\ProductCategories\Tables\ProductCategoriesTable;
 use App\Models\ProductCategory;
 use BackedEnum;
@@ -55,6 +57,12 @@ final class ProductCategoryResource extends Resource
     }
 
     #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return ProductCategoryInfolist::configure($schema);
+    }
+
+    #[Override]
     public static function table(Table $table): Table
     {
         return ProductCategoriesTable::configure($table);
@@ -75,6 +83,7 @@ final class ProductCategoryResource extends Resource
         return [
             'index' => ListProductCategories::route('/'),
             'create' => CreateProductCategory::route('/create'),
+            'view' => ViewProductCategory::route('/{record}'),
             'edit' => EditProductCategory::route('/{record}/edit'),
         ];
     }

@@ -8,8 +8,10 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\LeadOpportunities\Pages\CreateLeadOpportunity;
 use App\Filament\Resources\LeadOpportunities\Pages\EditLeadOpportunity;
 use App\Filament\Resources\LeadOpportunities\Pages\ListLeadOpportunities;
+use App\Filament\Resources\LeadOpportunities\Pages\ViewLeadOpportunity;
 use App\Filament\Resources\LeadOpportunities\RelationManagers\QuotesRelationManager;
 use App\Filament\Resources\LeadOpportunities\Schemas\LeadOpportunityForm;
+use App\Filament\Resources\LeadOpportunities\Schemas\OpportunityInfolist;
 use App\Filament\Resources\LeadOpportunities\Tables\LeadOpportunitiesTable;
 use App\Models\Opportunity;
 use BackedEnum;
@@ -54,6 +56,12 @@ final class LeadOpportunitiesResource extends Resource
     }
 
     #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return OpportunityInfolist::configure($schema);
+    }
+
+    #[Override]
     public static function table(Table $table): Table
     {
         return LeadOpportunitiesTable::configure($table);
@@ -73,6 +81,7 @@ final class LeadOpportunitiesResource extends Resource
         return [
             'index' => ListLeadOpportunities::route('/'),
             'create' => CreateLeadOpportunity::route('/create'),
+            'view' => ViewLeadOpportunity::route('/{record}'),
             'edit' => EditLeadOpportunity::route('/{record}/edit'),
         ];
     }

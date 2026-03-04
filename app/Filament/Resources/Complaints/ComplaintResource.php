@@ -8,7 +8,9 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\Complaints\Pages\CreateComplaint;
 use App\Filament\Resources\Complaints\Pages\EditComplaint;
 use App\Filament\Resources\Complaints\Pages\ListComplaints;
+use App\Filament\Resources\Complaints\Pages\ViewComplaint;
 use App\Filament\Resources\Complaints\Schemas\ComplaintForm;
+use App\Filament\Resources\Complaints\Schemas\ComplaintInfolist;
 use App\Filament\Resources\Complaints\Tables\ComplaintsTable;
 use App\Models\Complaint;
 use BackedEnum;
@@ -53,6 +55,12 @@ final class ComplaintResource extends Resource
     }
 
     #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return ComplaintInfolist::configure($schema);
+    }
+
+    #[Override]
     public static function table(Table $table): Table
     {
         return ComplaintsTable::configure($table);
@@ -72,6 +80,7 @@ final class ComplaintResource extends Resource
         return [
             'index' => ListComplaints::route('/'),
             'create' => CreateComplaint::route('/create'),
+            'view' => ViewComplaint::route('/{record}'),
             'edit' => EditComplaint::route('/{record}/edit'),
         ];
     }

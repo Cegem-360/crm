@@ -8,7 +8,9 @@ use App\Enums\NavigationGroup;
 use App\Filament\Resources\Discounts\Pages\CreateDiscount;
 use App\Filament\Resources\Discounts\Pages\EditDiscount;
 use App\Filament\Resources\Discounts\Pages\ListDiscounts;
+use App\Filament\Resources\Discounts\Pages\ViewDiscount;
 use App\Filament\Resources\Discounts\Schemas\DiscountForm;
+use App\Filament\Resources\Discounts\Schemas\DiscountInfolist;
 use App\Filament\Resources\Discounts\Tables\DiscountsTable;
 use App\Models\Discount;
 use BackedEnum;
@@ -55,6 +57,12 @@ final class DiscountResource extends Resource
     }
 
     #[Override]
+    public static function infolist(Schema $schema): Schema
+    {
+        return DiscountInfolist::configure($schema);
+    }
+
+    #[Override]
     public static function table(Table $table): Table
     {
         return DiscountsTable::configure($table);
@@ -74,6 +82,7 @@ final class DiscountResource extends Resource
         return [
             'index' => ListDiscounts::route('/'),
             'create' => CreateDiscount::route('/create'),
+            'view' => ViewDiscount::route('/{record}'),
             'edit' => EditDiscount::route('/{record}/edit'),
         ];
     }

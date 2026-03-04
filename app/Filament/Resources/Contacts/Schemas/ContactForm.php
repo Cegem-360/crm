@@ -14,6 +14,7 @@ final class ContactForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Select::make('customer_id')
                     ->label(__('Customer'))

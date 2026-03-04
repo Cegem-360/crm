@@ -79,6 +79,45 @@ it('does not overwrite pre-set identifiers', function (): void {
     expect($customer->unique_identifier)->toBe('CUSTOM-ID-123');
 });
 
+it('generates independent sequences per team', function (): void {
+    $year = now()->year;
+
+    $customer1 = Customer::factory()->create([
+        'team_id' => $this->team->id,
+        'unique_identifier' => null,
+    ]);
+
+    $otherTeam = Team::factory()->create();
+    app()->instance(Team::CONTAINER_BINDING, $otherTeam);
+
+    $customer2 = Customer::factory()->create([
+        'team_id' => $otherTeam->id,
+        'unique_identifier' => null,
+    ]);
+
+    expect($customer1->unique_identifier)->toBe(sprintf('CUST-%d-0001', $year))
+        ->and($customer2->unique_identifier)->toBe(sprintf('CUST-%d-0001', $year));
+
+    app()->instance(Team::CONTAINER_BINDING, $this->team);
+});
+
+it('allows same `unique_identifier` across different teams', function (): void {
+    $customer1 = Customer::factory()->create([
+        'team_id' => $this->team->id,
+        'unique_identifier' => 'CUSTOM-SHARED',
+    ]);
+
+    $otherTeam = Team::factory()->create();
+
+    $customer2 = Customer::factory()->create([
+        'team_id' => $otherTeam->id,
+        'unique_identifier' => 'CUSTOM-SHARED',
+    ]);
+
+    expect($customer1->unique_identifier)->toBe('CUSTOM-SHARED')
+        ->and($customer2->unique_identifier)->toBe('CUSTOM-SHARED');
+});
+
 it('uses correct prefix for each model', function (): void {
     expect(Customer::uniqueNumberPrefix())->toBe('CUST')
         ->and(Quote::uniqueNumberPrefix())->toBe('QUO')

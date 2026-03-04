@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\LeadOpportunities\Tables;
 
 use App\Enums\OpportunityStage;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -50,6 +52,10 @@ final class LeadOpportunitiesTable
                 SelectFilter::make('stage')
                     ->label(__('Stage'))
                     ->options(OpportunityStage::class),
+            ])
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
             ]);
     }
 }

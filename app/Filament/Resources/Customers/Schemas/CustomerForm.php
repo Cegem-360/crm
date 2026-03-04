@@ -26,6 +26,7 @@ final class CustomerForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Callout::make(__('Potential duplicates found'))
                     ->description(static function (Get $get, ?Customer $record): ?string {
@@ -46,9 +47,10 @@ final class CustomerForm
                     ->visible(static fn (Get $get, ?Customer $record): bool => self::findDuplicates($get, $record)->isNotEmpty())
                     ->columnSpanFull(),
                 TextInput::make('unique_identifier')
-                    ->disabled()
+                    ->disabled(fn (?Customer $record): bool => $record?->exists === true)
                     ->dehydrated()
-                    ->placeholder(__('Auto-generated')),
+                    ->placeholder(__('Auto-generated if empty'))
+                    ->scopedUnique(ignoreRecord: true),
                 TextInput::make('name')
                     ->placeholder(__('e.g., John Doe or Company Name'))
                     ->required()

@@ -16,6 +16,7 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use Override;
 use UnitEnum;
 
@@ -30,6 +31,12 @@ final class TeamResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-office';
 
     protected static ?int $navigationSort = 1;
+
+    #[Override]
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::check() && Auth::user()->isAdmin();
+    }
 
     #[Override]
     public static function getNavigationLabel(): string

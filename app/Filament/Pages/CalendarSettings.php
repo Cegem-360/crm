@@ -35,6 +35,12 @@ final class CalendarSettings extends Page
     protected string $view = 'filament.pages.calendar-settings';
 
     #[Override]
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::check() && Auth::user()->isAdmin();
+    }
+
+    #[Override]
     public static function getNavigationLabel(): string
     {
         return __('Calendar Settings');

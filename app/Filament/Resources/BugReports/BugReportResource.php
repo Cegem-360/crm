@@ -28,6 +28,8 @@ final class BugReportResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     #[Override]
     public static function getNavigationLabel(): string
     {

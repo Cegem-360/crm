@@ -24,7 +24,7 @@ final class ChatSessionResource extends Resource
 {
     protected static ?string $model = ChatSession::class;
 
-    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Support;
+    protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Activities;
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
 

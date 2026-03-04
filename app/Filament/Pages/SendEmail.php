@@ -39,6 +39,8 @@ final class SendEmail extends Page implements HasSchemas
 
     protected static ?int $navigationSort = 4;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     #[Override]
     public static function getNavigationLabel(): string
     {

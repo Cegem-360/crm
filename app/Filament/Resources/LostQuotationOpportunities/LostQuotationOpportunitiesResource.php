@@ -24,6 +24,8 @@ final class LostQuotationOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 7;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     #[Override]
     public static function getNavigationLabel(): string
     {

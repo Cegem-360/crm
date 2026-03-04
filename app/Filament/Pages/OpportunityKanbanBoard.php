@@ -26,6 +26,8 @@ final class OpportunityKanbanBoard extends Page
 
     protected static ?int $navigationSort = 6;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     #[Override]
     public static function getNavigationLabel(): string
     {

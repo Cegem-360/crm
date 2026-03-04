@@ -24,6 +24,8 @@ final class NegotiationOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     #[Override]
     public static function getNavigationLabel(): string
     {

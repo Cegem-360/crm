@@ -6,6 +6,7 @@ namespace App\Filament\Resources\LeadOpportunities\Tables;
 
 use App\Enums\OpportunityStage;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 final class LeadOpportunitiesTable
@@ -13,26 +14,22 @@ final class LeadOpportunitiesTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn ($query) => $query->where('stage', OpportunityStage::Lead))
             ->columns([
-                TextColumn::make('customer.name')
-                    ->label(__('Customer Name'))
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('customer.email')
-                    ->label(__('Customer Email'))
-                    ->searchable(),
-                TextColumn::make('customer.phone')
-                    ->label(__('Customer Phone'))
-                    ->searchable(),
-                TextColumn::make('customer.type')
-                    ->label(__('Customer Type'))
-                    ->badge(),
                 TextColumn::make('title')
                     ->label(__('Opportunity Title'))
                     ->searchable()
                     ->sortable(),
-
+                TextColumn::make('customer.name')
+                    ->label(__('Customer Name'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('stage')
+                    ->label(__('Stage'))
+                    ->badge()
+                    ->sortable(),
+                TextColumn::make('value')
+                    ->money('HUF')
+                    ->sortable(),
                 TextColumn::make('probability')
                     ->suffix('%')
                     ->sortable(),
@@ -48,6 +45,11 @@ final class LeadOpportunitiesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                SelectFilter::make('stage')
+                    ->label(__('Stage'))
+                    ->options(OpportunityStage::class),
             ]);
     }
 }

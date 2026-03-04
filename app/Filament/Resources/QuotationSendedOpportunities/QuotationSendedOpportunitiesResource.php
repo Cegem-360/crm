@@ -24,6 +24,8 @@ final class QuotationSendedOpportunitiesResource extends Resource
 
     protected static ?int $navigationSort = 5;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     #[Override]
     public static function getNavigationLabel(): string
     {

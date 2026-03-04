@@ -25,26 +25,26 @@ final class LeadOpportunitiesResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = NavigationGroup::Sales;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-funnel';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chart-bar';
 
     protected static ?int $navigationSort = 1;
 
     #[Override]
     public static function getNavigationLabel(): string
     {
-        return __('Leads');
+        return __('Opportunities');
     }
 
     #[Override]
     public static function getModelLabel(): string
     {
-        return __('Lead Opportunity');
+        return __('Opportunity');
     }
 
     #[Override]
     public static function getPluralModelLabel(): string
     {
-        return __('Lead Opportunities');
+        return __('Opportunities');
     }
 
     #[Override]

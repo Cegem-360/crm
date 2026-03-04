@@ -11,6 +11,7 @@ use App\Filament\Pages\RegisterTeam;
 use App\Http\Middleware\ApplyTenantScopes;
 use App\Http\Middleware\SetLocale;
 use App\Models\Team;
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -75,7 +76,10 @@ final class AdminPanelServiceProvider extends PanelProvider
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-system']),
             ])
             ->login(Login::class)
-            ->profile()
+            ->userMenuItems([
+                'profile' => fn (Action $action): Action => $action
+                    ->url('https://cegem360.eu/admin/profile', shouldOpenInNewTab: true),
+            ])
             ->tenant(Team::class, slugAttribute: 'slug')
             ->tenantRegistration(RegisterTeam::class)
             ->tenantProfile(EditTeamProfile::class)

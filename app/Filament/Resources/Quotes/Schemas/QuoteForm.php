@@ -9,6 +9,7 @@ use App\Enums\QuoteStatus;
 use App\Filament\Concerns\HasCustomFieldsSchema;
 use App\Filament\Schemas\Components\DocumentChain;
 use App\Models\Product;
+use App\Models\TeamSetting;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -105,7 +106,7 @@ final class QuoteForm
                                     ->label(__('Unit Price'))
                                     ->required()
                                     ->numeric()
-                                    ->prefix('Ft')
+                                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                                     ->default(0)
                                     ->live()
                                     ->minValue(0)
@@ -123,7 +124,7 @@ final class QuoteForm
                                     ->label(__('Discount'))
                                     ->readOnly()
                                     ->numeric()
-                                    ->prefix('Ft')
+                                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                                     ->default(0),
                                 TextInput::make('tax_rate')
                                     ->label(__('Tax %'))
@@ -138,7 +139,7 @@ final class QuoteForm
                                 TextInput::make('total')
                                     ->readOnly()
                                     ->numeric()
-                                    ->prefix('Ft')
+                                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                                     ->default(0),
                             ])
                             ->columns(6)
@@ -150,7 +151,7 @@ final class QuoteForm
                                 self::updateQuoteTotals($get('items') ?? [], $set);
                             })
                             ->itemLabel(fn (array $state): ?string => ($state['description'] ?? '') !== ''
-                                ? $state['description'].' - '.($state['quantity'] ?? 0).' x '.number_format((float) ($state['unit_price'] ?? 0), 0, ',', '.').' Ft'
+                                ? $state['description'].' - '.($state['quantity'] ?? 0).' x '.number_format((float) ($state['unit_price'] ?? 0), 0, ',', '.').' '.TeamSetting::currentCurrency()
                                 : null)
                             ->columnSpanFull(),
                     ]),
@@ -161,28 +162,28 @@ final class QuoteForm
                             ->readOnly()
                             ->dehydrated()
                             ->numeric()
-                            ->prefix('Ft')
+                            ->prefix(fn (): string => TeamSetting::currentCurrency())
                             ->default(0),
                         TextInput::make('discount_amount')
                             ->label(__('Total Discount'))
                             ->readOnly()
                             ->dehydrated()
                             ->numeric()
-                            ->prefix('Ft')
+                            ->prefix(fn (): string => TeamSetting::currentCurrency())
                             ->default(0),
                         TextInput::make('tax_amount')
                             ->label(__('Tax Amount'))
                             ->readOnly()
                             ->dehydrated()
                             ->numeric()
-                            ->prefix('Ft')
+                            ->prefix(fn (): string => TeamSetting::currentCurrency())
                             ->default(0),
                         TextInput::make('total')
                             ->label(__('Grand Total'))
                             ->readOnly()
                             ->dehydrated()
                             ->numeric()
-                            ->prefix('Ft')
+                            ->prefix(fn (): string => TeamSetting::currentCurrency())
                             ->default(0),
                     ])
                     ->columns(4),

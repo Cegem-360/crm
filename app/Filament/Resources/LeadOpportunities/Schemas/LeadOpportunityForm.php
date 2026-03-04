@@ -7,6 +7,7 @@ namespace App\Filament\Resources\LeadOpportunities\Schemas;
 use App\Enums\CustomFieldModel;
 use App\Enums\OpportunityStage;
 use App\Filament\Concerns\HasCustomFieldsSchema;
+use App\Models\TeamSetting;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Slider;
@@ -43,7 +44,7 @@ final class LeadOpportunityForm
                 TextInput::make('value')
                     ->visible(false)
                     ->numeric()
-                    ->prefix('Ft')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->required(),
                 Slider::make('probability')
                     ->helperText(__('Estimate the likelihood of closing this deal (0-100%)'))

@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Products\Schemas;
 
 use App\Enums\CustomFieldModel;
 use App\Filament\Concerns\HasCustomFieldsSchema;
+use App\Models\TeamSetting;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -40,7 +41,7 @@ final class ProductForm
                     ->label(__('Unit Price'))
                     ->required()
                     ->numeric()
-                    ->prefix('Ft')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 TextInput::make('tax_rate')
                     ->label(__('Tax Rate'))

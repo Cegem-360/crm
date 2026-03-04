@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Quotes\RelationManagers;
 
+use App\Models\TeamSetting;
 use Filament\Actions\ViewAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -42,19 +43,19 @@ final class OrdersRelationManager extends RelationManager
                     ->badge()
                     ->sortable(),
                 TextColumn::make('subtotal')
-                    ->money('USD')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('discount_amount')
-                    ->money('USD')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('tax_amount')
-                    ->money('USD')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('total')
-                    ->money('USD')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

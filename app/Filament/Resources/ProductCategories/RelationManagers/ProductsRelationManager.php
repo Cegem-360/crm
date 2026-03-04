@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ProductCategories\RelationManagers;
 
+use App\Models\TeamSetting;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -49,7 +50,7 @@ final class ProductsRelationManager extends RelationManager
                 TextInput::make('unit_price')
                     ->required()
                     ->numeric()
-                    ->prefix('$')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0)
                     ->minValue(0),
                 TextInput::make('tax_rate')
@@ -78,7 +79,7 @@ final class ProductsRelationManager extends RelationManager
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('unit_price')
-                    ->money('USD')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable(),
                 TextColumn::make('tax_rate')
                     ->suffix('%')

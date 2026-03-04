@@ -8,6 +8,7 @@ use App\Enums\CustomFieldModel;
 use App\Enums\OrderStatus;
 use App\Filament\Concerns\HasCustomFieldsSchema;
 use App\Filament\Schemas\Components\DocumentChain;
+use App\Models\TeamSetting;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -51,25 +52,25 @@ final class OrderForm
                 TextInput::make('subtotal')
                     ->required()
                     ->numeric()
-                    ->prefix('Ft')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 TextInput::make('discount_amount')
                     ->label(__('Total Discount'))
                     ->required()
                     ->numeric()
-                    ->prefix('Ft')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 TextInput::make('tax_amount')
                     ->label(__('Tax Amount'))
                     ->required()
                     ->numeric()
-                    ->prefix('Ft')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 TextInput::make('total')
                     ->label(__('Grand Total'))
                     ->required()
                     ->numeric()
-                    ->prefix('Ft')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 Textarea::make('notes')
                     ->placeholder(__('Payment terms, delivery notes, special instructions...'))

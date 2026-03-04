@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Quotes\RelationManagers;
 
 use App\Models\QuoteItem;
+use App\Models\TeamSetting;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -48,7 +49,7 @@ final class ItemsRelationManager extends RelationManager
                     ->afterStateUpdated(fn (Get $get, Set $set) => $this->calculateQuoteItemTotals($get, $set))
                     ->required()
                     ->numeric()
-                    ->prefix('$')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0)
                     ->live()
                     ->minValue(0),
@@ -63,7 +64,7 @@ final class ItemsRelationManager extends RelationManager
                 TextInput::make('discount_amount')
                     ->readOnly()
                     ->numeric()
-                    ->prefix('$')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0)
                     ->minValue(0),
                 TextInput::make('tax_rate')
@@ -79,7 +80,7 @@ final class ItemsRelationManager extends RelationManager
                     ->required()
                     ->live()
                     ->numeric()
-                    ->prefix('$')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
             ]);
     }
@@ -100,7 +101,7 @@ final class ItemsRelationManager extends RelationManager
                     ->numeric(decimalPlaces: 2)
                     ->sortable(),
                 TextColumn::make('unit_price')
-                    ->money('USD')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable(),
                 TextColumn::make('discount_percent')
                     ->suffix('%')
@@ -108,7 +109,7 @@ final class ItemsRelationManager extends RelationManager
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('discount_amount')
-                    ->money('USD')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('tax_rate')
@@ -117,7 +118,7 @@ final class ItemsRelationManager extends RelationManager
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('total')
-                    ->money('USD'),
+                    ->money(TeamSetting::currentCurrency()),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

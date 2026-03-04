@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\LeadOpportunities\Tables;
 
 use App\Enums\OpportunityStage;
+use App\Models\TeamSetting;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -30,7 +31,7 @@ final class LeadOpportunitiesTable
                     ->badge()
                     ->sortable(),
                 TextColumn::make('value')
-                    ->money('HUF')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable(),
                 TextColumn::make('probability')
                     ->suffix('%')

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\LeadOpportunities\RelationManagers;
 
 use App\Enums\QuoteStatus;
+use App\Models\TeamSetting;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -55,21 +56,21 @@ final class QuotesRelationManager extends RelationManager
                 TextInput::make('subtotal')
                     ->required()
                     ->numeric()
-                    ->prefix('HUF')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 TextInput::make('discount_amount')
                     ->numeric()
-                    ->prefix('HUF')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 TextInput::make('tax_amount')
                     ->required()
                     ->numeric()
-                    ->prefix('HUF')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 TextInput::make('total')
                     ->required()
                     ->numeric()
-                    ->prefix('HUF')
+                    ->prefix(fn (): string => TeamSetting::currentCurrency())
                     ->default(0),
                 Textarea::make('notes')
                     ->columnSpanFull()
@@ -95,10 +96,10 @@ final class QuotesRelationManager extends RelationManager
                     ->date()
                     ->sortable(),
                 TextColumn::make('subtotal')
-                    ->money('HUF')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable(),
                 TextColumn::make('total')
-                    ->money('HUF')
+                    ->money(TeamSetting::currentCurrency())
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

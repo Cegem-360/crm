@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class Team extends Model
 {
@@ -28,6 +29,11 @@ final class Team extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function setting(): HasOne
+    {
+        return $this->hasOne(TeamSetting::class);
     }
 
     public function bugReports(): HasMany

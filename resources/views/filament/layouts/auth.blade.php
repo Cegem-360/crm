@@ -23,7 +23,7 @@
         <header class="bg-white border-b border-gray-100">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
-                    <a href="{{ route('home') }}">
+                    <a href="/">
                         <img src="{{ Vite::asset('resources/images/logo.png') }}" alt="{{ config('app.name') }}"
                             class="h-10">
                     </a>

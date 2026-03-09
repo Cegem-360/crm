@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-test('the application returns a successful response', function (): void {
-    $response = $this->get('/');
+test('the language switch route works', function (): void {
+    $response = $this->get('/language/hu');
 
-    $response->assertStatus(200);
+    $response->assertRedirect();
+    $response->assertCookie('locale', 'hu');
 });

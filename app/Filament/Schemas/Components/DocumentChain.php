@@ -111,13 +111,6 @@ final class DocumentChain extends Component
 
     private function generateUrl(string $type, Model $record, ?Team $tenant, ?Team $team): ?string
     {
-        $dashboardRouteMap = [
-            'opportunity' => ['name' => 'dashboard.opportunities.edit', 'param' => 'opportunity'],
-            'quote' => ['name' => 'dashboard.quotes.edit', 'param' => 'quote'],
-            'order' => ['name' => 'dashboard.orders.edit', 'param' => 'order'],
-            'invoice' => ['name' => 'dashboard.invoices.view', 'param' => 'invoice'],
-        ];
-
         $filamentRouteMap = [
             'opportunity' => 'filament.admin.resources.lead-opportunities.edit',
             'quote' => 'filament.admin.resources.quotes.edit',
@@ -125,32 +118,16 @@ final class DocumentChain extends Component
             'invoice' => 'filament.admin.resources.invoices.view',
         ];
 
-        $resolvedTeam = $team ?? $tenant;
+        $resolvedTeam = $tenant ?? $team;
 
         if (! $resolvedTeam instanceof Team) {
             return null;
         }
 
-        // Use Filament routes when inside the Filament admin panel
-        if ($tenant instanceof Team) {
-            try {
-                return route($filamentRouteMap[$type], ['record' => $record, 'tenant' => $tenant->slug]);
-            } catch (Throwable) {
-                return null;
-            }
+        try {
+            return route($filamentRouteMap[$type], ['record' => $record, 'tenant' => $resolvedTeam->slug]);
+        } catch (Throwable) {
+            return null;
         }
-
-        // Use frontend dashboard routes when outside the Filament admin panel
-        if (app()->bound(Team::CONTAINER_BINDING)) {
-            try {
-                $dashboard = $dashboardRouteMap[$type];
-
-                return route($dashboard['name'], ['team' => $resolvedTeam, $dashboard['param'] => $record]);
-            } catch (Throwable) {
-                return null;
-            }
-        }
-
-        return null;
     }
 }

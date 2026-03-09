@@ -57,7 +57,6 @@ use App\Enums\Role;
 use App\Models\Team;
 use App\Models\User;
 use Filament\Facades\Filament;
-use Illuminate\Support\Facades\View;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
@@ -79,25 +78,6 @@ function setUpFilamentTenant(?User $user = null): Team
     app()->instance(Team::CONTAINER_BINDING, $team);
     Filament::setTenant($team);
     Filament::bootCurrentPanel();
-
-    return $team;
-}
-
-/**
- * Set up tenant context for Livewire/frontend tests.
- * Creates a team, attaches it to the user, and shares currentTeam with views.
- */
-function setUpFrontendTenant(?User $user = null): Team
-{
-    $team = Team::factory()->create();
-
-    if ($user instanceof User) {
-        $user->teams()->attach($team);
-    }
-
-    View::share('currentTeam', $team);
-    request()->attributes->set(Team::CONTAINER_BINDING, $team);
-    app()->instance(Team::CONTAINER_BINDING, $team);
 
     return $team;
 }

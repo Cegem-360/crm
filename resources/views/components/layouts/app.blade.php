@@ -36,7 +36,7 @@
         </style>
 
         @filamentStyles
-        @vite(['resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
 
@@ -46,8 +46,8 @@
         {{ $slot }}
 
         {{-- Floating Bug Report Button --}}
-        @if (isset($currentTeam))
-            <a href="{{ route('dashboard.bug-reports.submit', ['team' => $currentTeam]) }}"
+        @auth
+            <a href="{{ route('filament.admin.pages.dashboard', ['tenant' => auth()->user()->teams()->first()?->slug]) }}"
                 class="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-orange-600 px-4 py-3 text-sm font-medium text-white shadow-lg transition-all hover:bg-orange-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
                 title="{{ __('Report a Bug') }}">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@
                 </svg>
                 <span class="hidden sm:inline">{{ __('Report a Bug') }}</span>
             </a>
-        @endif
+        @endauth
 
         @livewire('notifications')
 

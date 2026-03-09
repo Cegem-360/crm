@@ -24,7 +24,7 @@
             <div class="flex w-full flex-col bg-white lg:w-1/2">
                 <!-- Logo header -->
                 <div class="flex items-center justify-between px-6 py-6 lg:px-12">
-                    <a href="{{ route('home') }}">
+                    <a href="/">
                         <img src="{{ Vite::asset('resources/images/logo.png') }}" alt="{{ config('app.name') }}"
                             class="h-10">
                     </a>

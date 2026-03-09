@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
-use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BasePage;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Facades\Auth;
 use Override;
 
 final class Login extends BasePage
@@ -29,26 +27,6 @@ final class Login extends BasePage
                 'remember' => true,
             ]);
         }
-    }
-
-    #[Override]
-    public function authenticate(): ?LoginResponse
-    {
-        $response = parent::authenticate();
-
-        $user = Auth::user();
-
-        if ($user && ! $user->isAdmin()) {
-            $team = $user->teams()->first();
-
-            if ($team) {
-                $this->redirect(route('dashboard.dashboard', ['team' => $team->slug]), navigate: true);
-
-                return null;
-            }
-        }
-
-        return $response;
     }
 
     #[Override]

@@ -67,7 +67,7 @@
 
                 @auth
                     {{-- Dashboard link --}}
-                    <a href="{{ route('dashboard') }}"
+                    <a href="{{ route('filament.admin.pages.dashboard', ['tenant' => auth()->user()->teams()->first()?->slug]) }}"
                         class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
                         {{ __('Dashboard') }}
                     </a>
@@ -89,7 +89,7 @@
                             x-transition:leave="transition ease-in duration-75"
                             x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                             class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                            <a href="{{ route('dashboard') }}"
+                            <a href="{{ route('filament.admin.pages.dashboard', ['tenant' => auth()->user()->teams()->first()?->slug]) }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{{ __('Dashboard') }}</a>
 
                             <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
@@ -141,7 +141,8 @@
             <hr class="border-gray-200">
 
             @guest
-                <a href="/login" class="block py-2 text-sm font-medium text-gray-700">{{ __('Log in') }}</a>
+                <a wire:navigate href="{{ route('filament.admin.auth.login') }}"
+                    class="block py-2 text-sm font-medium text-gray-700">{{ __('Log in') }}</a>
                 <a href="https://cegem360.eu/register"
                     class="block w-full text-center py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-full">
                     {{ __('Get started') }}
@@ -149,7 +150,7 @@
             @endguest
 
             @auth
-                <a href="{{ route('dashboard') }}"
+                <a wire:navigate href="{{ route('filament.admin.pages.dashboard', ['tenant' => auth()->user()->teams()->first()?->slug]) }}"
                     class="block py-2 text-sm font-medium text-gray-700">{{ __('Dashboard') }}</a>
                 <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                     @csrf

@@ -12,12 +12,19 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Override;
 
 final class OrdersRelationManager extends RelationManager
 {
     protected static string $relationship = 'orders';
+
+    #[Override]
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Orders');
+    }
 
     #[Override]
     public function form(Schema $schema): Schema

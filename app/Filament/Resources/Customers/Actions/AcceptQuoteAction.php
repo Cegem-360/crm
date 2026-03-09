@@ -13,7 +13,7 @@ final class AcceptQuoteAction
 {
     public static function make(): Action
     {
-        return Action::make('accept_quote')
+        return Action::make('acceptQuote')
             ->label(__('Accept Quote'))
             ->color('success')
             ->icon('heroicon-o-check-circle')

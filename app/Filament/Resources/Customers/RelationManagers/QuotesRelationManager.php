@@ -53,11 +53,18 @@ final class QuotesRelationManager extends RelationManager
                     ->relationship('opportunity', 'title',
                         fn (Builder $query) => $query->whereBelongsTo($this->ownerRecord)),
                 TextInput::make('quote_number')
-                    ->required(),
+                    ->label(__('Quote Number'))
+                    ->disabled()
+                    ->dehydrated()
+                    ->placeholder(__('Auto-generated')),
                 DatePicker::make('issue_date')
-                    ->required(),
+                    ->required()
+                    ->default(now())
+                    ->native(false),
                 DatePicker::make('valid_until')
-                    ->required(),
+                    ->required()
+                    ->default(now()->addDays(30))
+                    ->native(false),
                 Select::make('status')
                     ->options(QuoteStatus::class)
                     ->enum(QuoteStatus::class)

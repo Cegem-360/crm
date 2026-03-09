@@ -46,31 +46,31 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->sidebarWidth('15rem')
             ->collapsibleNavigationGroups(false)
             ->navigationGroups([
-                FilamentNavigationGroup::make()
+                NavigationGroup::Customers->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Customers->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-customers']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::Sales->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Sales->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-sales']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::Products->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Products->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-products']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::Marketing->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Marketing->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-marketing']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::Activities->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Activities->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-activities']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::Support->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Support->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-support']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::Reports->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Reports->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-reports']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::Settings->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::Settings->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-settings']),
-                FilamentNavigationGroup::make()
+                NavigationGroup::System->name => FilamentNavigationGroup::make()
                     ->label(fn (): string => NavigationGroup::System->getLabel())
                     ->extraSidebarAttributes(['class' => 'fi-nav-group-system']),
             ])

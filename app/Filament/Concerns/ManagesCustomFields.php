@@ -39,8 +39,12 @@ trait ManagesCustomFields
     protected function saveCustomFieldsFromForm(): void
     {
         if (isset($this->record) && method_exists($this->record, 'saveCustomFieldValues')) {
-            $data = $this->form->getState();
-            resolve(CustomFieldService::class)->saveFormData($this->record, $data);
+            /** @var array<string, mixed> $customFieldData */
+            $customFieldData = $this->data['custom_fields'] ?? [];
+
+            if (! empty($customFieldData)) {
+                $this->record->saveCustomFieldValues($customFieldData);
+            }
         }
     }
 }

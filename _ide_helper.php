@@ -23936,7 +23936,56 @@ namespace Madbox99\UserTeamSync\Facades {
             }
     }
 
+namespace Prism\Prism\Facades {
+    /**
+     */
+    class PrismServer {
+        /**
+         * @param \Closure():PendingRequest|callable():PendingRequest $prism
+         * @static
+         */
+        public static function register($name, $prism)
+        {
+            /** @var \Prism\Prism\PrismServer $instance */
+            return $instance->register($name, $prism);
+        }
+
+        /**
+         * @return \Prism\Prism\Collection<int, array{name: string, prism: Closure():PendingRequest|callable():PendingRequest}>
+         * @static
+         */
+        public static function prisms()
+        {
+            /** @var \Prism\Prism\PrismServer $instance */
+            return $instance->prisms();
+        }
+
+            }
+    }
+
 namespace Illuminate\Support {
+    /**
+     * @template TKey of array-key
+     * @template-covariant TValue
+     * @implements \ArrayAccess<TKey, TValue>
+     * @implements \Illuminate\Support\Enumerable<TKey, TValue>
+     */
+    class Collection {
+        /**
+         * @see \Laravel\Ai\AiServiceProvider::boot()
+         * @param \Closure|array|string $by
+         * @param string $query
+         * @param int|null $limit
+         * @param \Laravel\Ai\Enums\Lab|array|string|null $provider
+         * @param string|null $model
+         * @static
+         */
+        public static function rerank($by, $query, $limit = null, $provider = null, $model = null)
+        {
+            return \Illuminate\Support\Collection::rerank($by, $query, $limit, $provider, $model);
+        }
+
+            }
     /**
      */
     class Str {
@@ -23963,6 +24012,19 @@ namespace Illuminate\Support {
         public static function sanitizeHtml()
         {
             return \Illuminate\Support\Stringable::sanitizeHtml();
+        }
+
+        /**
+         * @see \Laravel\Ai\AiServiceProvider::boot()
+         * @param \Laravel\Ai\Enums\Lab|array|string|null $provider
+         * @param int|null $dimensions
+         * @param string|null $model
+         * @param int|bool|null $cache
+         * @static
+         */
+        public static function toEmbeddings($provider = null, $dimensions = null, $model = null, $cache = null)
+        {
+            return \Illuminate\Support\Stringable::toEmbeddings($provider, $dimensions, $model, $cache);
         }
 
             }
@@ -32652,6 +32714,7 @@ namespace  {
     class FilamentApexCharts extends \Leandrocfe\FilamentApexCharts\Facades\FilamentApexCharts {}
     class Livewire extends \Livewire\Livewire {}
     class UserTeamSync extends \Madbox99\UserTeamSync\Facades\UserTeamSync {}
+    class PrismServer extends \Prism\Prism\Facades\PrismServer {}
 }
 
 

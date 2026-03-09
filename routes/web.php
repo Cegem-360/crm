@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::get('/', fn (): Factory|View => view('home'))->name('home');
+Route::get('/adatkezelesi-tajekoztato', fn (): Factory|View => view('privacy-policy'))->name('privacy-policy');
 
 // Guest routes (redirect to Filament auth)
 Route::middleware(['guest'])->group(function (): void {

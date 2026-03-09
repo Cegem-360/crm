@@ -150,7 +150,7 @@
                 <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-gray-500">
                     <a href="#" class="hover:text-gray-700 transition-colors">{{ __('Terms of Service') }}</a>
                     <span class="text-gray-300">|</span>
-                    <a href="#" class="hover:text-gray-700 transition-colors">{{ __('Privacy Policy') }}</a>
+                    <a href="{{ route('privacy-policy') }}" class="hover:text-gray-700 transition-colors">{{ __('Privacy Policy') }}</a>
                     <span class="text-gray-300">|</span>
                     <a href="#" class="hover:text-gray-700 transition-colors">{{ __('Cookie Policy') }}</a>
                 </div>

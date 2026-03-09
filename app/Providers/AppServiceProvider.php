@@ -19,6 +19,8 @@ use App\Models\Opportunity;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Quote;
+use App\Models\SupportTicket;
+use App\Models\SupportTicketMessage;
 use App\Models\Task;
 use App\Models\User;
 use Filament\Actions\Action;
@@ -72,6 +74,8 @@ final class AppServiceProvider extends ServiceProvider
             'order' => Order::class,
             'product' => Product::class,
             'quote' => Quote::class,
+            'support_ticket' => SupportTicket::class,
+            'support_ticket_message' => SupportTicketMessage::class,
             'task' => Task::class,
             'user' => User::class,
         ]);

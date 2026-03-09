@@ -42,3 +42,16 @@ Broadcast::channel('chat.online-users', fn (User $user): array => [
     'id' => $user->id,
     'name' => $user->name,
 ]);
+
+// Support ticket private channel
+Broadcast::channel('support.ticket.{ticketId}', function (User $user, int $ticketId): bool {
+    $ticket = App\Models\SupportTicket::query()->find($ticketId);
+
+    if (! $ticket) {
+        return false;
+    }
+
+    return $ticket->user_id === $user->id
+        || $ticket->assigned_to === $user->id
+        || $user->hasRole(Role::Admin);
+});

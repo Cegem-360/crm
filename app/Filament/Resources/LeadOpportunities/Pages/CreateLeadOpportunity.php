@@ -33,6 +33,8 @@ final class CreateLeadOpportunity extends CreateRecord
     #[Override]
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        unset($data['custom_fields']);
+
         $data['customer_id'] ??= $this->getCustomerIdFromRequest();
 
         return $data;

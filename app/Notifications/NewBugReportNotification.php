@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Filament\Resources\BugReports\BugReportResource;
 use App\Models\BugReport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -31,7 +32,7 @@ final class NewBugReportNotification extends Notification
             ->line($this->bugReport->description)
             ->line('**'.__('Browser').':** '.($this->bugReport->browser_info ?? __('N/A')))
             ->line('**'.__('URL').':** '.($this->bugReport->url ?? __('N/A')))
-            ->action(__('View Bug Report'), url('/admin/bug-reports/'.$this->bugReport->id.'/edit'))
+            ->action(__('View Bug Report'), BugReportResource::getUrl('view', ['record' => $this->bugReport]))
             ->line(__('Please review and assign this bug report.'));
     }
 

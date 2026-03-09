@@ -18,6 +18,20 @@ trait ManagesCustomFields
         return $data;
     }
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        unset($data['custom_fields']);
+
+        return $data;
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        unset($data['custom_fields']);
+
+        return $data;
+    }
+
     protected function afterSave(): void
     {
         $this->saveCustomFieldsFromForm();

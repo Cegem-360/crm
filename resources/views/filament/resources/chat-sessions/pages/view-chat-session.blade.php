@@ -6,9 +6,9 @@
             <x-filament::section>
                 <div class="text-center">
                     <div class="text-2xl font-bold text-gray-900 dark:text-white">
-                        {{ $record->status}}
+                        {{ $record->status->getLabel() }}
                     </div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Status</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Status') }}</div>
                 </div>
             </x-filament::section>
 
@@ -17,7 +17,7 @@
                     <div class="text-2xl font-bold text-gray-900 dark:text-white">
                         {{ ucfirst($record->priority) }}
                     </div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Priority</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Priority') }}</div>
                 </div>
             </x-filament::section>
 
@@ -26,7 +26,7 @@
                     <div class="text-2xl font-bold text-gray-900 dark:text-white">
                         {{ $record->unread_count }}
                     </div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Unread Messages</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Unread Messages') }}</div>
                 </div>
             </x-filament::section>
 
@@ -35,7 +35,7 @@
                     <div class="text-2xl font-bold text-gray-900 dark:text-white">
                         {{ $record->messages->count() }}
                     </div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Total Messages</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ __('Total Messages') }}</div>
                 </div>
             </x-filament::section>
         </div>
@@ -49,14 +49,14 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <x-filament::section>
                 <x-slot name="heading">
-                    Session Information
+                    {{ __('Session Information') }}
                 </x-slot>
 
                 <dl class="space-y-3">
                     <div>
-                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Started At</dt>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Started At') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                            {{ $record->started_at->format('M d, Y H:i:s') }}
+                            {{ $record->started_at->format('Y.m.d. H:i:s') }}
                             <span class="text-gray-500 dark:text-gray-400">
                                 ({{ $record->started_at->diffForHumans() }})
                             </span>
@@ -65,9 +65,9 @@
 
                     @if($record->ended_at)
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Ended At</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Ended At') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                                {{ $record->ended_at->format('M d, Y H:i:s') }}
+                                {{ $record->ended_at->format('Y.m.d. H:i:s') }}
                                 <span class="text-gray-500 dark:text-gray-400">
                                     ({{ $record->ended_at->diffForHumans() }})
                                 </span>
@@ -77,9 +77,9 @@
 
                     @if($record->last_message_at)
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Last Message</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Last Message') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                                {{ $record->last_message_at->format('M d, Y H:i:s') }}
+                                {{ $record->last_message_at->format('Y.m.d. H:i:s') }}
                                 <span class="text-gray-500 dark:text-gray-400">
                                     ({{ $record->last_message_at->diffForHumans() }})
                                 </span>
@@ -89,7 +89,7 @@
 
                     @if($record->rating)
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Customer Rating</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Customer Rating') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">
                                 {{ str_repeat('⭐', $record->rating) }} ({{ $record->rating }}/5)
                             </dd>
@@ -100,12 +100,12 @@
 
             <x-filament::section>
                 <x-slot name="heading">
-                    Participants
+                    {{ __('Participants') }}
                 </x-slot>
 
                 <dl class="space-y-3">
                     <div>
-                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Customer</dt>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Customer') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-white">
                             <div class="font-semibold">{{ $record->customer->name }}</div>
                             <div class="text-gray-500 dark:text-gray-400">{{ $record->customer->email }}</div>
@@ -117,7 +117,7 @@
 
                     @if($record->user)
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Assigned Agent</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Assigned Agent') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">
                                 <div class="font-semibold">{{ $record->user->name }}</div>
                                 <div class="text-gray-500 dark:text-gray-400">{{ $record->user->email }}</div>
@@ -125,9 +125,9 @@
                         </div>
                     @else
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Assigned Agent</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Assigned Agent') }}</dt>
                             <dd class="mt-1 text-sm text-orange-600 dark:text-orange-400">
-                                Unassigned
+                                {{ __('Unassigned') }}
                             </dd>
                         </div>
                     @endif
@@ -139,7 +139,7 @@
         @if($record->notes)
             <x-filament::section>
                 <x-slot name="heading">
-                    Internal Notes
+                    {{ __('Internal Notes') }}
                 </x-slot>
 
                 <div class="prose dark:prose-invert max-w-none">

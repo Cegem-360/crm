@@ -47,7 +47,7 @@
 
         {{-- Floating Bug Report Button --}}
         @auth
-            <a href="{{ route('filament.admin.pages.dashboard', ['tenant' => auth()->user()->teams()->first()?->slug]) }}"
+            <a href="{{ route('filament.admin.resources.bug-reports.create', ['tenant' => auth()->user()->teams()->first()?->slug]) }}"
                 class="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-orange-600 px-4 py-3 text-sm font-medium text-white shadow-lg transition-all hover:bg-orange-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
                 title="{{ __('Report a Bug') }}">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

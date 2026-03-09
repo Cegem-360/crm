@@ -1,44 +1,10 @@
 @import "tailwindcss";
-
-/* Required by all components */
-@import "../../vendor/filament/support/resources/css/index.css";
-
-/* Required by actions and tables */
-@import "../../vendor/filament/actions/resources/css/index.css";
-
-/* Required by actions, forms and tables */
-@import "../../vendor/filament/forms/resources/css/index.css";
-
-/* Required by actions and infolists */
-@import "../../vendor/filament/infolists/resources/css/index.css";
-
-/* Required by notifications */
-@import "../../vendor/filament/notifications/resources/css/index.css";
-
-/* Required by actions, infolists, forms, schemas and tables */
-@import "../../vendor/filament/schemas/resources/css/index.css";
-
-/* Required by tables */
-@import "../../vendor/filament/tables/resources/css/index.css";
-
-/* Required by widgets */
-@import "../../vendor/filament/widgets/resources/css/index.css";
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
-
 @variant dark (&:where(.dark, .dark *));
-
-/* ============================================
-   Monday.com / Vibe Design System Style Guide
-   Matching subscriber project styles
-   ============================================ */
-
 @theme {
-    /* ===================
-       FONTS
-       =================== */
     --font-sans:
         "Figtree", "Roboto", "Noto Sans Hebrew", "Noto Kufi Arabic",
         "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
@@ -47,10 +13,6 @@
     --font-heading:
         "Poppins", "Roboto", "Noto Sans Hebrew", "Noto Kufi Arabic",
         "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
-
-    /* ===================
-       PRIMARY COLORS
-       =================== */
     --color-primary-50: #f0f0ff;
     --color-primary-100: #e0e0ff;
     --color-primary-200: #c7c6ff;
@@ -63,9 +25,6 @@
     --color-primary-900: #222077;
     --color-primary-950: #181654;
 
-    /* ===================
-       CRM MODULE COLOR (Indigo)
-       =================== */
     --color-crm-50: #eef2ff;
     --color-crm-100: #e0e7ff;
     --color-crm-200: #c7d2fe;
@@ -77,9 +36,6 @@
     --color-crm-800: #3730a3;
     --color-crm-900: #312e81;
 
-    /* ===================
-       DARK / MIRAGE
-       =================== */
     --color-dark-50: #ecedf2;
     --color-dark-100: #d9dbe5;
     --color-dark-200: #b3b6cb;
@@ -92,9 +48,6 @@
     --color-dark-900: #181b34;
     --color-dark-950: #0f1122;
 
-    /* ===================
-       LIGHT BACKGROUNDS
-       =================== */
     --color-light-50: #ffffff;
     --color-light-100: #fcfcfe;
     --color-light-200: #f8f9fd;
@@ -106,9 +59,6 @@
     --color-light-800: #acb0c0;
     --color-light-900: #989cac;
 
-    /* ===================
-       SUCCESS / GREEN
-       =================== */
     --color-success-50: #e6f9ef;
     --color-success-100: #ccf3df;
     --color-success-200: #99e7bf;
@@ -120,9 +70,6 @@
     --color-success-800: #006337;
     --color-success-900: #004023;
 
-    /* ===================
-       WARNING / YELLOW
-       =================== */
     --color-warning-50: #fff9e6;
     --color-warning-100: #fff3cc;
     --color-warning-200: #ffe799;
@@ -134,9 +81,6 @@
     --color-warning-800: #8c7000;
     --color-warning-900: #665200;
 
-    /* ===================
-       DANGER / RED
-       =================== */
     --color-danger-50: #ffebef;
     --color-danger-100: #ffd6de;
     --color-danger-200: #ffadbd;
@@ -148,9 +92,6 @@
     --color-danger-800: #8c0e30;
     --color-danger-900: #670721;
 
-    /* ===================
-       TEXT COLORS
-       =================== */
     --color-text-primary: #323338;
     --color-text-secondary: #676879;
     --color-text-tertiary: #9699a6;
@@ -159,26 +100,17 @@
     --color-text-link: #605cd4;
     --color-text-link-hover: #2e2aa0;
 
-    /* ===================
-       SURFACE / BACKGROUND
-       =================== */
     --color-surface-primary: #ffffff;
     --color-surface-secondary: #f6f7fb;
     --color-surface-tertiary: #edeef2;
     --color-surface-hover: #dcdfec;
     --color-surface-selected: #f0f0ff;
 
-    /* ===================
-       BORDER COLORS
-       =================== */
     --color-border-default: #c5c7d0;
     --color-border-light: #e6e9ef;
     --color-border-focus: #605cd4;
     --color-border-error: #fb275d;
 
-    /* ===================
-       TYPOGRAPHY SCALE
-       =================== */
     --text-xs: 0.75rem;
     --text-xs--line-height: 1rem;
     --text-sm: 0.875rem;
@@ -192,33 +124,21 @@
     --text-2xl: 1.875rem;
     --text-2xl--line-height: 2.625rem;
 
-    /* ===================
-       FONT WEIGHTS
-       =================== */
     --font-weight-light: 300;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
 
-    /* ===================
-       LETTER SPACING
-       =================== */
     --letter-spacing-tight: -0.5px;
     --letter-spacing-normal: -0.1px;
     --letter-spacing-wide: 0.1px;
 
-    /* ===================
-       BORDER RADIUS
-       =================== */
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 16px;
     --radius-full: 9999px;
 
-    /* ===================
-       SHADOWS
-       =================== */
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-sm:
         0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
@@ -229,9 +149,6 @@
     --shadow-xl:
         0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
-    /* ===================
-       TRANSITIONS / MOTION
-       =================== */
     --duration-fast: 70ms;
     --duration-normal: 100ms;
     --duration-slow: 150ms;
@@ -243,10 +160,6 @@
     --ease-transition: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-emphasize: cubic-bezier(0, 0, 0.2, 1.4);
 }
-
-/* ===================
-   BASE STYLES
-   =================== */
 @layer base {
     html {
         font-family: var(--font-sans);
@@ -256,7 +169,6 @@
         -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Headings */
     h1 {
         font-family: var(--font-heading);
         font-size: var(--text-2xl);
@@ -308,14 +220,12 @@
         color: var(--color-text-primary);
     }
 
-    /* Paragraphs */
     p {
         font-size: var(--text-base);
         line-height: var(--text-base--line-height);
         color: var(--color-text-primary);
     }
 
-    /* Links */
     a {
         color: var(--color-text-link);
         text-decoration: none;
@@ -332,7 +242,6 @@
         border-radius: var(--radius-sm);
     }
 
-    /* Small text / labels */
     small {
         font-size: var(--text-sm);
         line-height: var(--text-sm--line-height);
@@ -340,11 +249,7 @@
     }
 }
 
-/* ===================
-   COMPONENT UTILITIES
-   =================== */
 @layer components {
-    /* Primary Button */
     .btn {
         display: inline-flex;
         align-items: center;
@@ -371,7 +276,6 @@
         opacity: 0.5;
     }
 
-    /* Primary variant */
     .btn-primary {
         background-color: var(--color-primary-600);
         color: var(--color-text-inverse);
@@ -385,7 +289,6 @@
         background-color: var(--color-primary-900);
     }
 
-    /* Secondary variant */
     .btn-secondary {
         background-color: var(--color-surface-secondary);
         color: var(--color-text-primary);
@@ -400,7 +303,6 @@
         background-color: var(--color-surface-tertiary);
     }
 
-    /* Tertiary / Ghost variant */
     .btn-tertiary {
         background-color: transparent;
         color: var(--color-text-link);
@@ -414,7 +316,6 @@
         background-color: var(--color-primary-100);
     }
 
-    /* Success variant */
     .btn-success {
         background-color: var(--color-success-500);
         color: var(--color-text-inverse);
@@ -424,7 +325,6 @@
         background-color: var(--color-success-600);
     }
 
-    /* Danger variant */
     .btn-danger {
         background-color: var(--color-danger-500);
         color: var(--color-text-inverse);
@@ -434,7 +334,6 @@
         background-color: var(--color-danger-600);
     }
 
-    /* CRM variant (Indigo) */
     .btn-crm {
         background-color: var(--color-crm-500);
         color: var(--color-text-inverse);
@@ -444,7 +343,6 @@
         background-color: var(--color-crm-600);
     }
 
-    /* Button sizes */
     .btn-sm {
         padding: 0.25rem 0.75rem;
         font-size: var(--text-xs);
@@ -455,7 +353,6 @@
         font-size: var(--text-base);
     }
 
-    /* Text variants */
     .text-label {
         font-size: var(--text-sm);
         line-height: var(--text-sm--line-height);
@@ -481,7 +378,6 @@
         color: var(--color-text-tertiary);
     }
 
-    /* Card component */
     .card {
         background-color: var(--color-surface-primary);
         border: 1px solid var(--color-border-light);
@@ -489,7 +385,6 @@
         box-shadow: var(--shadow-sm);
     }
 
-    /* Input styles */
     .input {
         display: block;
         width: 100%;
@@ -534,7 +429,6 @@
         box-shadow: 0 0 0 3px rgba(251, 39, 93, 0.25);
     }
 
-    /* Badge / Tag */
     .badge {
         display: inline-flex;
         align-items: center;
@@ -570,12 +464,6 @@
     }
 }
 
-/* ===================
-   FILAMENT WIDGET FIXES
-   Fix icon sizing for Filament widgets rendered outside admin panel
-   =================== */
-
-/* Ensure Filament icons have proper base sizing */
 .fi-icon {
     width: 1.25rem;
     height: 1.25rem;
@@ -586,7 +474,6 @@
     height: inherit;
 }
 
-/* Constrain SVG icons in Filament input wrapper prefix/suffix */
 .fi-input-wrp-prefix > svg,
 .fi-input-wrp-suffix > svg {
     width: 1.25rem;
@@ -594,7 +481,6 @@
     flex-shrink: 0;
 }
 
-/* Fix empty state icon container and icon */
 .fi-ta-empty-state-icon-bg {
     width: 3rem;
     height: 3rem;

@@ -11,26 +11,26 @@
 
 /* --- Sidebar container --- */
 .fi-sidebar {
-    @apply !bg-[#292F4C] !text-white;
+    @apply bg-[#292F4C]! text-white!;
 }
 
 .fi-sidebar.fi-sidebar-open {
-    @apply !ring-0;
+    @apply ring-0!;
 }
 
 /* Keep dark bg when sticky on desktop (default is lg:bg-transparent) */
 .fi-body:not(.fi-body-has-top-navigation) .fi-sidebar {
-    @apply lg:!bg-[#292F4C];
+    @apply lg:bg-[#292F4C]!;
 }
 
 /* --- Sidebar header (logo area) --- */
 /* Show sidebar header on desktop even when topbar exists (match dashboard: logo in sidebar) */
 .fi-body-has-topbar .fi-sidebar-header {
-    @apply lg:!flex !bg-[#292F4C] !ring-0 !border-b !border-white/10 !shadow-none !px-4;
+    @apply lg:flex! bg-[#292F4C]! ring-0! border-b! border-white/10! shadow-none! px-4!;
 }
 
 :not(.fi-body-has-topbar) .fi-sidebar-header {
-    @apply !border-b !border-white/10 !px-4;
+    @apply border-b! border-white/10! px-4!;
 }
 
 /* Logo: invert to white (same as dashboard: brightness-0 invert) */
@@ -40,17 +40,17 @@
 
 /* --- Full-height sidebar (fixed, spans from top to bottom, like dashboard) --- */
 .fi-body-has-topbar .fi-sidebar {
-    @apply lg:!top-0 lg:!h-dvh lg:!z-40;
+    @apply lg:top-0! lg:h-dvh! lg:z-40!;
 }
 
 /* Override sticky → fixed on desktop so sidebar starts at viewport top, not below topbar */
 .fi-body:not(.fi-body-has-top-navigation) .fi-sidebar.fi-sidebar-open {
-    @apply lg:!fixed;
+    @apply lg:fixed!;
 }
 
 /* Push topbar to the right when sidebar is open (margin, not padding, so white bg doesn't bleed behind sidebar) */
 .fi-body:has(.fi-sidebar-open) .fi-topbar-ctn {
-    @apply lg:!ms-[var(--sidebar-width)];
+    @apply lg:ms-[var(--sidebar-width)]!;
 }
 
 /* Push layout/content to the right when sidebar is fixed and open */
@@ -61,131 +61,123 @@
     }
 }
 
-/* Smooth topbar margin transition when sidebar opens/closes */
-.fi-topbar-ctn {
-    @apply lg:!transition-[margin] lg:!duration-300;
+/* Topbar and layout margin — transition only during sidebar toggle, not SPA navigation */
+.fi-topbar-ctn,
+.fi-layout {
+    @apply lg:transition-none!;
 }
 
-/* Smooth layout margin transition when sidebar opens/closes */
-.fi-layout {
-    @apply lg:!transition-[margin] lg:!duration-300;
+.fi-sidebar-animating .fi-topbar-ctn,
+.fi-sidebar-animating .fi-layout {
+    @apply lg:transition-[margin]! lg:duration-300!;
 }
 
 /* Match dashboard topbar style: border-b instead of shadow+ring */
 .fi-topbar {
-    @apply !shadow-none !ring-0 !border-b !border-gray-200;
+    @apply shadow-none! ring-0! border-b! border-gray-200!;
 }
 
 /* --- Topbar adjustments --- */
 /* Hide logo from topbar on desktop (logo lives in sidebar now) */
 .fi-topbar-start > a {
-    @apply lg:!hidden;
+    @apply lg:hidden!;
 }
 
 /* Remove extra right margin from topbar start when logo is hidden */
 .fi-topbar-start {
-    @apply lg:!me-0;
+    @apply lg:me-0!;
 }
 
 /* --- Tenant menu --- */
 .fi-sidebar .fi-tenant-menu {
-    @apply !border-b !border-white/10 !pb-3;
+    @apply border-b! border-white/10! pb-3!;
 }
 
 .fi-tenant-menu-trigger {
-    @apply hover:!bg-white/5 focus-visible:!bg-white/5;
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
 }
 
 .fi-tenant-menu-trigger-tenant-name {
-    @apply !text-white;
+    @apply text-white!;
 }
 
 .fi-tenant-menu-trigger-current-tenant-label {
-    @apply !text-gray-400;
+    @apply text-gray-400!;
 }
 
 .fi-tenant-menu-trigger .fi-icon {
-    @apply !text-gray-400;
+    @apply text-gray-400!;
 }
 
 /* --- Sidebar nav spacing (match dashboard: py-4 px-3) --- */
 .fi-sidebar-nav {
-    @apply !px-3 !py-4;
+    @apply px-3! py-4!;
 }
 
 .fi-sidebar-nav-groups {
-    @apply !-mx-0 !gap-y-6;
+    @apply -mx-0! gap-y-6!;
 }
 
 /* --- Navigation group labels (match dashboard: text-xs uppercase tracking-wider) --- */
 .fi-sidebar-group-label {
-    @apply !text-xs !font-semibold !text-gray-400 !uppercase !tracking-wider;
+    @apply text-xs! font-semibold! text-gray-400! uppercase! tracking-wider!;
 }
 
 /* Group button padding (match dashboard: px-3, mb-2 spacing below label) */
 .fi-sidebar-group-btn {
-    @apply !px-3 !py-0 !mb-2;
+    @apply px-3! py-0! mb-2!;
 }
 
 /* --- Navigation items (match dashboard: space-y-1 = gap-y-1) --- */
 .fi-sidebar-group-items {
-    @apply !gap-y-1;
+    @apply gap-y-1!;
 }
 
 .fi-sidebar-item-btn {
-    @apply !gap-x-3 !px-3 !py-2;
+    @apply gap-x-3! px-3! py-2! rounded-2xl!;
 }
 
 .fi-sidebar-item-label {
-    @apply !text-sm !font-medium !text-gray-300;
+    @apply text-sm! font-medium! text-gray-300!;
 }
 
 /* Default icon color */
 .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-gray-400;
+    @apply text-gray-400!;
 }
 
 /* Hover state */
 .fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn {
-    @apply hover:!bg-white/5 focus-visible:!bg-white/5;
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
 }
 
 .fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover > .fi-sidebar-item-label,
 .fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible > .fi-sidebar-item-label {
-    @apply !text-white;
-}
-
-.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover > .fi-icon,
-.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible > .fi-icon {
-    @apply !text-white;
+    @apply text-white!;
 }
 
 /* Active item state (match dashboard: bg-white/10 text-white) */
 .fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
-    @apply !bg-white/10;
+    @apply bg-white/10!;
 }
 
 .fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label {
-    @apply !text-white;
-}
-
-.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-white;
+    @apply text-white!;
 }
 
 /* Active grouped border dot */
 .fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-grouped-border > .fi-sidebar-item-grouped-border-part {
-    @apply !bg-white;
+    @apply bg-white!;
 }
 
 /* --- Grouped border lines --- */
 .fi-sidebar-item-grouped-border-part {
-    @apply !bg-gray-500;
+    @apply bg-gray-500!;
 }
 
 .fi-sidebar-item-grouped-border-part-not-first,
 .fi-sidebar-item-grouped-border-part-not-last {
-    @apply !bg-gray-600;
+    @apply bg-gray-600!;
 }
 
 /* ============================================
@@ -195,57 +187,53 @@
 
 /* Customers group: indigo-400 */
 .fi-nav-group-customers .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-indigo-400;
+    @apply text-indigo-400!;
 }
 
 /* Sales group: green-400 */
 .fi-nav-group-sales .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-green-400;
+    @apply text-green-400!;
 }
 
 /* Products group: purple-400 */
 .fi-nav-group-products .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-purple-400;
+    @apply text-purple-400!;
 }
 
 /* Marketing group: orange-400 */
 .fi-nav-group-marketing .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-orange-400;
+    @apply text-orange-400!;
 }
 
 /* Activities group: cyan-400 */
 .fi-nav-group-activities .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-cyan-400;
+    @apply text-cyan-400!;
 }
 
 /* Support group: blue-400 */
 .fi-nav-group-support .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-blue-400;
+    @apply text-blue-400!;
 }
 
 /* Reports group: emerald-400 */
 .fi-nav-group-reports .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-emerald-400;
+    @apply text-emerald-400!;
 }
 
-/* Settings group: gray-400 (default) */
-.fi-nav-group-settings .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-gray-400;
-}
-
-/* System group: gray-400 (default) */
+/* Settings & System groups: gray-400 (default) */
+.fi-nav-group-settings .fi-sidebar-item-btn > .fi-icon,
 .fi-nav-group-system .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-gray-400;
+    @apply text-gray-400!;
 }
 
 /* Override: active/hover icons always white regardless of group */
 .fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon {
-    @apply !text-white;
+    @apply text-white!;
 }
 
 .fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover > .fi-icon,
 .fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible > .fi-icon {
-    @apply !text-white;
+    @apply text-white!;
 }
 
 /* ============================================
@@ -253,46 +241,50 @@
    ============================================ */
 
 .fi-sidebar-group-dropdown-trigger-btn {
-    @apply hover:!bg-white/5 focus-visible:!bg-white/5;
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
 }
 
 .fi-sidebar-group-dropdown-trigger-btn .fi-icon {
-    @apply !text-gray-400;
+    @apply text-gray-400!;
 }
 
 .fi-sidebar-group.fi-active .fi-sidebar-group-dropdown-trigger-btn .fi-icon {
-    @apply !text-indigo-400;
+    @apply text-indigo-400!;
 }
 
 /* --- Sidebar footer --- */
 .fi-sidebar-footer {
-    @apply !border-t !border-white/10;
+    @apply border-t! border-white/10!;
 }
 
 /* Database notifications in sidebar */
 .fi-sidebar-database-notifications-btn {
-    @apply hover:!bg-white/5 focus-visible:!bg-white/5;
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
 }
 
 .fi-sidebar-database-notifications-btn > .fi-icon {
-    @apply !text-gray-400;
+    @apply text-gray-400!;
 }
 
 .fi-sidebar-database-notifications-btn > .fi-sidebar-database-notifications-btn-label {
-    @apply !text-gray-300;
+    @apply text-gray-300!;
 }
 
-/* --- Sidebar collapse/open buttons --- */
+/* --- Sidebar collapse/open/close buttons --- */
 .fi-sidebar-open-collapse-sidebar-btn,
-.fi-sidebar-close-collapse-sidebar-btn {
-    @apply !text-gray-400 hover:!text-white;
-}
-
+.fi-sidebar-close-collapse-sidebar-btn,
 .fi-sidebar-close-sidebar-btn {
-    @apply !text-gray-400 hover:!text-white;
+    @apply text-gray-400! hover:text-white!;
 }
 
 /* --- Sidebar close overlay (mobile) --- */
 .fi-sidebar-close-overlay {
-    @apply !bg-gray-950/50;
+    @apply bg-gray-950/50!;
+}
+
+/* ============================================
+   Disable SPA page transition animation
+   ============================================ */
+.fi-main-ctn {
+    @apply transition-none! opacity-100!;
 }

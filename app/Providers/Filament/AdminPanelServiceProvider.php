@@ -45,35 +45,15 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->sidebarFullyCollapsibleOnDesktop()
             ->sidebarWidth('15rem')
             ->collapsibleNavigationGroups(false)
-            ->navigationGroups([
-                NavigationGroup::Customers->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Customers->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-customers']),
-                NavigationGroup::Sales->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Sales->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-sales']),
-                NavigationGroup::Products->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Products->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-products']),
-                NavigationGroup::Marketing->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Marketing->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-marketing']),
-                NavigationGroup::Activities->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Activities->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-activities']),
-                NavigationGroup::Support->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Support->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-support']),
-                NavigationGroup::Reports->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Reports->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-reports']),
-                NavigationGroup::Settings->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::Settings->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-settings']),
-                NavigationGroup::System->name => FilamentNavigationGroup::make()
-                    ->label(fn (): string => NavigationGroup::System->getLabel())
-                    ->extraSidebarAttributes(['class' => 'fi-nav-group-system']),
-            ])
+            ->navigationGroups(
+                collect(NavigationGroup::cases())
+                    ->mapWithKeys(fn (NavigationGroup $group): array => [
+                        $group->name => FilamentNavigationGroup::make()
+                            ->label(fn (): string => $group->getLabel())
+                            ->extraSidebarAttributes(['class' => 'fi-nav-group-'.str($group->name)->kebab()]),
+                    ])
+                    ->all(),
+            )
             ->login(Login::class)
             ->userMenuItems([
                 'profile' => fn (Action $action): Action => $action
@@ -94,6 +74,10 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::GLOBAL_SEARCH_BEFORE,
                 fn (): View => view('filament.topbar-items'),
+            )
+            ->renderHook(
+                PanelsRenderHook::SCRIPTS_AFTER,
+                fn (): View => view('filament.sidebar-transition-script'),
             )
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

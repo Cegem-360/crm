@@ -50,7 +50,7 @@
 
 /* Push topbar to the right when sidebar is open (margin, not padding, so white bg doesn't bleed behind sidebar) */
 .fi-body:has(.fi-sidebar-open) .fi-topbar-ctn {
-    @apply lg:ms-[var(--sidebar-width)]!;
+    @apply lg:ms-(--sidebar-width)!;
 }
 
 /* Push layout/content to the right when sidebar is fixed and open */
@@ -115,7 +115,7 @@
 }
 
 .fi-sidebar-nav-groups {
-    @apply -mx-0! gap-y-6!;
+    @apply mx-0! gap-y-6!;
 }
 
 /* --- Navigation group labels (match dashboard: text-xs uppercase tracking-wider) --- */

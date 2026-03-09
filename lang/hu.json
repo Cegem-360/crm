@@ -1206,6 +1206,8 @@
     "unread": "olvasatlan",
     "Discount Amount": "Kedvezmény összege",
     "Discount Percent": "Kedvezmény %",
+    "View invoice": "Számla megtekintése",
+    "View order": "Rendelés megtekintése",
     "View quote": "Árajánlat megtekintése",
     "Workflow Config": "Munkafolyamat konfiguráció"
 }

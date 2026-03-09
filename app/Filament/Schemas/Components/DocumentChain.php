@@ -131,20 +131,21 @@ final class DocumentChain extends Component
             return null;
         }
 
-        // Prefer frontend dashboard routes when outside the Filament admin panel
-        if (! $tenant || app()->bound(Team::CONTAINER_BINDING)) {
+        // Use Filament routes when inside the Filament admin panel
+        if ($tenant instanceof Team) {
+            try {
+                return route($filamentRouteMap[$type], ['record' => $record, 'tenant' => $tenant->slug]);
+            } catch (Throwable) {
+                return null;
+            }
+        }
+
+        // Use frontend dashboard routes when outside the Filament admin panel
+        if (app()->bound(Team::CONTAINER_BINDING)) {
             try {
                 $dashboard = $dashboardRouteMap[$type];
 
                 return route($dashboard['name'], ['team' => $resolvedTeam, $dashboard['param'] => $record]);
-            } catch (Throwable) {
-                // Fall through to Filament routes
-            }
-        }
-
-        if ($tenant instanceof Team) {
-            try {
-                return route($filamentRouteMap[$type], ['record' => $record, 'tenant' => $tenant->slug]);
             } catch (Throwable) {
                 return null;
             }

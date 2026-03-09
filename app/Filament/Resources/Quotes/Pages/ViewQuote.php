@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Quotes\Pages;
 
+use App\Filament\Resources\Customers\Actions\AcceptQuoteAction;
 use App\Filament\Resources\Customers\Actions\GenerateOrderAction;
+use App\Filament\Resources\Customers\Actions\ViewGeneratedOrderAction;
 use App\Filament\Resources\Quotes\QuoteResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
@@ -18,7 +20,9 @@ final class ViewQuote extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+            AcceptQuoteAction::make(),
             GenerateOrderAction::make(),
+            ViewGeneratedOrderAction::make(),
             EditAction::make(),
         ];
     }

@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Customers\RelationManagers;
 
 use App\Enums\OpportunityStage;
 use App\Filament\Resources\Customers\Actions\GenerateQuoteAction;
+use App\Filament\Resources\Customers\Actions\ViewGeneratedQuoteAction;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -126,6 +127,7 @@ final class OpportunitiesRelationManager extends RelationManager
             ])
             ->recordActions([
                 GenerateQuoteAction::make(),
+                ViewGeneratedQuoteAction::make(),
                 EditAction::make(),
                 DissociateAction::make(),
                 DeleteAction::make(),

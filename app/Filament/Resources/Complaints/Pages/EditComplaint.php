@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Complaints\Pages;
 use App\Filament\Concerns\ManagesCustomFields;
 use App\Filament\Resources\Complaints\ComplaintResource;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 use Override;
 
@@ -21,6 +22,7 @@ final class EditComplaint extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ViewAction::make(),
         ];
     }
 }

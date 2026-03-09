@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Customers\Actions;
 
 use App\Enums\InvoiceStatus;
+use App\Filament\Resources\Invoices\InvoiceResource;
 use App\Models\Invoice;
 use App\Models\Order;
 use Filament\Actions\Action;
@@ -60,6 +61,12 @@ final class GenerateInvoiceAction
                         $invoice->invoice_number,
                         Number::currency((float) $record->total, 'HUF', 'hu', 0),
                     ))
+                    ->actions([
+                        Action::make('viewInvoice')
+                            ->label(__('View invoice'))
+                            ->button()
+                            ->url(InvoiceResource::getUrl('view', ['record' => $invoice])),
+                    ])
                     ->send();
             })
             ->visible(fn (Order $record): bool => ! $record->invoices()->exists());

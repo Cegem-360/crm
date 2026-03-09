@@ -6,6 +6,7 @@ namespace App\Filament\Resources\ChatSessions\Pages;
 
 use App\Filament\Resources\ChatSessions\ChatSessionResource;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 use Override;
 
@@ -18,6 +19,7 @@ final class EditChatSession extends EditRecord
     {
         return [
             DeleteAction::make(),
+            ViewAction::make(),
         ];
     }
 }

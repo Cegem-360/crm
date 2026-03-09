@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders\Pages;
 
+use App\Filament\Resources\Customers\Actions\GenerateInvoiceAction;
+use App\Filament\Resources\Customers\Actions\ViewGeneratedInvoiceAction;
 use App\Filament\Resources\Orders\OrderResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
@@ -17,6 +19,8 @@ final class ViewOrder extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+            GenerateInvoiceAction::make(),
+            ViewGeneratedInvoiceAction::make(),
             EditAction::make(),
         ];
     }

@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Customers\Actions;
 
 use App\Enums\OrderStatus;
 use App\Enums\QuoteStatus;
+use App\Filament\Resources\Orders\OrderResource;
 use App\Models\Order;
 use App\Models\Quote;
 use Filament\Actions\Action;
@@ -62,6 +63,12 @@ final class GenerateOrderAction
                         str('item')->plural($itemCount),
                         Number::currency((float) $order->total, 'HUF', 'hu', 0),
                     ))
+                    ->actions([
+                        Action::make('viewOrder')
+                            ->label(__('View order'))
+                            ->button()
+                            ->url(OrderResource::getUrl('view', ['record' => $order])),
+                    ])
                     ->send();
             })
             ->visible(fn (Quote $record): bool => $record->status === QuoteStatus::Accepted && ! $record->orders()->exists());

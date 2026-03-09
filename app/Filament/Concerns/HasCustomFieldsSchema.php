@@ -18,19 +18,8 @@ trait HasCustomFieldsSchema
      */
     protected static function getCustomFieldsFormSection(CustomFieldModel $modelType): array
     {
-        $service = resolve(CustomFieldService::class);
-        $components = $service->getFormComponents($modelType);
-
-        if (empty($components)) {
-            return [];
-        }
-
-        return [
-            Section::make(__('Custom Fields'))
-                ->schema($components)
-                ->columns(2)
-                ->collapsible(),
-        ];
+        // TODO: Re-enable custom fields once the `custom_fields` column issue is resolved.
+        return [];
     }
 
     /**

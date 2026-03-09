@@ -71,6 +71,7 @@ final class TasksRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Task'))
             ->recordTitleAttribute('title')
             ->columns([
                 TextColumn::make('assignedUser.name')

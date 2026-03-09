@@ -45,6 +45,7 @@ final class ChatSessionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Chat Session'))
             ->recordTitleAttribute('started_at')
             ->columns([
                 TextColumn::make('customer.name')

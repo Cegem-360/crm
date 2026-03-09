@@ -50,6 +50,7 @@ final class BugReportsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Bug Report'))
             ->recordTitleAttribute('title')
             ->columns([
                 TextColumn::make('title')

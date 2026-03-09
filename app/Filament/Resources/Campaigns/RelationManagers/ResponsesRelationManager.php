@@ -50,6 +50,7 @@ final class ResponsesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Campaign Response'))
             ->recordTitleAttribute('customer.name')
             ->columns([
                 TextColumn::make('customer.name')

@@ -47,6 +47,7 @@ final class RolesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Role'))
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')

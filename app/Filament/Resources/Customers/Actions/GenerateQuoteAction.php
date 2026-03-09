@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Customers\Actions;
 
 use App\Enums\QuoteStatus;
+use App\Filament\Resources\Quotes\QuoteResource;
 use App\Models\Opportunity;
 use App\Models\Quote;
 use Filament\Actions\Action;
@@ -50,6 +51,12 @@ final class GenerateQuoteAction
                         $quote->quote_number,
                         Number::currency($total, 'HUF', 'hu', 0),
                     ))
+                    ->actions([
+                        Action::make('viewQuote')
+                            ->label(__('View quote'))
+                            ->button()
+                            ->url(QuoteResource::getUrl('view', ['record' => $quote])),
+                    ])
                     ->send();
             })
             ->visible(fn (Opportunity $record): bool => ! $record->quotes()->exists());

@@ -91,6 +91,7 @@ final class InvoicesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Invoice'))
             ->recordTitleAttribute('invoice_number')
             ->columns([
                 TextColumn::make('order.id')

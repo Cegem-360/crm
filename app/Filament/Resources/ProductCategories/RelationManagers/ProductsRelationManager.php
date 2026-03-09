@@ -68,6 +68,7 @@ final class ProductsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Product'))
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')

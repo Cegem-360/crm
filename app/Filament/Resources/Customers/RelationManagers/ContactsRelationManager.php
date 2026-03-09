@@ -53,6 +53,7 @@ final class ContactsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Contact'))
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')

@@ -61,6 +61,7 @@ final class AddressesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Address'))
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('type')

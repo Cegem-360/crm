@@ -94,6 +94,7 @@ final class QuotesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Quote'))
             ->recordTitleAttribute('quote_number')
             ->columns([
                 TextColumn::make('opportunity.title')

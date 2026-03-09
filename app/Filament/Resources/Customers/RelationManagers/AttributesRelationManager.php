@@ -46,6 +46,7 @@ final class AttributesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Customer Attribute'))
             ->recordTitleAttribute('attribute_key')
             ->columns([
                 TextColumn::make('attribute_key')

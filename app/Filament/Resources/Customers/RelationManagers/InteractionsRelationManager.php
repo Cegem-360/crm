@@ -62,6 +62,7 @@ final class InteractionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Interaction'))
             ->recordTitleAttribute('subject')
             ->columns([
                 TextColumn::make('user.name')

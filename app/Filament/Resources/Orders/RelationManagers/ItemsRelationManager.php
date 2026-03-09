@@ -74,6 +74,7 @@ final class ItemsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Order Item'))
             ->recordTitleAttribute('description')
             ->columns([
                 TextColumn::make('product.name')

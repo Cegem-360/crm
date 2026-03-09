@@ -38,6 +38,7 @@ final class ChildrenRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Product Category'))
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')

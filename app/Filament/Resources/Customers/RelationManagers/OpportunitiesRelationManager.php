@@ -84,6 +84,7 @@ final class OpportunitiesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Opportunity'))
             ->recordTitleAttribute('title')
             ->columns([
                 TextColumn::make('title')

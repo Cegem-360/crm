@@ -47,6 +47,7 @@ final class PermissionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Permission'))
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')

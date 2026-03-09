@@ -69,6 +69,7 @@ final class ConsentsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Consent'))
             ->recordTitleAttribute('type')
             ->columns([
                 TextColumn::make('type')

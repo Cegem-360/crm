@@ -79,6 +79,7 @@ final class ComplaintsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Complaint'))
             ->recordTitleAttribute('title')
             ->columns([
                 TextColumn::make('order.order_number')

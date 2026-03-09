@@ -50,6 +50,7 @@ final class WorkflowConfigsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Workflow Config'))
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),

@@ -19,11 +19,18 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Override;
 
 final class QuotesRelationManager extends RelationManager
 {
     protected static string $relationship = 'quotes';
+
+    #[Override]
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Quotes');
+    }
 
     #[Override]
     public function form(Schema $schema): Schema
@@ -81,6 +88,7 @@ final class QuotesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Quote'))
             ->recordTitleAttribute('quote_number')
             ->columns([
                 TextColumn::make('quote_number')

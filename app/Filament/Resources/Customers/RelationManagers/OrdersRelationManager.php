@@ -79,6 +79,7 @@ final class OrdersRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modelLabel(__('Order'))
             ->recordTitleAttribute('order_number')
             ->columns([
                 TextColumn::make('quote.id')

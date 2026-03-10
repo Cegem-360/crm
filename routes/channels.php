@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Enums\Role;
 use App\Models\ChatSession;
+use App\Models\SupportTicket;
 use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -45,7 +46,7 @@ Broadcast::channel('chat.online-users', fn (User $user): array => [
 
 // Support ticket private channel
 Broadcast::channel('support.ticket.{ticketId}', function (User $user, int $ticketId): bool {
-    $ticket = App\Models\SupportTicket::query()->find($ticketId);
+    $ticket = SupportTicket::query()->find($ticketId);
 
     if (! $ticket) {
         return false;

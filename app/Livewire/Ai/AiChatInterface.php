@@ -60,13 +60,13 @@ final class AiChatInterface extends Component
                 'role' => 'assistant',
                 'content' => $response->text,
             ];
-        } catch (Throwable $exception) {
+        } catch (Throwable $throwable) {
             $this->messages[] = [
                 'role' => 'assistant',
                 'content' => __('Sorry, an error occurred. Please try again later.'),
             ];
 
-            report($exception);
+            report($throwable);
         }
 
         $this->isLoading = false;

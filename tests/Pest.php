@@ -71,7 +71,7 @@ function setUpFilamentTenant(?User $user = null): Team
     if ($user instanceof User) {
         $user->teams()->attach($team);
 
-        SpatieRole::firstOrCreate(['name' => Role::Admin->value]);
+        SpatieRole::query()->firstOrCreate(['name' => Role::Admin->value]);
         $user->assignRole(Role::Admin);
     }
 

@@ -87,11 +87,11 @@ final class CustomFieldService
     }
 
     /**
-     * Generate Filament infolist entries for custom fields.
+     * Generate Filament infolist components for custom fields.
      *
      * @return array<Entry>
      */
-    public function getInfolistEntries(CustomFieldModel $modelType): array
+    public function getInfolistComponents(CustomFieldModel $modelType): array
     {
         return $this->getFieldsForModel($modelType)
             ->filter(fn (CustomField $field): bool => $field->is_visible_in_infolist)

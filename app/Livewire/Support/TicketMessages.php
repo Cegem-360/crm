@@ -43,7 +43,7 @@ final class TicketMessages extends Component
             'is_internal_note' => $this->isInternalNote,
         ]);
 
-        SupportTicketMessageSent::dispatch($message);
+        event(new SupportTicketMessageSent($message));
 
         $this->body = '';
         $this->isInternalNote = false;

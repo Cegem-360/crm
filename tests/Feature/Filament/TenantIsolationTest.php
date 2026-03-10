@@ -6,7 +6,6 @@ use App\Enums\OpportunityStage;
 use App\Enums\Permission;
 use App\Filament\Resources\BugReports\Pages\ListBugReports;
 use App\Filament\Resources\Campaigns\Pages\ListCampaigns;
-use App\Filament\Resources\ChatMessages\Pages\ListChatMessages;
 use App\Filament\Resources\ChatSessions\Pages\ListChatSessions;
 use App\Filament\Resources\Complaints\Pages\ListComplaints;
 use App\Filament\Resources\Contacts\Pages\ListContacts;
@@ -15,20 +14,14 @@ use App\Filament\Resources\Discounts\Pages\ListDiscounts;
 use App\Filament\Resources\Interactions\Pages\ListInteractions;
 use App\Filament\Resources\Invoices\Pages\ListInvoices;
 use App\Filament\Resources\LeadOpportunities\Pages\ListLeadOpportunities;
-use App\Filament\Resources\LostQuotationOpportunities\Pages\ManageLostQuotationOpportunities;
-use App\Filament\Resources\NegotiationOpportunities\Pages\ManageNegotiationOpportunities;
 use App\Filament\Resources\Orders\Pages\ListOrders;
 use App\Filament\Resources\ProductCategories\Pages\ListProductCategories;
 use App\Filament\Resources\Products\Pages\ListProducts;
-use App\Filament\Resources\ProposalOpportunities\Pages\ManageProposalOpportunities;
-use App\Filament\Resources\QualifiedOpportunities\Pages\ManageQualifiedOpportunities;
-use App\Filament\Resources\QuotationSendedOpportunities\Pages\ManageQuotationSendedOpportunities;
 use App\Filament\Resources\Quotes\Pages\ListQuotes;
 use App\Filament\Resources\Tasks\Pages\ListTasks;
 use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Models\BugReport;
 use App\Models\Campaign;
-use App\Models\ChatMessage;
 use App\Models\ChatSession;
 use App\Models\Complaint;
 use App\Models\Customer;
@@ -114,10 +107,6 @@ dataset('tenant-scoped-resources', [
         ListChatSessions::class,
         fn (Team $team): ChatSession => ChatSession::factory()->for($team)->create(),
     ],
-    'chat messages' => [
-        ListChatMessages::class,
-        fn (Team $team): ChatMessage => ChatMessage::factory()->for($team)->create(),
-    ],
     'bug reports' => [
         ListBugReports::class,
         fn (Team $team): BugReport => BugReport::factory()->for($team)->create(),
@@ -125,26 +114,6 @@ dataset('tenant-scoped-resources', [
     'lead opportunities' => [
         ListLeadOpportunities::class,
         fn (Team $team): Opportunity => Opportunity::factory()->for($team)->create(['stage' => OpportunityStage::Lead]),
-    ],
-    'qualified opportunities' => [
-        ManageQualifiedOpportunities::class,
-        fn (Team $team): Opportunity => Opportunity::factory()->for($team)->create(['stage' => OpportunityStage::Qualified]),
-    ],
-    'proposal opportunities' => [
-        ManageProposalOpportunities::class,
-        fn (Team $team): Opportunity => Opportunity::factory()->for($team)->create(['stage' => OpportunityStage::Proposal]),
-    ],
-    'negotiation opportunities' => [
-        ManageNegotiationOpportunities::class,
-        fn (Team $team): Opportunity => Opportunity::factory()->for($team)->create(['stage' => OpportunityStage::Negotiation]),
-    ],
-    'sent quotation opportunities' => [
-        ManageQuotationSendedOpportunities::class,
-        fn (Team $team): Opportunity => Opportunity::factory()->for($team)->create(['stage' => OpportunityStage::SentQuotation]),
-    ],
-    'lost quotation opportunities' => [
-        ManageLostQuotationOpportunities::class,
-        fn (Team $team): Opportunity => Opportunity::factory()->for($team)->create(['stage' => OpportunityStage::LostQuotation]),
     ],
 ]);
 

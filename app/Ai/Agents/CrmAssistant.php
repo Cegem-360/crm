@@ -11,7 +11,6 @@ use Laravel\Ai\Contracts\Agent;
 use Laravel\Ai\Contracts\Conversational;
 use Laravel\Ai\Enums\Lab;
 use Laravel\Ai\Promptable;
-use Stringable;
 
 #[Provider(Lab::Anthropic)]
 #[Temperature(0.7)]
@@ -23,7 +22,7 @@ final class CrmAssistant implements Agent, Conversational
     /**
      * Get the instructions that the agent should follow.
      */
-    public function instructions(): Stringable|string
+    public function instructions(): string
     {
         return <<<'INSTRUCTIONS'
         You are a helpful CRM assistant. You help users with questions about their customers, sales, tasks, and general CRM usage.

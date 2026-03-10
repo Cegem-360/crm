@@ -23,6 +23,8 @@ final class TaskNotificationObserver
 
     private function notifyAssignee(Task $task): void
     {
+        $task->loadMissing(['team', 'assigner']);
+
         $assignedUser = $task->assignedUser;
 
         if (! $assignedUser) {

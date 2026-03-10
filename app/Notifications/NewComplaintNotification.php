@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Filament\Resources\Complaints\ComplaintResource;
 use App\Models\Complaint;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -29,7 +30,7 @@ final class NewComplaintNotification extends Notification
             ->line('**Customer:** '.$this->complaint->customer->name.' ('.$this->complaint->customer->email.')')
             ->line('**Description:**')
             ->line($this->complaint->description)
-            ->action('View Complaint', url('/admin/complaints/'.$this->complaint->id.'/edit'))
+            ->action(__('View Complaint'), ComplaintResource::getUrl('edit', ['record' => $this->complaint, 'tenant' => $this->complaint->team]))
             ->line('Please review, set severity, and assign this complaint as soon as possible.');
     }
 

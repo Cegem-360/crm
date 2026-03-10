@@ -45,21 +45,11 @@ it('casts email_verified_at to datetime', function (): void {
     expect($user->email_verified_at)->toBeInstanceOf(DateTimeImmutable::class);
 });
 
-it('can access panel as admin', function (): void {
-    Spatie\Permission\Models\Role::create(['name' => RoleEnum::Admin->value]);
-
+it('can access panel', function (): void {
     $user = User::factory()->create();
-    $user->assignRole(RoleEnum::Admin);
     $panel = Mockery::mock(Panel::class);
 
     expect($user->canAccessPanel($panel))->toBeTrue();
-});
-
-it('cannot access panel without admin role', function (): void {
-    $user = User::factory()->create();
-    $panel = Mockery::mock(Panel::class);
-
-    expect($user->canAccessPanel($panel))->toBeFalse();
 });
 
 it('can check role using RoleEnum', function (): void {

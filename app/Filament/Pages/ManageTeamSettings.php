@@ -84,7 +84,7 @@ final class ManageTeamSettings extends Page
 
         $record = $this->getRecord();
 
-        if (! $record) {
+        if (! $record instanceof TeamSetting) {
             $record = new TeamSetting;
             $record->team_id = Filament::getTenant()->getKey();
         }

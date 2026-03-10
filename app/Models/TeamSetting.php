@@ -9,6 +9,7 @@ use App\Models\Concerns\BelongsToTeam;
 use Database\Factories\TeamSettingFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
 final class TeamSetting extends Model
 {
@@ -41,6 +42,7 @@ final class TeamSetting extends Model
     }
 
     /** @return array<string, string> */
+    #[Override]
     protected function casts(): array
     {
         return [

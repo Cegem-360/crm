@@ -63,6 +63,7 @@ final class SupportTicket extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    #[Override]
     protected static function booted(): void
     {
         self::creating(function (SupportTicket $ticket): void {

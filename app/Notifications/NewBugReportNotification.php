@@ -32,7 +32,7 @@ final class NewBugReportNotification extends Notification
             ->line($this->bugReport->description)
             ->line('**'.__('Browser').':** '.($this->bugReport->browser_info ?? __('N/A')))
             ->line('**'.__('URL').':** '.($this->bugReport->url ?? __('N/A')))
-            ->action(__('View Bug Report'), BugReportResource::getUrl('view', ['record' => $this->bugReport]))
+            ->action(__('View Bug Report'), BugReportResource::getUrl('view', ['record' => $this->bugReport, 'tenant' => $this->bugReport->team]))
             ->line(__('Please review and assign this bug report.'));
     }
 

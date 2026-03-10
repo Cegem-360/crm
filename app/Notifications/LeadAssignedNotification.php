@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Filament\Resources\Customers\CustomerResource;
 use App\Models\LeadScore;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -32,7 +33,7 @@ final class LeadAssignedNotification extends Notification
             ->line('**'.__('Lead Score').':** '.$this->leadScore->score.'/100')
             ->line('**'.__('Interaction Score').':** '.$this->leadScore->interaction_score)
             ->line('**'.__('Opportunity Score').':** '.$this->leadScore->opportunity_score)
-            ->action(__('View Customer'), url('/admin/customers/'.$customer->id.'/edit'))
+            ->action(__('View Customer'), CustomerResource::getUrl('edit', ['record' => $customer, 'tenant' => $customer->team]))
             ->line(__('Please follow up with this lead promptly.'));
     }
 

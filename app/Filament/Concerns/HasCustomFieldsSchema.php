@@ -18,8 +18,9 @@ trait HasCustomFieldsSchema
      */
     protected static function getCustomFieldsFormSection(CustomFieldModel $modelType): array
     {
-        // TODO: Re-enable custom fields once the `custom_fields` column issue is resolved.
-        return [];
+        $components = resolve(CustomFieldService::class)->getFormComponents($modelType);
+
+        return self::wrapInCustomFieldsSection($components);
     }
 
     /**
@@ -33,22 +34,32 @@ trait HasCustomFieldsSchema
     }
 
     /**
-     * Get custom field infolist entries wrapped in a section.
+     * Get custom field infolist components wrapped in a section.
      *
      * @return array<Section>
      */
     protected static function getCustomFieldsInfolistSection(CustomFieldModel $modelType): array
     {
-        $service = resolve(CustomFieldService::class);
-        $entries = $service->getInfolistEntries($modelType);
+        $components = resolve(CustomFieldService::class)->getInfolistComponents($modelType);
 
-        if (empty($entries)) {
+        return self::wrapInCustomFieldsSection($components);
+    }
+
+    /**
+     * Wrap custom field components in a collapsible section.
+     *
+     * @return array<Section>
+     */
+    private static function wrapInCustomFieldsSection(array $components): array
+    {
+        if ($components === []) {
             return [];
         }
 
         return [
-            Section::make(__('Custom Fields'))
-                ->schema($entries)
+            Section::make('custom_fields')
+                ->label(__('Custom Fields'))
+                ->schema($components)
                 ->columns(2)
                 ->collapsible(),
         ];

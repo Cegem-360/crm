@@ -117,7 +117,7 @@ it('loads existing AI settings', function (): void {
         ]);
 });
 
-it('prevents non-admin users from editing AI settings', function (): void {
+it('prevents non-admin users from accessing the settings page', function (): void {
     $nonAdminUser = User::factory()->create();
     $nonAdminUser->teams()->attach($this->team);
 
@@ -127,6 +127,5 @@ it('prevents non-admin users from editing AI settings', function (): void {
     $this->actingAs($nonAdminUser);
 
     livewire(ManageTeamSettings::class)
-        ->assertFormFieldIsDisabled('gemini_api_key')
-        ->assertFormFieldIsDisabled('ai_monthly_token_limit');
+        ->assertForbidden();
 });

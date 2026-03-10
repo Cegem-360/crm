@@ -9,7 +9,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Pages\Tenancy\EditTenantProfile;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Override;
 
@@ -23,7 +23,7 @@ final class EditTeamProfile extends EditTenantProfile
     #[Override]
     public static function canAccess(): bool
     {
-        return Gate::allows('update', Team::class);
+        return Auth::user()->isAdmin();
     }
 
     #[Override]

@@ -38,6 +38,12 @@ final class ManageTeamSettings extends Page
     protected string $view = 'filament.pages.manage-team-settings';
 
     #[Override]
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    #[Override]
     public static function getNavigationLabel(): string
     {
         return __('Team Settings');

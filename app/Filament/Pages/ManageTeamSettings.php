@@ -11,10 +11,12 @@ use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Form;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Override;
 use UnitEnum;
@@ -57,12 +59,32 @@ final class ManageTeamSettings extends Page
         return $schema
             ->components([
                 Form::make([
-                    Select::make('currency')
-                        ->label(__('Currency'))
-                        ->options(Currency::class)
-                        ->default(Currency::HUF)
-                        ->required()
-                        ->helperText(__('The currency used for prices, quotes, invoices and orders.')),
+                    Section::make(__('General'))
+                        ->schema([
+                            Select::make('currency')
+                                ->label(__('Currency'))
+                                ->options(Currency::class)
+                                ->default(Currency::HUF)
+                                ->required()
+                                ->helperText(__('The currency used for prices, quotes, invoices and orders.')),
+                        ]),
+
+                    Section::make(__('AI Assistant'))
+                        ->description(__('Configure the AI assistant for your team.'))
+                        ->schema([
+                            TextInput::make('gemini_api_key')
+                                ->label(__('Gemini API Key'))
+                                ->password()
+                                ->revealable()
+                                ->helperText(__('Your team\'s Google Gemini API key. Leave empty to use the system default.')),
+
+                            TextInput::make('ai_monthly_token_limit')
+                                ->label(__('Monthly Token Limit'))
+                                ->numeric()
+                                ->default(100000)
+                                ->minValue(0)
+                                ->helperText(__('Maximum number of AI tokens your team can use per month.')),
+                        ]),
                 ])
                     ->livewireSubmitHandler('save')
                     ->footer([

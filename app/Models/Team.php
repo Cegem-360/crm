@@ -121,6 +121,11 @@ final class Team extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function aiUsageLogs(): HasMany
+    {
+        return $this->hasMany(AiUsageLog::class);
+    }
+
     public function workflowConfigs(): HasMany
     {
         return $this->hasMany(WorkflowConfig::class);

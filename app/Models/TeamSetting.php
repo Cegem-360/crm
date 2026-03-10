@@ -21,6 +21,8 @@ final class TeamSetting extends Model
     protected $fillable = [
         'team_id',
         'currency',
+        'ai_monthly_token_limit',
+        'gemini_api_key',
     ];
 
     public static function currentCurrency(): string
@@ -47,6 +49,8 @@ final class TeamSetting extends Model
     {
         return [
             'currency' => Currency::class,
+            'ai_monthly_token_limit' => 'integer',
+            'gemini_api_key' => 'encrypted',
         ];
     }
 }

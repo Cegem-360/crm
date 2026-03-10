@@ -76,6 +76,7 @@ final class ManageTeamSettings extends Page
                                 ->label(__('Gemini API Key'))
                                 ->password()
                                 ->revealable()
+                                ->disabled(fn (): bool => ! auth()->user()->isAdmin())
                                 ->helperText(__('Your team\'s Google Gemini API key. Leave empty to use the system default.')),
 
                             TextInput::make('ai_monthly_token_limit')
@@ -83,6 +84,7 @@ final class ManageTeamSettings extends Page
                                 ->numeric()
                                 ->default(100000)
                                 ->minValue(0)
+                                ->disabled(fn (): bool => ! auth()->user()->isAdmin())
                                 ->helperText(__('Maximum number of AI tokens your team can use per month.')),
                         ]),
                 ])

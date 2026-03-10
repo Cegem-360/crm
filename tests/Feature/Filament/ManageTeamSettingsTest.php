@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 use App\Enums\Currency;
+use App\Enums\Role;
 use App\Filament\Pages\ManageTeamSettings;
 use App\Models\TeamSetting;
 use App\Models\User;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 use function Pest\Livewire\livewire;
 
@@ -113,4 +115,18 @@ it('loads existing AI settings', function (): void {
             'gemini_api_key' => 'existing-key',
             'ai_monthly_token_limit' => 75000,
         ]);
+});
+
+it('prevents non-admin users from editing AI settings', function (): void {
+    $nonAdminUser = User::factory()->create();
+    $nonAdminUser->teams()->attach($this->team);
+
+    SpatieRole::query()->firstOrCreate(['name' => Role::SalesRepresentative->value]);
+    $nonAdminUser->assignRole(Role::SalesRepresentative);
+
+    $this->actingAs($nonAdminUser);
+
+    livewire(ManageTeamSettings::class)
+        ->assertFormFieldIsDisabled('gemini_api_key')
+        ->assertFormFieldIsDisabled('ai_monthly_token_limit');
 });

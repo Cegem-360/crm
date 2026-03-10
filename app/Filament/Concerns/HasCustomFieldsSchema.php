@@ -57,8 +57,7 @@ trait HasCustomFieldsSchema
         }
 
         return [
-            Section::make('custom_fields')
-                ->label(__('Custom Fields'))
+            Section::make(__('Custom Fields'))
                 ->schema($components)
                 ->columns(2)
                 ->collapsible(),

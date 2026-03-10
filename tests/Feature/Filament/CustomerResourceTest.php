@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
+use App\Enums\CustomFieldModel;
 use App\Filament\Resources\Customers\Pages\CreateCustomer;
 use App\Filament\Resources\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Customers\Pages\ListCustomers;
 use App\Models\Customer;
+use App\Models\CustomField;
+use App\Models\CustomFieldValue;
 use App\Models\User;
+use App\Services\CustomFieldService;
 use Spatie\Permission\Models\Permission;
 
 use function Pest\Livewire\livewire;
@@ -122,4 +126,93 @@ it('cannot access edit page without permission', function (): void {
 
     livewire(EditCustomer::class, ['record' => $customer->id])
         ->assertForbidden();
+});
+
+it('can save custom field values when editing a customer', function (): void {
+    $customField = CustomField::factory()->forCustomer()->text()->create([
+        'slug' => 'test-field',
+        'name' => 'Test Field',
+    ]);
+
+    resolve(CustomFieldService::class)->clearCache(CustomFieldModel::Customer);
+
+    $customer = Customer::factory()->for($this->team)->create();
+
+    livewire(EditCustomer::class, ['record' => $customer->id])
+        ->fillForm([
+            'custom_fields.test-field' => 'hello world',
+        ])
+        ->call('save')
+        ->assertHasNoFormErrors();
+
+    $savedValue = CustomFieldValue::query()
+        ->where('model_type', 'customer')
+        ->where('model_id', $customer->id)
+        ->where('custom_field_id', $customField->id)
+        ->first();
+
+    expect($savedValue)->not->toBeNull()
+        ->and($savedValue->value)->toBe('hello world');
+});
+
+it('can save custom field values when creating a customer', function (): void {
+    $customField = CustomField::factory()->forCustomer()->text()->create([
+        'slug' => 'create-test-field',
+        'name' => 'Create Test Field',
+    ]);
+
+    resolve(CustomFieldService::class)->clearCache(CustomFieldModel::Customer);
+
+    livewire(CreateCustomer::class)
+        ->fillForm([
+            'name' => 'Test Customer',
+            'type' => 'individual',
+            'is_active' => true,
+            'custom_fields.create-test-field' => 'created value',
+        ])
+        ->call('create')
+        ->assertHasNoFormErrors();
+
+    $customer = Customer::query()->where('name', 'Test Customer')->first();
+    expect($customer)->not->toBeNull();
+
+    $savedValue = CustomFieldValue::query()
+        ->where('model_type', 'customer')
+        ->where('model_id', $customer->id)
+        ->where('custom_field_id', $customField->id)
+        ->first();
+
+    expect($savedValue)->not->toBeNull()
+        ->and($savedValue->value)->toBe('created value');
+});
+
+it('can update existing custom field values', function (): void {
+    $customField = CustomField::factory()->forCustomer()->text()->create([
+        'slug' => 'update-test-field',
+        'name' => 'Update Test Field',
+    ]);
+
+    resolve(CustomFieldService::class)->clearCache(CustomFieldModel::Customer);
+
+    $customer = Customer::factory()->for($this->team)->create();
+    $customer->setCustomFieldValue('update-test-field', 'original value');
+
+    livewire(EditCustomer::class, ['record' => $customer->id])
+        ->assertSchemaStateSet([
+            'custom_fields.update-test-field' => 'original value',
+        ])
+        ->fillForm([
+            'custom_fields.update-test-field' => 'updated value',
+        ])
+        ->call('save')
+        ->assertHasNoFormErrors();
+
+    $savedValue = CustomFieldValue::query()
+        ->where('model_type', 'customer')
+        ->where('model_id', $customer->id)
+        ->where('custom_field_id', $customField->id)
+        ->first();
+
+    expect($savedValue)->not->toBeNull()
+        ->and($savedValue->value)->toBe('updated value');
 });

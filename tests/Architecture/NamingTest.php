@@ -2,10 +2,14 @@
 
 declare(strict_types=1);
 
-arch('models follow naming conventions')
+arch('models are classes')
     ->expect('App\Models')
-    ->toHaveSuffix('')
     ->toBeClasses()
+    ->ignoring('App\Models\Concerns')
+    ->ignoring('App\Models\Scopes');
+
+arch('models do not have Model suffix')
+    ->expect('App\Models')
     ->not->toHaveSuffix('Model');
 
 arch('factories follow naming conventions')

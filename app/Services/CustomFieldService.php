@@ -110,15 +110,17 @@ final class CustomFieldService
             return [];
         }
 
-        $data = [];
-
         $record->loadMissing('customFieldValues.customField');
 
-        foreach ($record->customFieldValues as $value) {
-            $data['custom_fields.'.$value->customField->slug] = $value->getTypedValue();
+        $customFields = $record->customFieldValues
+            ->mapWithKeys(fn ($value): array => [$value->customField->slug => $value->getTypedValue()])
+            ->all();
+
+        if ($customFields === []) {
+            return [];
         }
 
-        return $data;
+        return ['custom_fields' => $customFields];
     }
 
     /**
@@ -134,7 +136,7 @@ final class CustomFieldService
 
         $customFieldData = $data['custom_fields'] ?? [];
 
-        if (! empty($customFieldData)) {
+        if ($customFieldData !== []) {
             $record->saveCustomFieldValues($customFieldData);
         }
     }

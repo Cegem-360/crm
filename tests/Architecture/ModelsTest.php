@@ -9,16 +9,22 @@ use Illuminate\Http\Request;
 
 arch('models are final')
     ->expect('App\Models')
-    ->toBeFinal();
+    ->toBeFinal()
+    ->ignoring('App\Models\Concerns')
+    ->ignoring('App\Models\Scopes');
 
 arch('models use HasFactory trait')
     ->expect('App\Models')
-    ->toUse(HasFactory::class);
+    ->toUse(HasFactory::class)
+    ->ignoring('App\Models\Concerns')
+    ->ignoring('App\Models\Scopes');
 
 arch('models extend Model')
     ->expect('App\Models')
     ->toExtend(Model::class)
-    ->ignoring(User::class);
+    ->ignoring(User::class)
+    ->ignoring('App\Models\Concerns')
+    ->ignoring('App\Models\Scopes');
 
 arch('User model extends Authenticatable')
     ->expect(User::class)
@@ -26,7 +32,9 @@ arch('User model extends Authenticatable')
 
 arch('models have proper namespace')
     ->expect('App\Models')
-    ->toBeClasses();
+    ->toBeClasses()
+    ->ignoring('App\Models\Concerns')
+    ->ignoring('App\Models\Scopes');
 
 arch('models do not use dump or dd')
     ->expect('App\Models')

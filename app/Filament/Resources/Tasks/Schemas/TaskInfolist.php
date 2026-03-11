@@ -16,16 +16,24 @@ final class TaskInfolist
                 TextEntry::make('customer.name')
                     ->label(__('Customer'))
                     ->placeholder(__('-')),
-                TextEntry::make('assigned_to')
-                    ->numeric(),
-                TextEntry::make('assigned_by')
-                    ->numeric(),
-                TextEntry::make('title'),
+                TextEntry::make('assignedUser.name')
+                    ->label(__('Assigned To'))
+                    ->placeholder(__('-')),
+                TextEntry::make('assigner.name')
+                    ->label(__('Assigned By'))
+                    ->placeholder(__('-')),
+                TextEntry::make('title')
+                    ->label(__('Title')),
                 TextEntry::make('description')
+                    ->label(__('Description'))
                     ->placeholder(__('-'))
                     ->columnSpanFull(),
-                TextEntry::make('priority'),
-                TextEntry::make('status'),
+                TextEntry::make('priority')
+                    ->label(__('Priority'))
+                    ->badge(),
+                TextEntry::make('status')
+                    ->label(__('Status'))
+                    ->badge(),
                 TextEntry::make('due_date')
                     ->date()
                     ->placeholder(__('-')),

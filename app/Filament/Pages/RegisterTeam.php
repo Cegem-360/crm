@@ -10,7 +10,6 @@ use Filament\Pages\Tenancy\RegisterTenant;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Override;
 
@@ -23,7 +22,7 @@ final class RegisterTeam extends RegisterTenant
 
     public static function canAccess(): bool
     {
-        return Gate::allows('create', Team::class);
+        return Auth::user()->isAdmin();
     }
 
     #[Override]

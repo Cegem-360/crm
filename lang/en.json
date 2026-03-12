@@ -1,0 +1,7 @@
+{
+    "Delete": "Delete",
+    "Too many messages. Please wait a moment before trying again.": "Too many messages. Please wait a moment before trying again.",
+    "Untitled": "Untitled",
+    "Your team has reached the monthly AI token limit. Please contact your administrator.": "Your team has reached the monthly AI token limit. Please contact your administrator.",
+    "Your team's Google Gemini API key. Leave empty to use the system default.": "Your team's Google Gemini API key. Leave empty to use the system default."
+}

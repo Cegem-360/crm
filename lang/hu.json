@@ -1227,5 +1227,6 @@
     "Too many messages. Please wait a moment before trying again.": "Túl sok üzenet. Kérjük, várj egy pillanatot, mielőtt újra próbálkoznál.",
     "Untitled": "Névtelen",
     "Your team has reached the monthly AI token limit. Please contact your administrator.": "A csapatod elérte a havi AI token limitet. Kérjük, lépj kapcsolatba az adminisztrátorral.",
-    "Your team's Google Gemini API key. Leave empty to use the system default.": "A csapatod Google Gemini API kulcsa. Hagyd üresen a rendszer alapértelmezett kulcsának használatához."
+    "Your team's Google Gemini API key. Leave empty to use the system default.": "A csapatod Google Gemini API kulcsa. Hagyd üresen a rendszer alapértelmezett kulcsának használatához.",
+    "Delete": "Törlés"
 }

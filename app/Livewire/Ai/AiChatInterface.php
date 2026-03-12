@@ -37,7 +37,8 @@ final class AiChatInterface extends Component
     public array $messages = [];
 
     /** @return array<string, string> */
-    public static function availableModels(): array
+    #[Computed]
+    public function availableModels(): array
     {
         return config('ai.providers.gemini.models', []);
     }
@@ -196,7 +197,7 @@ final class AiChatInterface extends Component
 
     private function ensureValidModel(): void
     {
-        if (! array_key_exists($this->selectedModel, self::availableModels())) {
+        if (! array_key_exists($this->selectedModel, $this->availableModels)) {
             $this->selectedModel = 'gemini-2.5-flash';
         }
     }

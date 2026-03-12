@@ -1,71 +1,78 @@
 <div x-data="{ sidebarOpen: @entangle('showSidebar') }"
     class="flex h-[calc(100vh-12rem)] min-h-96 rounded-lg overflow-hidden bg-white dark:bg-gray-900 shadow-xl border border-gray-200/70 dark:border-gray-700/60">
     {{-- Sidebar - Previous Conversations --}}
-    <div
-        class="hidden md:flex flex-col border-r border-gray-200/80 dark:border-gray-700/60 bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 ease-in-out"
+    <div class="hidden md:flex flex-col border-r border-gray-200/80 dark:border-gray-700/60 bg-gray-50 dark:bg-gray-800 overflow-hidden transition-all duration-300 ease-in-out"
         :class="sidebarOpen ? 'w-64' : 'w-0 border-r-0'">
-            {{-- Sidebar Header --}}
-            <div
-                class="flex items-center justify-between px-3 py-2.5 border-b border-gray-200/80 dark:border-gray-700/60">
-                <span
-                    class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Conversations') }}</span>
-                <button wire:click="startNewConversation" title="{{ __('New Conversation') }}"
-                    class="p-1 rounded-md text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200/60 dark:hover:bg-gray-700 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                </button>
-            </div>
+        {{-- Sidebar Header --}}
+        <div class="flex items-center justify-between px-3 py-2.5 border-b border-gray-200/80 dark:border-gray-700/60">
+            <span
+                class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Conversations') }}</span>
+            <button wire:click="startNewConversation" aria-label="{{ __('New Conversation') }}"
+                class="p-1 rounded-md text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200/60 dark:hover:bg-gray-700 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </button>
+        </div>
 
-            {{-- Token Usage --}}
-            @php($tokenUsage = $this->tokenUsage)
-            @if ($tokenUsage['limit'] > 0)
-                <div class="px-3 py-2.5 border-b border-gray-200/80 dark:border-gray-700/60">
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="text-xs text-gray-500 dark:text-gray-400">{{ __('Monthly tokens') }}</span>
-                        <span
-                            class="text-xs font-medium {{ $tokenUsage['percentage'] >= 90 ? 'text-red-500' : 'text-gray-500 dark:text-gray-400' }}">
-                            {{ number_format($tokenUsage['used']) }} / {{ number_format($tokenUsage['limit']) }}
-                        </span>
-                    </div>
-                    <div class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                        <div class="h-full rounded-full transition-all {{ $tokenUsage['percentage'] >= 90 ? 'bg-red-500' : ($tokenUsage['percentage'] >= 70 ? 'bg-yellow-500' : 'bg-primary-500') }}"
-                            style="width: {{ $tokenUsage['percentage'] }}%"></div>
-                    </div>
+        {{-- Token Usage --}}
+        @php($tokenUsage = $this->tokenUsage)
+        @if ($tokenUsage['limit'] > 0)
+            <div class="px-3 py-2.5 border-b border-gray-200/80 dark:border-gray-700/60">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-xs text-gray-500 dark:text-gray-400">{{ __('Monthly tokens') }}</span>
+                    <span @class([
+                        'text-xs font-medium',
+                        'text-red-500' => $tokenUsage['percentage'] >= 90,
+                        'text-gray-500 dark:text-gray-400' => $tokenUsage['percentage'] < 90,
+                    ])>
+                        {{ number_format($tokenUsage['used']) }} / {{ number_format($tokenUsage['limit']) }}
+                    </span>
                 </div>
-            @endif
-
-            {{-- Conversation List --}}
-            <div class="flex-1 overflow-y-auto">
-                @forelse ($this->conversations as $conversation)
-                    <button wire:click="loadConversation('{{ $conversation->id }}')"
-                        wire:key="conv-{{ $conversation->id }}"
-                        class="group w-full flex items-center gap-2 px-3 py-2.5 text-left text-sm transition-colors
-                            {{ $conversationId === $conversation->id
-                                ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
-                                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="w-3.5 h-3.5 shrink-0 text-gray-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                        </svg>
-                        <span class="truncate flex-1">{{ $conversation->title ?: __('Untitled') }}</span>
-                        <button wire:click.stop="deleteConversation('{{ $conversation->id }}')"
-                            class="hidden group-hover:block p-0.5 rounded text-gray-400 hover:text-red-500 transition-colors"
-                            title="{{ __('Delete') }}">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                            </svg>
-                        </button>
-                    </button>
-                @empty
-                    <div class="px-3 py-6 text-center">
-                        <p class="text-xs text-gray-400 dark:text-gray-500">{{ __('No previous conversations') }}</p>
-                    </div>
-                @endforelse
+                <div class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div @class([
+                        'h-full rounded-full transition-all',
+                        'bg-red-500' => $tokenUsage['percentage'] >= 90,
+                        'bg-yellow-500' =>
+                            $tokenUsage['percentage'] >= 70 && $tokenUsage['percentage'] < 90,
+                        'bg-primary-500' => $tokenUsage['percentage'] < 70,
+                    ]) style="width: {{ $tokenUsage['percentage'] }}%"></div>
+                </div>
             </div>
+        @endif
+
+        {{-- Conversation List --}}
+        <div class="flex-1 overflow-y-auto">
+            @forelse ($this->conversations as $conversation)
+                <div wire:click="loadConversation('{{ $conversation->id }}')" wire:key="conv-{{ $conversation->id }}"
+                    role="button" tabindex="0" @class([
+                        'group w-full flex items-center gap-2 px-3 py-2.5 text-left text-sm transition-colors cursor-pointer',
+                        'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300' =>
+                            $conversationId === $conversation->id,
+                        'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                            $conversationId !== $conversation->id,
+                    ])>
+                    <svg class="w-3.5 h-3.5 shrink-0 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                    </svg>
+                    <span class="truncate flex-1">{{ $conversation->title ?: __('Untitled') }}</span>
+                    <button wire:click.stop="deleteConversation('{{ $conversation->id }}')"
+                        class="hidden group-hover:block p-0.5 rounded text-gray-400 hover:text-red-500 transition-colors"
+                        aria-label="{{ __('Delete') }}">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                    </button>
+                </div>
+            @empty
+                <div class="px-3 py-6 text-center">
+                    <p class="text-xs text-gray-400 dark:text-gray-500">{{ __('No previous conversations') }}</p>
+                </div>
+            @endforelse
+        </div>
     </div>
 
     {{-- Main Chat Area --}}
@@ -75,7 +82,7 @@
             class="flex items-center px-4 py-2.5 bg-linear-to-b from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200/80 dark:border-gray-700/60 select-none">
             {{-- Toggle Sidebar + Traffic Lights --}}
             <div class="flex items-center gap-3">
-                <button @click="sidebarOpen = !sidebarOpen" title="{{ __('Toggle sidebar') }}"
+                <button @click="sidebarOpen = !sidebarOpen" aria-label="{{ __('Toggle sidebar') }}"
                     class="p-1 rounded-md text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200/60 dark:hover:bg-gray-700 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -83,7 +90,7 @@
                     </svg>
                 </button>
                 <div class="flex items-center gap-2">
-                    <button wire:click="startNewConversation" title="{{ __('New Conversation') }}"
+                    <button wire:click="startNewConversation" aria-label="{{ __('New Conversation') }}"
                         class="group relative w-3 h-3 rounded-full bg-[#FF5F57] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.12)] hover:bg-[#FF5F57]/90 transition-colors">
                         <svg class="absolute inset-0 w-3 h-3 text-[#4D0000] opacity-0 group-hover:opacity-100 transition-opacity"
                             viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -104,7 +111,7 @@
             <div class="flex items-center">
                 <select wire:model.live="selectedModel"
                     class="text-xs font-medium text-gray-500 dark:text-gray-400 bg-transparent border-0 focus:ring-0 cursor-pointer pr-6 py-0">
-                    @foreach (\App\Livewire\Ai\AiChatInterface::availableModels() as $modelValue => $modelLabel)
+                    @foreach ($this->availableModels as $modelValue => $modelLabel)
                         <option value="{{ $modelValue }}">{{ $modelLabel }}</option>
                     @endforeach
                 </select>
@@ -119,7 +126,49 @@
                 }
             }" x-init="scrollToBottom()" @scroll-to-bottom.window="scrollToBottom()">
 
-            @if (count($messages) === 0)
+            @forelse ($messages as $index => $msg)
+                <div @class([
+                    'flex',
+                    'justify-end' => $msg['role'] === 'user',
+                    'justify-start' => $msg['role'] !== 'user',
+                ]) wire:key="ai-msg-{{ $index }}">
+                    <div @class([
+                        'flex items-start gap-2.5 max-w-2xl',
+                        'flex-row-reverse' => $msg['role'] === 'user',
+                    ])>
+                        {{-- Avatar --}}
+                        @if ($msg['role'] === 'user')
+                            <div
+                                class="shrink-0 w-7 h-7 rounded-full bg-primary-600 flex items-center justify-center text-white text-xs font-medium shadow-sm">
+                                {{ strtoupper(substr(auth()->user()?->name ?? 'U', 0, 1)) }}
+                            </div>
+                        @else
+                            <x-ai-avatar />
+                        @endif
+
+                        {{-- Message Bubble --}}
+                        <div @class([
+                            'flex flex-col',
+                            'items-end' => $msg['role'] === 'user',
+                            'items-start' => $msg['role'] !== 'user',
+                        ])>
+                            <div @class([
+                                'px-3.5 py-2 rounded-2xl',
+                                'bg-primary-600 text-white rounded-tr-md' => $msg['role'] === 'user',
+                                'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-tl-md border border-gray-200 dark:border-gray-700/60' =>
+                                    $msg['role'] !== 'user',
+                            ])>
+                                @if ($msg['role'] === 'assistant')
+                                    <div class="prose dark:prose-invert prose-sm max-w-none">{!! str($msg['content'])->markdown()->sanitizeHtml() !!}
+                                    </div>
+                                @else
+                                    <p class="text-sm whitespace-pre-wrap wrap-break-word">{{ $msg['content'] }}</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
                 <div class="flex flex-col items-center justify-center h-full text-center py-12">
                     <div
                         class="w-14 h-14 rounded-2xl bg-linear-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-lg mb-4">
@@ -132,80 +181,23 @@
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400 max-w-sm">
                         {{ __('Ask me anything about your CRM, customers, or tasks.') }}</p>
                 </div>
-            @endif
-
-            @foreach ($messages as $index => $msg)
-                <div class="flex {{ $msg['role'] === 'user' ? 'justify-end' : 'justify-start' }}"
-                    wire:key="ai-msg-{{ $index }}">
-                    <div
-                        class="flex items-start gap-2.5 max-w-2xl {{ $msg['role'] === 'user' ? 'flex-row-reverse' : '' }}">
-                        {{-- Avatar --}}
-                        @if ($msg['role'] === 'user')
-                            <div
-                                class="shrink-0 w-7 h-7 rounded-full bg-primary-600 flex items-center justify-center text-white text-xs font-medium shadow-sm">
-                                {{ strtoupper(substr(auth()->user()?->name ?? 'U', 0, 1)) }}
-                            </div>
-                        @else
-                            <div
-                                class="shrink-0 w-7 h-7 rounded-full bg-linear-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-sm">
-                                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-                                </svg>
-                            </div>
-                        @endif
-
-                        {{-- Message Bubble --}}
-                        <div class="flex flex-col {{ $msg['role'] === 'user' ? 'items-end' : 'items-start' }}">
-                            <div
-                                class="px-3.5 py-2 rounded-2xl {{ $msg['role'] === 'user'
-                                    ? 'bg-primary-600 text-white rounded-tr-md'
-                                    : 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-tl-md border border-gray-200 dark:border-gray-700/60' }}">
-                                @if ($msg['role'] === 'assistant')
-                                    <div class="prose dark:prose-invert prose-sm max-w-none">{!! str($msg['content'])->markdown()->sanitizeHtml() !!}
-                                    </div>
-                                @else
-                                    <p class="text-sm whitespace-pre-wrap wrap-break-word">{{ $msg['content'] }}</p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+            @endforelse
 
             {{-- Streaming / Loading indicator --}}
             @if ($isLoading)
                 <div class="flex justify-start">
                     <div class="flex items-start gap-2.5 max-w-2xl">
-                        <div
-                            class="shrink-0 w-7 h-7 rounded-full bg-linear-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-sm">
-                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-                            </svg>
-                        </div>
+                        <x-ai-avatar />
                         <div class="flex flex-col items-start">
                             <div
                                 class="px-3.5 py-2 rounded-2xl rounded-tl-md bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700/60">
                                 <div id="ai-stream-target" wire:stream="ai-stream-target"
                                     class="prose dark:prose-invert prose-sm max-w-none text-gray-900 dark:text-gray-100"
-                                    x-data="{ observer: null }" x-init="observer = new MutationObserver(() => {
-                                        $el.closest('#ai-chat-messages')?.scrollTo({ top: $el.closest('#ai-chat-messages').scrollHeight, behavior: 'smooth' });
-                                    });
-                                    observer.observe($el, { childList: true, characterData: true, subtree: true });"
-                                    x-destroy="observer?.disconnect()">
+                                    x-data="streamTarget()">
                                     <span class="inline-flex gap-1">
-                                        <span
-                                            class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce"
-                                            style="animation-delay: 0ms;"></span>
-                                        <span
-                                            class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce"
-                                            style="animation-delay: 150ms;"></span>
-                                        <span
-                                            class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce"
-                                            style="animation-delay: 300ms;"></span>
+                                        <span class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce"></span>
+                                        <span class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce delay-150"></span>
+                                        <span class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce delay-300"></span>
                                     </span>
                                 </div>
                             </div>
@@ -216,8 +208,7 @@
         </div>
 
         {{-- Message Input --}}
-        <div
-            class="px-4 py-3 bg-gray-50 dark:bg-gray-800/80 border-t border-gray-200/80 dark:border-gray-700/60">
+        <div class="px-4 py-3 bg-gray-50 dark:bg-gray-800/80 border-t border-gray-200/80 dark:border-gray-700/60">
             <form wire:submit="sendMessage" class="flex items-end gap-3">
                 <div class="flex-1">
                     <textarea wire:model="message" rows="2" placeholder="{{ __('Ask the AI assistant...') }}"

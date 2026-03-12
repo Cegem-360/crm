@@ -238,7 +238,9 @@ it('shows token limit exceeded message when team limit is reached', function ():
 });
 
 it('returns correct available models', function (): void {
-    $models = AiChatInterface::availableModels();
+    /** @var AiChatInterface $component */
+    $component = Livewire::test(AiChatInterface::class)->instance();
+    $models = $component->availableModels();
 
     expect($models)->toHaveKeys(['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash']);
 });

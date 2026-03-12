@@ -95,7 +95,15 @@ final class AiChatInterface extends Component
                 $this->logTokenUsage($team, $streamResponse);
             }
         } catch (Throwable $throwable) {
-            $this->addSystemMessage(__('Sorry, an error occurred. Please try again later.'));
+            $errorMessage = Auth::user()?->isAdmin()
+                ? __('Error: :message (in :file on line :line)', [
+                    'message' => $throwable->getMessage(),
+                    'file' => $throwable->getFile(),
+                    'line' => $throwable->getLine(),
+                ])
+                : __('Sorry, an error occurred. Please try again later.');
+
+            $this->addSystemMessage($errorMessage);
             report($throwable);
         } finally {
             $this->isLoading = false;

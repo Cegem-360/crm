@@ -78,10 +78,11 @@ final class AiFloatingChat extends Component
         $this->applyTeamApiKey($team);
 
         try {
-            $streamResponse = $this->streamAgentResponse($userMessage['content']);
+            $agent = $this->createAgent();
+            $streamResponse = $this->streamAgentResponse($agent, $userMessage['content']);
             $fullText = $this->consumeStream($streamResponse);
 
-            $this->conversationId = $streamResponse->conversationId ?? $this->conversationId;
+            $this->conversationId = $agent->currentConversation() ?? $this->conversationId;
 
             $this->messages[] = [
                 'role' => 'assistant',
@@ -111,19 +112,22 @@ final class AiFloatingChat extends Component
         return view('livewire.ai.ai-floating-chat');
     }
 
-    private function streamAgentResponse(string $prompt): StreamableAgentResponse
+    private function createAgent(): CrmAssistant
     {
         $agent = new CrmAssistant;
 
         if ($this->conversationId) {
-            return $agent
-                ->continue($this->conversationId, as: Auth::user())
-                ->stream($prompt);
+            $agent->continue($this->conversationId, as: Auth::user());
+        } else {
+            $agent->forUser(Auth::user());
         }
 
-        return $agent
-            ->forUser(Auth::user())
-            ->stream($prompt);
+        return $agent;
+    }
+
+    private function streamAgentResponse(CrmAssistant $agent, string $prompt): StreamableAgentResponse
+    {
+        return $agent->stream($prompt);
     }
 
     private function consumeStream(object $streamResponse): string

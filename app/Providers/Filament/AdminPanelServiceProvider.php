@@ -81,7 +81,7 @@ final class AdminPanelServiceProvider extends PanelProvider
             )
             ->renderHook(
                 PanelsRenderHook::BODY_END,
-                fn (): string => '@persist(\'ai-floating-chat\')<livewire:ai.ai-floating-chat />@endpersist',
+                fn (): string => '<livewire:ai.ai-floating-chat />',
             )
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

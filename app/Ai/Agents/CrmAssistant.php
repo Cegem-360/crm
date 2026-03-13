@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace App\Ai\Agents;
 
+use App\Ai\Tools\SearchCampaigns;
 use App\Ai\Tools\SearchCustomers;
+use App\Ai\Tools\SearchInteractions;
+use App\Ai\Tools\SearchInvoices;
 use App\Ai\Tools\SearchOpportunities;
+use App\Ai\Tools\SearchOrders;
+use App\Ai\Tools\SearchProducts;
+use App\Ai\Tools\SearchQuotes;
+use App\Ai\Tools\SearchSupportTickets;
 use App\Ai\Tools\SearchTasks;
 use Laravel\Ai\Attributes\MaxSteps;
 use Laravel\Ai\Attributes\Provider;
@@ -51,9 +58,16 @@ final class CrmAssistant implements Agent, Conversational, HasTools
         - search_customers: Find customers by name, email, phone, or tax number
         - search_tasks: Find tasks by title, status, due date, or customer — can filter overdue tasks
         - search_opportunities: Find sales opportunities by title, stage, or customer
+        - search_quotes: Find quotes/offers by quote number, customer, or status
+        - search_orders: Find orders by order number, customer, or status
+        - search_invoices: Find invoices by invoice number, customer, status, or overdue
+        - search_products: Find products by name, SKU, description, or category
+        - search_campaigns: Find marketing campaigns by name, description, or status
+        - search_interactions: Find interactions (calls, emails, meetings) and chat sessions by subject, customer, or type
+        - search_support_tickets: Find support tickets and complaints by ticket number, subject, customer, status, or priority
 
         Guidelines:
-        - Always use the available tools to look up real data before answering questions about specific customers, tasks, or opportunities.
+        - Always use the available tools to look up real data before answering questions.
         - Be concise and professional in your responses.
         - When asked about CRM concepts, provide clear explanations.
         - You can help draft emails, summarize customer interactions, and suggest next steps.
@@ -82,6 +96,13 @@ final class CrmAssistant implements Agent, Conversational, HasTools
             new SearchCustomers,
             new SearchTasks,
             new SearchOpportunities,
+            new SearchQuotes,
+            new SearchOrders,
+            new SearchInvoices,
+            new SearchProducts,
+            new SearchCampaigns,
+            new SearchInteractions,
+            new SearchSupportTickets,
         ];
     }
 }
